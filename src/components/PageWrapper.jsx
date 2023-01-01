@@ -9,7 +9,7 @@ import defaultConfigValues from "../data/defaultConfigValues";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
-export default function PageWrapper({ children }) {
+export default function PageWrapper({ children, overflowX = "hidden" }) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -24,7 +24,7 @@ export default function PageWrapper({ children }) {
       {isLoading ? (
         <LoadingScreen height="92vh" timer={2100} mt={"80px"} />
       ) : (
-        <Box p={6} mt={"80px"}>
+        <Box p={6} mt={"80px"} overflowX={overflowX}>
           <motion.div
             initial="initial"
             animate="animate"

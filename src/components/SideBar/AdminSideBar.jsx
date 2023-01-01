@@ -146,7 +146,26 @@ export default function AdminSideBar({ sideBarView }) {
             </IconComponent>
             Parents
           </NavItemComponent>
-          <NavItemComponent link={"/admin/results"}>
+          <NavItemComponent
+            submenu={[
+              {
+                name: "View Result Sheet",
+                link: "/results",
+              },
+              {
+                name: "Edit Grade Settings",
+                link: "/results",
+              },
+              {
+                name: "Class Teacher Comment",
+                link: "/results",
+              },
+              {
+                name: "Head Teacher Comment",
+                link: "/results",
+              },
+            ]}
+          >
             <IconComponent>
               <MdOutlineBed size={18} />
             </IconComponent>

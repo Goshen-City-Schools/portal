@@ -53,7 +53,7 @@ export default function NavItemComponent({ link, children, submenu, click }) {
         </IconComponent>
       </Box>
       <Collapse in={showSubmenu} animateOpacity className="w-full">
-        <List pl={8} pt={2} gap={2} w={"full"}>
+        <List pl={8} pt={2} gap={2} w={"full"} fontSize={".89rem"}>
           {submenu &&
             submenu.map((item, index) => (
               <NavLink

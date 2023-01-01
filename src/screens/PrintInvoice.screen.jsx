@@ -1,8 +1,9 @@
-import React from 'react';
+import React from "react";
 
 //
-import { PiDownloadDuotone } from 'react-icons/pi';
-import { AiOutlinePrinter } from 'react-icons/ai';
+import { PiDownloadDuotone } from "react-icons/pi";
+import { AiOutlinePrinter } from "react-icons/ai";
+import PrintHeader from "../components/Header/PrintHeader";
 // import { GiPayMoney } from 'react-icons/gi';
 
 export default function PrintInvoiceScreen() {
@@ -22,42 +23,8 @@ export default function PrintInvoiceScreen() {
           </button>
         </div>
       </div>
-      <div className="my-8 w-full max-w-2xl mx-auto rounded-lg shadow-md px-6 py-8">
-        <div className="invoice-header flex flex-col text-center items-center">
-          <div className="w-32 h-32 relative mx-auto">
-            <img
-              src="/Goshen-logo.jpg"
-              alt="Goshen logo"
-              loading="lazy"
-              height={96}
-              width={96}
-              className="w-full h-full object-cover absolute"
-            />
-          </div>
-          <h3 className="school-name text-xl font-bold">
-            GOSHEN GROUP OF SCHOOLS
-          </h3>
-          <p className="school-section text-sm leading-tight">
-            Daycare, Nursery and Primary
-          </p>
-          <div className="flex flex-col text-center w-full">
-            <p className="school-address text-sm">
-              <span className="font-bold">Address: </span> Plot 11 - 14, Living
-              Avenue, Opp. Police Detective College, Ologo Enugu, Nigieria
-            </p>
 
-            <div className="flex school-contact justify-center gap-2 text-sm">
-              <p className="school-contant_tel">
-                <span className="font-bold">Tel: </span>+234, +234
-              </p>
-              <p className="school-contant_email">
-                <span className="font-bold">Email: </span>
-                mail@goshencityschools.com
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
+      <PrintHeader />
     </div>
   );
 }
