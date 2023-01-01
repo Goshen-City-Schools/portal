@@ -39,8 +39,6 @@ export default function StaffForm({ action, staffData, staffRoles }) {
 
   const { openPortal } = useModal();
 
-  console.log(staffData, "jj");
-
   function handleChange(e) {
     const { name, value } = e.target;
 
@@ -303,7 +301,10 @@ export default function StaffForm({ action, staffData, staffRoles }) {
         />
       </Flex>
 
-      <FormButton loading={loading} label={"Create Staff Account"} />
+      <FormButton
+        loading={loading}
+        label={action === "edit" ? "Update Staff" : "Create Staff Account"}
+      />
     </FormcContainer>
   );
 }

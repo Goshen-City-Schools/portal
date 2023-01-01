@@ -7,6 +7,8 @@ export default function FormTextArea({
   placeholder = label,
   handleChange,
 }) {
+  const hasValue = !!formData[name];
+
   return (
     <FormControl>
       <FormLabel fontSize={"sm"} fontWeight={"semibold"}>
@@ -20,6 +22,7 @@ export default function FormTextArea({
         placeholder={placeholder}
         value={formData[name]}
         onChangeCapture={handleChange}
+        bg={hasValue ? "gray.100" : "white"}
       />
     </FormControl>
   );

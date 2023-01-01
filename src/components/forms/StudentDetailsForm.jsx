@@ -120,6 +120,7 @@ const StudentDetailsForm = ({
         name={"contactAddress"}
         label={"Contact Address"}
         formData={formData}
+        handleChange={handleInputChange}
       />
     </FormcContainer>
   );

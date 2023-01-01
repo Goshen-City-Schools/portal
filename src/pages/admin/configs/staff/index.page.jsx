@@ -57,7 +57,7 @@ export default function AllStaffPage() {
             colorScheme={"blue"}
             variant={"outline"}
             leftIcon={<MdImportExport />}
-            onClick={() => navigate("/admin/students/new")}
+            onClick={() => navigate("/admin/config/staff/new")}
           >
             Import / Export
           </Button>
@@ -65,7 +65,7 @@ export default function AllStaffPage() {
             size={"sm"}
             colorScheme={"blue"}
             leftIcon={<MdAdd />}
-            onClick={() => navigate("/admin/staff/new")}
+            onClick={() => navigate("/admin/config/staff/new")}
           >
             New Staff
           </Button>

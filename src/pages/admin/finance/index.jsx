@@ -2,13 +2,16 @@ import React from "react";
 
 import ReactPortal from "../../../widgets/React_portal";
 import HorizontalScrollableTabs from "../../../widgets/HorizontalScrollableTabs.widget";
+import { Flex, Box, Stack, Button } from "@chakra-ui/react";
 
-import { MdArrowBack } from "react-icons/md";
+import { MdAdd, MdArrowBack } from "react-icons/md";
 
 import PageWrapper from "../../../components/PageWrapper";
 import PageSectionHeader from "../../../components/PageSectionHeader";
 import IconComponent from "../../../components/Icon.component";
 import { useState } from "react";
+import { AllBankAccountsTable } from "../../../components/tables";
+import PaymentMethods from "../../../screens/config/PaymentMethodsConfig.screen";
 
 export default function FinancePage() {
   const [activeTab, setActiveTab] = useState(1);
@@ -16,16 +19,29 @@ export default function FinancePage() {
   const tabs = [
     {
       id: 1,
-      label: `Recent Transactions `,
-      component: "TAB 1 Component",
+      label: `Account Information`,
+      component: (
+        <Stack>
+          <Button
+            mb={4}
+            ml={"auto"}
+            size={"sm"}
+            colorScheme={"blue"}
+            leftIcon={<MdAdd />}
+            onClick={() => navigate("/admin/students/new")}
+          >
+            Add Bank Account
+          </Button>
+          <AllBankAccountsTable />
+        </Stack>
+      ),
     },
     {
       id: 2,
-      label: `Account Information`,
-      component: "TAB 2 Component",
+      label: `Payment Methods`,
+      component: <PaymentMethods />,
     },
-    { id: 3, label: "Payment Methods", component: "TAB 3 Component" },
-    { id: 4, label: "Attendance", component: "TAB 4 Component" },
+
     // Add more tabs as needed
   ];
 
@@ -53,6 +69,10 @@ export default function FinancePage() {
           onTabClick={handleTabClick}
         />
       </Flex>
+
+      <Box py={6} px={4} bg={"white"} rounded={"md"}>
+        {tabs[activeTab - 1].component}
+      </Box>
     </PageWrapper>
   );
 }

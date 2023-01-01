@@ -17,7 +17,16 @@ export default function NewStaffPage() {
         pageTitle={"Create Staff Account"}
         pageCrumb={"Home / Staff / New"}
       />
-      <Box w={"full"} mt={8} maxW={"2xl"} shadow={"sm"} mx={"auto"}>
+      <Box
+        bg={"white"}
+        paddingX={8}
+        paddingY={4}
+        width={"full"}
+        maxW={"2xl"}
+        rounded={"lg"}
+        my={8}
+        mx={"auto"}
+      >
         <StaffForm staffData={""} staffRoles={staffRoles} />
       </Box>
     </PageWrapper>

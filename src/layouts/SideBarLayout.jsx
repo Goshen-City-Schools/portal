@@ -34,14 +34,21 @@ export default function SideBarLayout() {
     <Box
       as="aside"
       bg={"brand.900"}
-      width={{ "base": isSideMenuOpen ? "260px" : "0px", "md": "260px" }}
+      width={{
+        "base": isSideMenuOpen ? "calc(260px + 16px)" : "0px", // Adjusted width to include scrollbar width
+        "md": "260px",
+      }}
       position={"fixed"}
       top={0}
       fontSize={"sm"}
       zIndex={50}
       left={0}
-      overflowY={"scroll"}
+      overflowY={"auto"}
+      overflowX={"hidden"} // Set overflowX to "hidden" to hide the scrollbar
       height={"full"}
+      style={{
+        "scrollbar-gutter": " stable",
+      }}
     >
       {/* Close Sidebar */}
 
@@ -160,7 +167,7 @@ export default function SideBarLayout() {
 
           {user.accountType === "staff" &&
             allowedUserRoles(user, ["IT Personnel", "Principal"]) && (
-              <NavItemComponent link={"/admin/#"}>
+              <NavItemComponent link={"/admin/config"}>
                 <IconComponent color={"warning.200"}>
                   <MdOutlinePrecisionManufacturing size={20} />
                 </IconComponent>

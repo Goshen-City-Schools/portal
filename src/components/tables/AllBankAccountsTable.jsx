@@ -39,7 +39,7 @@ export default function AllBankAccountsTable() {
       accessor: "accountName",
     },
     {
-      Header: "FeeTypes",
+      Header: "Fees",
       accessor: "feeTypes",
     },
     {
@@ -66,10 +66,6 @@ export default function AllBankAccountsTable() {
   if (!bankAccounts) return "No account set currently!";
 
   return (
-    <Table
-      columns={columns}
-      data={bankAccounts}
-      fullWidthColumns={"FeeTypes"}
-    />
+    <Table columns={columns} data={bankAccounts} fullWidthColumns={"Fees"} />
   );
 }

@@ -6,13 +6,12 @@ import { useFees } from "../../../hooks";
 import RowId from "../shared/RowId";
 import SchoolClass from "../shared/SchoolClass";
 import PriceView from "../shared/PriceView";
+x;
 
 import { IoMdEye } from "react-icons/io";
 import { MdEdit } from "react-icons/md";
 
-import { Button, Flex } from "@chakra-ui/react";
 import { useModal } from "../../../app/contexts/ModalContext";
-import CreateTuitionFee from "../../../portals/fees/CreateTuitionFee";
 import StatusBadge from "../shared/StatusBadge";
 import TuitionFeeForm from "../../forms/fees/TuitionFeeForm";
 
@@ -49,24 +48,24 @@ export default function TuitionFeeTable() {
       Cell: ({ row }) => <RowId row={row} />,
     },
     {
+      Header: "Full name",
+      accessor: "name",
+      Cell: ({ value }) => <SchoolClass value={value} />,
+    },
+    {
       Header: "Class",
       accessor: "classId",
       Cell: ({ value }) => <SchoolClass value={value} />,
     },
     {
-      Header: "New Student",
-      accessor: "price.new",
-      Cell: ({ value }) => <PriceView value={value} />,
-    },
-    {
-      Header: "Existing Student",
-      accessor: "price.existing",
-      Cell: ({ value }) => <PriceView value={value} />,
-    },
-    {
       Header: "Status",
       accessor: "status",
       Cell: ({ value }) => <StatusBadge value={value} />,
+    },
+    {
+      Header: "Balance",
+      accessor: "balance",
+      Cell: ({ value }) => <PriceView value={value} />,
     },
     {
       Header: "Action",

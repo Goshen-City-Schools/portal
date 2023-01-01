@@ -67,25 +67,32 @@ export default function FeesPage() {
 
       {/* Fee Detail Sheet */}
 
-      <Box border={"1px solid"} bg={"white"} rounded={"lg"} px={8} py={4}>
+      <Box
+        border={"1px solid"}
+        bg={"white"}
+        rounded={"lg"}
+        px={8}
+        py={4}
+        fontWeight={"bold"}
+      >
         {/* Student Profile Picture */}
 
         {/* Fee Amount */}
-        <Flex>
-          <Text>Fee Amount</Text>
+        <Flex color={"blue"}>
+          <Text>Amount Due:</Text>
           <Text>{formatCurrency(feeAmount)}</Text>
         </Flex>
 
         {/* Outstanding Balance */}
 
-        <Flex color={"red"}>
-          <Text>Total paid:</Text>
+        <Flex color={"green"}>
+          <Text>Paid:</Text>
           <Text>{formatCurrency(totalPaidAmount)}</Text>
         </Flex>
         {/* Total Payable */}
 
         <Flex color={"red"} fontWeight={"bold"}>
-          <Text>Total Balance</Text>
+          <Text>Pending:</Text>
           <Text>{formatCurrency(feeBalance)}</Text>
         </Flex>
       </Box>

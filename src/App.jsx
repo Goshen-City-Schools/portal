@@ -16,7 +16,7 @@ import {
   AllFeesPage,
   //
   AllStaffPage,
-  StaffPage,
+  // StaffPage,
   NewStaffPage,
   StaffRolesPage,
   //
@@ -46,6 +46,13 @@ import {
   //
   NotFoundPage,
   EditStaffPage,
+  ConfigPage,
+  FinanceConfigPage,
+  AcademicsConfigPage,
+  StaffRolesConfigPage,
+  EvaluationConfigPage,
+  FeesConfigPage,
+  StaffPage,
 } from "./pages/admin";
 
 // User pages
@@ -55,6 +62,7 @@ import { FeesPage, TransactionsPage, UserHome } from "./pages/user";
 import { AccessRestricted, GeneralNotFound, LoginPage } from "./pages/shared";
 
 import { Navigate } from "react-router-dom";
+import PaymentsConfigPage from "./pages/admin/configs/PaymentsConfig.page";
 
 const App = () => {
   return (
@@ -84,25 +92,11 @@ const App = () => {
             <Route path="edit" element={<EditStudentPage />} />
           </Route>
         </Route>
-        <Route path="staff">
-          <Route index element={<AllStaffPage />} />
-          <Route path="new" element={<NewStaffPage />} />
-          <Route path="roles" element={<StaffRolesPage />} />
-          <Route path=":staffId">
-            <Route index element={<StaffPage />} />
-            <Route path="edit" element={<EditStaffPage />} />
-          </Route>
-        </Route>
 
         <Route path="parents">
           <Route index element={<ParentsPage />} />
           <Route path="new" element={<NewParentPage />} />
           <Route path=":parentId" element={<ParentPage />} />
-        </Route>
-
-        <Route path="classes">
-          <Route index element={<ClassesPage />} />
-          <Route path=":schoolClass" element={<ClassPage />} />
         </Route>
 
         {/* <Route path="results">
@@ -113,10 +107,33 @@ const App = () => {
           <Route path=":session/:term/:userId" element={<ResultSinglePage />} />
         </Route> */}
 
-        <Route path="subjects">
-          <Route index element={<SubjectsPage />} />
-          <Route path="new" element={<NewSubjectPage />} />
-          <Route path=":subjectId/edit" element={<EditSubjectPage />} />
+        {/* The Config Routes serves like the frontend backend for the Admin */}
+        <Route path="config">
+          <Route index element={<ConfigPage />} />
+
+          {/* Staff Config */}
+          <Route path="staff">
+            <Route index element={<AllStaffPage />} />
+            <Route path="new" element={<NewStaffPage />} />
+            <Route path="roles" element={<StaffRolesPage />} />
+            <Route path=":staffId">
+              <Route index element={<StaffPage />} />
+              <Route path="edit" element={<EditStaffPage />} />
+            </Route>
+          </Route>
+
+          {/* Config */}
+          <Route path="academics" element={<AcademicsConfigPage />} />
+          <Route path="payments" element={<PaymentsConfigPage />} />
+          <Route path="evaluation" element={<EvaluationConfigPage />} />
+          <Route path="promotion" element={<AcademicsConfigPage />} />
+          <Route path="messaging" element={<AcademicsConfigPage />} />
+
+          <Route path="subjects">
+            <Route index element={<SubjectsPage />} />
+            <Route path="new" element={<NewSubjectPage />} />
+            <Route path=":subjectId/edit" element={<EditSubjectPage />} />
+          </Route>
         </Route>
 
         <Route path="events">

@@ -34,6 +34,8 @@ export default function FormSelect({
     });
   };
 
+  const hasValue = !!formData[name];
+
   return (
     <FormControl id={name}>
       <FormLabel fontSize={"sm"} fontWeight={"semibold"}>
@@ -45,6 +47,7 @@ export default function FormSelect({
         disabled={action === "edit"}
         value={formData[name]}
         onChange={handleChange}
+        bg={hasValue ? "gray.100" : "white"}
       >
         <option value="">-- Select {label} --</option>
 

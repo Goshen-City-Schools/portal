@@ -11,12 +11,7 @@ export default function BankAccountForm({
 }) {
   const toast = useToast();
   const { closePortal } = useModal();
-  // const [formData, setFormData] = useState({
-  //   schoolClass: existingData?.classId || "",
-  //   newStudentPrice: existingData?.price.new || null,
-  //   existingStudentPrice: existingData?.price.existing || null,
-  //   status: true,
-  // });
+
   const [formData, setFormData] = useState({
     bankName: existingData.bankName || "",
     accountName: existingData.accountName,

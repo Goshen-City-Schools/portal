@@ -6,7 +6,6 @@ import { Box } from "@chakra-ui/react";
 
 import PageWrapper from "../../../components/PageWrapper";
 import PageSectionHeader from "../../../components/PageSectionHeader";
-import StudentForm from "../../../components/forms/StudentForm";
 import StaffForm from "../../../components/forms/StaffForm";
 
 export default function EditStaffPage() {
@@ -14,15 +13,13 @@ export default function EditStaffPage() {
 
   const { staffData } = useStaff(staffId);
 
-  console.log(staffData);
-
   const { firstName } = staffData;
 
   return (
     <PageWrapper>
       <PageSectionHeader
-        pageTitle={`Student Profile Edit`}
-        pageCrumb={`Home / Students / ${firstName} `}
+        pageTitle={`Staff Profile Edit`}
+        pageCrumb={`Home / Staff / ${firstName} `}
       />
 
       <Box

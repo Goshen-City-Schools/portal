@@ -14,6 +14,11 @@ import {
   BoardingFeeTable,
   BusFeeTable,
 } from "../../../../components/tables";
+import {
+  BoardingFeeConfigScreen,
+  BusFeeConfigScreen,
+  TuitionFeeConfigScreen,
+} from "../../../../screens/config";
 
 export default function AllFeesPage() {
   const [activeTab, setActiveTab] = useState(1);
@@ -28,14 +33,14 @@ export default function AllFeesPage() {
     {
       id: 1,
       label: `Tuition`,
-      component: <TuitionFeeTable />,
+      component: <TuitionFeeConfigScreen />,
     },
     {
       id: 2,
       label: `Boarding`,
-      component: <BoardingFeeTable />,
+      component: <BoardingFeeConfigScreen />,
     },
-    { id: 3, label: "Bus", component: <BusFeeTable /> },
+    { id: 3, label: "Bus", component: <BusFeeConfigScreen /> },
     // Add more tabs as needed
   ];
 

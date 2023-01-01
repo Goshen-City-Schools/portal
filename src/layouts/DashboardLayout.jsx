@@ -22,6 +22,9 @@ export default function DashboardLayout() {
         as="main"
         w={{ base: "100%", md: "calc(100vw - 260px)" }}
         className="ml-[260px] overflow-x-hidden main"
+        style={{
+          "scrollbar-gutter": " stable",
+        }}
       >
         {/* Header */}
         <Header />

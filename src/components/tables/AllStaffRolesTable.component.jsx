@@ -68,11 +68,6 @@ const AllStaffRolesTable = () => {
         </Flex>
       ),
     },
-
-    {
-      Header: "Action",
-      accessor: "action",
-    },
   ];
 
   return (
