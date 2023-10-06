@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.formContainer {
+  @apply pt-2 pb-6 rounded-lg;
+}
+
+form input,
+form select {
+  @apply w-full px-3 py-2 text-sm font-semibold border rounded-md;
+}
+
+form {
+  @apply flex flex-col gap-y-4;
+}
+
+form label {
+  @apply font-bold text-sm w-[100px];
+}
+
+form .inputContainer {
+  @apply flex items-center;
+}
+
+main {
+  min-height: calc(100vh - 5rem);
+  width: calc(100vw - 280px);
+}
+
+.paySection {
+  height: calc(100vh - 5rem);
+}
+
+form button {
+  @apply rounded-lg px-3 py-2;
+}

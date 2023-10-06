@@ -1,0 +1,14 @@
+ul {
+  @apply flex flex-col space-y-3;
+}
+li > ul {
+  @apply text-sm  ml-2 mt-3;
+}
+
+li > ul > li {
+  @apply flex gap-4 w-full justify-start items-center;
+}
+
+.memuList span {
+  @apply font-bold flex w-full justify-between items-center;
+}
