@@ -9,13 +9,12 @@ Currently, two official plugins are available:
 
 
 ## todos
-- Components
+
+### Components
 - [ ] Transaction invoice
 - [ ] Transaction receipt
 - [ ] Result sheet
-- [ ] 
 
-
-- Screens / Pages
+### Screens / Pages
 - [ ] Payment page
 - [ ] Home Page
