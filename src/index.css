@@ -14,7 +14,7 @@
 
 form input,
 form select {
-  @apply w-full px-3 py-2 text-sm font-semibold border rounded-md;
+  @apply w-full px-3 py-2 text-sm  border rounded-md;
 }
 
 form {
@@ -22,11 +22,11 @@ form {
 }
 
 form label {
-  @apply font-bold text-sm w-[100px];
+  @apply font-bold text-gray-600 text-sm;
 }
 
 form .inputContainer {
-  @apply flex items-center;
+  @apply flex flex-col gap-1;
 }
 
 main {

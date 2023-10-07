@@ -31,38 +31,7 @@ export default function SideMenu() {
           </div>
           Home
         </li>
-        <li>
-          <span>
-            Payments <FaChevronDown />
-          </span>
-          <ul>
-            <li>
-              <div className="icon h-6 w-6 flex items-center justify-center">
-                <TbSchool size={18} />
-              </div>
-              School Fees
-            </li>
-            <li>
-              <div className="icon h-6 w-6 flex items-center justify-center">
-                <BiBusSchool size={16} />
-              </div>
-              Transport Fees
-            </li>
-            <li>
-              <div className="icon h-6 w-6 flex items-center justify-center">
-                <MdOutlineBed size={18} />
-              </div>
-              Hostel Fees
-            </li>
-
-            <li>
-              <div className="icon h-6 w-6 flex items-center justify-center">
-                <TbCurrencyNaira size={20} />
-              </div>
-              Transactions History
-            </li>
-          </ul>
-        </li>
+        {/*  */}
         <li>
           <span>
             Computer Based Test <FaChevronDown />
@@ -94,6 +63,34 @@ export default function SideMenu() {
             </li>
           </ul>
         </li>
+        {/*  */}
+        <li>
+          <span>
+            Fees and Payments
+            <FaChevronDown />
+          </span>
+          <ul>
+            <li>
+              <div className="icon h-6 w-6 flex items-center justify-center">
+                <TbSchool size={18} />
+              </div>
+              Invoices
+            </li>
+            <li>
+              <div className="icon h-6 w-6 flex items-center justify-center">
+                <BiBusSchool size={16} />
+              </div>
+              Receipts
+            </li>
+            <li>
+              <div className="icon h-6 w-6 flex items-center justify-center">
+                <MdOutlineBed size={18} />
+              </div>
+              Transaction query
+            </li>
+          </ul>
+        </li>
+
         <li className="flex justify-start gap-4 font-bold items-center">
           <div className="icon h-6 w-6 flex items-center justify-center">
             <MdOutlineSupportAgent size={20} />

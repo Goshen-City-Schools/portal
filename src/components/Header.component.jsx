@@ -18,10 +18,19 @@ export default function Header() {
 
         {/*  */}
 
-        <div className="absolute top-20">dd</div>
+        <div className="absolute top-20">
+          <ul>
+            <li>
+              <Link>My Profile</Link>
+            </li>
+            <li>
+              <Link>Settings</Link>
+            </li>
+          </ul>
+        </div>
         <Link to="/dashboard/profile" className="flex gap-2 items-center">
           <Avatar imageUrl="/avatar.png" altText="user avatar" />
-          <FaChevronDown />
+          <FaChevronDown />.
         </Link>
       </div>
     </header>
