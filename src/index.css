@@ -42,30 +42,69 @@ form button {
   @apply rounded-lg px-3 py-2;
 }
 
+/* Apply general styles to the table */
 table {
-  @apply px-4;
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin: 0 auto;
+  max-width: 100%;
 }
 
-table thead {
-  /* @apply flex flex-shrink-0 w-full; */
-  justify-self: start;
-  @apply text-left;
-}
-
+/* Style table headers */
 table th {
-  @apply py-4 px-6 bg-slate-500;
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+  text-align: left;
+
+  @apply pl-6;
 }
 
+/* Style table cells */
 table td {
-  text-align: start;
-  @apply py-3 px-6 text-sm;
+  padding: 10px;
+  @apply pl-6;
+  text-align: left;
+  transition: background-color 0.3s, font-weight 0.3s;
 }
 
-table tr {
-  @apply border;
-  @apply py-2 pl-6;
+/* Add alternating row background colors */
+table tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
 }
 
-table tr:nth-child(2n) {
-  @apply bg-slate-200;
+/* Add hover effect to rows */
+table tbody tr:hover {
+  background-color: #dff0d8;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s, font-weight 0.3s;
+}
+
+/* Make the table responsive on smaller screens */
+@media (max-width: 768px) {
+  table {
+    display: block;
+  }
+
+  table thead {
+    display: none;
+  }
+
+  table tbody tr {
+    margin-bottom: 10px;
+    display: block;
+    border: 1px solid #ccc;
+  }
+
+  table tbody td {
+    display: block;
+    text-align: left;
+  }
+
+  /* Hide last cell in each row to avoid extra spacing */
+  table tbody td:last-child {
+    border-bottom: none;
+  }
 }

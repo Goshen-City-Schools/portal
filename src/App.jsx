@@ -4,7 +4,6 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
   Route,
-  Routes,
 } from 'react-router-dom';
 
 // layouts
@@ -14,9 +13,10 @@ import Home from './pages/Home';
 import InvoicesPage from './pages/payments/Invoices.page';
 import GenerateInvoicePage from './pages/payments/GenerateInvoice.page';
 import ReceiptsPage from './pages/payments/Receipts';
-import PrintReceiptPage from './pages/payments/PrintReceipt.page';
 import LoginPage from './pages/auth/login';
 import Layout from './layouts';
+import PrintReceiptScreen from './screens/PrintReceipt.screen';
+import PrintInvoiceScreen from './screens/PrintInvoice.screen';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -30,12 +30,13 @@ const router = createBrowserRouter(
         <Route path="invoices">
           <Route index element={<InvoicesPage />} />
           <Route path="new" element={<GenerateInvoicePage />} />
+          <Route path=":invoiceID" element={<PrintInvoiceScreen />} />
         </Route>
 
         {/* Receipts */}
         <Route path="receipts">
           <Route index element={<ReceiptsPage />} />
-          <Route path="new" element={<PrintReceiptPage />} />
+          <Route path="new" element={<PrintReceiptScreen />} />
         </Route>
       </Route>
 

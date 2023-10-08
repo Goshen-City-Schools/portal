@@ -48,9 +48,11 @@ export default function InvoicesPage() {
               <span>SCHOOL FEES</span>
             </td>
             <td>
-              <button className="px-4 py-2 rounded-lg bg-green-200 flex gap-2 font-bold items-center">
-                <FaEye /> View
-              </button>
+              <Link to={'/fees/invoices/1'}>
+                <button className="px-4 py-2 rounded-lg bg-green-200 flex gap-2 font-bold items-center">
+                  <FaEye /> View
+                </button>
+              </Link>
             </td>
           </tr>
 
@@ -66,9 +68,11 @@ export default function InvoicesPage() {
               <span>SCHOOL FEES</span>
             </td>
             <td>
-              <button className="px-4 py-2 rounded-lg bg-green-200 flex gap-2 font-bold items-center">
-                <FaEye /> View
-              </button>
+              <Link to={'/fees/invoices/1'}>
+                <button className="px-4 py-2 rounded-lg bg-green-200 flex gap-2 font-bold items-center">
+                  <FaEye /> View
+                </button>
+              </Link>
             </td>
           </tr>
           {/*  */}
@@ -83,9 +87,11 @@ export default function InvoicesPage() {
               <span>SCHOOL FEES</span>
             </td>
             <td>
-              <button className="px-4 py-2 rounded-lg bg-green-200 flex gap-2 font-bold items-center">
-                <FaEye /> View
-              </button>
+              <Link to={'/fees/invoices/1'}>
+                <button className="px-4 py-2 rounded-lg bg-green-200 flex gap-2 font-bold items-center">
+                  <FaEye /> View
+                </button>
+              </Link>
             </td>
           </tr>
           <tr>
@@ -99,9 +105,11 @@ export default function InvoicesPage() {
               <span>SCHOOL FEES</span>
             </td>
             <td>
-              <button className="px-4 py-2 rounded-lg bg-green-200 flex gap-2 font-bold items-center">
-                <FaEye /> View
-              </button>
+              <Link to={'/fees/invoices/1'}>
+                <button className="px-4 py-2 rounded-lg bg-green-200 flex gap-2 font-bold items-center">
+                  <FaEye /> View
+                </button>
+              </Link>
             </td>
           </tr>
         </tbody>

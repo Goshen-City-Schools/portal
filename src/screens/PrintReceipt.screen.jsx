@@ -1,5 +1,5 @@
 import React from 'react';
 
-export default function PrintReceiptPage() {
+export default function PrintReceiptScreen() {
   return <div>PrintReceipt</div>;
 }
