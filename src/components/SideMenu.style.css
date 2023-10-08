@@ -5,7 +5,8 @@ li > ul {
   @apply text-sm  ml-2 mt-3;
 }
 
-li > ul > li {
+li > ul > li,
+li > ul > li > a {
   @apply flex gap-4 w-full justify-start items-center;
 }
 

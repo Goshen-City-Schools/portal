@@ -15,6 +15,7 @@ import { PiExam } from 'react-icons/pi';
 
 import './SideMenu.style.css';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 export default function SideMenu() {
   const [subMenuIsActive, setSubMenuIsActive] = useState(false);
@@ -71,16 +72,20 @@ export default function SideMenu() {
           </span>
           <ul>
             <li>
-              <div className="icon h-6 w-6 flex items-center justify-center">
-                <TbSchool size={18} />
-              </div>
-              Invoices
+              <Link to={'/fees/invoices'}>
+                <div className="icon h-6 w-6 flex items-center justify-center">
+                  <TbSchool size={18} />
+                </div>
+                Invoices
+              </Link>
             </li>
             <li>
-              <div className="icon h-6 w-6 flex items-center justify-center">
-                <BiBusSchool size={16} />
-              </div>
-              Receipts
+              <Link to={'/fees/receipts'}>
+                <div className="icon h-6 w-6 flex items-center justify-center">
+                  <BiBusSchool size={16} />
+                </div>
+                Receipts
+              </Link>
             </li>
             <li>
               <div className="icon h-6 w-6 flex items-center justify-center">

@@ -41,3 +41,31 @@ main {
 form button {
   @apply rounded-lg px-3 py-2;
 }
+
+table {
+  @apply px-4;
+}
+
+table thead {
+  /* @apply flex flex-shrink-0 w-full; */
+  justify-self: start;
+  @apply text-left;
+}
+
+table th {
+  @apply py-4 px-6 bg-slate-500;
+}
+
+table td {
+  text-align: start;
+  @apply py-3 px-6 text-sm;
+}
+
+table tr {
+  @apply border;
+  @apply py-2 pl-6;
+}
+
+table tr:nth-child(2n) {
+  @apply bg-slate-200;
+}

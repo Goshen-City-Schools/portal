@@ -2,17 +2,16 @@ import React from 'react';
 
 // Icons
 import { FaEye } from 'react-icons/fa';
-import Layout from '../../layouts';
-import formatDate from '../../utilities/formatDate.utils';
-import { Link } from 'react-router-dom';
+import Header from '../../components/Header.component';
+import SideMenu from '../../components/SideMenu';
 
-export default function InvoicesPage() {
+export default function ReceiptsPage() {
   return (
-    <>
+    <div>
       <div className="pageTitleTop flex w-full items-center justify-between px-6 py-4 gap-4">
-        <h2 className="text-2xl font-bold">Invoices</h2>
+        <h2 className="text-2xl font-bold">Receipts</h2>
 
-        <div className="flex gap-4 items-center">
+        <div className="flex">
           <div className="inputContainer">
             <select name="" id="">
               <option value="">ALL</option>
@@ -20,12 +19,6 @@ export default function InvoicesPage() {
               <option value="">BUSF</option>
             </select>
           </div>
-
-          <Link to={'/fees/invoices/new'}>
-            <button className="bg-green-700 px-4 py-2 text-sm font-bold rounded-lg text-gray-50">
-              Generate Invoice
-            </button>
-          </Link>
         </div>
       </div>
       <table className="w-full">
@@ -39,7 +32,7 @@ export default function InvoicesPage() {
           {/*  */}
           <tr>
             <td>
-              <span>{formatDate(Date.now())}</span>
+              <span>{Date.now()}</span>
             </td>
             <td>
               <span>SCHF4567283784</span>
@@ -48,16 +41,16 @@ export default function InvoicesPage() {
               <span>SCHOOL FEES</span>
             </td>
             <td>
-              <button className="px-4 py-2 rounded-lg bg-green-200 flex gap-2 font-bold items-center">
+              <span className="flex gap-2 items-center">
                 <FaEye /> View
-              </button>
+              </span>
             </td>
           </tr>
 
           {/*  */}
           <tr>
             <td>
-              <span>{formatDate(Date.now())}</span>
+              <span>{Date.now()}</span>
             </td>
             <td>
               <span>SCHF4567283784</span>
@@ -66,15 +59,15 @@ export default function InvoicesPage() {
               <span>SCHOOL FEES</span>
             </td>
             <td>
-              <button className="px-4 py-2 rounded-lg bg-green-200 flex gap-2 font-bold items-center">
+              <span className="flex gap-2 items-center">
                 <FaEye /> View
-              </button>
+              </span>
             </td>
           </tr>
           {/*  */}
           <tr>
             <td>
-              <span>{formatDate(Date.now(), 'short')}</span>
+              <span>{Date.now()}</span>
             </td>
             <td>
               <span>SCHF4567283784</span>
@@ -83,14 +76,14 @@ export default function InvoicesPage() {
               <span>SCHOOL FEES</span>
             </td>
             <td>
-              <button className="px-4 py-2 rounded-lg bg-green-200 flex gap-2 font-bold items-center">
+              <span className="flex gap-2 items-center">
                 <FaEye /> View
-              </button>
+              </span>
             </td>
           </tr>
           <tr>
             <td>
-              <span>{formatDate(Date.now())}</span>
+              <span>{Date.now()}</span>
             </td>
             <td>
               <span>SCHF4567283784</span>
@@ -99,13 +92,13 @@ export default function InvoicesPage() {
               <span>SCHOOL FEES</span>
             </td>
             <td>
-              <button className="px-4 py-2 rounded-lg bg-green-200 flex gap-2 font-bold items-center">
+              <span className="flex gap-2 items-center">
                 <FaEye /> View
-              </button>
+              </span>
             </td>
           </tr>
         </tbody>
       </table>
-    </>
+    </div>
   );
 }

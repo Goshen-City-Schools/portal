@@ -18,7 +18,7 @@ export default function Header() {
 
         {/*  */}
 
-        <div className="absolute top-20">
+        <div className="absolute top-20 hidden">
           <ul>
             <li>
               <Link>My Profile</Link>
