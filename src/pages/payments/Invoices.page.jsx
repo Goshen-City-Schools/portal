@@ -2,7 +2,6 @@ import React from 'react';
 
 // Icons
 import { FaEye } from 'react-icons/fa';
-import Layout from '../../layouts';
 import formatDate from '../../utilities/formatDate.utils';
 import { Link } from 'react-router-dom';
 
@@ -23,7 +22,7 @@ export default function InvoicesPage() {
 
           <Link to={'/fees/invoices/new'}>
             <button className="bg-green-700 px-4 py-2 text-sm font-bold rounded-lg text-gray-50">
-              Generate Invoice
+              Generate New Invoice
             </button>
           </Link>
         </div>

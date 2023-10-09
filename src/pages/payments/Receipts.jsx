@@ -2,8 +2,6 @@ import React from 'react';
 
 // Icons
 import { FaEye } from 'react-icons/fa';
-import Header from '../../components/Header.component';
-import SideMenu from '../../components/SideMenu';
 
 export default function ReceiptsPage() {
   return (
@@ -21,6 +19,7 @@ export default function ReceiptsPage() {
           </div>
         </div>
       </div>
+
       <table className="w-full">
         <thead>
           <th>Date</th>

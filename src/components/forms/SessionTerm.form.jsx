@@ -1,14 +1,20 @@
 import React from 'react';
 
 export default function SessionTerm() {
-  function generrateInvoice() {}
+  // function handleSubmit(e) {
+  //   e.preventDefault();
+  //   navigate('/fees/invoices/1');
+  // }
   return (
     <div className="formContainer w-full  max-w-sm mx-auto">
       <h2 className="px-4  font-bold  text-center w-max mx-auto text-2xl mb-4 text-purple-800">
         GENERATE INVOICE
       </h2>
 
-      <form className="px-6 py-6 shadow-md w-full  h-max">
+      <form
+        className="px-6 py-6 shadow-md w-full  h-max"
+        // onSubmit={handleSubmit}
+      >
         <div className="inputContainer">
           <label htmlFor="session">Session:</label>
           <select name="" id="">
@@ -49,7 +55,10 @@ export default function SessionTerm() {
         </div>
 
         <div className="flex w-full flex-col gap-3 justify-around mt-4 text-sm ">
-          <button className="bg-gray-50 border-2 rounded-lg text-green-700 border-green-800 font-bold">
+          <button
+            type="submit"
+            className="bg-gray-50 border-2 rounded-lg text-green-700 border-green-800 font-bold"
+          >
             Generate invoice
           </button>
         </div>

@@ -19,8 +19,9 @@ import { Link } from 'react-router-dom';
 
 export default function SideMenu() {
   const [subMenuIsActive, setSubMenuIsActive] = useState(false);
+
   return (
-    <aside className="absolute top-0 text-sm shadow-purple-300 shadow-sm left-0 h-screen bg-blue-800 max-w-[280px] w-full">
+    <aside className="fixed top-0 text-sm shadow-purple-300 shadow-sm left-0 h-screen bg-blue-800 max-w-[280px] w-full">
       <div className="h-20 border-b flex items-center justify-center w-full">
         <Logo />
       </div>
