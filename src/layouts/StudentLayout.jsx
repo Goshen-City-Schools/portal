@@ -9,8 +9,6 @@ export default function StudentLayout() {
 
   const navigate = useNavigate();
 
-  console.log(JSON.stringify(user, null, 2));
-
   if (user == null) {
     navigate("/auth"); // Replace '/auth' wi`th the actual login page path
     return <LoadingScreen navigateToPath={"/auth"} />;

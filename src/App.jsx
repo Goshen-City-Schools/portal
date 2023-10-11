@@ -13,12 +13,14 @@ import Home from "./pages/Home";
 import InvoicesPage from "./pages/payments/Invoices.page";
 import GenerateInvoicePage from "./pages/payments/GenerateInvoice.page";
 import ReceiptsPage from "./pages/payments/Receipts";
-import Layout from "./layouts";
 import PrintReceiptScreen from "./screens/PrintReceipt.screen";
 import PrintInvoiceScreen from "./screens/PrintInvoice.screen";
 import LoginScreen from "./screens/Login.screen";
 import AdminHome from "./pages/admin/Home";
+
+// Layouts
 import AdminLayout from "./layouts/AdminLayout";
+import StudentLayout from "./layouts/StudentLayout";
 
 const user = JSON.parse(localStorage.getItem("user"));
 
@@ -36,7 +38,7 @@ const router = createBrowserRouter(
         </Route>
       </Route>
 
-      <Route path="/" element={<Layout />}>
+      <Route path="/" element={<StudentLayout />}>
         {/* Home Route */}
         <Route
           index
