@@ -1,9 +1,21 @@
-import React from 'react';
-import Header from '../components/Header/Header.component';
-import { Outlet } from 'react-router-dom';
-import SideBar from '../components/SideBar/SideBar';
+import React from "react";
+import Header from "../components/Header/Header.component";
+import { Outlet } from "react-router-dom";
+import SideBar from "../components/SideBar/SideBar";
+import { useNavigate } from "react-router-dom";
 
 export default function StudentLayout() {
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  const navigate = useNavigate();
+
+  console.log(JSON.stringify(user, null, 2));
+
+  if (user == null) {
+    navigate("/auth"); // Replace '/auth' wi`th the actual login page path
+    return <LoadingScreen navigateToPath={"/auth"} />;
+  }
+
   return (
     <div className="relative">
       <SideBar />

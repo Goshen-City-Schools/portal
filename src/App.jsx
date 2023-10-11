@@ -1,31 +1,47 @@
-import React from 'react';
-import { RouterProvider } from 'react-router-dom';
+import React from "react";
+import { RouterProvider } from "react-router-dom";
 import {
   createBrowserRouter,
   createRoutesFromElements,
   Route,
-} from 'react-router-dom';
+} from "react-router-dom";
 
 // layouts
 
 // pages
-import Home from './pages/Home';
-import InvoicesPage from './pages/payments/Invoices.page';
-import GenerateInvoicePage from './pages/payments/GenerateInvoice.page';
-import ReceiptsPage from './pages/payments/Receipts';
-import Layout from './layouts';
-import PrintReceiptScreen from './screens/PrintReceipt.screen';
-import PrintInvoiceScreen from './screens/PrintInvoice.screen';
-import LoginScreen from './screens/Login.screen';
+import Home from "./pages/Home";
+import InvoicesPage from "./pages/payments/Invoices.page";
+import GenerateInvoicePage from "./pages/payments/GenerateInvoice.page";
+import ReceiptsPage from "./pages/payments/Receipts";
+import Layout from "./layouts";
+import PrintReceiptScreen from "./screens/PrintReceipt.screen";
+import PrintInvoiceScreen from "./screens/PrintInvoice.screen";
+import LoginScreen from "./screens/Login.screen";
+import AdminHome from "./pages/admin/Home";
+import AdminLayout from "./layouts/AdminLayout";
+
+const user = JSON.parse(localStorage.getItem("user"));
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>
       <Route path="/auth" element={<LoginScreen />} />
 
+      <Route path="/admin">
+        {/* Home Route */}
+        <Route path="auth" element={<LoginScreen />} />
+
+        <Route element={<AdminLayout />}>
+          <Route index element={<AdminHome />} />{" "}
+        </Route>
+      </Route>
+
       <Route path="/" element={<Layout />}>
         {/* Home Route */}
-        <Route index element={<Home />} />
+        <Route
+          index
+          element={user.userType == "Student" ? <Home /> : <AdminHome />}
+        />
 
         {/* Fees Routes */}
         <Route path="/fees">

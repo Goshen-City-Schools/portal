@@ -5,7 +5,6 @@ const initialState = {
   userID: 'GSHN/',
   password: '',
   errorMessages: '', // Error message for login details
-  userData: null, // User data object
 };
 
 const formSlice = createSlice({
@@ -18,18 +17,14 @@ const formSlice = createSlice({
     setLoginError: (state, action) => {
       state.errorMessages = action.payload.errorMessage;
     },
-    setUserData: (state, action) => {
-      state.userData = action.payload.userData;
-    },
+
     logout: (state) => {
       state.userID = 'GSHN/';
       state.password = '';
-      state.userData = null;
       localStorage.removeItem('user'); // Clear the token
     },
   },
 });
 
-export const { logout, updateField, setLoginError, setUserData } =
-  formSlice.actions;
+export const { logout, updateField, setLoginError } = formSlice.actions;
 export default formSlice.reducer;
