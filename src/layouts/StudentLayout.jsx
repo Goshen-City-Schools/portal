@@ -3,6 +3,7 @@ import Header from "../components/Header/Header.component";
 import { Outlet } from "react-router-dom";
 import SideBar from "../components/SideBar/SideBar";
 import { useNavigate } from "react-router-dom";
+import LoadingScreen from "../screens/Loading.screen";
 
 export default function StudentLayout() {
   const user = JSON.parse(localStorage.getItem("user"));

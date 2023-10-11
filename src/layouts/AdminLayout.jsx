@@ -3,6 +3,7 @@ import { Outlet } from "react-router-dom";
 import AdminSideBar from "../components/SideBar/AdminSideBar";
 import AdminHeader from "../components/Header/AdminHeader.component";
 import { useNavigate } from "react-router-dom";
+import LoadingScreen from "../screens/Loading.screen";
 
 export default function AdminLayout() {
   const user = JSON.parse(localStorage.getItem("user"));
