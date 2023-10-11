@@ -22,8 +22,6 @@ import AdminHome from "./pages/admin/Home";
 import AdminLayout from "./layouts/AdminLayout";
 import StudentLayout from "./layouts/StudentLayout";
 
-const user = JSON.parse(localStorage.getItem("user"));
-
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>
