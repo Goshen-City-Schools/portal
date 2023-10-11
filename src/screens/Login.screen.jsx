@@ -21,22 +21,20 @@ import {
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import determineUserType from '../helpers/determinUserType';
+import LoadingScreen from './Loading.screen';
 
 export default function LoginScreen() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const loggedInUser = localStorage.getItem('user');
+  const [isLoading, setIsLoading] = useState(false);
 
-  const { userID, password, loginError, userData } = useSelector(
-    (state) => state.form
-  );
+  const { userID, password, loginError } = useSelector((state) => state.form);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     dispatch(updateField({ fieldName: name, fieldValue: value }));
   };
-
-  const [isLoading, setIsLoading] = useState(false);
-
-  const navigate = useNavigate();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -71,12 +69,18 @@ export default function LoginScreen() {
 
     dispatch(setUserData({ userData }));
 
+    localStorage.setItem('user', userData);
+
     setIsLoading(true);
 
     setTimeout(() => {
       setIsLoading(false);
       navigate('/');
     }, 2000);
+  }
+
+  if (loggedInUser) {
+    return <LoadingScreen navigateToPath={'/'} timer={1500} />;
   }
 
   return (

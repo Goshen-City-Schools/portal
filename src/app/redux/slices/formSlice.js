@@ -21,8 +21,15 @@ const formSlice = createSlice({
     setUserData: (state, action) => {
       state.userData = action.payload.userData;
     },
+    logout: (state) => {
+      state.userID = 'GSHN/';
+      state.password = '';
+      state.userData = null;
+      localStorage.removeItem('user'); // Clear the token
+    },
   },
 });
 
-export const { updateField, setLoginError, setUserData } = formSlice.actions;
+export const { logout, updateField, setLoginError, setUserData } =
+  formSlice.actions;
 export default formSlice.reducer;

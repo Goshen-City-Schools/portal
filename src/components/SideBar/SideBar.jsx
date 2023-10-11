@@ -1,7 +1,7 @@
 import React from 'react';
 import Logo from '../Logo.component';
 
-import { Box } from '@chakra-ui/react';
+import { Box, List, ListItem, Flex, Text } from '@chakra-ui/react';
 
 import { TbSchool, TbReport } from 'react-icons/tb';
 import { BiLogOutCircle } from 'react-icons/bi';
@@ -14,13 +14,24 @@ import {
 } from 'react-icons/md';
 
 import './SideMenu.style.css';
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import { Flex, Text } from '@chakra-ui/react';
+import { useDispatch } from 'react-redux';
+import { logout } from '../../app/redux/slices/formSlice';
+import { useNavigate } from 'react-router-dom';
 
 export default function SideBar() {
-  const [subMenuIsActive, setSubMenuIsActive] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    // Dispatch the logout action when the "Logout" button is clicked
+    dispatch(logout());
+    console.log('m');
+    setTimeout(() => {
+      navigate('/auth');
+    }, 1000); // Adjust the delay as needed
+  };
 
   return (
     <Box
@@ -33,6 +44,7 @@ export default function SideBar() {
         className="sideBar-header h-max shadow-md flex items-center  w-full"
       >
         <Logo />
+
         <Flex direction={'column'} justifyContent={'center'}>
           <Text
             as={'p'}
@@ -52,28 +64,50 @@ export default function SideBar() {
       </Box>
 
       <Box className="pl-5 py-6" color="neutral.100">
-        <h3>MENU</h3>
+        <Text as="h3" marginBottom={2}>
+          MENU
+        </Text>
 
-        <Box className="memuList">
-          <li className="flex px-6 py-3 gap-4 justify-start font-bold items-center">
+        <List className="memuList">
+          <ListItem
+            roundedTopLeft={'md'}
+            roundedBottomLeft={'md'}
+            _hover={{ bg: 'brand.700', color: ' white', cursor: 'pointer' }}
+            className="flex px-6 py-3 gap-4 justify-start font-bold items-center"
+          >
             <div className="icon h-6 w-6 flex items-center justify-center">
               <PiDotsNine size={16} />
             </div>
             Dashboard
-          </li>
-          <li className="flex px-6 py-3 gap-4 justify-start font-bold items-center">
+          </ListItem>
+          <ListItem
+            roundedTopLeft={'md'}
+            roundedBottomLeft={'md'}
+            _hover={{ bg: 'brand.700', color: ' white', cursor: 'pointer' }}
+            className="flex px-6 py-3 gap-4 justify-start font-bold items-center"
+          >
             <div className="icon h-6 w-6 flex items-center justify-center">
               <MdOutlineAssignment size={18} />
             </div>
             Assignments
-          </li>
-          <li className="flex px-6 py-3 gap-4 justify-start font-bold items-center">
+          </ListItem>
+          <ListItem
+            roundedTopLeft={'md'}
+            roundedBottomLeft={'md'}
+            _hover={{ bg: 'brand.700', color: ' white', cursor: 'pointer' }}
+            className="flex px-6 py-3 gap-4 justify-start font-bold items-center"
+          >
             <div className="icon h-6 w-6 flex items-center justify-center">
               <TbReport size={18} />
             </div>
             My Results
-          </li>{' '}
-          <li>
+          </ListItem>{' '}
+          <ListItem
+            roundedTopLeft={'md'}
+            roundedBottomLeft={'md'}
+            _hover={{ bg: 'brand.700', color: ' white', cursor: 'pointer' }}
+            marginTop={'0'}
+          >
             <Link
               to={'/fees/invoices'}
               className="flex px-6 py-3 gap-4 justify-start font-bold items-center"
@@ -83,56 +117,85 @@ export default function SideBar() {
               </div>
               Transactions
             </Link>
-          </li>
-          <li className="flex px-6 py-3 gap-4 justify-start font-bold items-center">
+          </ListItem>
+          <ListItem
+            roundedTopLeft={'md'}
+            roundedBottomLeft={'md'}
+            _hover={{ bg: 'brand.700', color: ' white', cursor: 'pointer' }}
+            className="flex px-6 py-3 gap-4 justify-start font-bold items-center"
+          >
             <div className="icon h-6 w-6 flex items-center justify-center">
               <MdOutlineBed size={18} />
             </div>
             School Bus
-          </li>
-          <li className="flex px-6 py-3 gap-4 justify-start font-bold items-center">
+          </ListItem>
+          <ListItem
+            roundedTopLeft={'md'}
+            roundedBottomLeft={'md'}
+            _hover={{ bg: 'brand.700', color: ' white', cursor: 'pointer' }}
+            className="flex px-6 py-3 gap-4 justify-start font-bold items-center"
+          >
             <div className="icon h-6 w-6 flex items-center justify-center">
               <MdOutlineBed size={18} />
             </div>
             Hostel Boarding
-          </li>
-          <li className="flex px-6 py-3 gap-4 justify-start font-bold items-center">
+          </ListItem>
+          <ListItem
+            roundedTopLeft={'md'}
+            roundedBottomLeft={'md'}
+            _hover={{ bg: 'brand.700', color: ' white', cursor: 'pointer' }}
+            className="flex px-6 py-3 gap-4 justify-start font-bold items-center"
+          >
             <div className="icon h-6 w-6 flex items-center justify-center">
               <MdOutlineBed size={18} />
             </div>
             School Events
-          </li>
-        </Box>
+          </ListItem>
+        </List>
       </Box>
 
       <Box className="pl-5 py-6" color="neutral.100">
-        <h3>ACCOUNT</h3>
-        <Box className="memuList">
+        <Text as="h3" marginBottom={2}>
+          ACCOUNT
+        </Text>
+        <List className="memuList">
           {/*  */}
-          <li className="flex justify-start px-6 py-3 gap-4 font-bold items-center">
+          <ListItem
+            roundedTopLeft={'md'}
+            roundedBottomLeft={'md'}
+            _hover={{ bg: 'brand.700', color: ' white', cursor: 'pointer' }}
+            className="flex justify-start px-6 py-3 gap-4 font-bold items-center"
+          >
             <div className="icon h-6 w-6 flex items-center justify-center">
               <MdOutlineSupportAgent size={20} />
             </div>
             Help and Support
-          </li>
-          <li className="flex justify-start px-6 py-3 gap-4 font-bold items-center">
+          </ListItem>
+          <ListItem
+            roundedTopLeft={'md'}
+            roundedBottomLeft={'md'}
+            _hover={{ bg: 'brand.700', color: ' white', cursor: 'pointer' }}
+            className="flex justify-start px-6 py-3 gap-4 font-bold items-center"
+          >
             <div className="icon h-6 w-6 flex items-center justify-center">
               <MdOutlinePrecisionManufacturing size={20} />
             </div>
             Settings
-          </li>
-          <li className="flex justify-start px-6 py-3 gap-4 font-bold items-center">
+          </ListItem>
+          <ListItem
+            roundedTopLeft={'md'}
+            roundedBottomLeft={'md'}
+            _hover={{ bg: 'brand.700', color: ' white', cursor: 'pointer' }}
+            className="flex justify-start px-6 py-3 gap-4 font-bold items-center"
+            onClick={handleLogout}
+          >
             <div className="icon h-6 w-6 flex items-center justify-center">
               <BiLogOutCircle size={20} />
             </div>
             Logout
-          </li>
-        </Box>{' '}
+          </ListItem>
+        </List>
       </Box>
     </Box>
   );
 }
-
-const AdminSideMenu = () => {};
-
-const UserSideMenu = () => {};

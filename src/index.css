@@ -34,7 +34,9 @@ main {
   height: 100%;
   position: relative;
   bottom: 0;
+  left: 0;
   width: calc(100vw - 260px);
+  overflow-x: hidden;
 }
 
 .paySection {

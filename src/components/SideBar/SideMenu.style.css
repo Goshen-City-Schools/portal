@@ -1,4 +1,4 @@
-ul {
+/* ul {
   @apply flex flex-col space-y-3;
 }
 li > ul {
@@ -8,8 +8,8 @@ li > ul {
 li > ul > li,
 li > ul > li > a {
   @apply flex gap-4 w-full justify-start items-center;
-}
+} */
 
-.memuList span {
-  @apply font-bold flex w-full justify-between items-center;
+li {
+  transition: background-color 0.3s ease;
 }

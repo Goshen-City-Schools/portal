@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'; // Import useSelector from react-redu
 
 const PrivateRoute = ({ element, ...rest }) => {
   // Use useSelector to access the user's authentication status
-  const { userData } = useSelector((state) => state.form);
+  const userData = localStorage.getItem('user');
 
   return userData ? (
     <Route {...rest} element={element} />
