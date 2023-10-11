@@ -40,10 +40,7 @@ const router = createBrowserRouter(
 
       <Route path="/" element={<StudentLayout />}>
         {/* Home Route */}
-        <Route
-          index
-          element={user.userType == "Student" ? <Home /> : <AdminHome />}
-        />
+        <Route index element={<Home />} />
 
         {/* Fees Routes */}
         <Route path="/fees">
