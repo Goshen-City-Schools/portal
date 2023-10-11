@@ -71,9 +71,9 @@ export default function LoginScreen() {
 
     setTimeout(() => {
       setIsLoading(false);
-      if (userData.userType == "student") {
-        navigate("/");
-      } else navigate("/admin");
+      if (userData.userType == "Student") {
+        return navigate("/");
+      } else return navigate("/admin");
     }, 2000);
   }
 
