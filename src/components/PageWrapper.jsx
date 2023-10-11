@@ -1,5 +1,7 @@
 import React from 'react';
 
-export default function PageWrapper() {
-  return <div>PageWrapper</div>;
+import { Box } from '@chakra-ui/react';
+
+export default function PageWrapper({ children }) {
+  return <Box padding={6}>{children}</Box>;
 }

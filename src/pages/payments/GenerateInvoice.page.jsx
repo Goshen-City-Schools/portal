@@ -1,11 +1,8 @@
 import React from 'react';
-import SessionTerm from '../../components/forms/SessionTerm.form';
 import { useNavigate } from 'react-router-dom';
-import {
-  FaArrowCircleDown,
-  FaChevronDown,
-  FaChevronRight,
-} from 'react-icons/fa';
+import { FaChevronDown, FaChevronRight } from 'react-icons/fa';
+
+import { Flex } from '@chakra-ui/react';
 
 export default function GenerateInvoicePage() {
   const navigate = useNavigate();
@@ -14,9 +11,19 @@ export default function GenerateInvoicePage() {
     <div className="paySection flex p-6 flex-col">
       <h3 className="font-bold text-2xl">Generate invoice</h3>
 
-      <div className="flex flex-col mt-4 gap-4 w-full p-6 rounded-md shadow-md">
-        <fieldset className="p-6 rounded-lg shadow-md w-full">
-          <h4 className="font-bold text-xl text-blue-600  mb-6">
+      <Flex
+        direction={'column'}
+        marginTop={4}
+        gap={8}
+        width={'full'}
+        paddingX={8}
+        paddingY={8}
+        rounded={'2xl'}
+        shadow={'md'}
+        bg={'white'}
+      >
+        <fieldset className="p-6 rounded-xl shadow-md w-full border-t-2 border-blue-900">
+          <h4 className="font-bold text-xl text-blue-600 mb-6">
             Student details
           </h4>
 
@@ -54,7 +61,7 @@ export default function GenerateInvoicePage() {
           </form>
         </fieldset>
         {/*  */}
-        <fieldset className="p-6 rounded-lg shadow-md w-full">
+        <fieldset className="p-6 rounded-lg shadow-md w-full border-t-2 border-blue-900">
           <h4 className="font-bold text-xl text-blue-600  mb-6">
             Parent/Guardian details
           </h4>
@@ -79,7 +86,7 @@ export default function GenerateInvoicePage() {
           </form>
         </fieldset>
         {/*  */}
-        <fieldset className="p-6 rounded-lg shadow-md w-full">
+        <fieldset className="p-6 rounded-lg shadow-md w-full border-t-2 border-blue-900">
           <h4 className="font-bold text-xl text-blue-600  mb-6">
             Academic Calendar
           </h4>
@@ -101,7 +108,7 @@ export default function GenerateInvoicePage() {
         </fieldset>
 
         {/*  */}
-        <fieldset className="p-6 rounded-lg shadow-md w-full">
+        <fieldset className="p-6 rounded-lg shadow-md w-full border-t-2 border-blue-900">
           <div className="flex justify-between items-center">
             <h4 className="font-bold text-xl text-blue-600  mb-6">
               Paying for?
@@ -124,7 +131,7 @@ export default function GenerateInvoicePage() {
                     loading="lazy"
                   />
                 </div>
-                <div className="flex flex-col gap-1">
+                <div className="flex flex-col justify-center gap-1">
                   <h3 className="font-bold flex justify-between items-center text-gray-600">
                     School Tuition
                     <span>
@@ -138,11 +145,7 @@ export default function GenerateInvoicePage() {
                     early development is off to a great start.
                   </small>
 
-                  <div className="flex justify-end">
-                    <div className="h-7 w-7 mt-2 rounded-full flex justify-center items-center shadow-md bg-orange-700 text-gray-50">
-                      <FaChevronRight size={18} />
-                    </div>
-                  </div>
+                  {/*  */}
                 </div>
               </div>
             </div>
@@ -158,7 +161,7 @@ export default function GenerateInvoicePage() {
                     loading="lazy"
                   />
                 </div>
-                <div className="flex flex-col gap-1">
+                <div className="flex flex-col gap-1 justify-center ">
                   <h3 className="font-bold flex justify-between items-center text-gray-600">
                     Boarding Fees
                     <span>
@@ -170,12 +173,6 @@ export default function GenerateInvoicePage() {
                     Boarding Fees are applicable for students who reside in the
                     school's boarding facilities.
                   </small>
-
-                  <div className="flex justify-end">
-                    <div className="h-7 w-7 mt-2 rounded-full flex justify-center items-center shadow-md bg-orange-700 text-gray-50">
-                      <FaChevronRight size={18} />
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
@@ -191,7 +188,7 @@ export default function GenerateInvoicePage() {
                     loading="lazy"
                   />
                 </div>
-                <div className="flex flex-col gap-1">
+                <div className="flex flex-col gap-1 justify-center ">
                   <h3 className="font-bold flex justify-between items-center text-gray-600">
                     Bus Fees
                     <span>
@@ -204,12 +201,6 @@ export default function GenerateInvoicePage() {
                     students, ensuring they arrive at school comfortably and on
                     time.
                   </small>
-
-                  <div className="flex justify-end">
-                    <div className="h-7 w-7 mt-2 rounded-full flex justify-center items-center shadow-md bg-orange-700 text-gray-50">
-                      <FaChevronRight size={18} />
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
@@ -225,7 +216,7 @@ export default function GenerateInvoicePage() {
                     loading="lazy"
                   />
                 </div>
-                <div className="flex flex-col gap-1">
+                <div className="flex flex-col gap-1 justify-center ">
                   <h3 className="font-bold flex justify-between items-center text-gray-600">
                     Books
                     <span>
@@ -238,12 +229,6 @@ export default function GenerateInvoicePage() {
                     open doors to new adventures and endless learning
                     opportunities.
                   </small>
-
-                  <div className="flex justify-end">
-                    <div className="h-7 w-7 rounded-full flex justify-center items-center shadow-md bg-orange-700 text-gray-50">
-                      <FaChevronRight size={18} />
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
@@ -259,9 +244,9 @@ export default function GenerateInvoicePage() {
                     loading="lazy"
                   />
                 </div>
-                <div className="flex flex-col gap-1">
+                <div className="flex flex-col gap-1 justify-center ">
                   <h3 className="font-bold flex justify-between items-center text-gray-600">
-                    School Supplies
+                    Activity Fees
                     <span>
                       <div className="h-4 w-4 mb-2 rounded-full flex justify-center items-center shadow-md bg-gray-50 border border-orange-600"></div>
                     </span>
@@ -272,12 +257,6 @@ export default function GenerateInvoicePage() {
                     and essential learning materials, ensuring your child's
                     early development is off to a great start.
                   </small>
-
-                  <div className="flex justify-end">
-                    <div className="h-7 w-7 mt-2 rounded-full flex justify-center items-center shadow-md bg-orange-700 text-gray-50">
-                      <FaChevronRight size={18} />
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
@@ -293,7 +272,7 @@ export default function GenerateInvoicePage() {
                     loading="lazy"
                   />
                 </div>
-                <div className="flex flex-col gap-1">
+                <div className="flex flex-col gap-1 justify-center ">
                   <h3 className="font-bold flex justify-between items-center text-gray-600">
                     Uniform
                     <span>
@@ -306,12 +285,6 @@ export default function GenerateInvoicePage() {
                     of honor that signifies you're part of our wonderful school
                     community.
                   </small>
-
-                  <div className="flex justify-end">
-                    <div className="h-7 w-7 mt-2 rounded-full flex justify-center items-center shadow-md bg-orange-700 text-gray-50">
-                      <FaChevronRight size={18} />
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
@@ -326,7 +299,7 @@ export default function GenerateInvoicePage() {
         </fieldset>
 
         {/*  */}
-        <fieldset className="p-6 rounded-lg shadow-md w-full">
+        <fieldset className="p-6 rounded-lg shadow-md w-full border-t-2 border-blue-900">
           <h4 className="font-bold text-xl text-blue-600  mb-6">
             Payment method
           </h4>
@@ -375,7 +348,7 @@ export default function GenerateInvoicePage() {
             Generate invoice
           </button>
         </div>
-      </div>
+      </Flex>
     </div>
   );
 }

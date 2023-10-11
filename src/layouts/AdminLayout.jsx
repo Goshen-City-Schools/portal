@@ -1,14 +1,14 @@
 import React from 'react';
-import SideMenu from '../components/SideMenu';
-import Header from '../components/Header.component';
 import { Outlet } from 'react-router-dom';
+import AdminSideBar from '../components/SideBar/AdminSideBar';
+import AdminHeader from '../components/Header/AdminHeader.component';
 
 export default function AdminLayout() {
   return (
     <div className="relative">
-      <SideMenu />
-      <main className="ml-[280px]">
-        <Header />
+      <AdminSideBar />
+      <main className="ml-[260px]">
+        <AdminHeader />
         Admin
         <Outlet />
       </main>
