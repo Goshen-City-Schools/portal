@@ -1,7 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "./LoadingScreen.css"; // Import the CSS file for styling
 
-export default function LoadingScreen({ navigateToPath, timer = 3000 }) {
+export default function LoadingScreen({
+  navigateToPath = "",
+  timer = 3000,
+  height = "100vh",
+}) {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
 
@@ -16,14 +21,10 @@ export default function LoadingScreen({ navigateToPath, timer = 3000 }) {
     return () => clearTimeout(loadingTimeout);
   }, [navigate]);
 
-  return (
-    <div>
-      {isLoading ? (
-        <div>
-          <h1>Loading...</h1>
-          {/* You can add a loading spinner or animation here */}
-        </div>
-      ) : null}
+  return isLoading ? (
+    <div className="loading-screen" style={{ height: height }}>
+      <div className="loader"></div>
+      <h2>Loading...</h2>
     </div>
-  );
+  ) : null;
 }

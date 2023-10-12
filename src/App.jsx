@@ -21,22 +21,41 @@ import AdminHome from "./pages/admin/Home";
 // Layouts
 import AdminLayout from "./layouts/AdminLayout";
 import StudentLayout from "./layouts/StudentLayout";
+import LoadingScreen from "./screens/Loading.screen";
+import defaultConfigValues from "./data/defaultConfigValues";
+import StudentsPage from "./pages/admin/students/Students.page";
+import StaffPage from "./pages/admin/staff/Staff.page";
+import ResultPage from "./pages/admin/results/Results.page";
+
+const user = defaultConfigValues.user;
+
+const getLayoutForUser = () => {
+  if (user) {
+    if (user.userType == "Staff") {
+      return <AdminLayout />;
+    } else if (user.userType == "Student") {
+      return <StudentLayout />;
+    }
+  }
+  // If user data is not available or user type doesn't match, you can return a loading or authentication screen
+  return <LoadingScreen />; // Replace 'LoadingScreen' with your loading screen component
+};
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>
       <Route path="/auth" element={<LoginScreen />} />
 
-      <Route path="/admin">
+      <Route path="/admin" element={getLayoutForUser()}>
         {/* Home Route */}
-        <Route path="auth" element={<LoginScreen />} />
 
-        <Route element={<AdminLayout />}>
-          <Route index element={<AdminHome />} />{" "}
-        </Route>
+        <Route index element={<AdminHome />} />
+        <Route path="students" element={<StudentsPage />} />
+        <Route path="staff" element={<StaffPage />} />
+        <Route path="results" element={<ResultPage />} />
       </Route>
 
-      <Route path="/" element={<StudentLayout />}>
+      <Route path="/" element={getLayoutForUser()}>
         {/* Home Route */}
         <Route index element={<Home />} />
 

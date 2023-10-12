@@ -2,6 +2,8 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateField, setLoginError } from "../app/redux/slices/formSlice";
 
+import { motion } from "framer-motion";
+
 import {
   Grid,
   GridItem,
@@ -18,6 +20,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import determineUserType from "../helpers/determinUserType";
 import LoadingScreen from "./Loading.screen";
+import defaultConfigValues from "../data/defaultConfigValues";
+// import { pageVariants } from "../components/PageWrapper";
 
 export default function LoginScreen() {
   const dispatch = useDispatch();
@@ -82,79 +86,90 @@ export default function LoginScreen() {
   }
 
   return (
-    <Grid height={"100vh"} templateColumns="repeat(2, 1fr)">
-      <GridItem
-        display={"flex"}
-        height={"full"}
-        bg={"brand.200"}
-        justifyContent={"center"}
-        alignItems={"center"}
-      >
-        <Box
-          position={"relative"}
-          height={"64"}
-          width={"64"}
-          overflow={"hidden"}
+    <motion.div
+      initial="initial"
+      animate="animate"
+      variants={defaultConfigValues.pageVariants}
+    >
+      <Grid height={"100vh"} templateColumns="repeat(2, 1fr)">
+        <GridItem
+          display={"flex"}
+          height={"full"}
+          bg={"brand.200"}
+          justifyContent={"center"}
+          alignItems={"center"}
         >
-          <img
-            src="/Goshen-logo-trans.png"
-            alt=""
-            className="absolute object-contain w-full h-full"
-          />
-        </Box>
-      </GridItem>
-      <GridItem
-        display={"flex"}
-        padding={12}
-        height={"full"}
-        justifyContent={"center"}
-        flexDirection={"column"}
-      >
-        {/* Welcome Text */}
-        <Flex direction={"column"} marginBottom={12}>
-          <Text as={"h3"} fontSize={"3xl"} fontWeight={"bold"}>
-            Welcome back
-          </Text>
-          <Text as={"small"} fontSize={"sm"}>
-            Fill in your details below to login
-          </Text>
-        </Flex>
-
-        {/* Form Submission */}
-        <form onSubmit={handleSubmit}>
-          {/* UserID */}
-          <FormControl mb={2}>
-            <FormLabel fontSize={"sm"}>Student/Staff ID</FormLabel>
-            <Input
-              type="text"
-              name="userID"
-              value={userID}
-              onChange={handleInputChange}
-              placeholder="Enter your ID number"
+          <Box
+            position={"relative"}
+            height={"64"}
+            width={"64"}
+            overflow={"hidden"}
+          >
+            <img
+              src="/Goshen-logo-trans.png"
+              alt=""
+              className="absolute object-contain w-full h-full"
             />
-          </FormControl>
+          </Box>
+        </GridItem>
+        <GridItem
+          display={"flex"}
+          padding={12}
+          height={"full"}
+          justifyContent={"center"}
+          flexDirection={"column"}
+        >
+          {/* Welcome Text */}
+          <Flex direction={"column"} marginBottom={12}>
+            <Text as={"h3"} fontSize={"3xl"} fontWeight={"bold"}>
+              Welcome back
+            </Text>
+            <Text as={"small"} fontSize={"sm"}>
+              Fill in your details below to login
+            </Text>
+          </Flex>
 
-          {/* Password */}
-          <FormControl>
-            <FormLabel fontSize={"sm"}>Password</FormLabel>
-            <Input
-              type="password"
-              name="password"
-              value={password}
-              onChange={handleInputChange}
-            />
-          </FormControl>
+          {/* Form Submission */}
+          <form onSubmit={handleSubmit}>
+            {/* UserID */}
+            <FormControl mb={2}>
+              <FormLabel fontSize={"sm"}>Student/Staff ID</FormLabel>
+              <Input
+                type="text"
+                name="userID"
+                value={userID}
+                onChange={handleInputChange}
+                placeholder="Enter your ID number"
+              />
+            </FormControl>
 
-          {/* Error message */}
-          <FormControl>
-            <FormHelperText color={"error.700"}>{loginError}</FormHelperText>
-          </FormControl>
+            {/* Password */}
+            <FormControl>
+              <FormLabel fontSize={"sm"}>Password</FormLabel>
+              <Input
+                type="password"
+                name="password"
+                value={password}
+                onChange={handleInputChange}
+              />
+            </FormControl>
 
-          <Button mt={4} colorScheme="teal" isLoading={isLoading} type="submit">
-            Login
-          </Button>
-        </form>
-      </GridItem>
-    </Grid>
+            {/* Error message */}
+            <FormControl>
+              <FormHelperText color={"error.700"}>{loginError}</FormHelperText>
+            </FormControl>
+
+            <Button
+              mt={4}
+              colorScheme="teal"
+              isLoading={isLoading}
+              type="submit"
+            >
+              Login
+            </Button>
+          </form>
+        </GridItem>
+      </Grid>
+    </motion.div>
   );
 }

@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import CalendarWidget from 'react-calendar';
-import './Calendar.css';
+import React, { useState } from "react";
+import CalendarWidget from "react-calendar";
+import "./Calendar.css";
 
 export default function Calendar() {
   const [value, setValue] = useState(new Date());
@@ -16,7 +16,7 @@ export default function Calendar() {
   return (
     <div className="border-gray-300 border-2 rounded-md">
       <CalendarWidget
-        className={'border-0'}
+        className={"border-0"}
         onChange={() => handleDateChange}
         value={value}
       />

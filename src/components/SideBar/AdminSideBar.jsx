@@ -71,41 +71,53 @@ export default function AdminSideBar() {
             roundedTopLeft={"md"}
             roundedBottomLeft={"md"}
             _hover={{ bg: "brand.700", color: " white", cursor: "pointer" }}
-            className="flex px-6 py-3 gap-4 justify-start font-bold items-center"
+            className="flex gap-4 justify-start font-bold items-center"
             marginTop={"0"}
           >
-            <div className="icon h-6 w-6 flex items-center justify-center">
-              <PiDotsNine size={16} />
-            </div>
-            Dashboard
+            <Link className="flex px-6 py-3 gap-4 justify-start font-bold items-center">
+              <div className="icon h-6 w-6 flex items-center justify-center">
+                <PiDotsNine size={16} />
+              </div>
+              Dashboard
+            </Link>
           </ListItem>
           <ListItem
             roundedTopLeft={"md"}
             roundedBottomLeft={"md"}
             _hover={{ bg: "brand.700", color: " white", cursor: "pointer" }}
-            className="flex px-6 py-3 gap-4 justify-start font-bold items-center"
+            className="flex justify-start font-bold items-center"
             marginTop={"0"}
           >
-            <div className="icon h-6 w-6 flex items-center justify-center">
-              <MdOutlineAssignment size={18} />
-            </div>
-            Students
+            <Link
+              to="/admin/students"
+              className="flex px-6 py-3 gap-4 justify-start font-bold items-center"
+            >
+              <div to="/admin/students" className="flex w-full h-full">
+                <MdOutlineAssignment size={18} />
+              </div>
+              Students
+            </Link>
           </ListItem>
           <ListItem
             roundedTopLeft={"md"}
             roundedBottomLeft={"md"}
             _hover={{ bg: "brand.700", color: " white", cursor: "pointer" }}
-            className="flex px-6 py-3 gap-4 justify-start font-bold items-center"
+            className="flex gap-4 justify-start font-bold items-center"
             marginTop={"0"}
           >
-            <div className="icon h-6 w-6 flex items-center justify-center">
-              <TbReport size={18} />
-            </div>
-            Staff
-          </ListItem>{" "}
+            <Link
+              to="/admin/staff"
+              className="flex px-6 py-3 gap-4 justify-start font-bold items-center"
+            >
+              <div className="icon h-6 w-6 flex items-center justify-center">
+                <TbReport size={18} />
+              </div>
+              Staff
+            </Link>
+          </ListItem>
           <ListItem>
             <Link
-              to={"/fees/invoices"}
+              to={"/admin/classes"}
               className="flex px-6 py-3 gap-4 justify-start font-bold items-center"
             >
               <div className="icon h-6 w-6 flex items-center justify-center">
@@ -118,49 +130,69 @@ export default function AdminSideBar() {
             roundedTopLeft={"md"}
             roundedBottomLeft={"md"}
             _hover={{ bg: "brand.700", color: " white", cursor: "pointer" }}
-            className="flex px-6 py-3 gap-4 justify-start font-bold items-center"
+            className="flex gap-4 justify-start font-bold items-center"
             marginTop={"0"}
           >
-            <div className="icon h-6 w-6 flex items-center justify-center">
-              <MdOutlineBed size={18} />
-            </div>
-            Parents
+            <Link
+              to="/admin/parents"
+              className="flex px-6 py-3 gap-4 justify-start font-bold items-center"
+            >
+              <div className="icon h-6 w-6 flex items-center justify-center">
+                <MdOutlineBed size={18} />
+              </div>
+              Parents
+            </Link>
           </ListItem>
           <ListItem
             roundedTopLeft={"md"}
             roundedBottomLeft={"md"}
             _hover={{ bg: "brand.700", color: " white", cursor: "pointer" }}
-            className="flex px-6 py-3 gap-4 justify-start font-bold items-center"
+            className="flex gap-4 justify-start font-bold items-center"
             marginTop={"0"}
           >
-            <div className="icon h-6 w-6 flex items-center justify-center">
-              <MdOutlineBed size={18} />
-            </div>
-            Results
+            <Link
+              to="/admin/results"
+              className="flex px-6 py-3 gap-4 justify-start font-bold items-center"
+            >
+              <div className="icon h-6 w-6 flex items-center justify-center">
+                <MdOutlineBed size={18} />
+              </div>
+              Results
+            </Link>
           </ListItem>
           <ListItem
             roundedTopLeft={"md"}
             roundedBottomLeft={"md"}
             _hover={{ bg: "brand.700", color: " white", cursor: "pointer" }}
-            className="flex px-6 py-3 gap-4 justify-start font-bold items-center"
+            className="flex gap-4 justify-start font-bold items-center"
             marginTop={"0"}
           >
-            <div className="icon h-6 w-6 flex items-center justify-center">
-              <MdOutlineBed size={18} />
-            </div>
-            Calendar
+            <Link
+              to="/admin/calendar"
+              className="flex px-6 py-3 gap-4 justify-start font-bold items-center"
+            >
+              <div className="icon h-6 w-6 flex items-center justify-center">
+                <MdOutlineBed size={18} />
+              </div>
+              Calendar
+            </Link>
           </ListItem>
           <ListItem
             roundedTopLeft={"md"}
             roundedBottomLeft={"md"}
-            _hover={{ bg: "brand.700", color: " white", cursor: "pointer" }}
-            className="flex px-6 py-3 gap-4 justify-start font-bold items-center"
+            _hover={{ bg: "brand.700", color: "white", cursor: "pointer" }}
+            className="flex gap-4 justify-start font-bold items-center"
             marginTop={"0"}
           >
-            <div className="icon h-6 w-6 flex items-center justify-center">
-              <MdOutlineBed size={18} />
-            </div>
-            Finance
+            <Link
+              to="/admin/finance"
+              className="flex px-6 py-3 gap-4 justify-start font-bold items-center"
+            >
+              <div className="icon h-6 w-6 flex items-center justify-center">
+                <MdOutlineBed size={18} />
+              </div>
+              Finance
+            </Link>
           </ListItem>
         </List>
       </Box>
@@ -173,32 +205,41 @@ export default function AdminSideBar() {
             roundedTopLeft={"md"}
             roundedBottomLeft={"md"}
             _hover={{ bg: "brand.700", color: " white", cursor: "pointer" }}
-            className="flex px-6 py-3 gap-4 justify-start font-bold items-center"
+            className="flex gap-4 justify-start font-bold items-center"
             marginTop={"0"}
           >
-            <div className="icon h-6 w-6 flex items-center justify-center">
-              <MdOutlineSupportAgent size={20} />
-            </div>
-            Help and Support
+            <Link
+              to="/admin/"
+              className="flex px-6 py-3 gap-4 justify-start font-bold items-center"
+            >
+              <div className="icon h-6 w-6 flex items-center justify-center">
+                <MdOutlineSupportAgent size={20} />
+              </div>
+              Help and Support
+            </Link>
           </ListItem>
           <ListItem
             roundedTopLeft={"md"}
             roundedBottomLeft={"md"}
             _hover={{ bg: "brand.700", color: " white", cursor: "pointer" }}
-            className="flex px-6 py-3 gap-4 justify-start font-bold items-center"
+            className="flex gap-4 justify-start font-bold items-center"
             marginTop={"0"}
           >
-            <div className="icon h-6 w-6 flex items-center justify-center">
-              <MdOutlinePrecisionManufacturing size={20} />
-            </div>
-            Settings
+            <Link
+              to="/admin/settings"
+              className="flex px-6 py-3 gap-4 justify-start font-bold items-center"
+            >
+              <div className="icon h-6 w-6 flex items-center justify-center">
+                <MdOutlinePrecisionManufacturing size={20} />
+              </div>
+              Settings
+            </Link>
           </ListItem>
           <ListItem
             roundedTopLeft={"md"}
             roundedBottomLeft={"md"}
             _hover={{ bg: "brand.700", color: " white", cursor: "pointer" }}
-            className="flex px-6 py-3 gap-4 justify-start font-bold items-center"
-            marginTop={"0"}
+            className="flex justify-start px-6 py-3 gap-4 font-bold items-center"
             onClick={handleLogout}
           >
             <div className="icon h-6 w-6 flex items-center justify-center">
@@ -206,7 +247,7 @@ export default function AdminSideBar() {
             </div>
             Logout
           </ListItem>
-        </List>{" "}
+        </List>
       </Box>
     </Box>
   );
