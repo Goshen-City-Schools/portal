@@ -1,17 +1,17 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 
-import { BsChevronDown } from 'react-icons/bs';
+import { BsChevronDown } from "react-icons/bs";
 
-import Avatar from '../Avatar.component';
-import { CiBellOn } from 'react-icons/ci';
+import Avatar from "../Avatar.component";
+import { CiBellOn } from "react-icons/ci";
 
-import { Box } from '@chakra-ui/react';
+import { Box } from "@chakra-ui/react";
 
 export default function AdminHeader() {
   return (
     <Box
-      bg={'white'}
+      bg={"white"}
       paddingX={6}
       className="h-20 sticky top-0 left-0 z-40 shadow-md w-full flex items-center justify-between"
     >
@@ -39,11 +39,11 @@ export default function AdminHeader() {
         </div>
 
         <Link to="/dashboard/profile" className="flex gap-3 items-center">
-          <div className="h-12 w-12 rounded-full shadow-md overflow-hidden">
+          <div className="h-12 w-12 rounded-full relative  shadow-md overflow-hidden">
             <img
               src="/avatar.png"
               alt="User avatar"
-              classname="absolute object-cover w-full h-full"
+              className="absolute object-cover w-full h-full"
             />
           </div>
           <div className="flex flex-col">
