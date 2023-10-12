@@ -20,10 +20,10 @@ export default function PageWrapper({ children }) {
     }, 3000); // 3 seconds
   }, []);
 
-  if (user && user.userType === "Staff" && window.location.pathname === "/") {
-    // If the user is logged in as Staff and is at the base route '/', redirect them to '/admin'
-    return navigate("/admin");
-  }
+  // if (user && user.userType == "Staff" && window.location.pathname === "/") {
+  //   // If the user is logged in as Staff and is at the base route '/', redirect them to '/admin'
+  //   return navigate("/admin");
+  // }
 
   return (
     <>
