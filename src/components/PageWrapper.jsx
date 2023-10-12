@@ -22,8 +22,7 @@ export default function PageWrapper({ children }) {
 
   if (user && user.userType === "Staff" && window.location.pathname === "/") {
     // If the user is logged in as Staff and is at the base route '/', redirect them to '/admin'
-    navigate("/admin");
-    return null; // Optionally, you can return null to prevent rendering the 'Home' component
+    return navigate("/admin");
   }
 
   return (
