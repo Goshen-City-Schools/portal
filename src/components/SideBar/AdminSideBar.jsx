@@ -49,22 +49,22 @@ export default function AdminSideBar() {
         <Flex direction={"column"} justifyContent={"center"}>
           <Text
             as={"p"}
-            className="text-lg font-bold leading-tight"
-            color={"neutral.100"}
+            className="text-md font-bold leading-tight"
+            color={"white"}
           >
-            GOSHEN CITY INTL.
+            GOSHEN GROUP OF SCH.
           </Text>
           <Text
             as={"small"}
-            color="neutral.300"
+            color="whiteAlpha.800"
             className="text-[.7rem] font-bold uppercase"
           >
-            Creche . Nursery . Primary
+            Cre . Nur . Pri . Sec .
           </Text>
         </Flex>
       </Box>
 
-      <Box className="pl-6 pr-4 py-6" color="neutral.100">
+      <Box className="pl-6 pr-4 py-6" color="white">
         <h3>MENU</h3>
 
         <List className="memuList pl-2">
@@ -119,7 +119,7 @@ export default function AdminSideBar() {
         </List>
       </Box>
 
-      <Box className="pl-5 py-6" color="neutral.100">
+      <Box className="pl-5 py-6" color="white">
         <h3>ACCOUNT</h3>
         <List className="memuList">
           {/*  */}

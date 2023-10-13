@@ -7,15 +7,17 @@ import Avatar from "../Avatar.component";
 import { CiBellOn } from "react-icons/ci";
 
 import { Box } from "@chakra-ui/react";
+import SearchWidget from "../../widgets/Search.widget";
 
 export default function AdminHeader() {
   return (
     <Box
       bg={"white"}
       paddingX={6}
-      className="h-20 sticky top-0 left-0 z-40 shadow-md w-full flex items-center justify-between"
+      width={"calc(100vw - 260px)"}
+      className="left-['260px'] h-20 fixed top-0 z-40 shadow-md flex items-center justify-between"
     >
-      <h3 className="text-xl font-bold">Welcome back, Nkechinyere</h3>
+      <SearchWidget text={"Search students, staffs, events..."} />
 
       <div className="flex items-center gap-4 text-sm">
         <div className="flex flex-col">

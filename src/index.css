@@ -37,10 +37,15 @@ main {
   left: 0;
   width: calc(100vw - 260px);
   overflow-x: hidden;
+  background-color: #f1f3f9;
 }
 
 .paySection {
   height: calc(100vh - 5rem);
+}
+
+.searchInput:focus {
+  border: 2px solid blue; /* Change the border color and width as needed */
 }
 
 li {

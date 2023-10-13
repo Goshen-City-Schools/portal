@@ -22,9 +22,9 @@ export default function PageWrapper({ children }) {
   return (
     <>
       {isLoading ? (
-        <LoadingScreen height="92vh" timer={2100} />
+        <LoadingScreen height="92vh" timer={2100} mt={"80px"} />
       ) : (
-        <Box p={6}>
+        <Box p={6} mt={"80px"}>
           <motion.div
             initial="initial"
             animate="animate"
