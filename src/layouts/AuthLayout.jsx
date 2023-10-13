@@ -9,8 +9,10 @@ export default function AuthLayout({ children }) {
 
   const user = JSON.parse(localStorage.getItem("user"));
 
+  console.log(user);
+
   if (user == null) {
-    navigate("/auth"); // Replace '/auth' wi`th the actual login page path
+    navigate("/auth");
     return <LoadingScreen navigateToPath={"/auth"} />;
   }
 

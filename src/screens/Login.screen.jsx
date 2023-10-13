@@ -26,7 +26,7 @@ import defaultConfigValues from "../data/defaultConfigValues";
 export default function LoginScreen() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const loggedInUser = localStorage.getItem("user");
+  const loggedInUser = JSON.parse(localStorage.getItem("user"));
   const [isLoading, setIsLoading] = useState(false);
 
   const { userID, password, loginError } = useSelector((state) => state.form);
@@ -36,6 +36,7 @@ export default function LoginScreen() {
     dispatch(updateField({ fieldName: name, fieldValue: value }));
   };
 
+  // Submit handler
   function handleSubmit(e) {
     e.preventDefault();
 
@@ -81,9 +82,11 @@ export default function LoginScreen() {
     }, 2000);
   }
 
-  if (loggedInUser) {
+  if (loggedInUser && loggedInUser.userType == "Staff")
+    return <LoadingScreen navigateToPath={"/admin"} timer={1500} />;
+
+  if (loggedInUser && loggedInUser.userType == "Student")
     return <LoadingScreen navigateToPath={"/"} timer={1500} />;
-  }
 
   return (
     <motion.div
@@ -94,37 +97,69 @@ export default function LoginScreen() {
       <Grid height={"100vh"} templateColumns="repeat(2, 1fr)">
         <GridItem
           display={"flex"}
+          flexDirection={"column"}
           height={"full"}
-          bg={"brand.200"}
-          justifyContent={"center"}
+          bg={"brand.700"}
+          justifyContent={"start"}
           alignItems={"center"}
+          gap={8}
         >
+          <Flex
+            direction={"column"}
+            color={"white"}
+            justifyContent={"center"}
+            alignItems={"center"}
+          >
+            <Box
+              position={"relative"}
+              height={"48"}
+              width={"48"}
+              overflow={"hidden"}
+            >
+              <img
+                src="/Goshen-logo-trans.png"
+                alt="Goshen group of Schools logo"
+                className="absolute object-contain w-full h-full"
+              />
+            </Box>
+            <Text as={"h3"} fontSize={"3xl"} fontWeight={"bold"}>
+              GOSHEN GROUP OF SCHOOLS
+            </Text>
+            <Text as={"p"} fontSize={"sm"}>
+              Wisdom, the principal thing
+            </Text>{" "}
+          </Flex>
+
           <Box
+            w={"100%"}
+            h={"380px"}
+            mt={12}
             position={"relative"}
-            height={"64"}
-            width={"64"}
             overflow={"hidden"}
           >
             <img
-              src="/Goshen-logo-trans.png"
+              src="/Illustration.png"
               alt=""
-              className="absolute object-contain w-full h-full"
+              className="absolute top-0 h-full w-full object-contain"
             />
           </Box>
         </GridItem>
+        {/*  */}
         <GridItem
           display={"flex"}
           padding={12}
           height={"full"}
           justifyContent={"center"}
           flexDirection={"column"}
+          w={"80%"}
+          marginX={"auto"}
         >
           {/* Welcome Text */}
           <Flex direction={"column"} marginBottom={12}>
-            <Text as={"h3"} fontSize={"3xl"} fontWeight={"bold"}>
+            <Text as={"h3"} fontSize={"4xl"} fontWeight={"bold"}>
               Welcome back
             </Text>
-            <Text as={"small"} fontSize={"sm"}>
+            <Text as={"small"} fontSize={"md"}>
               Fill in your details below to login
             </Text>
           </Flex>
@@ -133,10 +168,11 @@ export default function LoginScreen() {
           <form onSubmit={handleSubmit}>
             {/* UserID */}
             <FormControl mb={2}>
-              <FormLabel fontSize={"sm"}>Student/Staff ID</FormLabel>
+              <FormLabel fontSize={"sm"}>Student / Staff ID</FormLabel>
               <Input
                 type="text"
                 name="userID"
+                height={"56px"}
                 value={userID}
                 onChange={handleInputChange}
                 placeholder="Enter your ID number"
@@ -150,6 +186,8 @@ export default function LoginScreen() {
                 type="password"
                 name="password"
                 value={password}
+                height={"56px"}
+                placeholder="Enter password"
                 onChange={handleInputChange}
               />
             </FormControl>
@@ -161,9 +199,12 @@ export default function LoginScreen() {
 
             <Button
               mt={4}
-              colorScheme="teal"
+              bg={"brand.900"}
+              color={"white"}
               isLoading={isLoading}
               type="submit"
+              py={"6"}
+              height={"48px"}
             >
               Login
             </Button>

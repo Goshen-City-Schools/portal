@@ -50,3 +50,7 @@ li {
 form button {
   @apply rounded-lg px-3 py-2;
 }
+
+a.activeClass {
+  @apply bg-green-500;
+}

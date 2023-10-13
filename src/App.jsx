@@ -21,12 +21,10 @@ import AdminHome from "./pages/admin/Home";
 // Layouts
 import AdminLayout from "./layouts/AdminLayout";
 import StudentLayout from "./layouts/StudentLayout";
-import LoadingScreen from "./screens/Loading.screen";
-import defaultConfigValues from "./data/defaultConfigValues";
+
 import StudentsPage from "./pages/admin/students/Students.page";
 import StaffPage from "./pages/admin/staff/Staff.page";
 import ResultPage from "./pages/admin/results/Results.page";
-import userTypeMiddleware from "./middlewares/userType.midddleware";
 import AuthLayout from "./layouts/AuthLayout";
 
 const router = createBrowserRouter(
@@ -45,6 +43,7 @@ const router = createBrowserRouter(
         {/* Home Route */}
 
         <Route index element={<AdminHome />} />
+        <Route path="home" element={<AdminHome />} />
         <Route path="students" element={<StudentsPage />} />
         <Route path="staff" element={<StaffPage />} />
         <Route path="results" element={<ResultPage />} />

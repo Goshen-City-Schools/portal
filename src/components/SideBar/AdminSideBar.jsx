@@ -2,7 +2,7 @@ import React from "react";
 import Logo from "../Logo.component";
 import "./SideMenu.style.css";
 
-import { Box, List, Flex, Text, ListItem } from "@chakra-ui/react";
+import { Box, List, Flex, Text } from "@chakra-ui/react";
 
 import { TbSchool, TbReport } from "react-icons/tb";
 import { BiLogOutCircle } from "react-icons/bi";
@@ -15,11 +15,12 @@ import {
 } from "react-icons/md";
 
 import "./SideMenu.style.css";
-import { Link } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
 import { logout } from "../../app/redux/slices/formSlice";
 import { useNavigate } from "react-router-dom";
+import IconComponent from "../Icon.component";
+import NavItemComponent from "../NavItem.component";
 
 export default function AdminSideBar() {
   const dispatch = useDispatch();
@@ -63,137 +64,58 @@ export default function AdminSideBar() {
         </Flex>
       </Box>
 
-      <Box className="pl-5 py-6" color="neutral.100">
+      <Box className="pl-6 pr-4 py-6" color="neutral.100">
         <h3>MENU</h3>
 
-        <List className="memuList">
-          <ListItem
-            roundedTopLeft={"md"}
-            roundedBottomLeft={"md"}
-            _hover={{ bg: "brand.700", color: " white", cursor: "pointer" }}
-            className="flex gap-4 justify-start font-bold items-center"
-            marginTop={"0"}
-          >
-            <Link className="flex px-6 py-3 gap-4 justify-start font-bold items-center">
-              <div className="icon h-6 w-6 flex items-center justify-center">
-                <PiDotsNine size={16} />
-              </div>
-              Dashboard
-            </Link>
-          </ListItem>
-          <ListItem
-            roundedTopLeft={"md"}
-            roundedBottomLeft={"md"}
-            _hover={{ bg: "brand.700", color: " white", cursor: "pointer" }}
-            className="flex justify-start font-bold items-center"
-            marginTop={"0"}
-          >
-            <Link
-              to="/admin/students"
-              className="flex px-6 py-3 gap-4 justify-start font-bold items-center"
-            >
-              <div to="/admin/students" className="flex w-full h-full">
-                <MdOutlineAssignment size={18} />
-              </div>
-              Students
-            </Link>
-          </ListItem>
-          <ListItem
-            roundedTopLeft={"md"}
-            roundedBottomLeft={"md"}
-            _hover={{ bg: "brand.700", color: " white", cursor: "pointer" }}
-            className="flex gap-4 justify-start font-bold items-center"
-            marginTop={"0"}
-          >
-            <Link
-              to="/admin/staff"
-              className="flex px-6 py-3 gap-4 justify-start font-bold items-center"
-            >
-              <div className="icon h-6 w-6 flex items-center justify-center">
-                <TbReport size={18} />
-              </div>
-              Staff
-            </Link>
-          </ListItem>
-          <ListItem>
-            <Link
-              to={"/admin/classes"}
-              className="flex px-6 py-3 gap-4 justify-start font-bold items-center"
-            >
-              <div className="icon h-6 w-6 flex items-center justify-center">
-                <TbSchool size={18} />
-              </div>
-              Classes
-            </Link>
-          </ListItem>
-          <ListItem
-            roundedTopLeft={"md"}
-            roundedBottomLeft={"md"}
-            _hover={{ bg: "brand.700", color: " white", cursor: "pointer" }}
-            className="flex gap-4 justify-start font-bold items-center"
-            marginTop={"0"}
-          >
-            <Link
-              to="/admin/parents"
-              className="flex px-6 py-3 gap-4 justify-start font-bold items-center"
-            >
-              <div className="icon h-6 w-6 flex items-center justify-center">
-                <MdOutlineBed size={18} />
-              </div>
-              Parents
-            </Link>
-          </ListItem>
-          <ListItem
-            roundedTopLeft={"md"}
-            roundedBottomLeft={"md"}
-            _hover={{ bg: "brand.700", color: " white", cursor: "pointer" }}
-            className="flex gap-4 justify-start font-bold items-center"
-            marginTop={"0"}
-          >
-            <Link
-              to="/admin/results"
-              className="flex px-6 py-3 gap-4 justify-start font-bold items-center"
-            >
-              <div className="icon h-6 w-6 flex items-center justify-center">
-                <MdOutlineBed size={18} />
-              </div>
-              Results
-            </Link>
-          </ListItem>
-          <ListItem
-            roundedTopLeft={"md"}
-            roundedBottomLeft={"md"}
-            _hover={{ bg: "brand.700", color: " white", cursor: "pointer" }}
-            className="flex gap-4 justify-start font-bold items-center"
-            marginTop={"0"}
-          >
-            <Link
-              to="/admin/calendar"
-              className="flex px-6 py-3 gap-4 justify-start font-bold items-center"
-            >
-              <div className="icon h-6 w-6 flex items-center justify-center">
-                <MdOutlineBed size={18} />
-              </div>
-              Calendar
-            </Link>
-          </ListItem>
-          <ListItem
-            roundedTopLeft={"md"}
-            roundedBottomLeft={"md"}
-            _hover={{ bg: "brand.700", color: "white", cursor: "pointer" }}
-            className="flex gap-4 justify-start font-bold items-center"
-            marginTop={"0"}
-          >
-            <Link
-              to="/admin/finance"
-              className="flex px-6 py-3 gap-4 justify-start font-bold items-center"
-            >
-              <div className="icon h-6 w-6 flex items-center justify-center">
-                <MdOutlineBed size={18} />
-              </div>
-              Finance
-            </Link>
-          </ListItem>
+        <List className="memuList pl-2">
+          <NavItemComponent link={"/admin/home"}>
+            <IconComponent>
+              <PiDotsNine size={16} />
+            </IconComponent>
+            Dashboard
+          </NavItemComponent>
+          <NavItemComponent link={"/admin/students"}>
+            <IconComponent>
+              <MdOutlineAssignment size={18} />
+            </IconComponent>
+            Students
+          </NavItemComponent>
+          <NavItemComponent link={"/admin/staff"}>
+            <IconComponent>
+              <TbReport size={18} />
+            </IconComponent>
+            Staff
+          </NavItemComponent>
+          <NavItemComponent link={"/admin/classes"}>
+            <IconComponent>
+              <TbSchool size={18} />
+            </IconComponent>
+            Classes
+          </NavItemComponent>
+          <NavItemComponent link={"/admin/parents"}>
+            <IconComponent>
+              <MdOutlineBed size={18} />
+            </IconComponent>
+            Parents
+          </NavItemComponent>
+          <NavItemComponent link={"/admin/results"}>
+            <IconComponent>
+              <MdOutlineBed size={18} />
+            </IconComponent>
+            Results
+          </NavItemComponent>
+          <NavItemComponent link={"/admin/calendar"}>
+            <IconComponent>
+              <MdOutlineBed size={18} />
+            </IconComponent>
+            Calendar
+          </NavItemComponent>
+          <NavItemComponent link={"/admin/finance"}>
+            <IconComponent>
+              <MdOutlineBed size={18} />
+            </IconComponent>
+            Finance
+          </NavItemComponent>
         </List>
       </Box>
 
@@ -201,52 +123,30 @@ export default function AdminSideBar() {
         <h3>ACCOUNT</h3>
         <List className="memuList">
           {/*  */}
-          <ListItem
-            roundedTopLeft={"md"}
-            roundedBottomLeft={"md"}
-            _hover={{ bg: "brand.700", color: " white", cursor: "pointer" }}
-            className="flex gap-4 justify-start font-bold items-center"
-            marginTop={"0"}
-          >
-            <Link
-              to="/admin/"
-              className="flex px-6 py-3 gap-4 justify-start font-bold items-center"
-            >
-              <div className="icon h-6 w-6 flex items-center justify-center">
-                <MdOutlineSupportAgent size={20} />
-              </div>
-              Help and Support
-            </Link>
-          </ListItem>
-          <ListItem
-            roundedTopLeft={"md"}
-            roundedBottomLeft={"md"}
-            _hover={{ bg: "brand.700", color: " white", cursor: "pointer" }}
-            className="flex gap-4 justify-start font-bold items-center"
-            marginTop={"0"}
-          >
-            <Link
-              to="/admin/settings"
-              className="flex px-6 py-3 gap-4 justify-start font-bold items-center"
-            >
-              <div className="icon h-6 w-6 flex items-center justify-center">
-                <MdOutlinePrecisionManufacturing size={20} />
-              </div>
-              Settings
-            </Link>
-          </ListItem>
-          <ListItem
-            roundedTopLeft={"md"}
-            roundedBottomLeft={"md"}
-            _hover={{ bg: "brand.700", color: " white", cursor: "pointer" }}
-            className="flex justify-start px-6 py-3 gap-4 font-bold items-center"
-            onClick={handleLogout}
-          >
-            <div className="icon h-6 w-6 flex items-center justify-center">
+          <NavItemComponent link={"/admin/support"}>
+            <IconComponent>
+              <MdOutlineSupportAgent size={20} />
+            </IconComponent>
+            Help & Support
+          </NavItemComponent>
+          <NavItemComponent link={"/admin/login_history"}>
+            <IconComponent>
+              <MdOutlinePrecisionManufacturing size={20} />
+            </IconComponent>
+            Login History
+          </NavItemComponent>
+          <NavItemComponent link={"/admin/configuration"}>
+            <IconComponent>
+              <MdOutlinePrecisionManufacturing size={20} />
+            </IconComponent>
+            Configuration
+          </NavItemComponent>
+          <NavItemComponent onClick={handleLogout}>
+            <IconComponent>
               <BiLogOutCircle size={20} />
-            </div>
+            </IconComponent>
             Logout
-          </ListItem>
+          </NavItemComponent>
         </List>
       </Box>
     </Box>
