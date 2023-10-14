@@ -1,19 +1,26 @@
 // import { FiSearch } from 'react-icons/fi';
-import Button from "../components/Button.component";
+import { Button, Box } from "@chakra-ui/react";
 
 import { RiSearchLine } from "react-icons/ri";
 
 import { Input } from "@chakra-ui/react";
 
-const SearchWidget = ({ text }) => {
+const SearchWidget = ({ text, asButton, height = 12 }) => {
   return (
-    <div className="w-full searchInput max-w-sm flex items-center gap-0.5 h-12 pl-3 bg-gray-300 rounded-lg">
-      <div className="mr-3">
+    <Box
+      bg={"neutral.100"}
+      border={"1px"}
+      borderColor={"brand.700"}
+      height={height}
+      className="w-full searchInput max-w-sm flex items-center gap-0.5 pl-3 rounded-lg"
+    >
+      <Box className="mr-3">
         <RiSearchLine />
-      </div>
+      </Box>
 
       <Input
         border={"none"}
+        bg={"transparent"}
         px={0}
         focusBorderColor="transparent"
         outline={"none"}
@@ -21,14 +28,22 @@ const SearchWidget = ({ text }) => {
         name=""
         id=""
         placeholder={text}
-        className="bg-transparent w-full flex-1 placeholder:text-sm text-sm"
+        className="w-full flex-1 placeholder:text-sm text-sm"
       />
-      <Button
-        variant="secondary"
-        text="Search"
-        className="mt-0 rounded-lg py-2  font-bold text-sm px-6 h-full bg-gray-700 text-white "
-      />
-    </div>
+
+      {asButton ? (
+        <Button
+          h={"full"}
+          bg={"brand.700"}
+          color={"white"}
+          className="mt-0 rounded-lg py-2 font-bold text-sm px-6 h-full bg-gray-700 text-white "
+        >
+          Search
+        </Button>
+      ) : (
+        ""
+      )}
+    </Box>
   );
 };
 

@@ -7,8 +7,9 @@ import { MdAdd, MdIcecream, MdUploadFile } from "react-icons/md";
 import AllStudentsTable from "../../../components/tables/AllStudentsTable.component";
 import SearchWidget from "../../../widgets/Search.widget";
 import IconComponent from "../../../components/Icon.component";
+// import AllStaffTable from "../../../components/tables/AllStaffTable.component";
 
-export default function StudentsPage() {
+export default function ClassesPage() {
   return (
     <PageWrapper>
       <Flex justifyContent={"space-between"} alignItems={"center"} mb={2}>
@@ -19,9 +20,9 @@ export default function StudentsPage() {
           fontSize={"2xl"}
           fontWeight={"bold"}
         >
-          All Students
+          All ClassesPage
         </Text>
-        <Text as={"small"}>Home / Students / All Students</Text>
+        <Text as={"small"}>Home / Classes/ All Staff</Text>
       </Flex>
 
       <Flex
@@ -30,7 +31,7 @@ export default function StudentsPage() {
         mt={8}
         mb={6}
       >
-        <SearchWidget height={10} text={"Search Students"} />
+        <SearchWidget height={10} text={"Search staff"} />
 
         <Flex gap={4} fontSize={"sm"}>
           <Button
@@ -66,7 +67,7 @@ export default function StudentsPage() {
       </Flex>
 
       <Box p={4} bg={"white"} rounded={"md"}>
-        <AllStudentsTable />
+        {/* <AllStaffTable /> */}
       </Box>
     </PageWrapper>
   );

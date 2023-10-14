@@ -16,7 +16,7 @@ export default function PageWrapper({ children }) {
     // Simulate loading for a few seconds (adjust this as needed)
     setTimeout(() => {
       setIsLoading(false);
-    }, 3000); // 3 seconds
+    }, 2000); // 3 seconds
   }, []);
 
   return (

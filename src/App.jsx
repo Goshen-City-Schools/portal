@@ -26,6 +26,8 @@ import StudentsPage from "./pages/admin/students/Students.page";
 import StaffPage from "./pages/admin/staff/Staff.page";
 import ResultPage from "./pages/admin/results/Results.page";
 import AuthLayout from "./layouts/AuthLayout";
+import ParentPage from "./pages/admin/parents/Parents.page";
+import ClassesPage from "./pages/admin/classes/Classes.page";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -46,6 +48,8 @@ const router = createBrowserRouter(
         <Route path="home" element={<AdminHome />} />
         <Route path="students" element={<StudentsPage />} />
         <Route path="staff" element={<StaffPage />} />
+        <Route path="parents" element={<ParentPage />} />
+        <Route path="classes" element={<ClassesPage />} />
         <Route path="results" element={<ResultPage />} />
       </Route>
 
