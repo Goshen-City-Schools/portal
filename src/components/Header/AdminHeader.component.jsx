@@ -1,29 +1,50 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+import { useDispatch } from "react-redux";
+
 import { BsChevronDown } from "react-icons/bs";
 
-import Avatar from "../Avatar.component";
 import { CiBellOn } from "react-icons/ci";
 
-import { Box } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import SearchWidget from "../../widgets/Search.widget";
+import IconComponent from "../Icon.component";
+import { MdMenu } from "react-icons/md";
 
 export default function AdminHeader() {
+  const dispatch = useDispatch();
+
+  const handleToggleSideMenu = () => {
+    dispatch(toggleSideMenu());
+  };
+
   return (
     <Box
       bg={"white"}
       paddingX={6}
-      width={"calc(100vw - 260px)"}
-      className="left-['260px'] h-20 fixed top-0 z-40 shadow-md flex items-center justify-between"
+      width={{ "base": "100%", "lg": "calc(100vw - 260px)" }}
+      left={{ "lg": "260px" }}
+      className="h-20 fixed top-0 z-40 shadow-md flex items-center justify-between"
     >
       <SearchWidget text={"Search students, staffs, events..."} />
+      <Flex
+        color={"brand.700"}
+        display={{ "base": "flex", "md": "none" }}
+        alignItems={"center"}
+        gap={3}
+      >
+        <IconComponent onClick={handleToggleSideMenu}>
+          <MdMenu size={24} />
+        </IconComponent>
+        <h3 className="text-md font-bold">Welcome back, Nkechinyere</h3>
+      </Flex>
 
       <div className="flex items-center gap-4 text-sm">
-        <div className="flex flex-col">
+        <Flex direction={"column"} display={{ "base": "none", "md": "flex" }}>
           <p className="font-bold first-letter:">2023/2024 session</p>
           <p>First Term</p>
-        </div>
+        </Flex>
 
         <div className="absolute top-20 hidden">
           <ul>
@@ -48,10 +69,10 @@ export default function AdminHeader() {
               className="absolute object-cover w-full h-full"
             />
           </div>
-          <div className="flex flex-col">
+          <Flex direction={"column"} display={{ "base": "none", "md": "flex" }}>
             <p className="font-bold first-letter:">Nkechinyere Harrison</p>
             <p>Admin</p>
-          </div>
+          </Flex>
           <BsChevronDown size={20} />.
         </Link>
       </div>

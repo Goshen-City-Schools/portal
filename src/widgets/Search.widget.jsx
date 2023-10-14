@@ -12,7 +12,8 @@ const SearchWidget = ({ text, asButton, height = 12 }) => {
       border={"1px"}
       borderColor={"brand.700"}
       height={height}
-      className="w-full searchInput max-w-sm flex items-center gap-0.5 pl-3 rounded-lg"
+      display={{ "base": "none", "md": "flex" }}
+      className="w-full searchInput max-w-sm items-center gap-0.5 pl-3 rounded-lg"
     >
       <Box className="mr-3">
         <RiSearchLine />

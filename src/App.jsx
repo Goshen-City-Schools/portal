@@ -28,7 +28,8 @@ import ResultPage from "./pages/admin/results/Results.page";
 import AuthLayout from "./layouts/AuthLayout";
 import ParentPage from "./pages/admin/parents/Parents.page";
 import ClassesPage from "./pages/admin/classes/Classes.page";
-import TransactionHistory from "./pages/admin/finance/TransactionHistory";
+import TransactionHistory from "./pages/admin/finance/TransactionHistory.page";
+import TuitionPage from "./pages/admin/finance/Tuition.page";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -52,7 +53,11 @@ const router = createBrowserRouter(
         <Route path="parents" element={<ParentPage />} />
         <Route path="classes" element={<ClassesPage />} />
         <Route path="results" element={<ResultPage />} />
-        <Route path="finance" element={<TransactionHistory />} />
+        <Route path="finance">
+          <Route index element={<TransactionHistory />} />
+          <Route path="transactions" element={<TransactionHistory />} />
+          <Route path="tuition" element={<TuitionPage />} />
+        </Route>
       </Route>
 
       <Route

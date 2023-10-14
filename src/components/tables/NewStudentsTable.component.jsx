@@ -17,11 +17,13 @@ const columns = [
     Header: "Full Name",
     accessor: "fullName",
     width: "100%", // Set the width to 100% to stretch
+    mobileHidden: true,
   },
   {
     Header: "Gender",
     accessor: "gender",
     width: "max-content",
+    mobileHidden: true,
   },
   {
     Header: "Class",

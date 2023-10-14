@@ -29,7 +29,7 @@ export default function AdminHome() {
         <Text as={"small"}>Home</Text>
       </Flex>
 
-      <Grid templateColumns="repeat(9, 1fr)" gap={4}>
+      <Grid templateColumns={{ "base": "1fr", "lg": "repeat(9, 1fr)" }} gap={4}>
         <GridItem
           w="full"
           colSpan={8}
@@ -38,7 +38,11 @@ export default function AdminHome() {
           flexDirection={"column"}
           gap={4}
         >
-          <Flex justifyContent={"space-between"} gap={4}>
+          <Flex
+            justifyContent={"space-between"}
+            gap={4}
+            flexDirection={{ "base": "column", "lg": "row" }}
+          >
             <StatCardComponent
               color={"#F5DDFF"}
               imgSrc={"people.png"}
@@ -126,7 +130,11 @@ export default function AdminHome() {
           </Box>
         </GridItem>
 
-        <GridItem w={"full"} flexShrink={0}>
+        <GridItem
+          w={"full"}
+          flexShrink={0}
+          display={{ "base": "none", "md": "block" }}
+        >
           <Flex direction={"column"} gap={4} overflowY={"scroll"}>
             <CalendarWidget />
 

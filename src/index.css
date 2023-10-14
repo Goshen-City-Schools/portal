@@ -35,7 +35,7 @@ main {
   position: relative;
   bottom: 0;
   left: 0;
-  width: calc(100vw - 260px);
+  /* width: calc(100vw - 260px); */
   overflow-x: hidden;
   background-color: #f1f3f9;
 }
@@ -52,10 +52,8 @@ li {
   list-style: none;
 }
 
-form button {
-  @apply rounded-lg px-3 py-2;
-}
-
-a.activeClass {
-  @apply bg-green-500;
+@media (max-width: 768px) {
+  main {
+    width: 100vw;
+  }
 }

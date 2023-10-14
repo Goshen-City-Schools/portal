@@ -22,6 +22,7 @@ ChartJS.register(
 function ChartWidget({ labels, data1, data2 }) {
   const options = {
     responsive: true,
+    maintainAspectRatio: false, // Allow the chart to adapt to the container size
     plugins: {
       legend: {
         position: "top",
@@ -32,16 +33,6 @@ function ChartWidget({ labels, data1, data2 }) {
       },
     },
   };
-
-  //   const labels = [
-  //     "January",
-  //     "February",
-  //     "March",
-  //     "April",
-  //     "May",
-  //     "June",
-  //     "July",
-  //   ];
 
   const data = {
     labels: labels,
@@ -58,12 +49,11 @@ function ChartWidget({ labels, data1, data2 }) {
       },
     ],
   };
+
   return (
-    <>
-      <div style={{ width: "680px", margin: "auto auto" }}>
-        <Bar options={options} data={data} />
-      </div>
-    </>
+    <div style={{ width: "100%", maxWidth: "680px", margin: "auto" }}>
+      <Bar options={options} data={data} />
+    </div>
   );
 }
 

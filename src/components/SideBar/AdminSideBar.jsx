@@ -16,7 +16,7 @@ import {
 
 import "./SideMenu.style.css";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../app/redux/slices/formSlice";
 import { useNavigate } from "react-router-dom";
 import IconComponent from "../Icon.component";
@@ -35,10 +35,19 @@ export default function AdminSideBar() {
     }, 1000); // Adjust the delay as needed
   };
 
+  const isSideMenuOpen = useSelector((state) => state.menu.isSideMenuOpen);
+
   return (
     <Box
       bg={"brand.900"}
-      className="fixed top-0 text-sm left-0 h-screen max-w-[260px] w-full"
+      width={{ "base": isSideMenuOpen ? "260px" : "0px", "md": "260px" }}
+      position={"fixed"}
+      top={0}
+      fontSize={"sm"}
+      zIndex={50}
+      left={0}
+      overflowY={"scroll"}
+      height={"full"}
     >
       <Box
         position={"relative"}
@@ -46,7 +55,12 @@ export default function AdminSideBar() {
         className="sideBar-header h-max shadow-md flex items-center  w-full"
       >
         <Logo />
-        <Flex direction={"column"} justifyContent={"center"}>
+        <Flex
+          direction={"column"}
+          justifyContent={"center"}
+          display={"sticky"}
+          top={0}
+        >
           <Text
             as={"p"}
             className="text-md font-bold leading-tight"

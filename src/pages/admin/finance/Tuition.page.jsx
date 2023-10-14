@@ -1,15 +1,15 @@
 import React from "react";
 import PageWrapper from "../../../components/PageWrapper";
 
-import { Text, Flex, Box, Button } from "@chakra-ui/react";
-import { MdAdd, MdIcecream, MdUploadFile } from "react-icons/md";
-
-import AllStudentsTable from "../../../components/tables/AllStudentsTable.component";
+import { Flex, Text, Button, Box } from "@chakra-ui/react";
+import TransactionsTable from "../../../components/tables/TransactionsTable.component";
 import SearchWidget from "../../../widgets/Search.widget";
 import IconComponent from "../../../components/Icon.component";
-import AllStaffTable from "../../../components/tables/AllStaffTable.component";
 
-export default function StaffPage() {
+import { MdAdd, MdIcecream, MdUploadFile } from "react-icons/md";
+import StudentsTuitionFeeTable from "../../../components/tables/StudentsTuitionFeeTable";
+
+export default function TuitionPage() {
   return (
     <PageWrapper>
       <Flex justifyContent={"space-between"} alignItems={"center"} mb={2}>
@@ -20,9 +20,9 @@ export default function StaffPage() {
           fontSize={"2xl"}
           fontWeight={"bold"}
         >
-          All Staff
+          Tuition
         </Text>
-        <Text as={"small"}>Home / Staff / All Staff</Text>
+        <Text as={"small"}>Home / Finance / Tuition</Text>
       </Flex>
 
       <Flex
@@ -31,7 +31,7 @@ export default function StaffPage() {
         mt={8}
         mb={6}
       >
-        <SearchWidget height={10} text={"Search staff"} />
+        <SearchWidget height={10} text={"Search student"} />
 
         <Flex gap={4} fontSize={"sm"}>
           <Button
@@ -43,31 +43,22 @@ export default function StaffPage() {
             <IconComponent>
               <MdIcecream />
             </IconComponent>{" "}
-            Download
+            Download Report
           </Button>
-          <Button
-            as={"Flex"}
-            gap={2}
-            size={"sm"}
-            bg={"accent.700"}
-            color={"white"}
-          >
-            <IconComponent>
-              <MdUploadFile />
-            </IconComponent>{" "}
-            Bulk Upload Staff
-          </Button>
+
           <Button bg={"brand.700"} size={"sm"} color={"neutral.100"}>
             <IconComponent>
               <MdAdd />
             </IconComponent>
-            New Staff
+            New Fee Type
           </Button>
         </Flex>
       </Flex>
 
+      {/* ------------ */}
+
       <Box p={4} bg={"white"} rounded={"md"}>
-        <AllStaffTable />
+        <StudentsTuitionFeeTable />
       </Box>
     </PageWrapper>
   );

@@ -10,9 +10,12 @@ import {
   Flex,
   Box,
   useStyleConfig,
+  useMediaQuery,
 } from "@chakra-ui/react";
 
 const DataTable = ({ columns, data, fullWidthColumns }) => {
+  const [isMobile] = useMediaQuery("(max-width: 768px)"); // Detect mobile view
+
   const {
     getTableProps,
     getTableBodyProps,
@@ -56,6 +59,11 @@ const DataTable = ({ columns, data, fullWidthColumns }) => {
                       ? "100%"
                       : "max-content"
                   }
+                  // Hide the column on mobile view
+                  style={{
+                    display:
+                      isMobile && column.mobileHidden ? "none" : "table-cell",
+                  }}
                 >
                   {column.render("Header")}
                   <span>
@@ -83,6 +91,13 @@ const DataTable = ({ columns, data, fullWidthColumns }) => {
                         ? "100%"
                         : "max-content"
                     }
+                    // Hide the cell on mobile view if the corresponding column is hidden
+                    style={{
+                      display:
+                        isMobile && cell.column.mobileHidden
+                          ? "none"
+                          : "table-cell",
+                    }}
                   >
                     {cell.render("Cell")}
                   </Td>
