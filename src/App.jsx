@@ -58,33 +58,36 @@ const router = createBrowserRouter(
           <Route path="transactions" element={<TransactionHistory />} />
           <Route path="tuition" element={<TuitionPage />} />
         </Route>
-      </Route>
+        <Route path="*" element={<AdminHome />}></Route>
 
-      <Route
-        path="/"
-        element={
-          <AuthLayout>
-            <StudentLayout />
-          </AuthLayout>
-        }
-      >
-        {/* Home Route */}
-        <Route index element={<Home />} />
+        <Route
+          path="/"
+          element={
+            <AuthLayout>
+              <StudentLayout />
+            </AuthLayout>
+          }
+        >
+          {/* Home Route */}
+          <Route index element={<Home />} />
 
-        {/* Fees Routes */}
-        <Route path="/fees">
-          {/* Invoices */}
-          <Route path="invoices">
-            <Route index element={<InvoicesPage />} />
-            <Route path="new" element={<GenerateInvoicePage />} />
-            <Route path=":invoiceID" element={<PrintInvoiceScreen />} />
+          {/* Fees Routes */}
+          <Route path="/fees">
+            {/* Invoices */}
+            <Route path="invoices">
+              <Route index element={<InvoicesPage />} />
+              <Route path="new" element={<GenerateInvoicePage />} />
+              <Route path=":invoiceID" element={<PrintInvoiceScreen />} />
+            </Route>
+
+            {/* Receipts */}
+            <Route path="receipts">
+              <Route index element={<ReceiptsPage />} />
+              <Route path="new" element={<PrintReceiptScreen />} />
+            </Route>
           </Route>
 
-          {/* Receipts */}
-          <Route path="receipts">
-            <Route index element={<ReceiptsPage />} />
-            <Route path="new" element={<PrintReceiptScreen />} />
-          </Route>
+          <Route path="*" element={<Home />}></Route>
         </Route>
       </Route>
     </Route>
