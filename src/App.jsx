@@ -58,8 +58,9 @@ const router = createBrowserRouter(
           <Route path="transactions" element={<TransactionHistory />} />
           <Route path="tuition" element={<TuitionPage />} />
         </Route>
-        <Route path="*" element={<AdminHome />}></Route>
+        <Route path="*" element={<AdminHome />} />
 
+        {/*  */}
         <Route
           path="/"
           element={
@@ -87,7 +88,7 @@ const router = createBrowserRouter(
             </Route>
           </Route>
 
-          <Route path="*" element={<Home />}></Route>
+          <Route path="*" element={<Home />} />
         </Route>
       </Route>
     </Route>
