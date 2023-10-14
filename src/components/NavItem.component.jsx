@@ -13,6 +13,7 @@ export default function NavItemComponent({ onClick, link, children }) {
         linkIsActive(link) ? "bg-blue-800" : ""
       }`}
       marginTop={"0"}
+      onClick={onClick}
     >
       <NavLink
         to={link}
