@@ -3,7 +3,7 @@
   max-width: 100%;
   background: white;
   border: none;
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
   line-height: 1.125em;
 }
 
@@ -130,7 +130,7 @@
 }
 
 .react-calendar__tile--active {
-  background: #006edc;
+  background: #9440b7;
   color: white;
 }
 

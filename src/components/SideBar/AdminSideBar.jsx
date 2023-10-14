@@ -68,7 +68,7 @@ export default function AdminSideBar() {
         w={10}
         rounded={"full"}
         zIndex={50}
-        display={"flex"}
+        display={{ "base": "flex", "md": "none" }}
         justifyContent={"center"}
         alignItems={"center"}
         onClick={handleToggleSideMenu}
