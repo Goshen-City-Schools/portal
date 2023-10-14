@@ -12,6 +12,8 @@ import SearchWidget from "../../widgets/Search.widget";
 import IconComponent from "../Icon.component";
 import { MdMenu } from "react-icons/md";
 
+import { toggleSideMenu } from "../../app/redux/slices/menuSlice";
+
 export default function AdminHeader() {
   const dispatch = useDispatch();
 
@@ -34,7 +36,7 @@ export default function AdminHeader() {
         alignItems={"center"}
         gap={3}
       >
-        <IconComponent onClick={handleToggleSideMenu}>
+        <IconComponent click={handleToggleSideMenu}>
           <MdMenu size={24} />
         </IconComponent>
         <h3 className="text-md font-bold">Welcome back, Nkechinyere</h3>

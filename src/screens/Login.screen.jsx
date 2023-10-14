@@ -94,9 +94,12 @@ export default function LoginScreen() {
       animate="animate"
       variants={defaultConfigValues.pageVariants}
     >
-      <Grid height={"100vh"} templateColumns="repeat(2, 1fr)">
+      <Grid
+        height={"100vh"}
+        templateColumns={{ "base": "1fr", "md": "repeat(2, 1fr)" }}
+      >
         <GridItem
-          display={"flex"}
+          display={{ "base": "none", "md": "flex" }}
           flexDirection={"column"}
           height={"full"}
           bg={"brand.700"}
@@ -147,16 +150,39 @@ export default function LoginScreen() {
         {/*  */}
         <GridItem
           display={"flex"}
-          padding={12}
+          padding={{ "base": "6", "md": "12" }}
           height={"full"}
           justifyContent={"center"}
           flexDirection={"column"}
-          w={"80%"}
+          w={{ "base": "100%", "md": "80%" }}
           marginX={"auto"}
         >
           {/* Welcome Text */}
-          <Flex direction={"column"} marginBottom={12}>
-            <Text as={"h3"} fontSize={"4xl"} fontWeight={"bold"}>
+          <Box
+            position={"relative"}
+            height={"48"}
+            width={"48"}
+            overflow={"hidden"}
+            mx={{ "base": "auto" }}
+            display={{ "base": "flex", "md": "none" }}
+          >
+            <img
+              src="/Goshen-logo-trans.png"
+              alt="Goshen group of Schools logo"
+              className="absolute object-contain w-full h-full"
+            />
+          </Box>
+
+          <Flex
+            direction={"column"}
+            alignItems={{ "base": "center", "md": "start" }}
+            marginBottom={12}
+          >
+            <Text
+              as={"h3"}
+              fontSize={{ "base": "2xl", "md": "4xl" }}
+              fontWeight={"bold"}
+            >
               Welcome back
             </Text>
             <Text as={"small"} fontSize={"md"}>

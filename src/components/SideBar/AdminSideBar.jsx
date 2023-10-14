@@ -12,6 +12,7 @@ import {
   MdOutlineAssignment,
   MdOutlineSupportAgent,
   MdOutlinePrecisionManufacturing,
+  MdCancel,
 } from "react-icons/md";
 
 import "./SideMenu.style.css";
@@ -21,6 +22,8 @@ import { logout } from "../../app/redux/slices/formSlice";
 import { useNavigate } from "react-router-dom";
 import IconComponent from "../Icon.component";
 import NavItemComponent from "../NavItem.component";
+import { FaTimes } from "react-icons/fa";
+import { toggleSideMenu } from "../../app/redux/slices/menuSlice";
 
 export default function AdminSideBar() {
   const dispatch = useDispatch();
@@ -37,6 +40,10 @@ export default function AdminSideBar() {
 
   const isSideMenuOpen = useSelector((state) => state.menu.isSideMenuOpen);
 
+  const handleToggleSideMenu = () => {
+    dispatch(toggleSideMenu());
+  };
+
   return (
     <Box
       bg={"brand.900"}
@@ -49,9 +56,32 @@ export default function AdminSideBar() {
       overflowY={"scroll"}
       height={"full"}
     >
+      {/* Close Sidebar */}
+
+      <Box
+        position={"absolute"}
+        top={"80px"}
+        right={"0"}
+        bg={"red.700"}
+        color={"white"}
+        h={10}
+        w={10}
+        rounded={"full"}
+        zIndex={50}
+        display={"flex"}
+        justifyContent={"center"}
+        alignItems={"center"}
+        onClick={handleToggleSideMenu}
+      >
+        <IconComponent>
+          <FaTimes size={20} />
+        </IconComponent>
+      </Box>
+
       <Box
         position={"relative"}
-        zIndex={50}
+        zIndex={40}
+        z
         className="sideBar-header h-max shadow-md flex items-center  w-full"
       >
         <Logo />
@@ -82,49 +112,70 @@ export default function AdminSideBar() {
         <h3>MENU</h3>
 
         <List className="memuList pl-2">
-          <NavItemComponent link={"/admin/home"}>
+          <NavItemComponent onClick={handleToggleSideMenu} link={"/admin/home"}>
             <IconComponent>
               <PiDotsNine size={16} />
             </IconComponent>
             Dashboard
           </NavItemComponent>
-          <NavItemComponent link={"/admin/students"}>
+          <NavItemComponent
+            link={"/admin/students"}
+            onClick={handleToggleSideMenu}
+          >
             <IconComponent>
               <MdOutlineAssignment size={18} />
             </IconComponent>
             Students
           </NavItemComponent>
-          <NavItemComponent link={"/admin/staff"}>
+          <NavItemComponent
+            link={"/admin/staff"}
+            onClick={handleToggleSideMenu}
+          >
             <IconComponent>
               <TbReport size={18} />
             </IconComponent>
             Staff
           </NavItemComponent>
-          <NavItemComponent link={"/admin/classes"}>
+          <NavItemComponent
+            link={"/admin/classes"}
+            onClick={handleToggleSideMenu}
+          >
             <IconComponent>
               <TbSchool size={18} />
             </IconComponent>
             Classes
           </NavItemComponent>
-          <NavItemComponent link={"/admin/parents"}>
+          <NavItemComponent
+            link={"/admin/parents"}
+            onClick={handleToggleSideMenu}
+          >
             <IconComponent>
               <MdOutlineBed size={18} />
             </IconComponent>
             Parents
           </NavItemComponent>
-          <NavItemComponent link={"/admin/results"}>
+          <NavItemComponent
+            link={"/admin/results"}
+            onClick={handleToggleSideMenu}
+          >
             <IconComponent>
               <MdOutlineBed size={18} />
             </IconComponent>
             Results
           </NavItemComponent>
-          <NavItemComponent link={"/admin/calendar"}>
+          <NavItemComponent
+            link={"/admin/calendar"}
+            onClick={handleToggleSideMenu}
+          >
             <IconComponent>
               <MdOutlineBed size={18} />
             </IconComponent>
             Calendar
           </NavItemComponent>
-          <NavItemComponent link={"/admin/finance"}>
+          <NavItemComponent
+            link={"/admin/finance"}
+            onClick={handleToggleSideMenu}
+          >
             <IconComponent>
               <MdOutlineBed size={18} />
             </IconComponent>
@@ -137,19 +188,28 @@ export default function AdminSideBar() {
         <h3>ACCOUNT</h3>
         <List className="memuList">
           {/*  */}
-          <NavItemComponent link={"/admin/support"}>
+          <NavItemComponent
+            link={"/admin/support"}
+            onClick={handleToggleSideMenu}
+          >
             <IconComponent>
               <MdOutlineSupportAgent size={20} />
             </IconComponent>
             Help & Support
           </NavItemComponent>
-          <NavItemComponent link={"/admin/login_history"}>
+          <NavItemComponent
+            link={"/admin/login_history"}
+            onClick={handleToggleSideMenu}
+          >
             <IconComponent>
               <MdOutlinePrecisionManufacturing size={20} />
             </IconComponent>
             Login History
           </NavItemComponent>
-          <NavItemComponent link={"/admin/configuration"}>
+          <NavItemComponent
+            link={"/admin/configuration"}
+            onClick={handleToggleSideMenu}
+          >
             <IconComponent>
               <MdOutlinePrecisionManufacturing size={20} />
             </IconComponent>

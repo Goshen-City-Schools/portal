@@ -1,9 +1,9 @@
 import React from "react";
 
-export default function IconComponent({ children, onClick }) {
+export default function IconComponent({ children, click }) {
   return (
     <div
-      onClick={onClick}
+      onClick={click}
       className="icon h-6 w-6 flex items-center justify-center"
     >
       {children}
