@@ -7,10 +7,17 @@ import { MdAdd, MdIcecream, MdUploadFile } from "react-icons/md";
 import AllStudentsTable from "../../../components/tables/AllStudentsTable.component";
 import SearchWidget from "../../../widgets/Search.widget";
 import IconComponent from "../../../components/Icon.component";
+import CreateStudentPortal from "../../../portals/CreateStudent.portal";
+import { useModal } from "../../../app/contexts/ModalContext";
+import ReactPortal from "../../../widgets/ReactPortal";
 
 export default function StudentsPage() {
+  const { openPortal } = useModal();
+
   return (
     <PageWrapper>
+      <ReactPortal />
+
       <Flex justifyContent={"space-between"} alignItems={"center"} mb={2}>
         <Text
           as={"h2"}
@@ -56,7 +63,12 @@ export default function StudentsPage() {
             </IconComponent>{" "}
             Bulk Upload Students
           </Button>
-          <Button bg={"brand.700"} size={"sm"} color={"neutral.100"}>
+          <Button
+            bg={"brand.700"}
+            size={"sm"}
+            color={"neutral.100"}
+            onClick={() => openPortal(<CreateStudentPortal />)}
+          >
             <IconComponent>
               <MdAdd />
             </IconComponent>

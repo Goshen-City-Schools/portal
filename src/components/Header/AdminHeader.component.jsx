@@ -7,18 +7,41 @@ import { BsChevronDown } from "react-icons/bs";
 
 import { CiBellOn } from "react-icons/ci";
 
-import { Box, Flex } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  Button,
+  PopoverArrow,
+  PopoverHeader,
+  PopoverCloseButton,
+  PopoverBody,
+} from "@chakra-ui/react";
 import SearchWidget from "../../widgets/Search.widget";
 import IconComponent from "../Icon.component";
 import { MdMenu } from "react-icons/md";
 
 import { toggleSideMenu } from "../../app/redux/slices/menuSlice";
+import { logout } from "../../app/redux/slices/formSlice";
+import { useNavigate } from "react-router-dom";
 
 export default function AdminHeader() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleToggleSideMenu = () => {
     dispatch(toggleSideMenu());
+  };
+
+  const handleLogout = () => {
+    // Dispatch the logout action when the "Logout" button is clicked
+    dispatch(logout());
+    console.log("m");
+    setTimeout(() => {
+      navigate("/auth");
+    }, 1000); // Adjust the delay as needed
   };
 
   return (
@@ -63,20 +86,44 @@ export default function AdminHeader() {
           <CiBellOn size={28} />
         </div>
 
-        <Link to="/dashboard/profile" className="flex gap-3 items-center">
-          <div className="h-12 w-12 rounded-full relative  shadow-md overflow-hidden">
-            <img
-              src="/avatar.png"
-              alt="User avatar"
-              className="absolute object-cover w-full h-full"
-            />
-          </div>
-          <Flex direction={"column"} display={{ "base": "none", "md": "flex" }}>
-            <p className="font-bold first-letter:">Nkechinyere Harrison</p>
-            <p>Admin</p>
-          </Flex>
-          <BsChevronDown size={20} />.
-        </Link>
+        <Popover>
+          <PopoverTrigger>
+            <Box className="flex gap-3 items-center" cursor="pointer">
+              <div className="h-12 w-12 rounded-full relative shadow-md overflow-hidden">
+                <img
+                  src="/avatar.png"
+                  alt="User avatar"
+                  className="absolute object-cover w-full h-full"
+                />
+              </div>
+              <Flex
+                direction={{ base: "none", md: "column" }}
+                display={{ base: "none", md: "flex" }}
+              >
+                <p className="font-bold first-letter:">Nkechinyere Harrison</p>
+                <p>Admin</p>
+              </Flex>
+              <BsChevronDown size={20} />
+            </Box>
+          </PopoverTrigger>
+          <PopoverContent>
+            <PopoverArrow />
+            <PopoverCloseButton />
+            <PopoverBody>
+              <Button variant="ghost" w="100%" justifyContent="flex-start">
+                My Profile
+              </Button>
+              <Button
+                variant="ghost"
+                w="100%"
+                justifyContent="flex-start"
+                onClick={handleLogout}
+              >
+                Logout
+              </Button>
+            </PopoverBody>
+          </PopoverContent>
+        </Popover>
       </div>
     </Box>
   );

@@ -13,9 +13,17 @@ import ChartWidget from "../../widgets/Chart.widget";
 import NewStudentsTable from "../../components/tables/NewStudentsTable.component";
 import CustomSelect from "../../components/shared/Select.component";
 
+import CreateEventPortal from "../../portals/CreateEvent.portal";
+import { useModal } from "../../app/contexts/ModalContext";
+import ReactPortal from "../../widgets/ReactPortal";
+
 export default function AdminHome() {
+  const { openPortal } = useModal();
+
   return (
     <PageWrapper>
+      <ReactPortal />
+
       <Flex justifyContent={"space-between"} alignItems={"center"} mb={2}>
         <Text
           as={"h2"}
@@ -149,6 +157,7 @@ export default function AdminHome() {
                   Upcoming Events
                 </Text>
                 <Flex
+                  cursor={"pointer"}
                   height={"40px"}
                   width={"40px"}
                   justifyContent={"center"}
@@ -157,6 +166,7 @@ export default function AdminHome() {
                   rounded={"lg"}
                   fontWeight={"bold"}
                   color={"white"}
+                  onClick={() => openPortal(<CreateEventPortal />)}
                 >
                   <IconComponent>
                     <IoMdAdd size={18} />{" "}

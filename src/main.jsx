@@ -11,6 +11,7 @@ import { Provider } from "react-redux";
 import store from "./app/store";
 import { AnimatePresence } from "framer-motion";
 import defaultConfigValues from "./data/defaultConfigValues";
+import { ModalProvider } from "./app/contexts/ModalContext";
 
 const colors = defaultConfigValues.colors;
 const fonts = defaultConfigValues.fonts;
@@ -23,7 +24,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <ChakraProvider theme={theme}>
         <CSSReset />
         <AnimatePresence>
-          <App />
+          <ModalProvider>
+            <App />
+          </ModalProvider>
         </AnimatePresence>
       </ChakraProvider>
     </Provider>

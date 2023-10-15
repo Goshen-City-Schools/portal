@@ -2,17 +2,15 @@ import React from "react";
 import Logo from "../Logo.component";
 import "./SideMenu.style.css";
 
-import { Box, List, Flex, Text } from "@chakra-ui/react";
+import { Box, List, Flex, Text, ListItem } from "@chakra-ui/react";
 
 import { TbSchool, TbReport } from "react-icons/tb";
-import { BiLogOutCircle } from "react-icons/bi";
 import { PiDotsNine } from "react-icons/pi";
 import {
   MdOutlineBed,
   MdOutlineAssignment,
   MdOutlineSupportAgent,
   MdOutlinePrecisionManufacturing,
-  MdCancel,
 } from "react-icons/md";
 
 import "./SideMenu.style.css";
@@ -27,16 +25,6 @@ import { toggleSideMenu } from "../../app/redux/slices/menuSlice";
 
 export default function AdminSideBar() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    // Dispatch the logout action when the "Logout" button is clicked
-    dispatch(logout());
-    console.log("m");
-    setTimeout(() => {
-      navigate("/auth");
-    }, 1000); // Adjust the delay as needed
-  };
 
   const isSideMenuOpen = useSelector((state) => state.menu.isSideMenuOpen);
 
@@ -119,8 +107,7 @@ export default function AdminSideBar() {
             Dashboard
           </NavItemComponent>
           <NavItemComponent
-            link={"/admin/students"}
-            onClick={handleToggleSideMenu}
+            submenu={["Submenu Item 1", "Submenu Item 2", "Submenu Item 3"]}
           >
             <IconComponent>
               <MdOutlineAssignment size={18} />
@@ -128,8 +115,7 @@ export default function AdminSideBar() {
             Students
           </NavItemComponent>
           <NavItemComponent
-            link={"/admin/staff"}
-            onClick={handleToggleSideMenu}
+            submenu={["Submenu Item 1", "Submenu Item 2", "Submenu Item 3"]}
           >
             <IconComponent>
               <TbReport size={18} />
@@ -137,8 +123,7 @@ export default function AdminSideBar() {
             Staff
           </NavItemComponent>
           <NavItemComponent
-            link={"/admin/classes"}
-            onClick={handleToggleSideMenu}
+            submenu={["Submenu Item 1", "Submenu Item 2", "Submenu Item 3"]}
           >
             <IconComponent>
               <TbSchool size={18} />
@@ -155,8 +140,7 @@ export default function AdminSideBar() {
             Parents
           </NavItemComponent>
           <NavItemComponent
-            link={"/admin/results"}
-            onClick={handleToggleSideMenu}
+            submenu={["Submenu Item 1", "Submenu Item 2", "Submenu Item 3"]}
           >
             <IconComponent>
               <MdOutlineBed size={18} />
@@ -173,8 +157,7 @@ export default function AdminSideBar() {
             Calendar
           </NavItemComponent>
           <NavItemComponent
-            link={"/admin/finance"}
-            onClick={handleToggleSideMenu}
+            submenu={["Submenu Item 1", "Submenu Item 2", "Submenu Item 3"]}
           >
             <IconComponent>
               <MdOutlineBed size={18} />
@@ -214,12 +197,6 @@ export default function AdminSideBar() {
               <MdOutlinePrecisionManufacturing size={20} />
             </IconComponent>
             Configuration
-          </NavItemComponent>
-          <NavItemComponent onClick={handleLogout}>
-            <IconComponent>
-              <BiLogOutCircle size={20} />
-            </IconComponent>
-            Logout
           </NavItemComponent>
         </List>
       </Box>

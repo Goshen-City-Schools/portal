@@ -8,10 +8,17 @@ import AllStudentsTable from "../../../components/tables/AllStudentsTable.compon
 import SearchWidget from "../../../widgets/Search.widget";
 import IconComponent from "../../../components/Icon.component";
 import AllStaffTable from "../../../components/tables/AllStaffTable.component";
+import ReactPortal from "../../../widgets/ReactPortal";
+import { useModal } from "../../../app/contexts/ModalContext";
+import CreateStaffPortal from "../../../portals/CreateStaff.portal";
 
 export default function StaffPage() {
+  const { openPortal } = useModal();
+
   return (
     <PageWrapper>
+      <ReactPortal />
+
       <Flex justifyContent={"space-between"} alignItems={"center"} mb={2}>
         <Text
           as={"h2"}
@@ -57,7 +64,12 @@ export default function StaffPage() {
             </IconComponent>{" "}
             Bulk Upload Staff
           </Button>
-          <Button bg={"brand.700"} size={"sm"} color={"neutral.100"}>
+          <Button
+            bg={"brand.700"}
+            size={"sm"}
+            color={"neutral.100"}
+            onClick={() => openPortal(<CreateStaffPortal />)}
+          >
             <IconComponent>
               <MdAdd />
             </IconComponent>
