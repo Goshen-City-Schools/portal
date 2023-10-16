@@ -108,8 +108,8 @@ export default function AdminHome() {
           </Box>
 
           {/* Student Admission Report  */}
-          <Box p={4} bg={"white"} rounded={"md"}>
-            <Flex justifyContent={"space-between"} alignItems={"center"}>
+          <Box p={4} bg={"white"} rounded={"md"} mb={6}>
+            <Flex justifyContent={"space-between"} alignItems={"center"} mb={6}>
               <Text
                 as={"h3"}
                 mt={0}
@@ -117,19 +117,17 @@ export default function AdminHome() {
                 fontSize={"md"}
                 fontWeight={"bold"}
                 color={"neutral.700"}
-                mb={6}
               >
                 Newly Admitted Students
               </Text>
               <Flex gap={2} alignItems={"center"}>
                 <CustomSelect>
                   <option value="option1">Today</option>
-                  <option value="option2">Today</option>
-                  <option value="option3"> This Week</option>
-                  <option value="option4" selected>
+                  <option value="option2"> This Week</option>
+                  <option value="option3" selected>
                     First Term
                   </option>
-                  <option value="option5">2023 / 2024</option>
+                  <option value="option4">2023 / 2024</option>
                 </CustomSelect>
               </Flex>{" "}
             </Flex>

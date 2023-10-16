@@ -4,11 +4,26 @@ import AdminSideBar from "../components/SideBar/AdminSideBar";
 import AdminHeader from "../components/Header/AdminHeader.component";
 
 import { Box } from "@chakra-ui/react";
+import ConfigurationSideBar from "../components/SideBar/ConfigurationSideBar";
+import { useState } from "react";
 
 export default function AdminLayout() {
+  const [showAdminSidebar, setShowAdminSidebar] = useState(true);
+
+  const toggleSidebar = () => {
+    console.log("d");
+    setShowAdminSidebar(!showAdminSidebar);
+  };
+
   return (
     <div className="relative">
-      <AdminSideBar />
+      <>
+        {showAdminSidebar ? (
+          <AdminSideBar sideBarView={toggleSidebar} />
+        ) : (
+          <ConfigurationSideBar sideBarView={toggleSidebar} />
+        )}
+      </>
       <Box
         marginLeft={{ "base": "0px", "lg": "260px" }}
         as="main"

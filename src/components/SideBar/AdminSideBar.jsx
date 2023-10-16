@@ -22,7 +22,7 @@ import NavItemComponent from "../NavItem.component";
 import { FaChevronRight, FaTimes } from "react-icons/fa";
 import { toggleSideMenu } from "../../app/redux/slices/menuSlice";
 
-export default function AdminSideBar() {
+export default function AdminSideBar({ sideBarView }) {
   const dispatch = useDispatch();
 
   const isSideMenuOpen = useSelector((state) => state.menu.isSideMenuOpen);
@@ -195,7 +195,7 @@ export default function AdminSideBar() {
             Login History
           </NavItemComponent>
 
-          <NavItemComponent link={"/admin/#"}>
+          <NavItemComponent link={"/admin/#"} click={sideBarView}>
             <IconComponent>
               <MdOutlinePrecisionManufacturing size={20} />
             </IconComponent>

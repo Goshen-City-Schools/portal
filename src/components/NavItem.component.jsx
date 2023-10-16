@@ -6,7 +6,7 @@ import IconComponent from "./Icon.component";
 
 import { FaChevronDown, FaChevronUp } from "react-icons/fa"; // Import the correct icons
 
-export default function NavItemComponent({ link, children, submenu }) {
+export default function NavItemComponent({ link, children, submenu, click }) {
   const [showSubmenu, setShowSubmenu] = useState(false);
 
   const handleToggleSubmenu = () => {
@@ -20,6 +20,7 @@ export default function NavItemComponent({ link, children, submenu }) {
       className={`flex justify-start font-bold items-center ${
         linkIsActive(link) ? "bg-blue-800" : ""
       }`}
+      onClick={click}
     >
       <NavLink
         to={link}

@@ -7,6 +7,7 @@ const columns = [
     Header: "S/N",
     accessor: "sn",
     width: "50px", // Set the width of this column
+    mobileHidden: true,
   },
   {
     Header: "Student ID",

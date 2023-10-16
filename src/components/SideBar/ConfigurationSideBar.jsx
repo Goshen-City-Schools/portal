@@ -1,5 +1,4 @@
 import React from "react";
-import Logo from "../Logo.component";
 import "./SideMenu.style.css";
 
 import { Box, List, Flex, Text } from "@chakra-ui/react";
@@ -22,7 +21,7 @@ import NavItemComponent from "../NavItem.component";
 import { FaTimes } from "react-icons/fa";
 import { toggleSideMenu } from "../../app/redux/slices/menuSlice";
 
-export default function ConfigurationSideBar() {
+export default function ConfigurationSideBar({ sideBarView }) {
   const dispatch = useDispatch();
 
   const isSideMenuOpen = useSelector((state) => state.menu.isSideMenuOpen);
@@ -33,8 +32,8 @@ export default function ConfigurationSideBar() {
 
   return (
     <Box
-      bg={"brand.900"}
-      width={{ "accent.900": isSideMenuOpen ? "260px" : "0px", "md": "260px" }}
+      bg={"accent.900"}
+      width={{ "base": isSideMenuOpen ? "260px" : "0px", "md": "260px" }}
       position={"fixed"}
       top={0}
       fontSize={"sm"}
@@ -50,96 +49,91 @@ export default function ConfigurationSideBar() {
         zIndex={40}
         h={20}
         bg={"white"}
-        className="sideBar-header shadow-md flex items-center  w-full"
+        display={"flex"}
+        justifyContent={"space-between"}
+        alignItems={"center"}
+        className=" items-center  w-full"
+        pl={8}
+        pr={4}
+        borderRight={"2px"}
+        borderStyle={"solid"}
+        borderColor={"accent.900"}
       >
         <Text
           as={"p"}
           className="text-md font-bold leading-tight"
-          color={"white"}
+          color={"black"}
         >
           Configuration
         </Text>
+
+        <Flex
+          h={8}
+          w={8}
+          bg={"gray.200"}
+          rounded={"full"}
+          justifyContent={"center"}
+          alignItems={"center"}
+          onClick={() => sideBarView()}
+        >
+          <FaTimes />
+        </Flex>
       </Box>
 
-      <Box className="pl-4 pr-4 py-6" color="white">
-        <h3>GENERAL</h3>
+      <Box className="pl-4 pr-4 py-6" color="whiteAlpha.800">
+        <h3 className="mb-3">GENERAL</h3>
 
         <List className="memuList pl-1">
-          <NavItemComponent onClick={handleToggleSideMenu} link={"/admin/home"}>
+          <NavItemComponent
+            onClick={handleToggleSideMenu}
+            link={"/admin/config/school-info"}
+          >
             <IconComponent>
               <PiDotsNine size={16} />
             </IconComponent>
             School Details
           </NavItemComponent>
-          <NavItemComponent
-            submenu={[
-              "All Students",
-              "Reception",
-              "Nursery",
-              "Basic",
-              "Secondary",
-            ]}
-          >
+          <NavItemComponent link={"/admin/config/students"}>
             <IconComponent>
               <MdOutlineAssignment size={18} />
             </IconComponent>
             Students
           </NavItemComponent>
-          <NavItemComponent
-            submenu={["All Staff", "Academic Staff", "Non-Academic Staff"]}
-          >
+          <NavItemComponent link={"/admin/config/session"}>
             <IconComponent>
               <TbReport size={18} />
             </IconComponent>
-            Staff
+            Session & Term
           </NavItemComponent>
-          <NavItemComponent
-            submenu={["Time table", "Academic Staff", "Non-Academic Staff"]}
-          >
+          <NavItemComponent link={"/admin/config/classes"}>
             <IconComponent>
               <TbSchool size={18} />
             </IconComponent>
             Classes
           </NavItemComponent>
-          <NavItemComponent
-            link={"/admin/parents"}
-            onClick={handleToggleSideMenu}
-          >
+          <NavItemComponent link={"/admin/config/sub-classes"}>
             <IconComponent>
               <MdOutlineBed size={18} />
             </IconComponent>
-            Parents
+            SubClasses
           </NavItemComponent>
-          <NavItemComponent
-            submenu={["Submenu Item 1", "Submenu Item 2", "Submenu Item 3"]}
-          >
+          <NavItemComponent link={"/admin/config/results"}>
             <IconComponent>
               <MdOutlineBed size={18} />
             </IconComponent>
-            Results
+            Subjects
           </NavItemComponent>
-          <NavItemComponent
-            link={"/admin/calendar"}
-            onClick={handleToggleSideMenu}
-          >
+          <NavItemComponent link={"/admin/config/results"}>
             <IconComponent>
               <MdOutlineBed size={18} />
             </IconComponent>
-            Calendar
-          </NavItemComponent>
-          <NavItemComponent
-            submenu={["Submenu Item 1", "Submenu Item 2", "Submenu Item 3"]}
-          >
-            <IconComponent>
-              <MdOutlineBed size={18} />
-            </IconComponent>
-            Finance
+            Notification
           </NavItemComponent>
         </List>
       </Box>
 
-      <Box className="pl-5 py-6" color="white">
-        <h3>ACCOUNT</h3>
+      <Box className="pl-5 py-6" color="whiteAlpha.800">
+        <h3 className="mb-3">FINANCE</h3>
         <List className="memuList">
           {/*  */}
           <NavItemComponent
@@ -149,7 +143,7 @@ export default function ConfigurationSideBar() {
             <IconComponent>
               <MdOutlineSupportAgent size={20} />
             </IconComponent>
-            Help & Support
+            Payment
           </NavItemComponent>
           <NavItemComponent
             link={"/admin/login_history"}
@@ -158,15 +152,7 @@ export default function ConfigurationSideBar() {
             <IconComponent>
               <MdOutlinePrecisionManufacturing size={20} />
             </IconComponent>
-            Login History
-          </NavItemComponent>
-          <NavItemComponent
-            submenu={["Sc", "Submenu Item 2", "Submenu Item 3"]}
-          >
-            <IconComponent>
-              <MdOutlinePrecisionManufacturing size={20} />
-            </IconComponent>
-            Configuration
+            Fees
           </NavItemComponent>
         </List>
       </Box>
