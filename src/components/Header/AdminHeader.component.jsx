@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import { BsChevronDown } from "react-icons/bs";
-
 import { CiBellOn } from "react-icons/ci";
+import { MdMenu } from "react-icons/md";
 
 import {
   Box,
@@ -18,10 +18,11 @@ import {
   PopoverHeader,
   PopoverCloseButton,
   PopoverBody,
+  Text,
 } from "@chakra-ui/react";
+
 import SearchWidget from "../../widgets/Search.widget";
 import IconComponent from "../Icon.component";
-import { MdMenu } from "react-icons/md";
 
 import { toggleSideMenu } from "../../app/redux/slices/menuSlice";
 import { logout } from "../../app/redux/slices/formSlice";
@@ -96,10 +97,7 @@ export default function AdminHeader() {
                   className="absolute object-cover w-full h-full"
                 />
               </div>
-              <Flex
-                direction={{ base: "none", md: "column" }}
-                display={{ base: "none", md: "flex" }}
-              >
+              <Flex direction={"column"} display={{ base: "none", md: "none" }}>
                 <p className="font-bold first-letter:">Nkechinyere Harrison</p>
                 <p>Admin</p>
               </Flex>
@@ -109,6 +107,9 @@ export default function AdminHeader() {
           <PopoverContent>
             <PopoverArrow />
             <PopoverCloseButton />
+            <PopoverHeader>
+              <Text as={"h3"}>Administrator</Text>
+            </PopoverHeader>
             <PopoverBody>
               <Button variant="ghost" w="100%" justifyContent="flex-start">
                 My Profile

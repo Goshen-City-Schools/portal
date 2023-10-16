@@ -51,18 +51,18 @@ export default function NavItemComponent({ link, children, submenu }) {
           {showSubmenu ? <FaChevronUp /> : <FaChevronDown />}
         </IconComponent>
       </Box>
-      <Collapse in={showSubmenu} animateOpacity>
-        <List pl={2} pt={2} gap={2}>
+      <Collapse in={showSubmenu} animateOpacity className="w-full">
+        <List pl={8} pt={2} gap={2} w={"full"}>
           {submenu &&
             submenu.map((item, index) => (
-              <ListItem
+              <NavLink
+                to={`/admin${item.link}`}
                 key={index}
                 _hover={{ bg: "brand.700", color: "white", cursor: "pointer" }}
-                className="flex justify-start pl-2 py-2 font-bold items-center"
-                mt={1} // Adjust the margin-top as needed
+                className="flex justify-start font-normal mt-1 w-full pl-2 py-2 items-start"
               >
-                {item}
-              </ListItem>
+                {item.name}
+              </NavLink>
             ))}
         </List>
       </Collapse>
