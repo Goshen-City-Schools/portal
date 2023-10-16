@@ -16,6 +16,7 @@ import CustomSelect from "../../components/shared/Select.component";
 import CreateEventPortal from "../../portals/CreateEvent.portal";
 import { useModal } from "../../app/contexts/ModalContext";
 import ReactPortal from "../../widgets/ReactPortal";
+import PageSectionHeader from "../../components/PageSectionHeader";
 
 export default function AdminHome() {
   const { openPortal } = useModal();
@@ -24,18 +25,7 @@ export default function AdminHome() {
     <PageWrapper>
       <ReactPortal />
 
-      <Flex justifyContent={"space-between"} alignItems={"center"} mb={2}>
-        <Text
-          as={"h2"}
-          mt={0}
-          className=""
-          fontSize={"2xl"}
-          fontWeight={"bold"}
-        >
-          Overview
-        </Text>
-        <Text as={"small"}>Home</Text>
-      </Flex>
+      <PageSectionHeader pageTitle={"Overview"} pageCrumb={"Home"} />
 
       <Grid templateColumns={{ "base": "1fr", "lg": "repeat(9, 1fr)" }} gap={4}>
         <GridItem

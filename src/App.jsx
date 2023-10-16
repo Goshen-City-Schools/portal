@@ -30,6 +30,7 @@ import ParentPage from "./pages/admin/parents/Parents.page";
 import ClassesPage from "./pages/admin/classes/Classes.page";
 import TransactionHistory from "./pages/admin/finance/TransactionHistory.page";
 import TuitionPage from "./pages/admin/finance/Tuition.page";
+import SessionTermPage from "./pages/admin/configs/SessionTerm";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -57,6 +58,11 @@ const router = createBrowserRouter(
           <Route index element={<TransactionHistory />} />
           <Route path="transactions" element={<TransactionHistory />} />
           <Route path="tuition" element={<TuitionPage />} />
+        </Route>
+
+        <Route path="config">
+          <Route index element={<SessionTermPage />} />
+          <Route path="session-term" element={<SessionTermPage />} />
         </Route>
         <Route path="*" element={<AdminHome />} />
       </Route>

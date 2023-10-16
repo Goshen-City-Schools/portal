@@ -75,6 +75,7 @@ export default function ConfigurationSideBar({ sideBarView }) {
           justifyContent={"center"}
           alignItems={"center"}
           onClick={() => sideBarView()}
+          cursor={"pointer"}
         >
           <FaTimes />
         </Flex>
@@ -99,7 +100,7 @@ export default function ConfigurationSideBar({ sideBarView }) {
             </IconComponent>
             Students
           </NavItemComponent>
-          <NavItemComponent link={"/admin/config/session"}>
+          <NavItemComponent link={"/admin/config/session-term"}>
             <IconComponent>
               <TbReport size={18} />
             </IconComponent>
