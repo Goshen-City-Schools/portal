@@ -57,3 +57,8 @@ li {
     width: 100vw;
   }
 }
+@media (max-width: 580px) {
+  html {
+    @apply text-sm;
+  }
+}
