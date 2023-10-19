@@ -24,7 +24,7 @@ export default function PageWrapper({ children, overflowX = "hidden" }) {
       {isLoading ? (
         <LoadingScreen height="92vh" timer={2100} mt={"80px"} />
       ) : (
-        <Box p={6} mt={"80px"} overflowX={overflowX}>
+        <Box p={6} className="page-wrapper" mt={"80px"} overflowX={overflowX}>
           <motion.div
             initial="initial"
             animate="animate"
@@ -34,6 +34,16 @@ export default function PageWrapper({ children, overflowX = "hidden" }) {
           </motion.div>
         </Box>
       )}
+
+      <style>
+        {`
+      @media print {
+        .page-wrapper{
+          margin-top: 0px;
+        }
+      }
+    `}
+      </style>
     </>
   );
 }

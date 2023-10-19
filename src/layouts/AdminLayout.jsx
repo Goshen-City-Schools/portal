@@ -28,11 +28,21 @@ export default function AdminLayout() {
         marginLeft={{ "base": "0px", "lg": "260px" }}
         as="main"
         w={{ "base": "100%", "md": "calc(100vw - 260px)" }}
-        className="ml-[260px] overflow-x-hidden"
+        className="ml-[260px] overflow-x-hidden main"
       >
         <AdminHeader />
         <Outlet />
       </Box>
+
+      <style>
+        {`
+      @media print {
+        main{
+          margin-left:0;
+        }
+      }
+    `}
+      </style>
     </div>
   );
 }

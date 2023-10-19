@@ -51,7 +51,7 @@ export default function AdminHeader() {
       paddingX={6}
       width={{ "base": "100%", "lg": "calc(100vw - 260px)" }}
       left={{ "lg": "260px" }}
-      className="h-20 fixed top-0 z-40 shadow-md flex items-center justify-between"
+      className="h-20 no-print fixed top-0 z-40 shadow-md flex items-center justify-between"
     >
       <SearchWidget text={"Search students, staffs, events..."} />
       <Flex
