@@ -1,28 +1,34 @@
 import React from "react";
 
-import { Text } from "@chakra-ui/react";
+import { Text, Flex, Box } from "@chakra-ui/react";
 
 export default function PrintHeader() {
   return (
     <div className="invoice-header flex flex-col text-center items-center">
-      <h3 className="school-name text-xl font-bold">GOSHEN GROUP OF SCHOOLS</h3>
-      <p className="school-section text-sm leading-tight">
-        Creche, Nursery, Primary and Secondary
-      </p>
-      <div className="w-32 h-32 relative mx-auto">
-        <img
-          src="/Goshen-logo-trans.png"
-          alt="Goshen logo"
-          loading="lazy"
-          height={96}
-          width={96}
-          className="w-full h-full object-cover absolute"
-        />
-      </div>
-
-      <Text as={"p"} mb={2} fontSize={"sm"}>
-        <span className="font-bold">Motto: </span>Wisdom, the principal thing
-      </Text>
+      <Flex justifyContent={"center"} alignItems={"center"}>
+        <div className="w-24 h-24 relative mx-auto">
+          <img
+            src="/Goshen-logo-trans.png"
+            alt="Goshen logo"
+            loading="lazy"
+            height={24}
+            width={24}
+            className="w-full h-full object-cover absolute"
+          />
+        </div>
+        <Box>
+          <h3 className="school-name text-xl font-bold">
+            GOSHEN GROUP OF SCHOOLS
+          </h3>
+          <p className="school-section text-sm leading-tight">
+            Creche, Nursery, Primary and Secondary
+          </p>
+          <Text as={"p"} mt={1} mb={1} fontSize={"sm"}>
+            <span className="font-bold">Motto: </span>Wisdom, the principal
+            thing
+          </Text>
+        </Box>
+      </Flex>
 
       <div className="flex flex-col text-center w-full">
         <p className="school-address text-sm">

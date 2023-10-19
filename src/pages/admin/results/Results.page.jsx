@@ -1,17 +1,12 @@
 import React from "react";
 import PageWrapper from "../../../components/PageWrapper";
-import ResultSheet from "../../../components/ResultSheet";
+import ResultSheet, { ResultSheetPDF } from "../../../components/ResultSheet";
 
-import { Text, Flex, Box, Button } from "@chakra-ui/react";
+import { Flex, Button } from "@chakra-ui/react";
 import PageSectionHeader from "../../../components/PageSectionHeader";
 import IconComponent from "../../../components/Icon.component";
-import {
-  MdAdd,
-  MdDownload,
-  MdIcecream,
-  MdPrint,
-  MdUploadFile,
-} from "react-icons/md";
+import { MdDownload, MdPrint } from "react-icons/md";
+import { PDFDownloadLink } from "@react-pdf/renderer";
 
 export default function ResultPage() {
   const handlePrint = () => {
@@ -20,16 +15,17 @@ export default function ResultPage() {
 
   const studentData = {
     name: "John Doe",
-    rollNumber: "12345",
-    totalScore: 450, // Replace with the actual total score
+    rollNumber: "1234",
+    age: 11, // Replace with the actual total score
+    class: "JSS 2A", // Replace with the actual total score
     remarks: "Excellent", // Replace with the actual remarks
   };
 
   const subjectData = [
-    { name: "Mathematics", score: 90, grade: "A" },
-    { name: "Science", score: 85, grade: "A" },
-    { name: "History", score: 75, grade: "B" },
-    { name: "English", score: 95, grade: "A" },
+    { name: "Mathematics", examScore: 49, testScore: 18, grade: "A" },
+    { name: "Science", examScore: 56, testScore: 21, grade: "A" },
+    { name: "History", examScore: 45, testScore: 17, grade: "B" },
+    { name: "English", examScore: 65, testScore: 29, grade: "A" },
     // Add more subjects as needed
   ];
   return (
@@ -58,6 +54,7 @@ export default function ResultPage() {
           </IconComponent>{" "}
           Download Result Sheet
         </Button>
+
         <Button
           bg={"brand.700"}
           size={"sm"}
