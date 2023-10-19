@@ -57,7 +57,7 @@ export default function NavItemComponent({ link, children, submenu, click }) {
           {submenu &&
             submenu.map((item, index) => (
               <NavLink
-                to={`/admin${item.link}`}
+                to={`${item.link}`}
                 key={index}
                 _hover={{ bg: "brand.700", color: "white", cursor: "pointer" }}
                 className="flex justify-start font-normal mt-1 w-full pl-2 py-2 items-start"

@@ -107,11 +107,11 @@ export default function AdminSideBar({ sideBarView }) {
           </NavItemComponent>
           <NavItemComponent
             submenu={[
-              { name: "All Students", link: "/students" },
-              { name: "Reception", link: "/students" },
-              { name: "Nursery", link: "/students" },
-              { name: "Basic", link: "/students" },
-              { name: "Secondary", link: "/students" },
+              { name: "All Students", link: "/admin/students" },
+              { name: "Reception", link: "/admin/students" },
+              { name: "Nursery", link: "/admin/students" },
+              { name: "Basic", link: "/admin/students" },
+              { name: "Secondary", link: "/admin/students" },
             ]}
           >
             <IconComponent>
@@ -123,7 +123,10 @@ export default function AdminSideBar({ sideBarView }) {
             submenu={[
               { name: "All Staff", link: "/staff" },
               { name: "Academic Staff", link: "/staff?type=academic" },
-              { name: "Non-Academic Staff", link: "/staff?type=non-academic" },
+              {
+                name: "Non-Academic Staff",
+                link: "/admin/staff?type=non-academic",
+              },
             ]}
           >
             <IconComponent>
@@ -150,7 +153,7 @@ export default function AdminSideBar({ sideBarView }) {
             submenu={[
               {
                 name: "View Result Sheet",
-                link: "/results",
+                link: "/admin/results",
               },
               {
                 name: "Edit Grade Settings",
@@ -173,8 +176,8 @@ export default function AdminSideBar({ sideBarView }) {
           </NavItemComponent>
           <NavItemComponent
             submenu={[
-              { name: "Upcoming Events", link: "/" },
-              { name: "Announcements", link: "/" },
+              { name: "Upcoming Events", link: "/admin" },
+              { name: "Announcements", link: "/admin" },
             ]}
           >
             <IconComponent>
@@ -182,7 +185,7 @@ export default function AdminSideBar({ sideBarView }) {
             </IconComponent>
             Calendar
           </NavItemComponent>
-          <NavItemComponent link={"/finance"}>
+          <NavItemComponent link={" /admin/finance"}>
             <IconComponent>
               <MdOutlineBed size={18} />
             </IconComponent>
