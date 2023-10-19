@@ -13,11 +13,27 @@ import {
 } from "@chakra-ui/react";
 import PrintHeader from "./Header/PrintHeader";
 
-export default function ResultSheet({ studentData, subjectData }) {
-  const handlePrint = () => {
-    window.print();
-  };
+import {
+  PDFViewer,
+  PDFDownloadLink,
+  Page,
+  Text as PDFText,
+  Document,
+  StyleSheet,
+} from "@react-pdf/renderer";
 
+// Define the styles for the PDF document
+const styles = StyleSheet.create({
+  page: {
+    flexDirection: "column",
+    padding: 20,
+  },
+  section: {
+    margin: 10,
+  },
+});
+
+export default function ResultSheet({ studentData, subjectData }) {
   return (
     <>
       <Box
@@ -77,16 +93,6 @@ export default function ResultSheet({ studentData, subjectData }) {
           <Text fontWeight="bold">Total Score: {studentData.totalScore}</Text>
           <Text>Remarks: {studentData.remarks}</Text>
         </Box>
-
-        <Button
-          mt={16}
-          mr={"auto"}
-          width={"max-content"}
-          onClick={handlePrint}
-          className="no-print" // Add a class for styling and hiding
-        >
-          Print Result Sheet
-        </Button>
       </Box>{" "}
       <style>
         {`
@@ -100,3 +106,11 @@ export default function ResultSheet({ studentData, subjectData }) {
     </>
   );
 }
+
+export const ResultSheetPDF = ({ studentData, subjectData }) => (
+  <Document>
+    <Page size="A4" style={styles.page}>
+      <ResultSheet studentData={studentData} subjectData={subjectData} />
+    </Page>
+  </Document>
+);

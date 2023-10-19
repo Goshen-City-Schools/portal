@@ -10,6 +10,7 @@ import IconComponent from "../../../components/Icon.component";
 import CreateStudentPortal from "../../../portals/CreateStudent.portal";
 import { useModal } from "../../../app/contexts/ModalContext";
 import ReactPortal from "../../../widgets/ReactPortal";
+import PageSectionHeader from "../../../components/PageSectionHeader";
 
 export default function StudentsPage() {
   const { openPortal } = useModal();
@@ -18,18 +19,10 @@ export default function StudentsPage() {
     <PageWrapper>
       <ReactPortal />
 
-      <Flex justifyContent={"space-between"} alignItems={"center"} mb={2}>
-        <Text
-          as={"h2"}
-          mt={0}
-          className=""
-          fontSize={"2xl"}
-          fontWeight={"bold"}
-        >
-          All Students
-        </Text>
-        <Text as={"small"}>Home / Students / All Students</Text>
-      </Flex>
+      <PageSectionHeader
+        pageTitle={"All Students"}
+        pageCrumb={"Home / Students / All Students"}
+      />
 
       <Flex
         justifyContent={"space-between"}
