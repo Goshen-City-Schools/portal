@@ -6,8 +6,9 @@ import { Flex, Button } from "@chakra-ui/react";
 import PageSectionHeader from "../../../components/PageSectionHeader";
 import IconComponent from "../../../components/Icon.component";
 import { MdDownload, MdPrint } from "react-icons/md";
+import { useParams } from "react-router-dom";
 
-export default function ResultPage() {
+export default function ResultSinglePage() {
   const handlePrint = () => {
     window.print();
   };

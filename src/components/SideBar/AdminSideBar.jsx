@@ -152,20 +152,20 @@ export default function AdminSideBar({ sideBarView }) {
           <NavItemComponent
             submenu={[
               {
-                name: "View Result Sheet",
+                name: "View Result",
+                link: "/admin/results/view",
+              },
+              {
+                name: "Result Sheet Settings",
+                link: "/admin/results/settings",
+              },
+              {
+                name: "Results Broadsheet",
                 link: "/admin/results",
               },
               {
-                name: "Edit Grade Settings",
-                link: "/results",
-              },
-              {
-                name: "Class Teacher Comment",
-                link: "/results",
-              },
-              {
-                name: "Head Teacher Comment",
-                link: "/results",
+                name: "Add / Del Features",
+                link: "/admin/results",
               },
             ]}
           >

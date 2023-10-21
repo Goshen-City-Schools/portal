@@ -31,6 +31,10 @@ import ClassesPage from "./pages/admin/classes/Classes.page";
 import TransactionHistory from "./pages/admin/finance/TransactionHistory.page";
 import TuitionPage from "./pages/admin/finance/Tuition.page";
 import SessionTermPage from "./pages/admin/configs/SessionTerm";
+import ResultsViewPage from "./pages/admin/results/ResultsViewPage";
+import ViewResultPage from "./pages/admin/results/ViewResultPage";
+import ResultSinglePage from "./pages/admin/results/Result.page";
+import ResultSettingsPage from "./pages/admin/results/ResultSettings.page";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -53,7 +57,12 @@ const router = createBrowserRouter(
         <Route path="staff" element={<StaffPage />} />
         <Route path="parents" element={<ParentPage />} />
         <Route path="classes" element={<ClassesPage />} />
-        <Route path="results" element={<ResultPage />} />
+        <Route path="results">
+          <Route index element={<ResultPage />} />
+          <Route path="view" element={<ResultsViewPage />} />
+          <Route path="settings" element={<ResultSettingsPage />} />
+          <Route path=":session/:term/:userId" element={<ResultSinglePage />} />
+        </Route>
         <Route path="finance">
           <Route index element={<TransactionHistory />} />
           <Route path="transactions" element={<TransactionHistory />} />

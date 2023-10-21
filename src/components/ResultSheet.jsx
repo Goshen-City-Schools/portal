@@ -22,6 +22,7 @@ import {
   StyleSheet,
 } from "@react-pdf/renderer";
 import { assignGrade, teacherRemark } from "../utilities/assignGrade";
+import ResultHeader from "./Header/ResultHeader";
 
 // Define the styles for the PDF document
 const styles = StyleSheet.create({
@@ -67,21 +68,20 @@ export default function ResultSheet({ studentData, subjectData }) {
         shadow={"lg"}
         className="result-sheet"
       >
-        <PrintHeader />
+        <ResultHeader />
 
         <Flex
           justifyContent={"center"}
           alignItems={"center"}
           position={"relative"}
-          h={24}
         >
           <Text
             as={"h3"}
             fontWeight={"bold"}
             fontSize={"sm"}
             px={6}
-            mt={1}
             py={2}
+            mt={2}
             w={"max-content"}
             mx={"auto"}
             bg={"brand.700"}
@@ -91,14 +91,6 @@ export default function ResultSheet({ studentData, subjectData }) {
           >
             Result Sheet
           </Text>
-
-          <Box position={"absolute"} right={0}>
-            <Box
-              className="imageContainer h-24 w-24 rounded-md shadow-md"
-              border={"1px dotted"}
-              borderColor={"accent.700"}
-            ></Box>
-          </Box>
         </Flex>
         {/* Student Information */}
         <Flex
