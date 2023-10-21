@@ -111,7 +111,12 @@ export default function AdminHeader() {
               <Text as={"h3"}>Administrator</Text>
             </PopoverHeader>
             <PopoverBody>
-              <Button variant="ghost" w="100%" justifyContent="flex-start">
+              <Button
+                variant="ghost"
+                w="100%"
+                justifyContent="flex-start"
+                onClick={() => navigate("/admin/profile")}
+              >
                 My Profile
               </Button>
               <Button

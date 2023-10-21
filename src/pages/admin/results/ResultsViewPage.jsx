@@ -30,6 +30,9 @@ export default function ResultsViewPage() {
     console.log("Term:", term);
     console.log("User ID:", userId);
 
+    if (!session || !term || !userId) {
+      return alert("Invalid Request!");
+    }
     navigate(`/admin/results/${session}/${term}/${userId}`);
   };
 

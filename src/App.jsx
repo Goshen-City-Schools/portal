@@ -35,6 +35,7 @@ import ResultsViewPage from "./pages/admin/results/ResultsViewPage";
 import ViewResultPage from "./pages/admin/results/ViewResultPage";
 import ResultSinglePage from "./pages/admin/results/Result.page";
 import ResultSettingsPage from "./pages/admin/results/ResultSettings.page";
+import MyProfilePage from "./pages/admin/profile/MyProfile.page";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -53,6 +54,7 @@ const router = createBrowserRouter(
 
         <Route index element={<AdminHome />} />
         <Route path="home" element={<AdminHome />} />
+        <Route path="profile" element={<MyProfilePage />} />
         <Route path="students" element={<StudentsPage />} />
         <Route path="staff" element={<StaffPage />} />
         <Route path="parents" element={<ParentPage />} />
