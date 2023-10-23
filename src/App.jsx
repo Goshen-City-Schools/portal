@@ -6,6 +6,8 @@ import {
   Route,
 } from "react-router-dom";
 
+const navigate = () => window.location.replace();
+
 // layouts
 
 // pages
@@ -38,6 +40,10 @@ import ResultSettingsPage from "./pages/admin/results/ResultSettings.page";
 import MyProfilePage from "./pages/admin/profile/MyProfile.page";
 import UploadResultPage from "./pages/admin/results/UploadResult.page";
 import ExamHomePage from "./pages/admin/cbt/exam/Home.page";
+import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import NotFound from "./pages/admin/NotFound";
+import GeneralNotFound from "./pages/NotFound";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -61,6 +67,7 @@ const router = createBrowserRouter(
         <Route path="staff" element={<StaffPage />} />
         <Route path="parents" element={<ParentPage />} />
         <Route path="classes" element={<ClassesPage />} />
+
         <Route path="results">
           <Route index element={<ResultPage />} />
           <Route path="view" element={<ResultsViewPage />} />
@@ -68,10 +75,12 @@ const router = createBrowserRouter(
           <Route path="settings" element={<ResultSettingsPage />} />
           <Route path=":session/:term/:userId" element={<ResultSinglePage />} />
         </Route>
+
         <Route path="cbt">
           <Route index element={<ExamHomePage />} />
           <Route path="examinations" element={<ExamHomePage />} />
         </Route>
+
         <Route path="finance">
           <Route index element={<TransactionHistory />} />
           <Route path="transactions" element={<TransactionHistory />} />
@@ -82,7 +91,8 @@ const router = createBrowserRouter(
           <Route index element={<SessionTermPage />} />
           <Route path="session-term" element={<SessionTermPage />} />
         </Route>
-        <Route path="*" element={<AdminHome />} />
+
+        <Route path="*" element={<NotFound />} />
       </Route>
 
       <Route
@@ -111,9 +121,9 @@ const router = createBrowserRouter(
             <Route path="new" element={<PrintReceiptScreen />} />
           </Route>
         </Route>
-
-        <Route path="*" element={<Home />} />
       </Route>
+
+      <Route path="*" element={<GeneralNotFound />} />
     </Route>
   )
 );
