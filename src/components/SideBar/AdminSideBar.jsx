@@ -121,7 +121,7 @@ export default function AdminSideBar({ sideBarView }) {
           </NavItemComponent>
           <NavItemComponent
             submenu={[
-              { name: "All Staff", link: "/staff" },
+              { name: "All Staff", link: "/admin/staff" },
               { name: "Academic Staff", link: "/staff?type=academic" },
               {
                 name: "Non-Academic Staff",
@@ -160,6 +160,10 @@ export default function AdminSideBar({ sideBarView }) {
                 link: "/admin/results/settings",
               },
               {
+                name: "Upload Results",
+                link: "/admin/results/upload",
+              },
+              {
                 name: "Results Broadsheet",
                 link: "/admin/results",
               },
@@ -184,6 +188,17 @@ export default function AdminSideBar({ sideBarView }) {
               <MdOutlineBed size={18} />
             </IconComponent>
             Calendar
+          </NavItemComponent>
+          <NavItemComponent
+            submenu={[
+              { name: "Examination", link: "/admin/cbt/examinations" },
+              { name: "Assessment Tests", link: "/admin/cbt/assessments" },
+            ]}
+          >
+            <IconComponent>
+              <MdOutlineBed size={18} />
+            </IconComponent>
+            CBT
           </NavItemComponent>
           <NavItemComponent link={" /admin/finance"}>
             <IconComponent>

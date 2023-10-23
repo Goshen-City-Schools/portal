@@ -1,28 +1,17 @@
 import React from "react";
 import PageWrapper from "../../../components/PageWrapper";
-
-import { Text, Flex, Box, Button } from "@chakra-ui/react";
-
-import { MdAdd, MdIcecream, MdUploadFile } from "react-icons/md";
-
-import AllStudentsTable from "../../../components/tables/AllStudentsTable.component";
-import SearchWidget from "../../../widgets/Search.widget";
-import IconComponent from "../../../components/Icon.component";
-import CreateStudentPortal from "../../../portals/CreateStudent.portal";
-import { useModal } from "../../../app/contexts/ModalContext";
-import ReactPortal from "../../../widgets/ReactPortal";
 import PageSectionHeader from "../../../components/PageSectionHeader";
 
-export default function StudentsPage() {
-  const { openPortal } = useModal();
+import { Text, Flex, Box, Button } from "@chakra-ui/react";
+import IconComponent from "../../../components/Icon.component";
+import { MdAdd, MdIcecream, MdUploadFile } from "react-icons/md";
 
+export default function UploadResultPage() {
   return (
     <PageWrapper>
-      <ReactPortal />
-
       <PageSectionHeader
-        pageTitle={"All Students"}
-        pageCrumb={"Home / Students / All Students"}
+        pageTitle={"Upload Results"}
+        pageCrumb={"Home / Results / Upload Results"}
       />
 
       <Flex
@@ -31,8 +20,7 @@ export default function StudentsPage() {
         mt={8}
         mb={6}
       >
-        <SearchWidget height={10} text={"Search Students"} />
-
+        <div></div>
         <Flex gap={4} fontSize={"sm"}>
           <Button
             size={"sm"}
@@ -43,7 +31,7 @@ export default function StudentsPage() {
             <IconComponent>
               <MdIcecream />
             </IconComponent>{" "}
-            Download
+            Download Result Sheet Format
           </Button>
           <Button
             as={"Flex"}
@@ -55,7 +43,7 @@ export default function StudentsPage() {
             <IconComponent>
               <MdUploadFile />
             </IconComponent>{" "}
-            Bulk Upload Students
+            Add Result
           </Button>
           <Button
             bg={"brand.700"}
@@ -66,14 +54,10 @@ export default function StudentsPage() {
             <IconComponent>
               <MdAdd />
             </IconComponent>
-            New Student
+            Bulk Upload Results
           </Button>
         </Flex>
       </Flex>
-
-      <Box p={4} bg={"white"} rounded={"md"}>
-        <AllStudentsTable />
-      </Box>
     </PageWrapper>
   );
 }

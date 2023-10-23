@@ -36,6 +36,8 @@ import ViewResultPage from "./pages/admin/results/ViewResultPage";
 import ResultSinglePage from "./pages/admin/results/Result.page";
 import ResultSettingsPage from "./pages/admin/results/ResultSettings.page";
 import MyProfilePage from "./pages/admin/profile/MyProfile.page";
+import UploadResultPage from "./pages/admin/results/UploadResult.page";
+import ExamHomePage from "./pages/admin/cbt/exam/Home.page";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -62,8 +64,13 @@ const router = createBrowserRouter(
         <Route path="results">
           <Route index element={<ResultPage />} />
           <Route path="view" element={<ResultsViewPage />} />
+          <Route path="upload" element={<UploadResultPage />} />
           <Route path="settings" element={<ResultSettingsPage />} />
           <Route path=":session/:term/:userId" element={<ResultSinglePage />} />
+        </Route>
+        <Route path="cbt">
+          <Route index element={<ExamHomePage />} />
+          <Route path="examinations" element={<ExamHomePage />} />
         </Route>
         <Route path="finance">
           <Route index element={<TransactionHistory />} />
