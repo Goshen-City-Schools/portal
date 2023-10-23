@@ -18,6 +18,7 @@
     "@tanstack/react-table": "^8.10.6",
     "chakra": "^0.0.3",
     "chart.js": "^4.4.0",
+    "dayjs": "^1.11.10",
     "framer-motion": "^10.16.4",
     "react": "^18.2.0",
     "react-calendar": "^4.6.0",

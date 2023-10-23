@@ -11,7 +11,9 @@ import {
   Box,
   useStyleConfig,
   useMediaQuery,
+  Badge, // Import the Badge component from Chakra UI
 } from "@chakra-ui/react";
+import ReusableBadge from "../components/ReusableBadge";
 
 const DataTable = ({ columns, data, fullWidthColumns }) => {
   const [isMobile] = useMediaQuery("(max-width: 768px)"); // Detect mobile view
@@ -99,7 +101,18 @@ const DataTable = ({ columns, data, fullWidthColumns }) => {
                           : "table-cell",
                     }}
                   >
-                    {cell.render("Cell")}
+                    {/* Render the Approval Status column as a Badge */}
+                    {(cell.column.id === "approvalStatus") |
+                    (cell.column.id === "availabilityStatus") ? (
+                      <ReusableBadge
+                        colorScheme={getStatusColorScheme(cell.value)}
+                        variant={getStatusVariant(cell.value)}
+                      >
+                        {cell.value}
+                      </ReusableBadge>
+                    ) : (
+                      cell.render("Cell")
+                    )}
                   </Td>
                 ))}
               </Tr>
@@ -129,6 +142,32 @@ const DataTable = ({ columns, data, fullWidthColumns }) => {
       </Flex>
     </Box>
   );
+};
+
+const getStatusColorScheme = (status) => {
+  switch (status) {
+    case "Approved":
+      return "green";
+    case "Pending":
+      return "yellow";
+    case "Not Approved":
+      return "red";
+    default:
+      return "gray";
+  }
+};
+
+const getStatusVariant = (status) => {
+  switch (status) {
+    case "Approved":
+      return "solid";
+    case "Pending":
+      return "subtle";
+    case "Not Approved":
+      return "outline";
+    default:
+      return "subtle";
+  }
 };
 
 export default DataTable;
