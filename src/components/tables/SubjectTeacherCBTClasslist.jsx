@@ -66,11 +66,7 @@ function SubjectTeacherCBTClasslist() {
               Cell: ({ row }) => (
                 <p
                   className="cursor-pointer "
-                  onClick={() => {
-                    // Store the student data in the state variable and open the modal
-                    setModalData(row.original.students);
-                    setIsModalOpen(true);
-                  }}
+                  onClick={() => openPortal(<CreateStudentPortal />)}
                 >
                   {row.values.numberOfStudents}
                 </p>

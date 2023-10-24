@@ -29,7 +29,7 @@ import StaffPage from "./pages/admin/staff/Staff.page";
 import ResultPage from "./pages/admin/results/Results.page";
 import AuthLayout from "./layouts/AuthLayout";
 import ParentPage from "./pages/admin/parents/Parents.page";
-import ClassesPage from "./pages/admin/classes/Classes.page";
+// import ClassesPage from "./pages/admin/classes/Classes.page";
 import TransactionHistory from "./pages/admin/finance/TransactionHistory.page";
 import TuitionPage from "./pages/admin/finance/Tuition.page";
 import SessionTermPage from "./pages/admin/configs/SessionTerm";
@@ -44,6 +44,8 @@ import { Navigate } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import NotFound from "./pages/admin/NotFound";
 import GeneralNotFound from "./pages/NotFound";
+import ClassesPage from "./pages/admin/classes/Index.page";
+import ClassPage from "./pages/admin/classes/Class.page";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -66,7 +68,10 @@ const router = createBrowserRouter(
         <Route path="students" element={<StudentsPage />} />
         <Route path="staff" element={<StaffPage />} />
         <Route path="parents" element={<ParentPage />} />
-        <Route path="classes" element={<ClassesPage />} />
+        <Route path="classes">
+          <Route index element={<ClassesPage />} />
+          <Route path=":class" element={<ClassPage />} />
+        </Route>
 
         <Route path="results">
           <Route index element={<ResultPage />} />
