@@ -1,0 +1,53 @@
+.timetable {
+  display: grid;
+  grid-template-columns: 1fr repeat(5, 2fr); /* One empty cell + 5 days */
+  grid-template-rows: repeat(8, 1fr); /* 8 hours */
+  gap: 1px;
+  border: 1px solid #ccc;
+}
+
+.timetable-header {
+  display: grid;
+  grid-template-columns: 1fr repeat(5, 2fr);
+  border-bottom: 1px solid #ccc;
+}
+
+.empty-cell {
+  background-color: #f0f0f0;
+}
+
+.vertical-header {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  border-right: 1px solid #ccc;
+  padding: 5px;
+  text-align: center;
+  background-color: #f0f0f0;
+}
+
+.timetable-body {
+  display: grid;
+  grid-template-columns: 1fr repeat(5, 2fr);
+}
+
+.hour-cell {
+  border-right: 1px solid #ccc;
+  padding: 5px;
+  text-align: center;
+  background-color: #f0f0f0;
+}
+
+.subject-cell {
+  border: 1px solid #ccc;
+  padding: 5px;
+  text-align: center;
+}
+
+.subject-entry {
+  cursor: pointer;
+  color: #333;
+}
+
+.subject-entry:hover {
+  background-color: #f0f0f0;
+}

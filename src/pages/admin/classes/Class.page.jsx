@@ -1,28 +1,46 @@
-import React from "react";
-import PageWrapper from "../../../components/PageWrapper";
-
-import { Text, Flex, Box, Button } from "@chakra-ui/react";
+import React, { useState } from "react";
+import { Text, Flex, Box, Button, useDisclosure } from "@chakra-ui/react";
 import { MdAdd, MdIcecream, MdUploadFile } from "react-icons/md";
 
+import PageWrapper from "../../../components/PageWrapper";
+import ClassSummaryBox from "../../../components/ClassSummaryBox";
+import HorizontalScrollableTabs from "../../../widgets/HorizontalScrollableTabs.widget";
 import AllStudentsTable from "../../../components/tables/AllStudentsTable.component";
 import SearchWidget from "../../../widgets/Search.widget";
 import IconComponent from "../../../components/Icon.component";
-import HorizontalScrollableTabs from "../../../widgets/HorizontalScrollableTabs.widget";
-import { useState } from "react";
-import ClassSummaryBox from "../../../components/ClassSummaryBox";
+import Timetable from "../../../components/tables/TimeTable.component";
+// import Timetable from "../../../components/tables/Timetable.component";
 
 export default function ClassPage() {
   const [activeTab, setActiveTab] = useState(1);
 
   const tabs = [
-    { id: 1, label: "Students (25)" },
-    { id: 2, label: "Subjects" },
-    { id: 3, label: "Time table" },
-    { id: 4, label: "Attendance" },
+    { id: 1, label: "Students (25)", component: <AllStudentsTable /> },
+    { id: 2, label: "Subjects", component: <Timetable /> },
+    { id: 3, label: "Time table", component: <Timetable /> },
+    { id: 4, label: "Attendance", component: <AllStudentsTable /> },
     { id: 5, label: "Social Behaviour" },
     { id: 6, label: "Broadsheet" },
     // Add more tabs as needed
   ];
+
+  const subjectsData = {
+    "Monday": {
+      "8:00 AM": "Math",
+      "9:00 AM": "Science",
+      "10:00 AM": "History",
+      "11:00 AM": "English",
+      "12:00 PM": "Lunch Break",
+      "1:00 PM": "Physics",
+      "2:00 PM": "Chemistry",
+      "3:00 PM": "Biology",
+    },
+  };
+
+  const handleSubjectClick = (day, hour) => {
+    // Implement the logic for handling subject clicks, e.g., opening a modal or performing an action.
+    console.log(`Clicked on ${subjectsData[day][hour]} at ${day}, ${hour}`);
+  };
 
   const handleTabClick = (tabId) => {
     setActiveTab(tabId);
@@ -56,52 +74,9 @@ export default function ClassPage() {
         onTabClick={handleTabClick}
       />
 
-      <>
-        {" "}
-        <Flex
-          justifyContent={"space-between"}
-          alignItems={"center"}
-          mt={8}
-          mb={6}
-        >
-          <SearchWidget height={10} text={"Search students"} />
-
-          <Flex gap={4} fontSize={"sm"}>
-            <Button
-              size={"sm"}
-              bg={"neutral.100"}
-              border={"1px"}
-              borderColor={"brand.700"}
-            >
-              <IconComponent>
-                <MdIcecream />
-              </IconComponent>{" "}
-              Download
-            </Button>
-            <Button
-              as={"Flex"}
-              gap={2}
-              size={"sm"}
-              bg={"accent.700"}
-              color={"white"}
-            >
-              <IconComponent>
-                <MdUploadFile />
-              </IconComponent>{" "}
-              Bulk Upload Students
-            </Button>
-            <Button bg={"brand.700"} size={"sm"} color={"neutral.100"}>
-              <IconComponent>
-                <MdAdd />
-              </IconComponent>
-              New Student
-            </Button>
-          </Flex>
-        </Flex>
-        <Box p={4} bg={"white"} rounded={"md"}>
-          <AllStudentsTable />
-        </Box>
-      </>
+      <Box p={4} bg={"white"} rounded={"md"}>
+        {tabs[activeTab - 1].component}
+      </Box>
     </PageWrapper>
   );
 }

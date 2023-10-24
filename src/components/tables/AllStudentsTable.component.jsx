@@ -2,6 +2,7 @@ import React from "react";
 import Table from "../../widgets/Table.widget";
 
 import {
+  Flex,
   Popover,
   PopoverTrigger,
   PopoverContent,
@@ -12,6 +13,9 @@ import {
   List,
   ListItem,
 } from "@chakra-ui/react";
+import IconComponent from "../Icon.component";
+import SearchWidget from "../../widgets/Search.widget";
+import { MdAdd, MdIcecream, MdUploadFile } from "react-icons/md";
 
 const columns = [
   {
@@ -113,6 +117,46 @@ const data = [
 const AllStudentsTable = () => {
   return (
     <div>
+      <Flex
+        justifyContent={"space-between"}
+        alignItems={"center"}
+        mt={8}
+        mb={6}
+      >
+        <SearchWidget height={10} text={"Search students"} />
+
+        <Flex gap={4} fontSize={"sm"}>
+          <Button
+            size={"sm"}
+            bg={"neutral.100"}
+            border={"1px"}
+            borderColor={"brand.700"}
+          >
+            <IconComponent>
+              <MdIcecream />
+            </IconComponent>{" "}
+            Download
+          </Button>
+          <Button
+            as={"Flex"}
+            gap={2}
+            size={"sm"}
+            bg={"accent.700"}
+            color={"white"}
+          >
+            <IconComponent>
+              <MdUploadFile />
+            </IconComponent>{" "}
+            Bulk Upload Students
+          </Button>
+          <Button bg={"brand.700"} size={"sm"} color={"neutral.100"}>
+            <IconComponent>
+              <MdAdd />
+            </IconComponent>
+            New Student
+          </Button>
+        </Flex>
+      </Flex>
       <Table
         columns={columns}
         data={data}
