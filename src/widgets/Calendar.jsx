@@ -14,7 +14,7 @@ export default function Calendar() {
   };
 
   return (
-    <div className="border-gray-300 border-2 rounded-md">
+    <div className="border-gray-300 border-2 rounded-md p-2 bg-white">
       <CalendarWidget
         className={"border-0"}
         onChange={() => handleDateChange}

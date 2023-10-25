@@ -9,6 +9,8 @@ import AllStudentsTable from "../../../components/tables/AllStudentsTable.compon
 import SearchWidget from "../../../widgets/Search.widget";
 import IconComponent from "../../../components/Icon.component";
 import Timetable from "../../../components/tables/TimeTable.component";
+import ClassAttendance from "../../../components/tables/ClassAttendanceTable.component";
+import SubjectTable from "../../../components/tables/SubjectTable.component";
 // import Timetable from "../../../components/tables/Timetable.component";
 
 export default function ClassPage() {
@@ -16,9 +18,9 @@ export default function ClassPage() {
 
   const tabs = [
     { id: 1, label: "Students (25)", component: <AllStudentsTable /> },
-    { id: 2, label: "Subjects", component: <Timetable /> },
+    { id: 2, label: "Subjects", component: <SubjectTable /> },
     { id: 3, label: "Time table", component: <Timetable /> },
-    { id: 4, label: "Attendance", component: <AllStudentsTable /> },
+    { id: 4, label: "Attendance", component: <ClassAttendance /> },
     { id: 5, label: "Social Behaviour" },
     { id: 6, label: "Broadsheet" },
     // Add more tabs as needed
