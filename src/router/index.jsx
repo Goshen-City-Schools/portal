@@ -8,9 +8,9 @@ import {
 
 // pages
 import Home from "../pages/Home";
-import InvoicesPage from "../pages/payments/Invoices.page";
+import InvoicesPage from "../pages/payments/invoices/";
 import GenerateInvoicePage from "../pages/payments/GenerateInvoice.page";
-import ReceiptsPage from "../pages/payments/Receipts";
+import ReceiptsPage from "../pages/payments/Receipts.page";
 import PrintReceiptScreen from "../screens/PrintReceipt.screen";
 import PrintInvoiceScreen from "../screens/PrintInvoice.screen";
 import LoginScreen from "../screens/Login.screen";
@@ -39,6 +39,11 @@ import NotFound from "../pages/admin/NotFound";
 import GeneralNotFound from "../pages/NotFound";
 import ClassesPage from "../pages/admin/classes/Index.page";
 import ClassPage from "../pages/admin/classes/Class.page";
+import CreateNewStaff from "../pages/admin/staff/CreateNewStaff.page";
+import CreateNewStudent from "../pages/admin/students/CreateNewStudent.page";
+import NewInvoicePage from "../pages/admin/finance/invoices/New";
+import { InvoicePage } from "../pages/admin/finance/invoices/invoice";
+// import NewInvoicePage from "../pages/payments/invoices/New";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -58,8 +63,14 @@ const router = createBrowserRouter(
         <Route index element={<AdminHome />} />
         <Route path="home" element={<AdminHome />} />
         <Route path="profile" element={<MyProfilePage />} />
-        <Route path="students" element={<StudentsPage />} />
-        <Route path="staff" element={<StaffPage />} />
+        <Route path="students">
+          <Route index element={<StudentsPage />} />
+          <Route path="new" element={<CreateNewStudent />} />
+        </Route>
+        <Route path="staff">
+          <Route index element={<StaffPage />} />
+          <Route path="new" element={<CreateNewStaff />} />
+        </Route>
         <Route path="parents" element={<ParentPage />} />
         <Route path="classes">
           <Route index element={<ClassesPage />} />
@@ -79,10 +90,18 @@ const router = createBrowserRouter(
           <Route path="examinations" element={<ExamHomePage />} />
         </Route>
 
-        <Route path="finance">
+        <Route path="transactions">
           <Route index element={<TransactionHistory />} />
-          <Route path="transactions" element={<TransactionHistory />} />
-          <Route path="tuition" element={<TuitionPage />} />
+          <Route path="invoices">
+            <Route index element={<InvoicesPage />} />
+            <Route path="new" element={<NewInvoicePage />} />
+            <Route path=":invoiceID" element={<InvoicePage />} />
+          </Route>
+          <Route path="receipts" element={<TuitionPage />} />
+          <Route path=":transactionID">
+            <Route index element={<TransactionHistory />} />
+            <Route path="invoice" element={<InvoicesPage />} />
+          </Route>
         </Route>
 
         <Route path="config">

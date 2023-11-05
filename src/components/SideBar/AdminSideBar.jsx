@@ -108,10 +108,7 @@ export default function AdminSideBar({ sideBarView }) {
           <NavItemComponent
             submenu={[
               { name: "All Students", link: "/admin/students" },
-              { name: "Reception", link: "/admin/students" },
-              { name: "Nursery", link: "/admin/students" },
-              { name: "Basic", link: "/admin/students" },
-              { name: "Secondary", link: "/admin/students" },
+              { name: "Enrol New Student", link: "/admin/students/new" },
             ]}
           >
             <IconComponent>
@@ -122,11 +119,7 @@ export default function AdminSideBar({ sideBarView }) {
           <NavItemComponent
             submenu={[
               { name: "All Staff", link: "/admin/staff" },
-              { name: "Academic Staff", link: "/staff?type=academic" },
-              {
-                name: "Non-Academic Staff",
-                link: "/admin/staff?type=non-academic",
-              },
+              { name: "New Staff Account", link: "/staff?type=academic" },
             ]}
           >
             <IconComponent>
@@ -200,7 +193,13 @@ export default function AdminSideBar({ sideBarView }) {
             </IconComponent>
             CBT
           </NavItemComponent>
-          <NavItemComponent link={" /admin/finance"}>
+          <NavItemComponent
+            submenu={[
+              { name: "All Transactions", link: "/admin/transactions" },
+              { name: "Invoices", link: "/admin/transactions/" },
+              { name: "Receipts", link: "/admin/transactions/tuition" },
+            ]}
+          >
             <IconComponent>
               <MdOutlineBed size={18} />
             </IconComponent>

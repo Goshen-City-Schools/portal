@@ -11,14 +11,18 @@ import AllStaffTable from "../../../components/tables/AllStaffTable.component";
 import ReactPortal from "../../../widgets/ReactPortal";
 import { useModal } from "../../../app/contexts/ModalContext";
 import CreateStaffPortal from "../../../portals/CreateStaff.portal";
+import { useNavigate } from "react-router-dom";
+import { useLocalStorage } from "../../../hooks/useLocalStorage";
 
 export default function StaffPage() {
   const { openPortal } = useModal();
+  const { getItem } = useLocalStorage("staffData");
+  const navigate = useNavigate();
+
+  const existingStaffData = getItem();
 
   return (
     <PageWrapper>
-      <ReactPortal />
-
       <Flex justifyContent={"space-between"} alignItems={"center"} mb={2}>
         <Text
           as={"h2"}
@@ -68,7 +72,7 @@ export default function StaffPage() {
             bg={"brand.700"}
             size={"sm"}
             color={"neutral.100"}
-            onClick={() => openPortal(<CreateStaffPortal />)}
+            onClick={() => navigate("/admin/staff/new")}
           >
             <IconComponent>
               <MdAdd />
@@ -79,7 +83,13 @@ export default function StaffPage() {
       </Flex>
 
       <Box p={4} bg={"white"} rounded={"md"}>
-        <AllStaffTable />
+        {existingStaffData && existingStaffData?.length > 0 ? (
+          <AllStaffTable />
+        ) : (
+          <Text as={"h2"} letterSpacing={0.5} color={"neutral.700"}>
+            No Staff data yet!
+          </Text>
+        )}
       </Box>
     </PageWrapper>
   );

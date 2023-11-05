@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+/* eslint-disable react/prop-types */
 import { useTable, usePagination, useSortBy } from "react-table";
 import {
   Table,
@@ -11,11 +11,12 @@ import {
   Box,
   useStyleConfig,
   useMediaQuery,
-  Badge, // Import the Badge component from Chakra UI
+  Button,
 } from "@chakra-ui/react";
+// import ReusableBadge from "../components/shared/ReusableBadge";
 import ReusableBadge from "../components/ReusableBadge";
 
-const DataTable = ({ columns, data, fullWidthColumns }) => {
+const DataTable = ({ columns, data, fullWidthColumns, customPageSize }) => {
   const [isMobile] = useMediaQuery("(max-width: 768px)"); // Detect mobile view
 
   const {
@@ -33,7 +34,10 @@ const DataTable = ({ columns, data, fullWidthColumns }) => {
     {
       columns,
       data,
-      initialState: { pageIndex: 0, pageSize: 10 },
+      initialState: {
+        pageIndex: 0,
+        pageSize: customPageSize ? customPageSize : 10,
+      },
     },
     useSortBy,
     usePagination
@@ -51,10 +55,11 @@ const DataTable = ({ columns, data, fullWidthColumns }) => {
         }}
       >
         <Thead bg={"neutral.300"} whiteSpace={"nowrap"}>
-          {headerGroups.map((headerGroup) => (
-            <Tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
+          {headerGroups.map((headerGroup, index) => (
+            <Tr key={index} {...headerGroup.getHeaderGroupProps()}>
+              {headerGroup.headers.map((column, index) => (
                 <Th
+                  key={index}
                   {...column.getHeaderProps(column.getSortByToggleProps())}
                   width={
                     fullWidthColumns?.includes(column.Header)
@@ -80,13 +85,15 @@ const DataTable = ({ columns, data, fullWidthColumns }) => {
             </Tr>
           ))}
         </Thead>
+
         <Tbody {...getTableBodyProps()} fontSize={"sm"} whiteSpace={"nowrap"}>
-          {page.map((row) => {
+          {page.map((row, index) => {
             prepareRow(row);
             return (
-              <Tr {...row.getRowProps()}>
-                {row.cells.map((cell) => (
+              <Tr key={index} {...row.getRowProps()}>
+                {row.cells.map((cell, index) => (
                   <Td
+                    key={index}
                     {...cell.getCellProps()}
                     width={
                       fullWidthColumns?.includes(cell.column.Header)
@@ -126,19 +133,29 @@ const DataTable = ({ columns, data, fullWidthColumns }) => {
         mt={4}
         mx={"auto"}
         width={"max-content"}
+        alignItems={"center"}
       >
-        <button onClick={() => previousPage()} disabled={!canPreviousPage}>
+        <Button
+          size={"sm"}
+          onClick={() => previousPage()}
+          disabled={!canPreviousPage}
+        >
           Previous
-        </button>
+        </Button>
         <span>
           Page{" "}
           <strong>
             {pageIndex + 1} of {Math.ceil(data.length / pageSize)}
           </strong>{" "}
         </span>
-        <button onClick={() => nextPage()} disabled={!canNextPage}>
+        <Button
+          colorScheme="blue"
+          onClick={() => nextPage()}
+          size={"sm"}
+          disabled={!canNextPage}
+        >
           Next
-        </button>
+        </Button>
       </Flex>
     </Box>
   );

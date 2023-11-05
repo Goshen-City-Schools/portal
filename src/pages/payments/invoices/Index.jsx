@@ -1,9 +1,9 @@
-import React from 'react';
+import React from "react";
 
 // Icons
-import { BsThreeDots } from 'react-icons/bs';
-import formatDate from '../../utilities/formatDate.utils';
-import { Link } from 'react-router-dom';
+import { BsThreeDots } from "react-icons/bs";
+import formatDate from "../../../utilities/formatDate.utils";
+import { Link } from "react-router-dom";
 
 import {
   Button,
@@ -15,8 +15,8 @@ import {
   Td,
   Th,
   Box,
-} from '@chakra-ui/react';
-import PageWrapper from '../../components/PageWrapper';
+} from "@chakra-ui/react";
+import PageWrapper from "../../../components/PageWrapper";
 
 export default function InvoicesPage() {
   return (
@@ -33,18 +33,18 @@ export default function InvoicesPage() {
             </select>
           </div>
 
-          <Link to={'/fees/invoices/new'}>
-            <Button bg={'green.700'} color={'gray.50'} size={'sm'}>
+          <Link to={"/fees/invoices/new"}>
+            <Button bg={"green.700"} color={"gray.50"} size={"sm"}>
               Generate New Invoice
             </Button>
             <button></button>
           </Link>
         </div>
-      </div>{' '}
-      <TableContainer paddingX={6} paddingY={4} bg={'white'} rounded={'2xl'}>
-        <Table variant={'simple'} fontWeight={400}>
+      </div>{" "}
+      <TableContainer paddingX={6} paddingY={4} bg={"white"} rounded={"2xl"}>
+        <Table variant={"simple"} fontWeight={400}>
           <Thead>
-            <Tr bg={'neutral.100'} rounded={'2xl'}>
+            <Tr bg={"neutral.100"} rounded={"2xl"}>
               <Th>S/N</Th>
               <Th>Date</Th>
               <Th>Transaction Ref No.</Th>
@@ -53,7 +53,7 @@ export default function InvoicesPage() {
             </Tr>
           </Thead>
 
-          <Tbody fontSize={'14'}>
+          <Tbody fontSize={"14"}>
             {/*  */}
             <Tr>
               <Td>
@@ -69,12 +69,12 @@ export default function InvoicesPage() {
                 <span>SCHOOL FEES</span>
               </Td>
               <Td>
-                <Link to={'/fees/invoices/1'}>
+                <Link to={"/fees/invoices/1"}>
                   <Button
                     paddingX={4}
                     paddingY={2}
-                    bg={'brand.200'}
-                    height={'max-content'}
+                    bg={"brand.200"}
+                    height={"max-content"}
                   >
                     <BsThreeDots />
                   </Button>
@@ -97,12 +97,12 @@ export default function InvoicesPage() {
                 <span>SCHOOL FEES</span>
               </Td>
               <Td>
-                <Link to={'/fees/invoices/1'}>
+                <Link to={"/fees/invoices/1"}>
                   <Button
                     paddingX={4}
                     paddingY={2}
-                    bg={'brand.200'}
-                    height={'max-content'}
+                    bg={"brand.200"}
+                    height={"max-content"}
                   >
                     <BsThreeDots />
                   </Button>
@@ -115,7 +115,7 @@ export default function InvoicesPage() {
                 <span>1</span>
               </Td>
               <Td>
-                <span>{formatDate(Date.now(), 'short')}</span>
+                <span>{formatDate(Date.now(), "short")}</span>
               </Td>
               <Td>
                 <span>SCHF4567283784</span>
@@ -124,12 +124,12 @@ export default function InvoicesPage() {
                 <span>SCHOOL FEES</span>
               </Td>
               <Td>
-                <Link to={'/fees/invoices/1'}>
+                <Link to={"/fees/invoices/1"}>
                   <Button
                     paddingX={4}
                     paddingY={2}
-                    bg={'brand.200'}
-                    height={'max-content'}
+                    bg={"brand.200"}
+                    height={"max-content"}
                   >
                     <BsThreeDots />
                   </Button>
@@ -150,12 +150,12 @@ export default function InvoicesPage() {
                 <span>SCHOOL FEES</span>
               </Td>
               <Td>
-                <Link to={'/fees/invoices/1'}>
+                <Link to={"/fees/invoices/1"}>
                   <Button
                     paddingX={4}
                     paddingY={2}
-                    bg={'brand.200'}
-                    height={'max-content'}
+                    bg={"brand.200"}
+                    height={"max-content"}
                   >
                     <BsThreeDots />
                   </Button>

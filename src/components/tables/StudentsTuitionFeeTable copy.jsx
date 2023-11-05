@@ -17,17 +17,23 @@ import DataTable from "../../widgets/Table.widget";
 
 const columns = [
   {
-    Header: "SN",
+    Header: "S/N",
     accessor: "sn",
   },
+
   {
-    Header: "name",
+    Header: "Transaction ID",
+    accessor: "transactionId",
+  },
+  {
+    Header: "Student",
     accessor: "fullName",
   },
   {
-    Header: "Invoice ID",
-    accessor: "invoiceID",
+    Header: "Fee Type",
+    accessor: "feeType",
   },
+
   {
     Header: "Amount",
     accessor: "amount",
@@ -36,14 +42,28 @@ const columns = [
     Header: "Status",
     accessor: "status",
     // Render the "Status" column using a Badge
-    Cell: ({ cell: { value } }) => (
-      <Badge
-        colorScheme={value.toLocaleLowerCase() === "paid" ? "green" : "red"}
-        variant="subtle"
-      >
-        {value}
-      </Badge>
-    ),
+    Cell: ({ value }) => {
+      return (
+        <Badge
+          variant={
+            value === "Unpaid"
+              ? "subtle"
+              : value === "Part Payment"
+              ? "solid"
+              : "outline"
+          }
+          colorScheme={
+            value === "Unpaid"
+              ? "red"
+              : value === "Part Payment"
+              ? "yellow"
+              : "green"
+          }
+        >
+          {value}
+        </Badge>
+      );
+    },
   },
   {
     Header: "Action",
@@ -80,9 +100,8 @@ const data = [
   {
     sn: 1,
     studentId: "12345",
-    invoiceID: "12345",
+    transactionId: "12345",
     fullName: "John Doe",
-    role: "Student",
     class: "Grade 8",
     feeType: "Tuition",
     status: "Unpaid",
@@ -102,7 +121,7 @@ const data = [
     fullName: "Jane Smith",
     class: "Grade 9",
     feeType: "Library",
-    status: "UNPAID",
+    status: "Part Payment",
     amount: 2000,
     balance: 2000,
     action: {
@@ -119,7 +138,7 @@ const data = [
     fullName: "Alice Johnson",
     class: "Grade 7",
     feeType: "Books",
-    status: "PAID",
+    status: "Full Payment",
     amount: 1500,
     balance: 0,
     action: {
@@ -139,7 +158,7 @@ const StudentsTuitionFeeTable = () => {
       <DataTable
         columns={columns}
         data={data}
-        // fullWidthColumns={["Transaction ID", "name"]}
+        fullWidthColumns={["Full Name"]}
       />
     </Box>
   );

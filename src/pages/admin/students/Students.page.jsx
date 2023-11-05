@@ -1,25 +1,23 @@
 import React from "react";
 import PageWrapper from "../../../components/PageWrapper";
 
-import { Text, Flex, Box, Button } from "@chakra-ui/react";
+import { Flex, Box, Button, Text } from "@chakra-ui/react";
 
 import { MdAdd, MdIcecream, MdUploadFile } from "react-icons/md";
 
 import AllStudentsTable from "../../../components/tables/AllStudentsTable.component";
 import SearchWidget from "../../../widgets/Search.widget";
 import IconComponent from "../../../components/Icon.component";
-import CreateStudentPortal from "../../../portals/CreateStudent.portal";
-import { useModal } from "../../../app/contexts/ModalContext";
-import ReactPortal from "../../../widgets/ReactPortal";
+
 import PageSectionHeader from "../../../components/PageSectionHeader";
+import { useNavigate } from "react-router-dom";
 
 export default function StudentsPage() {
-  const { openPortal } = useModal();
+  const navigate = useNavigate();
+  const existingStudentsData = localStorage.getItem("studentsData") || [];
 
   return (
     <PageWrapper>
-      <ReactPortal />
-
       <PageSectionHeader
         pageTitle={"All Students"}
         pageCrumb={"Home / Students / All Students"}
@@ -61,7 +59,7 @@ export default function StudentsPage() {
             bg={"brand.700"}
             size={"sm"}
             color={"neutral.100"}
-            onClick={() => openPortal(<CreateStudentPortal />)}
+            onClick={() => navigate("/admin/students/new")}
           >
             <IconComponent>
               <MdAdd />
@@ -72,7 +70,13 @@ export default function StudentsPage() {
       </Flex>
 
       <Box p={4} bg={"white"} rounded={"md"}>
-        <AllStudentsTable />
+        {existingStudentsData.length > 0 ? (
+          <AllStudentsTable />
+        ) : (
+          <Text as={"h2"} letterSpacing={0.5} color={"neutral.700"}>
+            No students data yet!
+          </Text>
+        )}
       </Box>
     </PageWrapper>
   );

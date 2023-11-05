@@ -6,9 +6,14 @@ import { MdAdd, MdIcecream, MdUploadFile } from "react-icons/md";
 
 import SearchWidget from "../../../widgets/Search.widget";
 import IconComponent from "../../../components/Icon.component";
+import AllParentsTable from "../../../components/tables/AllParentsTable.component";
+import { useLocalStorage } from "../../../hooks/useLocalStorage";
 // import AllParentTable from "../../../components/tables/AllStaffTable.component";
 
 export default function ParentPage() {
+  const { getItem } = useLocalStorage("studentsData");
+
+  const existingParentsData = getItem();
   return (
     <PageWrapper>
       <Flex justifyContent={"space-between"} alignItems={"center"} mb={2}>
@@ -19,7 +24,7 @@ export default function ParentPage() {
           fontSize={"2xl"}
           fontWeight={"bold"}
         >
-          All Parent
+          All Parents
         </Text>
         <Text as={"small"}>Home / Parent / All Parent</Text>
       </Flex>
@@ -66,7 +71,13 @@ export default function ParentPage() {
       </Flex>
 
       <Box p={4} bg={"white"} rounded={"md"}>
-        {/* <AllParentTable /> */}
+        {existingParentsData && existingParentsData?.length > 0 ? (
+          <AllParentsTable />
+        ) : (
+          <Text as={"h2"} letterSpacing={0.5} color={"neutral.700"}>
+            No Parents data yet!
+          </Text>
+        )}
       </Box>
     </PageWrapper>
   );

@@ -37,50 +37,33 @@ const columns = [
     accessor: "invoiceId",
   },
   {
-    Header: "Payment Type",
-    accessor: "paymentType",
+    Header: "Invoice Date",
+    accessor: "invoiceDate",
   },
   {
     Header: "Status",
     accessor: "status",
+    // Render the "Status" column using a Badge
     Cell: ({ cell: { value } }) => (
-      <Badge colorScheme={value === "Paid" ? "green" : "red"} variant="subtle">
+      <Badge
+        colorScheme={value.toLocaleLowerCase() === "paid" ? "green" : "red"}
+        variant="subtle"
+      >
         {value}
       </Badge>
     ),
   },
   {
-    Header: "Date",
-    accessor: "date",
-  },
-  {
-    Header: "Action",
-    accessor: "action",
-    Cell: ({ row }) => (
-      <Popover>
-        <PopoverTrigger>
-          <Button variant="link">{row.original.action.buttonLabel}</Button>
-        </PopoverTrigger>
-        <PopoverContent>
-          <PopoverArrow />
-          <PopoverCloseButton />
-          <PopoverBody>
-            <List spacing={2}>
-              {row.original.action.options.map((option, index) => (
-                <ListItem key={index}>
-                  <Button
-                    variant="link"
-                    onClick={() => handleOptionClick(option.action)}
-                  >
-                    {option.label}
-                  </Button>
-                </ListItem>
-              ))}
-            </List>
-          </PopoverBody>
-        </PopoverContent>
-      </Popover>
-    ),
+    Header: "Payment Date",
+    accessor: "paidOn",
+    Cell: ({ cell: { value } }) =>
+      value ? (
+        <Badge colorScheme="green" variant="subtle">
+          {value}
+        </Badge>
+      ) : (
+        "-- -- --"
+      ),
   },
 ];
 
@@ -93,7 +76,8 @@ const data = [
     invoiceId: "INV123",
     paymentType: "Online",
     status: "Paid",
-    date: "2023-03-15",
+    invoiceDate: "2023-03-15",
+    paidOn: "2023-03-15",
     action: {
       buttonLabel: "Options",
       options: [
@@ -110,7 +94,7 @@ const data = [
     invoiceId: "INV124",
     paymentType: "Cash",
     status: "Unpaid",
-    date: "2023-03-16",
+    invoiceDate: "2023-03-15",
     action: {
       buttonLabel: "Options",
       options: [

@@ -6,9 +6,13 @@ import TransactionsTable from "../../../components/tables/TransactionsTable.comp
 import SearchWidget from "../../../widgets/Search.widget";
 import IconComponent from "../../../components/Icon.component";
 
-import { MdAdd, MdIcecream, MdUploadFile } from "react-icons/md";
+import { MdAdd, MdIcecream } from "react-icons/md";
+import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function TransactionHistory() {
+  const navigate = useNavigate();
+
   return (
     <PageWrapper>
       <Flex justifyContent={"space-between"} alignItems={"center"} mb={2}>
@@ -45,11 +49,16 @@ export default function TransactionHistory() {
             Download Report
           </Button>
 
-          <Button bg={"brand.700"} size={"sm"} color={"neutral.100"}>
+          <Button
+            bg={"brand.700"}
+            size={"sm"}
+            color={"neutral.100"}
+            onClick={() => navigate("/admin/transactions/invoices/new")}
+          >
             <IconComponent>
               <MdAdd />
             </IconComponent>
-            New Fee Type
+            New Invoice
           </Button>
         </Flex>
       </Flex>

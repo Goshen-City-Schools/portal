@@ -53,7 +53,10 @@ export default function AdminHeader() {
       left={{ "lg": "260px" }}
       className="h-20 no-print fixed top-0 z-40 shadow-md flex items-center justify-between"
     >
-      <SearchWidget text={"Search students, staffs, events..."} />
+      <SearchWidget
+        text={"Search students, staffs, events..."}
+        height={"36px"}
+      />
       <Flex
         color={"brand.700"}
         display={{ "base": "flex", "md": "none" }}
@@ -72,25 +75,14 @@ export default function AdminHeader() {
           <p>First Term</p>
         </Flex>
 
-        <div className="absolute top-20 hidden">
-          <ul>
-            <li>
-              <Link>My Profile</Link>
-            </li>
-            <li>
-              <Link>Settings</Link>
-            </li>
-          </ul>
-        </div>
-
-        <div className="icon">
+        <div className="icon  mx-8">
           <CiBellOn size={28} />
         </div>
 
         <Popover>
           <PopoverTrigger>
             <Box className="flex gap-3 items-center" cursor="pointer">
-              <div className="h-12 w-12 rounded-full relative shadow-md overflow-hidden">
+              <div className="h-10 w-10 rounded-full relative shadow-md overflow-hidden">
                 <img
                   src="/avatar.png"
                   alt="User avatar"
@@ -101,7 +93,7 @@ export default function AdminHeader() {
                 <p className="font-bold first-letter:">Nkechinyere Harrison</p>
                 <p>Admin</p>
               </Flex>
-              <BsChevronDown size={20} />
+              <BsChevronDown size={18} />
             </Box>
           </PopoverTrigger>
           <PopoverContent>

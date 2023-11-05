@@ -4,11 +4,12 @@ import Table from "../../widgets/Table.widget";
 import { Flex, Tooltip, useToast } from "@chakra-ui/react";
 import { MdDeleteOutline, MdModeEditOutline } from "react-icons/md";
 import IconComponent from "../Icon.component";
+import CustomCard from "../CustomTooltip";
 
-const AllStudentsTable = () => {
+const AllParentsTable = () => {
   const toast = useToast();
   const [studentsData, setStudentsData] = useState();
-  const existingStudentsData = JSON.parse(localStorage.getItem("studentsData"));
+  const existingParentsData = JSON.parse(localStorage.getItem("studentsData"));
 
   const columns = [
     {
@@ -17,27 +18,27 @@ const AllStudentsTable = () => {
     },
 
     {
-      Header: "Surname",
-      accessor: "lastName",
+      Header: "Title",
+      accessor: "guardianTitle",
     },
 
+    {
+      Header: "Surname",
+      accessor: "guardianLastName",
+    },
     {
       Header: "First Name",
-      accessor: "firstName",
-    },
-
-    {
-      Header: "Gender",
-      accessor: "gender",
+      accessor: "guardianFirstName",
     },
     {
-      Header: "Class",
-      accessor: "class",
+      Header: "No. of Wards",
+      accessor: "No. of Ward",
       width: "max-content",
+      Cell: ({ value }) => <p>{existingParentsData.length}</p>,
     },
     {
-      Header: "Avatar",
-      accessor: "avatar",
+      Header: "Email",
+      accessor: "guardianEmail",
     },
     {
       Header: "Guardian Tel.",
@@ -48,13 +49,15 @@ const AllStudentsTable = () => {
       accessor: "action",
       Cell: ({ row }) => (
         <Flex gap={2}>
-          <Tooltip>
-            <IconComponent
-              click={() => handleDeleteAction(row.original.id)}
-              className="text-red-600 cursor-pointer hover:scale-110 transition duration-300"
-            >
-              <MdDeleteOutline size={20} />
-            </IconComponent>
+          <Tooltip label="delete" aria-label="New">
+            <CustomCard>
+              <IconComponent
+                click={() => handleDeleteAction(row.original.id)}
+                className="text-red-600 cursor-pointer hover:scale-110 transition duration-300"
+              >
+                <MdDeleteOutline size={20} />
+              </IconComponent>
+            </CustomCard>
           </Tooltip>
 
           <IconComponent
@@ -102,10 +105,10 @@ const AllStudentsTable = () => {
   return (
     <Table
       columns={columns}
-      data={existingStudentsData}
+      data={existingParentsData}
       fullWidthColumns={["Full Name", "Parent"]}
     />
   );
 };
 
-export default AllStudentsTable;
+export default AllParentsTable;

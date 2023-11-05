@@ -13,7 +13,7 @@ const ClassCategoryBox = ({
     <Box
       flexShrink={"0"}
       w={"full"}
-      maxWidth={"240px"}
+      maxWidth={"280px"}
       border="1px"
       borderColor="gray.300"
       borderRadius="md"

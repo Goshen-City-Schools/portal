@@ -1,77 +1,10 @@
 import React from "react";
 import Table from "../../widgets/Table.widget";
 
-import {
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-  Button,
-  PopoverArrow,
-  PopoverBody,
-  PopoverCloseButton,
-  List,
-  ListItem,
-} from "@chakra-ui/react";
-
-const columns = [
-  {
-    Header: "S/N",
-    accessor: "sn",
-  },
-  {
-    Header: "Staff ID",
-    accessor: "staffId",
-  },
-  {
-    Header: "Full Name",
-    accessor: "fullName",
-  },
-  {
-    Header: "Gender",
-    accessor: "gender",
-  },
-  {
-    Header: "Staff Role",
-    accessor: "staff_role",
-  },
-  {
-    Header: "Email",
-    accessor: "email",
-  },
-  {
-    Header: "Phone Number",
-    accessor: "phone_number",
-  },
-  {
-    Header: "Action",
-    accessor: "action",
-    Cell: ({ row }) => (
-      <Popover>
-        <PopoverTrigger>
-          <Button variant="link">{row.original.action.buttonLabel}</Button>
-        </PopoverTrigger>
-        <PopoverContent>
-          <PopoverArrow />
-          <PopoverCloseButton />
-          <PopoverBody>
-            <List spacing={2}>
-              {row.original.action.options.map((option, index) => (
-                <ListItem key={index}>
-                  <Button
-                    variant="link"
-                    onClick={() => handleOptionClick(option.action)}
-                  >
-                    {option.label}
-                  </Button>
-                </ListItem>
-              ))}
-            </List>
-          </PopoverBody>
-        </PopoverContent>
-      </Popover>
-    ),
-  },
-];
+import { Flex, Tooltip, useToast } from "@chakra-ui/react";
+import { useState } from "react";
+import IconComponent from "../Icon.component";
+import { MdDeleteOutline, MdModeEditOutline } from "react-icons/md";
 
 const data = [
   {
@@ -112,11 +45,68 @@ const data = [
 ];
 
 const AllStaffTable = () => {
+  const existingStaffData = JSON.parse(localStorage.getItem("staffData") || []);
+  const toast = useToast();
+  const [parentsData, setParentsData] = useState();
+
+  const columns = [
+    {
+      Header: "S/N",
+      accessor: "sn",
+    },
+    {
+      Header: "First Name",
+      accessor: "firstName",
+    },
+    {
+      Header: "Last Name",
+      accessor: "lastName",
+    },
+    {
+      Header: "Gender",
+      accessor: "gender",
+    },
+    {
+      Header: "Staff Role",
+      accessor: "role",
+    },
+    {
+      Header: "Email",
+      accessor: "email",
+    },
+    {
+      Header: "Phone Number",
+      accessor: "phoneNumber",
+    },
+    {
+      Header: "Action",
+      accessor: "action",
+      Cell: ({ row }) => (
+        <Flex gap={2}>
+          <Tooltip>
+            <IconComponent
+              click={() => handleDeleteAction(row.original.id)}
+              className="text-red-600 cursor-pointer hover:scale-110 transition duration-300"
+            >
+              <MdDeleteOutline size={20} />
+            </IconComponent>
+          </Tooltip>
+
+          <IconComponent
+            className="text-green-700 cursor-pointer hover:scale-110 transition duration-300"
+            click={() => handleEditAction(row.original.id)}
+          >
+            <MdModeEditOutline size={17} />
+          </IconComponent>
+        </Flex>
+      ),
+    },
+  ];
   return (
     <div>
       <Table
         columns={columns}
-        data={data}
+        data={existingStaffData}
         fullWidthColumns={["Full Name", "Parent"]}
       />
     </div>
