@@ -20,11 +20,11 @@ import AdminHome from "../pages/admin/Home";
 import AdminLayout from "../layouts/AdminLayout";
 import StudentLayout from "../layouts/StudentLayout";
 
-import StudentsPage from "../pages/admin/students/Students.page";
-import StaffPage from "../pages/admin/staff/Staff.page";
+import StudentsPage from "../pages/admin/students/index.page";
+import AllStaffPage from "../pages/admin/staff/index.page";
 import ResultPage from "../pages/admin/results/Results.page";
 import AuthLayout from "../layouts/AuthLayout";
-import ParentPage from "../pages/admin/parents/Parents.page";
+import ParentPage from "../pages/admin/parents";
 // import ClassesPage from "../pages/admin/classes/Classes.page";
 import TransactionHistory from "../pages/admin/finance/TransactionHistory.page";
 import TuitionPage from "../pages/admin/finance/Tuition.page";
@@ -32,7 +32,7 @@ import SessionTermPage from "../pages/admin/configs/SessionTerm";
 import ResultsViewPage from "../pages/admin/results/ResultsViewPage";
 import ResultSinglePage from "../pages/admin/results/Result.page";
 import ResultSettingsPage from "../pages/admin/results/ResultSettings.page";
-import MyProfilePage from "../pages/admin/profile/MyProfile.page";
+import MyProfilePage from "../pages/admin/profile";
 import UploadResultPage from "../pages/admin/results/UploadResult.page";
 import ExamHomePage from "../pages/admin/cbt/exam/Home.page";
 import NotFound from "../pages/admin/NotFound";
@@ -43,6 +43,8 @@ import CreateNewStaff from "../pages/admin/staff/CreateNewStaff.page";
 import CreateNewStudent from "../pages/admin/students/CreateNewStudent.page";
 import NewInvoicePage from "../pages/admin/finance/invoices/New";
 import { InvoicePage } from "../pages/admin/finance/invoices/invoice";
+import StudentPage from "../pages/admin/students/Student.page";
+import StaffPage from "../pages/admin/staff/Staff.page";
 // import NewInvoicePage from "../pages/payments/invoices/New";
 
 const router = createBrowserRouter(
@@ -66,10 +68,12 @@ const router = createBrowserRouter(
         <Route path="students">
           <Route index element={<StudentsPage />} />
           <Route path="new" element={<CreateNewStudent />} />
+          <Route path=":studentId" element={<StudentPage />} />
         </Route>
         <Route path="staff">
-          <Route index element={<StaffPage />} />
+          <Route index element={<AllStaffPage />} />
           <Route path="new" element={<CreateNewStaff />} />
+          <Route path=":staffId" element={<StaffPage />} />
         </Route>
         <Route path="parents" element={<ParentPage />} />
         <Route path="classes">

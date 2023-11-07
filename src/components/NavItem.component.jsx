@@ -53,15 +53,17 @@ export default function NavItemComponent({ link, children, submenu, click }) {
         </IconComponent>
       </Box>
       <Collapse in={showSubmenu} animateOpacity className="w-full">
-        <List pl={8} pt={2} gap={2} w={"full"} fontSize={".89rem"}>
+        <List pl={4} pt={2} gap={2} w={"full"} fontSize={".8rem"}>
           {submenu &&
             submenu.map((item, index) => (
               <NavLink
                 to={`${item.link}`}
                 key={index}
                 _hover={{ bg: "brand.700", color: "white", cursor: "pointer" }}
-                className="flex justify-start font-normal mt-1 w-full pl-2 py-2 items-start"
+                className="flex justify-start font-normal mt-1 w-full gap-1 pl-2 py-2 items-center"
+                onClick={item?.onClick}
               >
+                {item?.icon && <IconComponent> {item.icon}</IconComponent>}
                 {item.name}
               </NavLink>
             ))}

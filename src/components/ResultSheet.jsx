@@ -1,5 +1,7 @@
 import React from "react";
 
+import "./resultsheet.css";
+
 import {
   Box,
   Text,
@@ -69,7 +71,6 @@ export default function ResultSheet({ studentData, subjectData }) {
         className="result-sheet"
       >
         <ResultHeader />
-
         <Flex
           justifyContent={"center"}
           alignItems={"center"}
@@ -122,7 +123,6 @@ export default function ResultSheet({ studentData, subjectData }) {
           </Text>
           {/* Add other student details here */}
         </Flex>
-
         {/*  */}
         <Flex
           fontSize={"sm"}
@@ -148,7 +148,6 @@ export default function ResultSheet({ studentData, subjectData }) {
           </Text>
           {/* Add other student details here */}
         </Flex>
-
         {/*  */}
         <Flex
           px={2}
@@ -177,55 +176,53 @@ export default function ResultSheet({ studentData, subjectData }) {
           </Text>
           {/* Add other student details here */}
         </Flex>
-
-        {/* Result Table */}
         <Table
           variant="simple"
           mt={4}
+          mb={4}
           whiteSpace={"pre-wrap"}
           border={"1px solid"}
           borderColor={"brand.700"}
+          className="t-table"
+          overflow={"hidden"}
         >
           <Thead fontSize={"xs"}>
             <Tr>
-              <Th width={"full"}>Subject</Th>
-              <Th width={6} isNumeric>
-                Test Score (30)
+              <Th>Subject</Th>
+              <Th width={8} isNumeric>
+                Test (30)
               </Th>
-              <Th width={"max-content"} isNumeric>
-                Exam Score (70)
+              <Th width={8} isNumeric>
+                Exam (70)
               </Th>
-              <Th width={6} isNumeric textAlign={"center"}>
+              <Th width={10} isNumeric textAlign={"center"}>
                 Total Score (100)
               </Th>
-              <Th width={"max-content"}>Score Grade</Th>
+              <Th width={"8"}>Score Grade</Th>
               <Th width={20}>Score (%)</Th>
               <Th width={20}>Teacher's remark</Th>
             </Tr>
           </Thead>
           <Tbody fontSize={"sm"} whiteSpace={"nowrap"}>
             {subjectData.map((subject, index) => (
-              <>
-                <Tr key={index}>
-                  <Td width={"full"}>{subject.name}</Td>
-                  <Td isNumeric>{subject.testScore}</Td>
-                  <Td isNumeric>{subject.examScore}</Td>
-                  <Td isNumeric>{totalScore(subject)}</Td>
-                  <Td width={8} isNumeric>
-                    {assignGrade(totalScore(subject))}
-                  </Td>
-                  <Td width={8} isNumeric>
-                    {percentageTotal(totalScore(subject))}
-                  </Td>
-                  <Td width={8} isNumeric>
-                    {teacherRemark(totalScore(subject))}
-                  </Td>
-                </Tr>
-              </>
+              <Tr key={index}>
+                <Td whiteSpace={"normal"}>{subject.name}</Td>
+                <Td isNumeric>{subject.testScore}</Td>
+                <Td isNumeric>{subject.examScore}</Td>
+                <Td isNumeric>{totalScore(subject)}</Td>
+                <Td width={8} isNumeric>
+                  {assignGrade(totalScore(subject))}
+                </Td>
+                <Td width={8} isNumeric>
+                  {percentageTotal(totalScore(subject))}
+                </Td>
+                <Td width={8} isNumeric>
+                  {teacherRemark(totalScore(subject))}
+                </Td>
+              </Tr>
             ))}
           </Tbody>
         </Table>
-
         {/* Total Score and Remarks */}
         <Box mt={8}>
           <Grid
@@ -308,15 +305,6 @@ export default function ResultSheet({ studentData, subjectData }) {
           </Grid>
         </Box>
       </Box>{" "}
-      <style>
-        {`
-      @media print {
-        .no-print {
-          display: none;
-        }
-      }
-    `}
-      </style>
     </>
   );
 }

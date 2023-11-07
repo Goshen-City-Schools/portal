@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Text, Flex, Box } from "@chakra-ui/react";
+import { Text, Flex, Box, Image } from "@chakra-ui/react";
 
 export default function ResultHeader() {
   return (
@@ -21,9 +21,16 @@ export default function ResultHeader() {
           alignItems={"center"}
           flexDirection={"column"}
         >
-          <h3 className="school-name text-xl font-bold">GOSHEN CITY SCHOOLS</h3>
-          <p className="school-section text-sm leading-tight">
-            Creche, Nursery & Primary
+          <Text
+            as="h3"
+            className="school-name text-xl font-bold"
+            color={"brand.700"}
+            letterSpacing={".6"}
+          >
+            GOSHEN CITY INTERNATIONAL SCHOOLS
+          </Text>
+          <p className="school-section text-sm leading-tight font-semibold text-gray-400">
+            Creche . Nursery . Primary
           </p>
           <Text as={"p"} mt={1} mb={1} fontSize={"sm"}>
             <span className="font-bold">Motto: </span>Wisdom, the principal
@@ -52,10 +59,17 @@ export default function ResultHeader() {
       {/*  */}
 
       <Box
-        className="imageContainer h-24 w-24 rounded-md shadow-md"
+        className="imageContainer h-24 w-24 rounded-md shadow-md overflow-hidden"
         border={"1px dotted"}
         borderColor={"accent.700"}
-      ></Box>
+      >
+        <Image
+          src="/school-tuition.jpeg"
+          h={"full"}
+          w={"full"}
+          objectFit={"cover"}
+        />
+      </Box>
     </Flex>
   );
 }

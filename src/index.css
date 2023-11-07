@@ -12,6 +12,12 @@
   @apply pt-2 pb-6 rounded-lg;
 }
 
+@media print {
+  .no-print {
+    display: none;
+  }
+}
+
 form input,
 form select {
   @apply w-full px-3 py-2 text-sm  border rounded-md;

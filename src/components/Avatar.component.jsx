@@ -1,15 +1,17 @@
+import { Image } from "@chakra-ui/react";
+
 const Avatar = ({ imageUrl, altText, width = 40, height = 40, className }) => {
   return (
     <div
-      className={`relative rounded-full ${className}`}
+      className={`relative rounded-full overflow-hidden ${className}`}
       style={{ width, height }}
     >
-      <img
+      <Image
         src={imageUrl}
         alt={altText}
-        layout="fill"
-        objectFit="cover"
-        className="rounded-full"
+        height={"full"}
+        width={"full"}
+        objectFit={"cover"}
       />
     </div>
   );

@@ -4,7 +4,8 @@ import Table from "../../widgets/Table.widget";
 import { Flex, Tooltip, useToast } from "@chakra-ui/react";
 import { useState } from "react";
 import IconComponent from "../Icon.component";
-import { MdDeleteOutline, MdModeEditOutline } from "react-icons/md";
+import { MdDeleteOutline, MdLink, MdModeEditOutline } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
 const data = [
   {
@@ -46,8 +47,11 @@ const data = [
 
 const AllStaffTable = () => {
   const existingStaffData = JSON.parse(localStorage.getItem("staffData") || []);
+  const navigate = useNavigate();
   const toast = useToast();
   const [parentsData, setParentsData] = useState();
+
+  const handleLink = () => navigate("/admin/staff/1");
 
   const columns = [
     {
@@ -94,9 +98,9 @@ const AllStaffTable = () => {
 
           <IconComponent
             className="text-green-700 cursor-pointer hover:scale-110 transition duration-300"
-            click={() => handleEditAction(row.original.id)}
+            click={() => handleLink(row.original.id)}
           >
-            <MdModeEditOutline size={17} />
+            <MdLink size={18} />
           </IconComponent>
         </Flex>
       ),

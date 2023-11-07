@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import Table from "../../widgets/Table.widget";
 
 import { Flex, Tooltip, useToast } from "@chakra-ui/react";
-import { MdDeleteOutline, MdModeEditOutline } from "react-icons/md";
+import { MdDeleteOutline, MdLink, MdModeEditOutline } from "react-icons/md";
 import IconComponent from "../Icon.component";
+import { useNavigate } from "react-router-dom";
 
 const AllStudentsTable = () => {
   const toast = useToast();
   const [studentsData, setStudentsData] = useState();
+  const navigate = useNavigate();
   const existingStudentsData = JSON.parse(localStorage.getItem("studentsData"));
 
   const columns = [
@@ -61,7 +63,7 @@ const AllStudentsTable = () => {
             className="text-green-700 cursor-pointer hover:scale-110 transition duration-300"
             click={() => handleEditAction(row.original.id)}
           >
-            <MdModeEditOutline size={17} />
+            <MdLink size={18} />
           </IconComponent>
         </Flex>
       ),
@@ -96,7 +98,7 @@ const AllStudentsTable = () => {
   };
 
   const handleEditAction = () => {
-    return;
+    return navigate("/admin/students/1");
   };
 
   return (

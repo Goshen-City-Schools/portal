@@ -42,10 +42,12 @@ export default function ResultSinglePage() {
 
   return (
     <PageWrapper overflowX={"scroll"}>
-      <PageSectionHeader
-        pageTitle={"Results"}
-        pageCrumb={"Home / Results / View Result"}
-      />
+      <div className="no-print">
+        <PageSectionHeader
+          pageTitle={"Results"}
+          pageCrumb={"Home / Results / View Result"}
+        />
+      </div>
 
       <Flex
         gap={4}

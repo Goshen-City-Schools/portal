@@ -1,0 +1,14 @@
+@media print {
+  .no-print {
+    display: none;
+  }
+
+  .t-table td,
+  .t-table th {
+    padding-left: 4px;
+    padding-right: 4px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    margin: 0;
+  }
+}

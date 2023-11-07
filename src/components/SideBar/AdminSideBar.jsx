@@ -11,7 +11,18 @@ import {
   MdOutlineAssignment,
   MdOutlineSupportAgent,
   MdOutlinePrecisionManufacturing,
+  MdAdd,
+  MdEdit,
+  MdEditDocument,
+  MdOutlineMail,
+  MdWhatsapp,
+  MdOutlineChat,
+  MdHistory,
+  MdOutlineBroadcastOnPersonal,
+  MdAccessible,
 } from "react-icons/md";
+
+import { BsEye } from "react-icons/bs";
 
 import "./SideMenu.style.css";
 
@@ -105,10 +116,25 @@ export default function AdminSideBar({ sideBarView }) {
             </IconComponent>
             Dashboard
           </NavItemComponent>
+
+          {/* Students Navigation */}
           <NavItemComponent
             submenu={[
-              { name: "All Students", link: "/admin/students" },
-              { name: "Enrol New Student", link: "/admin/students/new" },
+              {
+                name: "View Student",
+                link: "/admin/students",
+                icon: <MdEditDocument size={12} />,
+              },
+              {
+                name: "Manage Students",
+                link: "/admin/students",
+                icon: <MdEditDocument size={12} />,
+              },
+              {
+                name: "Register New Student",
+                link: "/staff?type=academic",
+                icon: <MdAdd size={14} />,
+              },
             ]}
           >
             <IconComponent>
@@ -116,10 +142,34 @@ export default function AdminSideBar({ sideBarView }) {
             </IconComponent>
             Students
           </NavItemComponent>
+
+          {/* Staff Navigation */}
+
           <NavItemComponent
             submenu={[
-              { name: "All Staff", link: "/admin/staff" },
-              { name: "New Staff Account", link: "/staff?type=academic" },
+              {
+                name: "View Staff",
+                link: `/admin/staff/#`,
+                onClick: () => {
+                  alert("cliek");
+                },
+                icon: <MdEditDocument size={12} />,
+              },
+              {
+                name: "Manage Staff",
+                link: "/admin/staff",
+                icon: <MdEditDocument size={12} />,
+              },
+              {
+                name: "Register New Staff",
+                link: "/admin/staff/new",
+                icon: <MdAdd size={14} />,
+              },
+              {
+                name: "Manage Priviledges",
+                link: "/staff?type=academic",
+                icon: <MdAccessible size={14} />,
+              },
             ]}
           >
             <IconComponent>
@@ -127,42 +177,54 @@ export default function AdminSideBar({ sideBarView }) {
             </IconComponent>
             Staff
           </NavItemComponent>
-          <NavItemComponent link={"/admin/classes"}>
+
+          {/* Classes Navigation */}
+          <NavItemComponent
+            submenu={[
+              {
+                name: "Manage Classes",
+                link: "/admin/classes",
+                icon: <MdEditDocument size={12} />,
+              },
+              {
+                name: "Create New Clsss",
+                link: "/staff?type=academic",
+                icon: <MdAdd size={14} />,
+              },
+            ]}
+          >
             <IconComponent>
               <TbSchool size={18} />
             </IconComponent>
             Classes
           </NavItemComponent>
-          <NavItemComponent
-            link={"/admin/parents"}
-            onClick={handleToggleSideMenu}
-          >
-            <IconComponent>
-              <MdOutlineBed size={18} />
-            </IconComponent>
-            Parents
-          </NavItemComponent>
+
           <NavItemComponent
             submenu={[
               {
-                name: "View Result",
-                link: "/admin/results/view",
+                name: "View Results",
+                link: "/admin/students",
+                icon: <BsEye size={12} />,
               },
               {
-                name: "Result Sheet Settings",
-                link: "/admin/results/settings",
-              },
-              {
-                name: "Upload Results",
-                link: "/admin/results/upload",
+                name: "Manage Results",
+                link: "/admin/students",
+                icon: <MdOutlineChat size={12} />,
               },
               {
                 name: "Results Broadsheet",
-                link: "/admin/results",
+                link: "/staff?type=academic",
+                icon: <MdOutlineMail size={14} />,
               },
               {
-                name: "Add / Del Features",
-                link: "/admin/results",
+                name: "Upload Result",
+                link: "/admin/students",
+                icon: <MdWhatsapp size={12} />,
+              },
+              {
+                name: "Set Results Format",
+                link: "/staff?type=academic",
+                icon: <MdOutlineBroadcastOnPersonal size={14} />,
               },
             ]}
           >
@@ -173,8 +235,21 @@ export default function AdminSideBar({ sideBarView }) {
           </NavItemComponent>
           <NavItemComponent
             submenu={[
-              { name: "Upcoming Events", link: "/admin" },
-              { name: "Announcements", link: "/admin" },
+              {
+                name: "Manage Events",
+                link: "/admin/students",
+                icon: <BsEye size={12} />,
+              },
+              {
+                name: "Create new event",
+                link: "/admin/students",
+                icon: <MdOutlineChat size={12} />,
+              },
+              {
+                name: "Send Invite",
+                link: "/staff?type=academic",
+                icon: <MdOutlineMail size={14} />,
+              },
             ]}
           >
             <IconComponent>
@@ -182,7 +257,9 @@ export default function AdminSideBar({ sideBarView }) {
             </IconComponent>
             Calendar
           </NavItemComponent>
-          <NavItemComponent
+
+          {/* CBT */}
+          {/* <NavItemComponent
             submenu={[
               { name: "Examination", link: "/admin/cbt/examinations" },
               { name: "Assessment Tests", link: "/admin/cbt/assessments" },
@@ -192,12 +269,47 @@ export default function AdminSideBar({ sideBarView }) {
               <MdOutlineBed size={18} />
             </IconComponent>
             CBT
-          </NavItemComponent>
+          </NavItemComponent> */}
+
+          {/* Communication */}
           <NavItemComponent
             submenu={[
-              { name: "All Transactions", link: "/admin/transactions" },
-              { name: "Invoices", link: "/admin/transactions/" },
-              { name: "Receipts", link: "/admin/transactions/tuition" },
+              {
+                name: "Start chat",
+                link: "/admin/students",
+                icon: <MdOutlineChat size={12} />,
+              },
+              {
+                name: "Send Email",
+                link: "/staff?type=academic",
+                icon: <MdOutlineMail size={14} />,
+              },
+              {
+                name: "Send Whatsapp",
+                link: "/admin/students",
+                icon: <MdWhatsapp size={12} />,
+              },
+              {
+                name: "Broadcast Message",
+                link: "/staff?type=academic",
+                icon: <MdOutlineBroadcastOnPersonal size={14} />,
+              },
+            ]}
+          >
+            <IconComponent>
+              <MdOutlineBed size={18} />
+            </IconComponent>
+            Communication
+          </NavItemComponent>
+          {/* Finance */}
+
+          <NavItemComponent
+            submenu={[
+              {
+                name: "Transacttion History",
+                link: "/admin/students",
+                icon: <MdHistory color={"white"} size={12} />,
+              },
             ]}
           >
             <IconComponent>
