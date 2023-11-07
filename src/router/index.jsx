@@ -8,7 +8,7 @@ import {
 
 // pages
 import Home from "../pages/Home";
-import InvoicesPage from "../pages/payments/Invoices";
+// import InvoicesPage from "../pages/payments/Invoices";
 import GenerateInvoicePage from "../pages/payments/GenerateInvoice.page";
 import ReceiptsPage from "../pages/payments/Receipts.page";
 import PrintReceiptScreen from "../screens/PrintReceipt.screen";
@@ -88,23 +88,21 @@ const router = createBrowserRouter(
           <Route path=":session/:term/:userId" element={<ResultSinglePage />} />
         </Route>
 
-        <Route path="cbt">
-          <Route index element={<ExamHomePage />} />
-          <Route path="examinations" element={<ExamHomePage />} />
-        </Route>
-
         <Route path="transactions">
           <Route index element={<TransactionHistory />} />
-          <Route path="invoices">
-            <Route index element={<InvoicesPage />} />
-            <Route path="new" element={<NewInvoicePage />} />
-            <Route path=":invoiceID" element={<InvoicePage />} />
-          </Route>
-          <Route path="receipts" element={<TuitionPage />} />
+
           <Route path=":transactionID">
             <Route index element={<TransactionHistory />} />
-            <Route path="invoice" element={<InvoicesPage />} />
+            {/* <Route path="invoice" element={<InvoicesPage />} /> */}
           </Route>
+        </Route>
+
+        <Route path="receipts" element={<TuitionPage />} />
+
+        <Route path="invoices">
+          <Route index element={<TuitionPage />} />
+          <Route path="new" element={<NewInvoicePage />} />
+          <Route path=":invoiceID" element={<InvoicePage />} />
         </Route>
 
         <Route path="config">
