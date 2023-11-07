@@ -128,7 +128,7 @@ const router = createBrowserRouter(
         <Route path="/fees">
           {/* Invoices */}
           <Route path="invoices">
-            <Route index element={<InvoicesPage />} />
+            <Route index element={<TuitionPage />} />
             <Route path="new" element={<GenerateInvoicePage />} />
             <Route path=":invoiceID" element={<PrintInvoiceScreen />} />
           </Route>
