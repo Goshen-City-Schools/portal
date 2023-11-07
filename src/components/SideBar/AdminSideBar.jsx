@@ -33,7 +33,7 @@ import NavItemComponent from "../NavItem.component";
 import { FaChevronRight, FaTimes } from "react-icons/fa";
 import { toggleSideMenu } from "../../app/redux/slices/menuSlice";
 
-export default function AdminSideBar({ sideBarView }) {
+export default function AdminSideBar({ sideBarView, handleClick }) {
   const dispatch = useDispatch();
 
   const isSideMenuOpen = useSelector((state) => state.menu.isSideMenuOpen);
@@ -123,7 +123,8 @@ export default function AdminSideBar({ sideBarView }) {
             submenu={[
               {
                 name: "View Student",
-                link: "/admin/students",
+                link: "/admin/students/#",
+                onClick: () => handleClick("student"),
                 icon: <MdEditDocument size={12} />,
               },
               {
@@ -151,9 +152,7 @@ export default function AdminSideBar({ sideBarView }) {
               {
                 name: "View Staff",
                 link: `/admin/staff/#`,
-                onClick: () => {
-                  alert("cliek");
-                },
+                onClick: () => handleClick("staff"),
                 icon: <MdEditDocument size={12} />,
               },
               {
@@ -200,6 +199,7 @@ export default function AdminSideBar({ sideBarView }) {
             Classes
           </NavItemComponent>
 
+          {/* Results */}
           <NavItemComponent
             submenu={[
               {
@@ -234,6 +234,8 @@ export default function AdminSideBar({ sideBarView }) {
             </IconComponent>
             Results
           </NavItemComponent>
+
+          {/* Events */}
           <NavItemComponent
             submenu={[
               {
@@ -258,19 +260,6 @@ export default function AdminSideBar({ sideBarView }) {
             </IconComponent>
             Calendar
           </NavItemComponent>
-
-          {/* CBT */}
-          {/* <NavItemComponent
-            submenu={[
-              { name: "Examination", link: "/admin/cbt/examinations" },
-              { name: "Assessment Tests", link: "/admin/cbt/assessments" },
-            ]}
-          >
-            <IconComponent>
-              <MdOutlineBed size={18} />
-            </IconComponent>
-            CBT
-          </NavItemComponent> */}
 
           {/* Communication */}
           <NavItemComponent
@@ -308,6 +297,11 @@ export default function AdminSideBar({ sideBarView }) {
             submenu={[
               {
                 name: "Transacttion History",
+                link: "/admin/students",
+                icon: <MdHistory color={"white"} size={12} />,
+              },
+              {
+                name: "Manage Fees",
                 link: "/admin/students",
                 icon: <MdHistory color={"white"} size={12} />,
               },
