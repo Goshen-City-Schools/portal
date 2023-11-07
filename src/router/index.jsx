@@ -45,7 +45,6 @@ import NewInvoicePage from "../pages/admin/finance/invoices/New";
 import { InvoicePage } from "../pages/admin/finance/invoices/invoice";
 import StudentPage from "../pages/admin/students/Student.page";
 import StaffPage from "../pages/admin/staff/Staff.page";
-// import NewInvoicePage from "../pages/payments/invoices/New";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
