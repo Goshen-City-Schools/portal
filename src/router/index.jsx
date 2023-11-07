@@ -8,7 +8,7 @@ import {
 
 // pages
 import Home from "../pages/Home";
-import InvoicesPage from "../pages/payments/invoices";
+import InvoicesPage from "../pages/payments/Invoices";
 import GenerateInvoicePage from "../pages/payments/GenerateInvoice.page";
 import ReceiptsPage from "../pages/payments/Receipts.page";
 import PrintReceiptScreen from "../screens/PrintReceipt.screen";
