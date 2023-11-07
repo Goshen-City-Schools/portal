@@ -79,10 +79,11 @@ export default function AdminSideBar({ sideBarView }) {
       <Box
         position={"relative"}
         zIndex={40}
-        z
+        py={2}
         className="sideBar-header h-max shadow-md flex items-center  w-full"
       >
         <Logo />
+
         <Flex
           direction={"column"}
           justifyContent={"center"}
@@ -91,7 +92,7 @@ export default function AdminSideBar({ sideBarView }) {
         >
           <Text
             as={"p"}
-            className="text-md font-bold leading-tight"
+            className="text-md mt-1 font-bold leading-tight"
             color={"white"}
           >
             GOSHEN GROUP OF SCH.

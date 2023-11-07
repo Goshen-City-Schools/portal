@@ -1,15 +1,15 @@
-import React from 'react';
+import React from "react";
 
 export default function Logo() {
   return (
-    <div className="flex relative h-20 w-20">
+    <div className="flex relative h-16 w-16 px-1">
       <img
-        src={'/Goshen-logo-trans.png'}
+        src={"/new-logo.png"}
         alt="Goshen Logo with Name"
-        height={200}
-        width={200}
+        height={180}
+        width={180}
         loading="eager"
-        className="absolute top-0 left-0 object-contain h-full w-full"
+        className=" left-0 object-contain h-full w-full"
       />
     </div>
   );

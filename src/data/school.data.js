@@ -62,4 +62,23 @@ const schoolClasses = [
   "SSS 3",
 ];
 
+const schoolClassesWithCategories = [
+  "Reception 1",
+  "Reception 2",
+  "Nursery 1",
+  "Nursery 2",
+  "Nursery 3",
+  "Basic 1",
+  "Basic 2",
+  "Basic 3",
+  "Basic 4",
+  "Basic 5",
+  "JSS 1",
+  "JSS 2",
+  "JSS 3",
+  "SSS 1",
+  "SSS 2",
+  "SSS 3",
+];
+
 export default { staffRoles, schoolClasses };
