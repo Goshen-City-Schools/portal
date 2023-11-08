@@ -31,14 +31,24 @@ export default function CreateNewStaff() {
     email: "",
     phoneNumber: "",
     whatsappNumber: "",
-    role: "",
+    roles: [],
     dateOfBirth: "",
     gender: "",
   });
 
   function handleChange(e) {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+
+    if (name === "roles") {
+      // Get the selected roles as an array
+      const selectedRoles = Array.from(
+        e.target.selectedOptions,
+        (option) => option.value
+      );
+      setFormData({ ...formData, roles: selectedRoles });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
   }
 
   function handleFormSubmit(e) {
@@ -52,7 +62,7 @@ export default function CreateNewStaff() {
       !formData.dateOfBirth ||
       !formData.phoneNumber ||
       !formData.whatsappNumber ||
-      !formData.role ||
+      !formData.roles ||
       !formData.gender
     ) {
       toast({
@@ -75,7 +85,7 @@ export default function CreateNewStaff() {
       phoneNumber: formData.phoneNumber,
       whatsappNumber: formData.whatsappNumber,
       email: formData.email,
-      role: formData.role,
+      roles: formData.roles,
     };
 
     // Simulating Backend Actions
@@ -110,7 +120,7 @@ export default function CreateNewStaff() {
         id: "",
         firstName: "",
         lastName: "",
-        role: "",
+        roles: [],
         dateOfBirth: "",
         gender: "",
         email: "",
@@ -216,9 +226,9 @@ export default function CreateNewStaff() {
                 Role
               </FormLabel>
               <Select
-                name="role"
+                name="roles"
                 fontSize={"sm"}
-                value={formData.role}
+                value={formData.roles}
                 onChange={handleChange}
               >
                 <option value="">-- Select a Role --</option>

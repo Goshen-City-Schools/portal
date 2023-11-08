@@ -4,7 +4,7 @@ import { Portal, Box, Button, Text } from "@chakra-ui/react";
 import { useModal } from "../app/contexts/ModalContext";
 // import { useModal } from "./ModalContext";
 
-function ReactPortal() {
+function ReactPortal({ width }) {
   const { isOpen, closePortal, portalTitle, portalContent } = useModal();
 
   if (!isOpen) return null;
@@ -23,8 +23,20 @@ function ReactPortal() {
         alignItems="center"
         background="rgba(0, 0, 0, 0.5)"
       >
-        <Box p={4} background="white" borderRadius="md" boxShadow="md">
-          <Box maxWidth="lg" width={{ "base": "full", "md": "sm" }}>
+        <Box
+          p={4}
+          background="white"
+          height={"max-content"}
+          maxH={"100vh"}
+          overflowY={"scroll"}
+          borderRadius="md"
+          boxShadow="md"
+        >
+          <Box
+            maxWidth="full"
+            minWidth={"sm"}
+            width={{ base: "full", md: width ? width : "max-content" }}
+          >
             {portalContent}
           </Box>
           <Button onClick={closePortal}>Close</Button>
