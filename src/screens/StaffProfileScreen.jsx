@@ -13,7 +13,6 @@ import Avatar from "../components/Avatar.component";
 import IconComponent from "../components/Icon.component";
 import {
   MdAdd,
-  MdDelete,
   MdEdit,
   MdOutlineClose,
   MdOutlineDeleteOutline,

@@ -2,8 +2,10 @@ import React from "react";
 
 import { Box, Flex, Text, Button, Grid } from "@chakra-ui/react";
 import Avatar from "../components/Avatar.component";
+import { useUser } from "../app/contexts/UserContext";
 
-export default function ProfileScreen({ user }) {
+export default function ProfileScreen() {
+  const { user } = useUser();
   return (
     <Box>
       <Flex>
@@ -14,7 +16,7 @@ export default function ProfileScreen({ user }) {
           </Button>
         </Grid>
 
-        <Text as={"h2"}>{user.name}</Text>
+        <Text as={"h2"}>{user.firstName}</Text>
       </Flex>
     </Box>
   );

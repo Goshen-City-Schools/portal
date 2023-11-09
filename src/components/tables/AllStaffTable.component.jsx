@@ -51,12 +51,12 @@ const AllStaffTable = () => {
   const toast = useToast();
   const [parentsData, setParentsData] = useState();
 
-  const handleLink = () => navigate("/admin/staff/1");
+  const handleLink = (value) => navigate(`/admin/staff/${value}`);
 
   const columns = [
     {
-      Header: "S/N",
-      accessor: "sn",
+      Header: "ID",
+      accessor: "id",
     },
     {
       Header: "First Name",
@@ -85,25 +85,28 @@ const AllStaffTable = () => {
     {
       Header: "Action",
       accessor: "action",
-      Cell: ({ row }) => (
-        <Flex gap={2}>
-          <Tooltip>
-            <IconComponent
-              click={() => handleDeleteAction(row.original.id)}
-              className="text-red-600 cursor-pointer hover:scale-110 transition duration-300"
-            >
-              <MdDeleteOutline size={20} />
-            </IconComponent>
-          </Tooltip>
+      Cell: ({ row }) => {
+        console.log(row);
+        return (
+          <Flex gap={2}>
+            <Tooltip>
+              <IconComponent
+                click={() => handleDeleteAction(row.original.id)}
+                className="text-red-600 cursor-pointer hover:scale-110 transition duration-300"
+              >
+                <MdDeleteOutline size={20} />
+              </IconComponent>
+            </Tooltip>
 
-          <IconComponent
-            className="text-green-700 cursor-pointer hover:scale-110 transition duration-300"
-            click={() => handleLink(row.original.id)}
-          >
-            <MdLink size={18} />
-          </IconComponent>
-        </Flex>
-      ),
+            <IconComponent
+              className="text-green-700 cursor-pointer hover:scale-110 transition duration-300"
+              click={() => handleLink(row.original.id)}
+            >
+              <MdLink size={18} />
+            </IconComponent>
+          </Flex>
+        );
+      },
     },
   ];
   return (

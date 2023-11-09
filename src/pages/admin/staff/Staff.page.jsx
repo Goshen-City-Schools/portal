@@ -8,16 +8,29 @@ import useStaff from "../../../hooks/useStaff";
 import ProfileNotFoundScreen from "../../../screens/ProfileNotFoundScreen";
 import ReactPortal from "../../../widgets/ReactPortal";
 import { useLocalStorage } from "../../../hooks/useLocalStorage";
+import { useUser } from "../../../app/contexts/UserContext";
+import { useNavigate } from "react-router-dom";
 
 export default function StaffPage() {
+  const navigate = useNavigate();
+  const { user } = useUser();
   const { staffId } = useParams();
-  const fetchStaff = useCallback(() => useStaff({ staffId: staffId }));
+  const fetchStaff = useCallback(() =>
+    useStaff({ staffId: staffId.toLocaleLowerCase() })
+  );
   const staff = fetchStaff();
   const { getItem } = useLocalStorage("staffData");
   const existingStaffData = getItem();
 
   if (!staff) {
     return <ProfileNotFoundScreen />;
+  }
+
+  console.log(user);
+  // Check if the student being viewed is the logged-in user
+  if (user && staffId === user.id) {
+    // Navigate to the "My Profile" screen
+    return navigate("/admin/profile");
   }
 
   return (

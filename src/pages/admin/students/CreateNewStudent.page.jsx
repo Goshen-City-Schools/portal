@@ -369,7 +369,7 @@ export default function CreateNewStudent() {
     }
 
     const studentData = {
-      id: generateId(),
+      id: generateId().slice(-5),
       firstName: formData.firstName,
       lastName: formData.lastName,
       class: formData.class,

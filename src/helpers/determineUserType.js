@@ -1,6 +1,6 @@
 function determineUserType(userID) {
   // Check if the user ID matches the expected format
-  if (/^GSHN\/(STF|STU)\/\d{4}$/.test(userID)) {
+  if (/^GSHN\/(STF|STU)\/\w{5}$/.test(userID)) {
     // Extract the user type part (STF or STU)
     const userType = userID.split("/")[1];
 

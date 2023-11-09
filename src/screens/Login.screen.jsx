@@ -1,9 +1,5 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { updateField, setLoginError } from "../app/redux/slices/formSlice";
-
-import { AnimatePresence, motion } from "framer-motion";
-
+import React, { useState, useCallback, useEffect } from "react";
+import { motion } from "framer-motion";
 import {
   Grid,
   GridItem,
@@ -16,77 +12,95 @@ import {
   FormHelperText,
   Button,
 } from "@chakra-ui/react";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import determineUserType from "../helpers/determinUserType";
-import LoadingScreen from "./Loading.screen";
 import defaultConfigValues from "../data/defaultConfigValues";
-// import { pageVariants } from "../components/PageWrapper";
+import determineUserType from "../helpers/determineUserType";
+import { useLocalStorage } from "../hooks/useLocalStorage";
+import { useUser } from "../app/contexts/UserContext";
 
 export default function LoginScreen() {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const loggedInUser = JSON.parse(localStorage.getItem("user"));
+  const { user, setUser, login } = useUser();
+  const studentsData = useLocalStorage("studentsData").getItem();
+  const staffData = useLocalStorage("staffData").getItem();
+
   const [isLoading, setIsLoading] = useState(false);
+  const [userID, setUserID] = useState("");
+  const [password, setPassword] = useState("");
+  const [loginError, setLoginError] = useState("");
+  const [extractedID, setExtractedID] = useState("");
 
-  const { userID, password, loginError } = useSelector((state) => state.form);
-
-  const handleInputChange = (e) => {
+  const handleInputChange = useCallback((e) => {
     const { name, value } = e.target;
-    dispatch(updateField({ fieldName: name, fieldValue: value }));
+    if (name === "userID") {
+      setUserID(value);
+      setLoginError(""); // Clear login error when user interacts with the form
+    } else if (name === "password") {
+      setPassword(value);
+      setLoginError("");
+    }
+  }, []);
+
+  const extractID = (userID) => {
+    const parts = userID.split("/");
+    return parts[parts.length - 1];
   };
 
-  // Submit handler
-  function handleSubmit(e) {
-    e.preventDefault();
+  const handleSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
+      const extracted = extractID(userID); // Extract the ID from the user's input
+      setExtractedID(extracted);
 
-    // Validate the userID and password
-    if (!/^GSHN\/(STF|STU)\/\d{4}$/.test(userID) || password.trim() === "") {
-      dispatch(setLoginError({ errorMessage: "Invalid login details" }));
-      setTimeout(() => {
-        dispatch(setLoginError({ errorMessage: "" }));
-      }, 2000);
-      return;
+      if (!/^GSHN\/(STF|STU)\/\w{5}$/.test(userID) || password.trim() === "") {
+        setLoginError("Invalid login details");
+        setTimeout(() => {
+          setLoginError("");
+        }, 2000);
+        return;
+      }
+      setLoginError("");
+
+      if (userID) {
+        if (determineUserType(userID) === "Staff") {
+          const staff = staffData.find((staff) => staff.id === extracted);
+          if (staff) {
+            login(staff);
+            setIsLoading(true);
+          } else {
+            setLoginError("User not found");
+            setTimeout(() => {
+              setLoginError("");
+            }, 2000);
+          }
+        } else if (determineUserType(userID) === "Student") {
+          const student = studentsData.find(
+            (student) => student.id === extracted
+          );
+          if (student) {
+            login(student);
+            setIsLoading(true);
+          } else {
+            setLoginError("User not found");
+            setTimeout(() => {
+              setLoginError("");
+            }, 2000);
+          }
+        }
+      }
+    },
+    [userID, password, staffData, studentsData, login, setUser]
+  );
+
+  useEffect(() => {
+    if (user) {
+      if (determineUserType(userID) === "Staff") {
+        navigate("/admin");
+      } else if (determineUserType(userID) === "Student") {
+        navigate("/");
+      }
     }
-
-    // Hit Backend Validate, if true and User type is STAFF, Send OTP
-
-    // Clear any previous error message
-    dispatch(setLoginError({ errorMessage: "" }));
-
-    // Define typedUserID
-    let typedUserID;
-
-    // Set the userID based on what the user typed in
-    dispatch(updateField({ fieldName: "userID", fieldValue: typedUserID }));
-
-    // Simulate a successful login and set user data
-    const userData = {
-      "userID": typedUserID,
-      "name": "Nkechinyere Harrison",
-      "userType": determineUserType(userID),
-      "isAuthenticated": true,
-    };
-
-    const userDataString = JSON.stringify(userData);
-
-    localStorage.setItem("user", userDataString);
-
-    setIsLoading(true);
-
-    setTimeout(() => {
-      setIsLoading(false);
-      if (userData.userType == "Student") {
-        return navigate("/");
-      } else return navigate("/admin");
-    }, 2000);
-  }
-
-  if (loggedInUser && loggedInUser.userType == "Staff")
-    return <LoadingScreen navigateToPath={"/admin"} timer={1500} />;
-
-  if (loggedInUser && loggedInUser.userType == "Student")
-    return <LoadingScreen navigateToPath={"/"} timer={1500} />;
+  }, [user, userID, navigate, extractedID]);
 
   return (
     <motion.div
@@ -96,10 +110,10 @@ export default function LoginScreen() {
     >
       <Grid
         height={"100vh"}
-        templateColumns={{ "base": "1fr", "md": "repeat(2, 1fr)" }}
+        templateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }}
       >
         <GridItem
-          display={{ "base": "none", "md": "flex" }}
+          display={{ base: "none", md: "flex" }}
           flexDirection={"column"}
           height={"full"}
           bg={"brand.700"}
@@ -147,24 +161,23 @@ export default function LoginScreen() {
             />
           </Box>
         </GridItem>
-        {/*  */}
+
         <GridItem
           display={"flex"}
-          padding={{ "base": "6", "md": "12" }}
+          padding={{ base: "6", md: "12" }}
           height={"full"}
           justifyContent={"center"}
           flexDirection={"column"}
-          w={{ "base": "100%", "md": "80%" }}
+          w={{ base: "100%", md: "80%" }}
           marginX={"auto"}
         >
-          {/* Welcome Text */}
           <Box
             position={"relative"}
             height={"48"}
             width={"48"}
             overflow={"hidden"}
-            mx={{ "base": "auto" }}
-            display={{ "base": "flex", "md": "none" }}
+            mx={{ base: "auto" }}
+            display={{ base: "flex", md: "none" }}
           >
             <img
               src="/Goshen-logo-trans.png"
@@ -172,15 +185,14 @@ export default function LoginScreen() {
               className="absolute object-contain w-full h-full"
             />
           </Box>
-
           <Flex
             direction={"column"}
-            alignItems={{ "base": "center", "md": "start" }}
+            alignItems={{ base: "center", md: "start" }}
             marginBottom={12}
           >
             <Text
               as={"h3"}
-              fontSize={{ "base": "2xl", "md": "4xl" }}
+              fontSize={{ base: "2xl", md: "4xl" }}
               fontWeight={"bold"}
             >
               Welcome back
@@ -190,9 +202,7 @@ export default function LoginScreen() {
             </Text>
           </Flex>
 
-          {/* Form Submission */}
           <form onSubmit={handleSubmit}>
-            {/* UserID */}
             <FormControl mb={2}>
               <FormLabel fontSize={"sm"}>Student / Staff ID</FormLabel>
               <Input
@@ -205,7 +215,6 @@ export default function LoginScreen() {
               />
             </FormControl>
 
-            {/* Password */}
             <FormControl>
               <FormLabel fontSize={"sm"}>Password</FormLabel>
               <Input
@@ -218,7 +227,6 @@ export default function LoginScreen() {
               />
             </FormControl>
 
-            {/* Error message */}
             <FormControl>
               <FormHelperText color={"error.700"}>{loginError}</FormHelperText>
             </FormControl>

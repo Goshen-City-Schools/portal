@@ -134,7 +134,7 @@ export default function AdminSideBar({ sideBarView, handleClick }) {
               },
               {
                 name: "Register New Student",
-                link: "/staff?type=academic",
+                link: "/admin/students/new",
                 icon: <MdAdd size={14} />,
               },
             ]}

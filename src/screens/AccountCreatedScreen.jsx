@@ -24,7 +24,13 @@ export default function AccountCreatedScreen({ type, data, email }) {
               : type?.toLocaleLowerCase() == "student"
               ? "Student ID: "
               : "Username: "}
-            <strong>{data.id}</strong>
+            <strong className="uppercase">
+              {type?.toLocaleLowerCase() == "staff"
+                ? `GSHN/STF/${data.id}`
+                : type?.toLocaleLowerCase() == "student"
+                ? `GSHN/STU/${data.id}`
+                : data.id}
+            </strong>
           </Text>
         </Flex>
         <Flex>

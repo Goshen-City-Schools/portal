@@ -6,14 +6,27 @@ import { useCallback } from "react";
 import { useParams } from "react-router-dom";
 import StudentProfileScreen from "../../../screens/StudentProfileScreen";
 import ProfileNotFoundScreen from "../../../screens/ProfileNotFoundScreen";
+import { useUser } from "../../../app/contexts/UserContext";
+import { useNavigate } from "react-router-dom";
 
 export default function StudentPage() {
+  const navigate = useNavigate();
+  const { user } = useUser();
   const { studentId } = useParams();
-  const fetchStudent = useCallback(() => useStudent({ studentId: studentId }));
+  const fetchStudent = useCallback(() =>
+    useStudent({ studentId: studentId.toLocaleLowerCase() })
+  );
   const student = fetchStudent();
 
   if (!student) {
     return <ProfileNotFoundScreen />;
+  }
+
+  console.log(user);
+  // Check if the student being viewed is the logged-in user
+  if (user && studentId === user.id) {
+    // Navigate to the "My Profile" screen
+    navigate("/admin/profile");
   }
 
   console.log(student);

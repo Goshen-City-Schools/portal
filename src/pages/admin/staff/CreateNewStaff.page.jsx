@@ -77,7 +77,7 @@ export default function CreateNewStaff() {
     }
 
     const staffData = {
-      id: generateId(),
+      id: generateId().slice(-5),
       firstName: formData.firstName,
       lastName: formData.lastName,
       dateOfBirth: formData.dateOfBirth,
@@ -204,7 +204,7 @@ export default function CreateNewStaff() {
             </FormControl>
           </Flex>
 
-          <Flex gap={6}>
+          <Flex gap={6} direction={{ base: "column", md: "row" }}>
             {/* Email */}
             <FormControl id="date">
               <FormLabel fontWeight={"bold"} fontSize={"sm"}>
