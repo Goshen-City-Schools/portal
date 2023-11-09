@@ -82,6 +82,7 @@ export default function CreateNewStaff() {
       lastName: formData.lastName,
       dateOfBirth: formData.dateOfBirth,
       gender: formData.gender,
+      accountType: "Staff",
       phoneNumber: formData.phoneNumber,
       whatsappNumber: formData.whatsappNumber,
       email: formData.email,

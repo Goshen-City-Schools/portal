@@ -45,18 +45,30 @@ import NewInvoicePage from "../pages/admin/finance/invoices/New";
 import { InvoicePage } from "../pages/admin/finance/invoices/invoice";
 import StudentPage from "../pages/admin/students/Student.page";
 import StaffPage from "../pages/admin/staff/Staff.page";
+import PermissionMiddleware from "../middlewares/PermissionMiddleWare";
+import AccessRestricted from "../pages/AccessRestricted";
+import AuthenticationMiddleware from "../middlewares/AuthMiddleWare";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>
-      <Route path="/auth" element={<LoginScreen />} />
+      <Route
+        path="/auth"
+        element={
+          <AuthenticationMiddleware>
+            <LoginScreen />
+          </AuthenticationMiddleware>
+        }
+      />
 
       <Route
         path="/admin"
         element={
-          <AuthLayout>
-            <AdminLayout />
-          </AuthLayout>
+          <AuthenticationMiddleware>
+            <PermissionMiddleware>
+              <AdminLayout />
+            </PermissionMiddleware>
+          </AuthenticationMiddleware>
         }
       >
         {/* Home Route */}
@@ -116,9 +128,9 @@ const router = createBrowserRouter(
       <Route
         path="/"
         element={
-          <AuthLayout>
+          <AuthenticationMiddleware>
             <StudentLayout />
-          </AuthLayout>
+          </AuthenticationMiddleware>
         }
       >
         {/* Home Route */}
@@ -141,6 +153,7 @@ const router = createBrowserRouter(
         </Route>
       </Route>
 
+      <Route path="/restricted-access" element={<AccessRestricted />} />
       <Route path="*" element={<GeneralNotFound />} />
     </Route>
   )

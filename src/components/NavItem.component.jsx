@@ -5,6 +5,7 @@ import linkIsActive from "../utilities/linkIsActive";
 import IconComponent from "./Icon.component";
 
 import { FaChevronDown, FaChevronUp } from "react-icons/fa"; // Import the correct icons
+import allowedUserRoles from "../helpers/allowedUserRoles";
 
 export default function NavItemComponent({ link, children, submenu, click }) {
   const [showSubmenu, setShowSubmenu] = useState(false);
@@ -15,6 +16,7 @@ export default function NavItemComponent({ link, children, submenu, click }) {
 
   return link ? (
     <ListItem
+      w={"full"}
       rounded={"md"}
       _hover={{ bg: "brand.700", color: "white", cursor: "pointer" }}
       className={`flex justify-start font-bold items-center ${
@@ -34,6 +36,7 @@ export default function NavItemComponent({ link, children, submenu, click }) {
       roundedTopLeft="md"
       roundedBottomLeft="md"
       display="flex"
+      w={"full"}
       flexDirection={"column"}
       _hover={{ bg: "brand.700", color: "white", cursor: "pointer" }}
       className="flex justify-start pl-4 py-3 font-bold items-center"
@@ -55,18 +58,41 @@ export default function NavItemComponent({ link, children, submenu, click }) {
       <Collapse in={showSubmenu} animateOpacity className="w-full">
         <List pl={4} pt={2} gap={2} w={"full"} fontSize={".8rem"}>
           {submenu &&
-            submenu.map((item, index) => (
-              <NavLink
-                to={`${item.link}`}
-                key={index}
-                _hover={{ bg: "brand.700", color: "white", cursor: "pointer" }}
-                className="flex justify-start font-normal mt-1 w-full gap-1 pl-2 py-2 items-center"
-                onClick={item?.onClick}
-              >
-                {item?.icon && <IconComponent> {item.icon}</IconComponent>}
-                {item.name}
-              </NavLink>
-            ))}
+            submenu.map((item, index) =>
+              item.roles ? (
+                allowedUserRoles[(UserActivation, item.roles)] && (
+                  <NavLink
+                    to={`${item.link}`}
+                    key={index}
+                    _hover={{
+                      bg: "brand.700",
+                      color: "white",
+                      cursor: "pointer",
+                    }}
+                    className="flex justify-start font-normal mt-1 w-full gap-1 pl-2 py-2 items-center"
+                    onClick={item?.onClick}
+                  >
+                    {item?.icon && <IconComponent> {item.icon}</IconComponent>}
+                    {item.name}
+                  </NavLink>
+                )
+              ) : (
+                <NavLink
+                  to={`${item.link}`}
+                  key={index}
+                  _hover={{
+                    bg: "brand.700",
+                    color: "white",
+                    cursor: "pointer",
+                  }}
+                  className="flex justify-start font-normal mt-1 w-full gap-1 pl-2 py-2 items-center"
+                  onClick={item?.onClick}
+                >
+                  {item?.icon && <IconComponent> {item.icon}</IconComponent>}
+                  {item.name}
+                </NavLink>
+              )
+            )}
         </List>
       </Collapse>
     </ListItem>

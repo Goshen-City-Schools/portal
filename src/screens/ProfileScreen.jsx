@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Box, Flex, Text, Button, Grid } from "@chakra-ui/react";
+import { Box, Flex, Text, Button, Grid, VStack } from "@chakra-ui/react";
 import Avatar from "../components/Avatar.component";
 import { useUser } from "../app/contexts/UserContext";
 
@@ -16,7 +16,17 @@ export default function ProfileScreen() {
           </Button>
         </Grid>
 
-        <Text as={"h2"}>{user.firstName}</Text>
+        <VStack gap={3}>
+          <Text as={"h3"}>
+            Name: <strong>{user.firstName}</strong>
+          </Text>
+          <Text as={"h3"}>
+            Account Type: <strong>{user.accountType}</strong>{" "}
+          </Text>
+          <Text as={"h3"}>
+            Staff Role: <strong>{user.roles[0]}</strong>
+          </Text>
+        </VStack>
       </Flex>
     </Box>
   );

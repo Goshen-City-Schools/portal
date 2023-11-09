@@ -7,6 +7,8 @@ import { useNavigate } from "react-router-dom";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { useUser } from "../../app/contexts/UserContext";
 
+import { Text } from "@chakra-ui/react";
+
 const AllStaffTable = () => {
   const toast = useToast();
   const existingStaffData = useLocalStorage("staffData").getItem();
@@ -18,6 +20,13 @@ const AllStaffTable = () => {
     {
       Header: "ID",
       accessor: "id",
+      Cell: ({ value }) => (
+        <Flex gap={2}>
+          <Text as={"p"} fontWeight={"bold"}>
+            {value}
+          </Text>
+        </Flex>
+      ),
     },
     {
       Header: "First Name",

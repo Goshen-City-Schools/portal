@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
 
@@ -19,18 +18,21 @@ import {
   PopoverCloseButton,
   PopoverBody,
   Text,
+  Grid,
 } from "@chakra-ui/react";
 
 import SearchWidget from "../../widgets/Search.widget";
 import IconComponent from "../Icon.component";
 
 import { toggleSideMenu } from "../../app/redux/slices/menuSlice";
-import { logout } from "../../app/redux/slices/formSlice";
 import { useNavigate } from "react-router-dom";
+import { useUser } from "../../app/contexts/UserContext";
 
 export default function AdminHeader() {
+  const { user } = useUser();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { logout } = useUser();
 
   const handleToggleSideMenu = () => {
     dispatch(toggleSideMenu());
@@ -38,7 +40,7 @@ export default function AdminHeader() {
 
   const handleLogout = () => {
     // Dispatch the logout action when the "Logout" button is clicked
-    dispatch(logout());
+    logout();
     console.log("m");
     setTimeout(() => {
       navigate("/auth");
@@ -51,22 +53,21 @@ export default function AdminHeader() {
       paddingX={6}
       width={{ "base": "100%", "lg": "calc(100vw - 260px)" }}
       left={{ "lg": "260px" }}
-      className="h-20 no-print fixed top-0 z-40 shadow-md flex items-center justify-between"
+      className="h-20 no-print fixed top-0 z-40 shadow-sm flex items-center justify-between"
     >
-      <SearchWidget
-        text={"Search students, staffs, events..."}
-        height={"36px"}
-      />
       <Flex
-        color={"brand.700"}
-        display={{ "base": "flex", "md": "none" }}
+        // display={{ "base": "flex", "md": "none" }}
         alignItems={"center"}
         gap={3}
       >
-        <IconComponent click={handleToggleSideMenu}>
-          <MdMenu size={24} />
-        </IconComponent>
-        <h3 className="text-md font-bold">Welcome back, Nkechinyere</h3>
+        <Grid placeItems={"center"} p={0.5} border={"1px solid"} rounded={"md"}>
+          <IconComponent click={handleToggleSideMenu}>
+            <MdMenu size={24} />
+          </IconComponent>
+        </Grid>
+        <Text as={"h3"} color={"brand.900"} className="text-md font-bold">
+          {user.firstName}&nbsp;{user.lastName}
+        </Text>
       </Flex>
 
       <div className="flex items-center gap-4 text-sm">

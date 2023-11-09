@@ -17,9 +17,11 @@ import defaultConfigValues from "../data/defaultConfigValues";
 import determineUserType from "../helpers/determineUserType";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import { useUser } from "../app/contexts/UserContext";
+import { useToast } from "@chakra-ui/react";
 
 export default function LoginScreen() {
   const navigate = useNavigate();
+  const toast = useToast();
   const { user, setUser, login } = useUser();
   const studentsData = useLocalStorage("studentsData").getItem();
   const staffData = useLocalStorage("staffData").getItem();
@@ -31,6 +33,7 @@ export default function LoginScreen() {
   const [extractedID, setExtractedID] = useState("");
 
   const handleInputChange = useCallback((e) => {
+    e.preventDefault();
     const { name, value } = e.target;
     if (name === "userID") {
       setUserID(value);
@@ -54,9 +57,12 @@ export default function LoginScreen() {
 
       if (!/^GSHN\/(STF|STU)\/\w{5}$/.test(userID) || password.trim() === "") {
         setLoginError("Invalid login details");
-        setTimeout(() => {
-          setLoginError("");
-        }, 2000);
+        toast({
+          title: "Invalid login details",
+          duration: "2000",
+          position: "top-right",
+          status: "error",
+        });
         return;
       }
       setLoginError("");
@@ -68,10 +74,12 @@ export default function LoginScreen() {
             login(staff);
             setIsLoading(true);
           } else {
-            setLoginError("User not found");
-            setTimeout(() => {
-              setLoginError("");
-            }, 2000);
+            toast({
+              title: "Staff not found",
+              duration: "2000",
+              position: "top-right",
+              status: "error",
+            });
           }
         } else if (determineUserType(userID) === "Student") {
           const student = studentsData.find(
@@ -81,10 +89,12 @@ export default function LoginScreen() {
             login(student);
             setIsLoading(true);
           } else {
-            setLoginError("User not found");
-            setTimeout(() => {
-              setLoginError("");
-            }, 2000);
+            toast({
+              title: "Student not found",
+              duration: "2000",
+              position: "top-right",
+              status: "error",
+            });
           }
         }
       }

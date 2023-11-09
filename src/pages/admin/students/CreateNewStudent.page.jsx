@@ -18,14 +18,12 @@ import { MdArrowForward, MdKeyboard, MdUpload } from "react-icons/md";
 import schoolData from "../../../data/school.data";
 import ReactPortal from "../../../widgets/ReactPortal";
 import { useModal } from "../../../app/contexts/ModalContext";
-import CreateStudentPortal from "../../../portals/CreateStudent.portal";
 import generateId from "../../../utilities/generateId";
 import { useEffect } from "react";
 import AccountCreatedScreen from "../../../screens/AccountCreatedScreen";
 
 const FirstForm = ({
   activeFormIndex,
-  setActiveFormIndex,
   formData,
   handleChange,
   handleNextForm,
@@ -122,10 +120,10 @@ const FirstForm = ({
         </FormLabel>
         <Select
           py={1}
-          name="type"
+          name="studentType"
           fontSize={"sm"}
           onChange={handleChange}
-          value={formData.type}
+          value={formData.studentType}
         >
           <option value="">-- Select Student Type --</option>
           <option value="new">New Student</option>
@@ -312,7 +310,7 @@ export default function CreateNewStudent() {
     class: "",
     dateOfBirth: "",
     gender: "",
-    type: "",
+    studentType: "",
     guardianTitle: "",
     guardianFirstName: "",
     guardianLastName: "",
@@ -337,7 +335,7 @@ export default function CreateNewStudent() {
       !formData.class ||
       !formData.dateOfBirth ||
       !formData.gender ||
-      !formData.type
+      !formData.studentType
     ) {
       toast({
         status: "error",
@@ -370,11 +368,13 @@ export default function CreateNewStudent() {
 
     const studentData = {
       id: generateId().slice(-5),
+      accountType: "Student",
       firstName: formData.firstName,
       lastName: formData.lastName,
       class: formData.class,
       dateOfBirth: formData.dateOfBirth,
       gender: formData.gender,
+      studentType: formData.studentType,
       guardianTitle: formData.guardianTitle,
       guardianFirstName: formData.guardianFirstName,
       guardianLastName: formData.guardianLastName,
@@ -419,7 +419,7 @@ export default function CreateNewStudent() {
         class: "",
         dateOfBirth: "",
         gender: "",
-        type: "",
+        studentType: "",
         guardianTitle: "",
         guardianFirstName: "",
         guardianLastName: "",
