@@ -26,7 +26,6 @@ export default function StaffPage() {
     return <ProfileNotFoundScreen />;
   }
 
-  console.log(user);
   // Check if the student being viewed is the logged-in user
   if (user && staffId === user.id) {
     // Navigate to the "My Profile" screen

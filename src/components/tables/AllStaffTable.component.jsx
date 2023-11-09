@@ -6,6 +6,8 @@ import { useState } from "react";
 import IconComponent from "../Icon.component";
 import { MdDeleteOutline, MdLink, MdModeEditOutline } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
+import { useUser } from "../../app/contexts/UserContext";
 
 const data = [
   {
@@ -46,10 +48,8 @@ const data = [
 ];
 
 const AllStaffTable = () => {
-  const existingStaffData = JSON.parse(localStorage.getItem("staffData") || []);
+  const existingStaffData = useLocalStorage("staffData").getItem();
   const navigate = useNavigate();
-  const toast = useToast();
-  const [parentsData, setParentsData] = useState();
 
   const handleLink = (value) => navigate(`/admin/staff/${value}`);
 

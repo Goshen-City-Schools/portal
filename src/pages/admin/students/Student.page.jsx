@@ -22,7 +22,6 @@ export default function StudentPage() {
     return <ProfileNotFoundScreen />;
   }
 
-  console.log(user);
   // Check if the student being viewed is the logged-in user
   if (user && studentId === user.id) {
     // Navigate to the "My Profile" screen
