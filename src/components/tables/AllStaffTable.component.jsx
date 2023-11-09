@@ -1,57 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import Table from "../../widgets/Table.widget";
-
 import { Flex, Tooltip, useToast } from "@chakra-ui/react";
-import { useState } from "react";
 import IconComponent from "../Icon.component";
-import { MdDeleteOutline, MdLink, MdModeEditOutline } from "react-icons/md";
+import { MdDeleteOutline, MdLink } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { useUser } from "../../app/contexts/UserContext";
 
-const data = [
-  {
-    sn: 1,
-    staffId: "2022001",
-    fullName: "John Doe",
-    gender: "Male",
-    staff_role: "Teacher",
-    class: "Class A",
-    email: "mary.doe@hotmail.com",
-    phone_number: "123-456-7890",
-    action: {
-      buttonLabel: "Options",
-      options: [
-        { label: "Edit", action: "edit" },
-        { label: "Delete", action: "delete" },
-      ],
-    },
-  },
-  {
-    sn: 2,
-    staffId: "2022002",
-    fullName: "Jane Smith",
-    gender: "Female",
-    staff_role: "Teacher",
-    class: "Class B",
-    email: "alice.smith@outlook.com",
-    phone_number: "987-654-3210",
-    action: {
-      buttonLabel: "Options",
-      options: [
-        { label: "Edit", action: "edit" },
-        { label: "Delete", action: "delete" },
-      ],
-    },
-  },
-  // Add more data rows here
-];
-
 const AllStaffTable = () => {
+  const toast = useToast();
   const existingStaffData = useLocalStorage("staffData").getItem();
   const navigate = useNavigate();
-
-  const handleLink = (value) => navigate(`/admin/staff/${value}`);
+  const { user } = useUser();
+  const [staffData, setStaffData] = useState(existingStaffData);
 
   const columns = [
     {
@@ -85,11 +46,10 @@ const AllStaffTable = () => {
     {
       Header: "Action",
       accessor: "action",
-      Cell: ({ row }) => {
-        console.log(row);
-        return (
-          <Flex gap={2}>
-            <Tooltip>
+      Cell: ({ row }) => (
+        <Flex gap={2}>
+          {user.id !== row.original.id && ( // Check if the logged-in staff is not the one being deleted
+            <Tooltip label="Delete" hasArrow>
               <IconComponent
                 click={() => handleDeleteAction(row.original.id)}
                 className="text-red-600 cursor-pointer hover:scale-110 transition duration-300"
@@ -97,26 +57,57 @@ const AllStaffTable = () => {
                 <MdDeleteOutline size={20} />
               </IconComponent>
             </Tooltip>
+          )}
 
+          <Tooltip label="Edit" hasArrow>
             <IconComponent
               className="text-green-700 cursor-pointer hover:scale-110 transition duration-300"
               click={() => handleLink(row.original.id)}
             >
               <MdLink size={18} />
             </IconComponent>
-          </Flex>
-        );
-      },
+          </Tooltip>
+        </Flex>
+      ),
     },
   ];
+
+  const handleDeleteAction = (staffId) => {
+    if (user.id === staffId) {
+      // Prevent staff from deleting themselves
+      toast({
+        title: "You cannot delete yourself.",
+        status: "warning",
+      });
+    } else if (
+      window.confirm(`Are you sure to delete the staff with ID ${staffId}?`)
+    ) {
+      // Filter the staff member with the specified staffId and update the state
+      const newStaffData = staffData.filter((staff) => staff.id !== staffId);
+      setStaffData(newStaffData);
+
+      // Show a toast notification
+      toast({
+        title: `Deleted staff with ID ${staffId}`,
+        duration: 2000,
+        status: "warning",
+      });
+
+      // Update localStorage
+      useLocalStorage("staffData").setItem(newStaffData);
+    }
+  };
+
+  const handleLink = (staffId) => {
+    navigate(`/admin/staff/${staffId}`);
+  };
+
   return (
-    <div>
-      <Table
-        columns={columns}
-        data={existingStaffData}
-        fullWidthColumns={["Full Name", "Parent"]}
-      />
-    </div>
+    <Table
+      columns={columns}
+      data={staffData}
+      fullWidthColumns={["Full Name", "Parent"]}
+    />
   );
 };
 
