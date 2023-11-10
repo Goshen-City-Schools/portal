@@ -1,28 +1,33 @@
 import React, { useEffect } from "react";
 import { useUser } from "../app/contexts/UserContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const AuthenticationMiddleware = ({ children }) => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { user, logout } = useUser();
 
-  if (!user) {
-  }
+  useEffect(() => {
+    if (!user) {
+      return navigate("/auth");
+    }
+  });
 
   useEffect(() => {
-    if (user) {
-      // Check the user's account type and redirect accordingly
+    if (user && location.pathname === "/auth") {
+      // Redirect to the appropriate page based on the user's account type
       if (user.accountType === "Staff") {
-        return navigate("/admin");
+        navigate("/admin");
       } else if (user.accountType === "Student") {
-        return navigate("/");
+        navigate("/");
       } else {
+        // Handle unexpected account type or other conditions
         logout();
       }
-    } else {
-      navigate("/auth");
+
+      return;
     }
-  }, [user, navigate]);
+  }, [user, location.pathname, navigate, logout]);
 
   // Render the children whether the user is logged in or not
   return children;

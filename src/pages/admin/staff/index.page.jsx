@@ -4,18 +4,13 @@ import PageWrapper from "../../../components/PageWrapper";
 import { Text, Flex, Box, Button } from "@chakra-ui/react";
 import { MdAdd, MdIcecream, MdUploadFile } from "react-icons/md";
 
-import AllStudentsTable from "../../../components/tables/AllStudentsTable.component";
 import SearchWidget from "../../../widgets/Search.widget";
 import IconComponent from "../../../components/Icon.component";
 import AllStaffTable from "../../../components/tables/AllStaffTable.component";
-import ReactPortal from "../../../widgets/ReactPortal";
-import { useModal } from "../../../app/contexts/ModalContext";
-import CreateStaffPortal from "../../../portals/CreateStaff.portal";
 import { useNavigate } from "react-router-dom";
 import { useLocalStorage } from "../../../hooks/useLocalStorage";
 
 export default function AllStaffPage() {
-  const { openPortal } = useModal();
   const { getItem } = useLocalStorage("staffData");
   const navigate = useNavigate();
 

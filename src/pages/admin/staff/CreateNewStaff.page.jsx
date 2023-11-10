@@ -19,11 +19,14 @@ import AccountCreatedScreen from "../../../screens/AccountCreatedScreen";
 import generateId from "../../../utilities/generateId";
 import ReactPortal from "../../../widgets/ReactPortal";
 import { useModal } from "../../../app/contexts/ModalContext";
+import { useUser } from "../../../app/contexts/UserContext";
+import allowedUserRoles from "../../../helpers/allowedUserRoles";
 
 export default function CreateNewStaff() {
   const toast = useToast();
   const { openPortal } = useModal();
   const [loading, setLoading] = useState(false);
+  const { user } = useUser();
   const [formData, setFormData] = useState({
     id: "",
     firstName: "",
@@ -90,47 +93,71 @@ export default function CreateNewStaff() {
     };
 
     // Simulating Backend Actions
-    const existingStaffData =
-      JSON.parse(localStorage.getItem("staffData")) || [];
+    if (allowedUserRoles(user, ["IT Personnel"])) {
+      const existingStaffData =
+        JSON.parse(localStorage.getItem("staffData")) || [];
 
-    const newStaffData = [...existingStaffData, staffData];
+      const newStaffData = [...existingStaffData, staffData];
 
-    localStorage.setItem("staffData", JSON.stringify(newStaffData));
+      localStorage.setItem("staffData", JSON.stringify(newStaffData));
 
-    // Simulate data from Backend API
-    setTimeout(() => {
-      setLoading(false);
-      toast({
-        status: "success",
-        position: "top-right",
-        title: "Account Successfully Created!",
-        duration: 2000,
-      });
-    }, 2000);
+      // Simulate data from Backend API
+      setTimeout(() => {
+        setLoading(false);
+        toast({
+          status: "success",
+          position: "top-right",
+          title: "Account Successfully Created!",
+          duration: 2000,
+        });
+      }, 2000);
 
-    setTimeout(() => {
-      openPortal(
-        <AccountCreatedScreen
-          type={"staff"}
-          data={staffData}
-          email={staffData.email}
-        />
-      );
+      setTimeout(() => {
+        openPortal(
+          <AccountCreatedScreen
+            type={"staff"}
+            data={staffData}
+            email={staffData.email}
+          />
+        );
 
-      setFormData({
-        id: "",
-        firstName: "",
-        lastName: "",
-        roles: [],
-        dateOfBirth: "",
-        gender: "",
-        email: "",
-        phoneNumber: "",
-        whatsappNumber: "",
-      });
-    }, 3000);
+        setFormData({
+          id: "",
+          firstName: "",
+          lastName: "",
+          roles: [],
+          dateOfBirth: "",
+          gender: "",
+          email: "",
+          phoneNumber: "",
+          whatsappNumber: "",
+        });
+      }, 3000);
+    } else {
+      // Simulate data from Backend API
+      setTimeout(() => {
+        setLoading(false);
+        toast({
+          status: "error",
+          position: "top-right",
+          title: "no-access!",
+          duration: 2000,
+        });
+      }, 2000);
+    }
 
     // Clears form data
+    setFormData({
+      id: "",
+      firstName: "",
+      lastName: "",
+      roles: [],
+      dateOfBirth: "",
+      gender: "",
+      email: "",
+      phoneNumber: "",
+      whatsappNumber: "",
+    });
   }
 
   return (
@@ -275,11 +302,12 @@ export default function CreateNewStaff() {
           </Flex>
 
           <Button
-            w={"full"}
+            w={"max-content"}
             id="upload"
             leftIcon={<MdUpload />}
             mt={4}
-            colorScheme="teal"
+            mx={"auto"}
+            colorScheme="blue"
             type="submit"
             isLoading={loading}
           >

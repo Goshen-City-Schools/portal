@@ -21,6 +21,8 @@ import { useModal } from "../../../app/contexts/ModalContext";
 import generateId from "../../../utilities/generateId";
 import { useEffect } from "react";
 import AccountCreatedScreen from "../../../screens/AccountCreatedScreen";
+import allowedUserRoles from "../../../helpers/allowedUserRoles";
+import { useUser } from "../../../app/contexts/UserContext";
 
 const FirstForm = ({
   activeFormIndex,
@@ -142,14 +144,15 @@ const FirstForm = ({
       </Text>
 
       <Button
-        w={"full"}
+        w={"max-content"}
         id="upload"
         rightIcon={<MdArrowForward />}
-        colorScheme="teal"
+        mx={"auto"}
+        size={"sm"}
+        colorScheme="blue"
         type="button"
         onClick={() => handleNextForm(activeFormIndex)}
         isLoading={loading}
-        //   onClick={handleUploadQuestions}
       >
         Next
       </Button>
@@ -282,13 +285,14 @@ const SecondForm = ({ formData, handleChange, loading }) => {
         creation.
       </Text>
       <Button
-        w={"full"}
+        w={"max-content"}
         id="upload"
         leftIcon={<MdUpload />}
-        colorScheme="teal"
+        size={"sm"}
+        mx={"auto"}
+        colorScheme="blue"
         type="submit"
         isLoading={loading}
-        //   onClick={handleUploadQuestions}
       >
         Create Student Account
       </Button>
@@ -302,6 +306,8 @@ export default function CreateNewStudent() {
   const toast = useToast();
   const [loading, setLoading] = useState(false);
   useEffect(() => {}, [loading]);
+
+  const { user } = useUser();
 
   const [formData, setFormData] = useState({
     id: "",
@@ -385,52 +391,81 @@ export default function CreateNewStudent() {
     };
 
     // Simulating Backend Actions
-    const existingStudentsData =
-      JSON.parse(localStorage.getItem("studentsData")) || [];
+    if (allowedUserRoles(user, ["IT Personnel"])) {
+      const existingStudentsData =
+        JSON.parse(localStorage.getItem("studentsData")) || [];
 
-    const newStudentsData = [...existingStudentsData, studentData];
+      const newStudentsData = [...existingStudentsData, studentData];
 
-    localStorage.setItem("studentsData", JSON.stringify(newStudentsData));
+      localStorage.setItem("studentsData", JSON.stringify(newStudentsData));
 
-    // Simulate data from Backend API
-    setTimeout(() => {
-      setLoading(false);
-      toast({
-        status: "success",
-        position: "top-right",
-        title: "Account Successfully Created!",
-        duration: 2000,
-      });
-    }, 2000);
+      setTimeout(() => {
+        openPortal(
+          <AccountCreatedScreen
+            type={"student"}
+            data={studentData}
+            email={studentData.guardianEmail}
+          />
+        );
+        // Simulate data from Backend API
+        setTimeout(() => {
+          setLoading(false);
+          toast({
+            status: "success",
+            position: "top-right",
+            title: "Account Successfully Created!",
+            duration: 2000,
+          });
+        }, 2000);
 
-    setTimeout(() => {
-      openPortal(
-        <AccountCreatedScreen
-          type={"student"}
-          data={studentData}
-          email={studentData.guardianEmail}
-        />
-      );
-
-      setFormData({
-        id: "",
-        firstName: "",
-        lastName: "",
-        class: "",
-        dateOfBirth: "",
-        gender: "",
-        studentType: "",
-        guardianTitle: "",
-        guardianFirstName: "",
-        guardianLastName: "",
-        guardianEmail: "",
-        guardianPhoneNumber: "",
-        guardianWhatsappNumber: "",
-        relationshipToGuardian: "",
-      });
-    }, 3000);
+        setFormData({
+          id: "",
+          firstName: "",
+          lastName: "",
+          class: "",
+          dateOfBirth: "",
+          gender: "",
+          studentType: "",
+          guardianTitle: "",
+          guardianFirstName: "",
+          guardianLastName: "",
+          guardianEmail: "",
+          guardianPhoneNumber: "",
+          guardianWhatsappNumber: "",
+          relationshipToGuardian: "",
+        });
+      }, 3000);
+    } else {
+      // Simulate data from Backend API
+      setTimeout(() => {
+        setLoading(false);
+        toast({
+          status: "error",
+          position: "top-right",
+          title: "no-access!",
+          duration: 2000,
+        });
+      }, 2000);
+    }
 
     // Clears form data
+
+    setFormData({
+      id: "",
+      firstName: "",
+      lastName: "",
+      class: "",
+      dateOfBirth: "",
+      gender: "",
+      studentType: "",
+      guardianTitle: "",
+      guardianFirstName: "",
+      guardianLastName: "",
+      guardianEmail: "",
+      guardianPhoneNumber: "",
+      guardianWhatsappNumber: "",
+      relationshipToGuardian: "",
+    });
   }
 
   function handleSetFormIndex(formTab) {

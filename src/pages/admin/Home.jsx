@@ -17,9 +17,12 @@ import CreateEventPortal from "../../portals/CreateEvent.portal";
 import { useModal } from "../../app/contexts/ModalContext";
 import ReactPortal from "../../widgets/ReactPortal";
 import PageSectionHeader from "../../components/PageSectionHeader";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
 
 export default function AdminHome() {
   const { openPortal } = useModal();
+  const staffData = useLocalStorage("staffData").getItem();
+  const studentsData = useLocalStorage("studentsData").getItem();
 
   return (
     <PageWrapper>
@@ -51,7 +54,7 @@ export default function AdminHome() {
               color={"#DCECFF"}
               imgSrc={"teacher.png"}
               text={"Total Staff:"}
-              number={79}
+              number={staffData.length}
             />
             <StatCardComponent
               color={"#FFF2DB"}

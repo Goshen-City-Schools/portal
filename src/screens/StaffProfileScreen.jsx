@@ -45,6 +45,7 @@ export default function StaffProfileScreen({
     roles,
     subjects,
     classes,
+    id,
   } = staff;
 
   const fullname = `${firstName} ${lastName}`;
@@ -158,7 +159,7 @@ export default function StaffProfileScreen({
       <Flex bg={"white"} py={4} px={6} rounded={"lg"} gap={8}>
         <Grid gap={6}>
           <Avatar width={180} height={180} imageUrl={"/avatar.png"} />
-          <Button colorScheme="purple" variant={"outline"} size={"sm"}>
+          <Button colorScheme="purple" size={"sm"}>
             Update avatar
           </Button>
         </Grid>
@@ -185,13 +186,13 @@ export default function StaffProfileScreen({
               Deactivate Account
             </Button>
             <Button
-              leftIcon={<MdOutlineDeleteOutline />}
+              leftIcon={<MdOutlineDeleteOutline size={18} />}
               colorScheme="red"
               fontSize={"sm"}
               size={"sm"}
-            >
-              Delete Account
-            </Button>
+              pr={0}
+              pl={2}
+            ></Button>
           </ButtonGroup>
         </Flex>
       </Flex>
@@ -288,6 +289,35 @@ export default function StaffProfileScreen({
           colEnd={8}
         >
           <Grid gap={6} gridTemplateColumns="repeat(2, 1fr)" pt={2}>
+            <Box display={"flex"} flexWrap={"wrap"}>
+              <Flex gap={4}>
+                <IconComponent>
+                  <MdPersonOutline size={20} />
+                </IconComponent>
+
+                <Box w="full">
+                  <Flex
+                    justifyContent="space-between"
+                    w="full"
+                    alignItems="center"
+                  >
+                    <Text as="h3" mb={1} fontWeight="semibold">
+                      Staff ID
+                    </Text>
+                  </Flex>
+
+                  <Text
+                    as="p"
+                    fontSize={"sm"}
+                    letterSpacing={0.8}
+                    textTransform={"uppercase"}
+                  >
+                    {`GSHN/STF/${id}`}
+                  </Text>
+                </Box>
+              </Flex>
+            </Box>
+
             <Box display={"flex"} flexWrap={"wrap"}>
               <Flex gap={4}>
                 <IconComponent>

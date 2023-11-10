@@ -6,9 +6,11 @@ import IconComponent from "./Icon.component";
 
 import { FaChevronDown, FaChevronUp } from "react-icons/fa"; // Import the correct icons
 import allowedUserRoles from "../helpers/allowedUserRoles";
+import { useUser } from "../app/contexts/UserContext";
 
 export default function NavItemComponent({ link, children, submenu, click }) {
   const [showSubmenu, setShowSubmenu] = useState(false);
+  const { user } = useUser();
 
   const handleToggleSubmenu = () => {
     setShowSubmenu(!showSubmenu);
@@ -59,8 +61,8 @@ export default function NavItemComponent({ link, children, submenu, click }) {
         <List pl={4} pt={2} gap={2} w={"full"} fontSize={".8rem"}>
           {submenu &&
             submenu.map((item, index) =>
-              item.roles ? (
-                allowedUserRoles[(UserActivation, item.roles)] && (
+              item?.roles ? (
+                allowedUserRoles(user, item.roles) && (
                   <NavLink
                     to={`${item.link}`}
                     key={index}

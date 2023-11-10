@@ -7,7 +7,8 @@ import { useNavigate } from "react-router-dom";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { useUser } from "../../app/contexts/UserContext";
 
-import { Text } from "@chakra-ui/react";
+import { Text, Tag } from "@chakra-ui/react";
+import CustomCard from "../CustomTooltip";
 
 const AllStaffTable = () => {
   const toast = useToast();
@@ -18,11 +19,11 @@ const AllStaffTable = () => {
 
   const columns = [
     {
-      Header: "ID",
+      Header: "Staff ID",
       accessor: "id",
       Cell: ({ value }) => (
         <Flex gap={2}>
-          <Text as={"p"} fontWeight={"bold"}>
+          <Text as={"p"} color={"neutral.700"} fontWeight={"bold"}>
             {value}
           </Text>
         </Flex>
@@ -36,17 +37,26 @@ const AllStaffTable = () => {
       Header: "Last Name",
       accessor: "lastName",
     },
+
     {
-      Header: "Gender",
-      accessor: "gender",
-    },
-    {
-      Header: "Staff Role",
-      accessor: "role",
-    },
-    {
-      Header: "Email",
-      accessor: "email",
+      Header: "Roles",
+      accessor: "roles",
+      Cell: ({ value }) => (
+        <Flex gap={2} wrap={"wrap"}>
+          {value.map((role, index) => (
+            <Tag
+              flexShrink={0}
+              size="sm"
+              key={index}
+              variant="outline"
+              fontWeight={"semibold"}
+              colorScheme="blue"
+            >
+              {role}
+            </Tag>
+          ))}
+        </Flex>
+      ),
     },
     {
       Header: "Phone Number",
@@ -58,14 +68,16 @@ const AllStaffTable = () => {
       Cell: ({ row }) => (
         <Flex gap={2}>
           {user.id !== row.original.id && ( // Check if the logged-in staff is not the one being deleted
-            <Tooltip label="Delete" hasArrow>
-              <IconComponent
-                click={() => handleDeleteAction(row.original.id)}
-                className="text-red-600 cursor-pointer hover:scale-110 transition duration-300"
-              >
-                <MdDeleteOutline size={20} />
-              </IconComponent>
-            </Tooltip>
+            <CustomCard>
+              <Tooltip label="Delete" hasArrow>
+                <IconComponent
+                  click={() => handleDeleteAction(row.original.id)}
+                  className="text-red-600 cursor-pointer hover:scale-110 transition duration-300"
+                >
+                  <MdDeleteOutline size={20} />
+                </IconComponent>
+              </Tooltip>
+            </CustomCard>
           )}
 
           <Tooltip label="Edit" hasArrow>
@@ -103,7 +115,7 @@ const AllStaffTable = () => {
       });
 
       // Update localStorage
-      useLocalStorage("staffData").setItem(newStaffData);
+      localStorage.setItem("staffData", JSON.stringify(newStaffData));
     }
   };
 

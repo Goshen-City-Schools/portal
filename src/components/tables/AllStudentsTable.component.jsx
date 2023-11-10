@@ -4,10 +4,13 @@ import { Flex, Tooltip, useToast } from "@chakra-ui/react";
 import { MdDeleteOutline, MdLink, MdModeEditOutline } from "react-icons/md";
 import IconComponent from "../Icon.component";
 import { useNavigate } from "react-router-dom";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
+import CustomCard from "../CustomTooltip";
 
 const AllStudentsTable = () => {
   const toast = useToast();
   const [studentsData, setStudentsData] = useState([]);
+  const { setItem } = useLocalStorage("studentData");
   const navigate = useNavigate();
   const existingStudentsData = JSON.parse(localStorage.getItem("studentsData"));
 
@@ -51,14 +54,16 @@ const AllStudentsTable = () => {
       accessor: "action",
       Cell: ({ row }) => (
         <Flex gap={2}>
-          <Tooltip label="Delete" hasArrow>
-            <IconComponent
-              click={() => handleDeleteAction(row.original.id)}
-              className="text-red-600 cursor-pointer hover:scale-110 transition duration-300"
-            >
-              <MdDeleteOutline size={20} />
-            </IconComponent>
-          </Tooltip>
+          <CustomCard>
+            <Tooltip label="Delete" hasArrow>
+              <IconComponent
+                click={() => handleDeleteAction(row.original.id)}
+                className="text-red-600 cursor-pointer hover:scale-110 transition duration-300"
+              >
+                <MdDeleteOutline size={20} />
+              </IconComponent>
+            </Tooltip>
+          </CustomCard>
 
           <Tooltip label="Edit" hasArrow>
             <IconComponent

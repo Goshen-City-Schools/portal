@@ -62,7 +62,7 @@ const router = createBrowserRouter(
       />
 
       <Route
-        path="/admin"
+        path="/admin/*"
         element={
           <AuthenticationMiddleware>
             <PermissionMiddleware>

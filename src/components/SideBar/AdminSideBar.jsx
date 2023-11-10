@@ -146,7 +146,7 @@ export default function AdminSideBar({ sideBarView, handleClick }) {
                 submenu={[
                   {
                     name: "View Student",
-                    link: "/admin/students/#",
+                    link: "/admin/students",
                     onClick: () => handleClick("student"),
                     icon: <MdEditDocument size={12} />,
                   },
@@ -175,7 +175,7 @@ export default function AdminSideBar({ sideBarView, handleClick }) {
                 submenu={[
                   {
                     name: "View Staff",
-                    link: `/admin/staff/#`,
+                    link: `/admin/staff`,
                     onClick: () => handleClick("staff"),
                     icon: <MdEditDocument size={12} />,
                   },
@@ -278,7 +278,7 @@ export default function AdminSideBar({ sideBarView, handleClick }) {
                 submenu={[
                   {
                     name: "Transacttion History",
-                    link: "/admin/students",
+                    link: "/admin/transactions",
                     icon: <MdHistory color={"white"} size={12} />,
                   },
                   {

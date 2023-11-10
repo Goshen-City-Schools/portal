@@ -11,10 +11,14 @@ import IconComponent from "../../../components/Icon.component";
 
 import PageSectionHeader from "../../../components/PageSectionHeader";
 import { useNavigate } from "react-router-dom";
+import allowedUserRoles from "../../../helpers/allowedUserRoles";
+import { useUser } from "../../../app/contexts/UserContext";
 
 export default function StudentsPage() {
   const navigate = useNavigate();
-  const existingStudentsData = localStorage.getItem("studentsData") || [];
+  const { user } = useUser();
+  const existingStudentsData =
+    JSON.parse(localStorage.getItem("studentsData")) || [];
 
   return (
     <PageWrapper>
@@ -31,42 +35,44 @@ export default function StudentsPage() {
       >
         <SearchWidget height={10} text={"Search Students"} />
 
-        <Flex gap={4} fontSize={"sm"}>
-          <Button
-            size={"sm"}
-            bg={"neutral.100"}
-            border={"1px"}
-            borderColor={"brand.700"}
-          >
-            <IconComponent>
-              <MdIcecream />
-            </IconComponent>{" "}
-            Download
-          </Button>
-          <Button
-            as={"Flex"}
-            gap={2}
-            size={"sm"}
-            bg={"accent.700"}
-            color={"white"}
-          >
-            <IconComponent>
-              <MdUploadFile />
-            </IconComponent>{" "}
-            Bulk Upload Students
-          </Button>
-          <Button
-            bg={"brand.700"}
-            size={"sm"}
-            color={"neutral.100"}
-            onClick={() => navigate("/admin/students/new")}
-          >
-            <IconComponent>
-              <MdAdd />
-            </IconComponent>
-            New Student
-          </Button>
-        </Flex>
+        {allowedUserRoles(user, ["IT Personnel"]) && (
+          <Flex gap={4} fontSize={"sm"}>
+            <Button
+              size={"sm"}
+              bg={"neutral.100"}
+              border={"1px"}
+              borderColor={"brand.700"}
+            >
+              <IconComponent>
+                <MdIcecream />
+              </IconComponent>{" "}
+              Download
+            </Button>
+            <Button
+              as={"Flex"}
+              gap={2}
+              size={"sm"}
+              bg={"accent.700"}
+              color={"white"}
+            >
+              <IconComponent>
+                <MdUploadFile />
+              </IconComponent>{" "}
+              Bulk Upload Students
+            </Button>
+            <Button
+              bg={"brand.700"}
+              size={"sm"}
+              color={"neutral.100"}
+              onClick={() => navigate("/admin/students/new")}
+            >
+              <IconComponent>
+                <MdAdd />
+              </IconComponent>
+              New Student
+            </Button>
+          </Flex>
+        )}
       </Flex>
 
       <Box p={4} bg={"white"} rounded={"md"}>
