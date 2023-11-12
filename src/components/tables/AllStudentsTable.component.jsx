@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Table from "../../widgets/Table.widget";
-import { Flex, Tooltip, useToast } from "@chakra-ui/react";
+import { Flex, Tooltip, useToast, Text } from "@chakra-ui/react";
 import { MdDeleteOutline, MdLink, MdModeEditOutline } from "react-icons/md";
 import IconComponent from "../Icon.component";
 import { useNavigate } from "react-router-dom";
@@ -21,8 +21,15 @@ const AllStudentsTable = () => {
 
   const columns = [
     {
-      Header: "ID",
+      Header: "Student ID",
       accessor: "id",
+      Cell: ({ value }) => (
+        <Flex gap={2}>
+          <Text as={"p"} color={"neutral.700"} fontWeight={"bold"}>
+            {value}
+          </Text>
+        </Flex>
+      ),
     },
     {
       Header: "Surname",
@@ -33,17 +40,20 @@ const AllStudentsTable = () => {
       accessor: "firstName",
     },
     {
-      Header: "Gender",
-      accessor: "gender",
+      Header: "Student Type",
+      accessor: "studentType",
+      Cell: ({ value }) => (
+        <Flex gap={2}>
+          <Text as={"p"} textTransform={"capitalize"} color={"neutral.700"}>
+            {value}
+          </Text>
+        </Flex>
+      ),
     },
     {
       Header: "Class",
       accessor: "class",
       width: "max-content",
-    },
-    {
-      Header: "Avatar",
-      accessor: "avatar",
     },
     {
       Header: "Guardian Tel.",

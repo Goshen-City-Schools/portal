@@ -30,6 +30,7 @@ const FirstForm = ({
   handleChange,
   handleNextForm,
   loading,
+  availableSubclasses,
 }) => {
   return (
     <Flex direction={"column"} rowGap={6} columnGap={8} pb={6}>
@@ -94,26 +95,51 @@ const FirstForm = ({
         </FormControl>
       </Flex>
 
-      {/* Class */}
-      <FormControl id="date">
-        <FormLabel fontWeight={"bold"} fontSize={"sm"}>
-          Class
-        </FormLabel>
-        <Select
-          py={1}
-          name="class"
-          fontSize={"sm"}
-          onChange={handleChange}
-          value={formData.class}
-        >
-          <option value="">-- Select class --</option>
-          {schoolData.schoolClasses.map((schoolClass, index) => (
-            <option key={index} value={schoolClass}>
-              {schoolClass}
-            </option>
-          ))}
-        </Select>
-      </FormControl>
+      <Flex gap={6}>
+        {/* Class */}
+        <FormControl id="class">
+          <FormLabel fontWeight={"bold"} fontSize={"sm"}>
+            Class
+          </FormLabel>
+          <Select
+            py={1}
+            name="class"
+            fontSize={"sm"}
+            onChange={handleChange}
+            value={formData.class}
+          >
+            <option value="">-- Select class --</option>
+            {schoolData.schoolClasses.map((schoolClass, index) => (
+              <option key={index} value={schoolClass.name}>
+                {schoolClass.name}
+              </option>
+            ))}
+          </Select>
+        </FormControl>
+
+        {/* Subclass */}
+        {availableSubclasses.length > 0 && (
+          <FormControl id="subclass">
+            <FormLabel fontWeight={"bold"} fontSize={"sm"}>
+              Subclass
+            </FormLabel>
+            <Select
+              py={1}
+              name="subclass"
+              fontSize={"sm"}
+              onChange={handleChange}
+              value={formData.subclass}
+            >
+              <option value="">-- Select subclass --</option>
+              {availableSubclasses?.map((subclass, index) => (
+                <option key={index} value={subclass}>
+                  {subclass}
+                </option>
+              ))}
+            </Select>
+          </FormControl>
+        )}
+      </Flex>
 
       {/* Class */}
       <FormControl id="date">
@@ -303,6 +329,7 @@ const SecondForm = ({ formData, handleChange, loading }) => {
 export default function CreateNewStudent() {
   const { openPortal } = useModal();
   const [activeFormIndex, setActiveFormIndex] = useState(1);
+  const [availableSubclasses, setAvailableSubclasses] = useState([]);
   const toast = useToast();
   const [loading, setLoading] = useState(false);
   useEffect(() => {}, [loading]);
@@ -314,6 +341,7 @@ export default function CreateNewStudent() {
     firstName: "",
     lastName: "",
     class: "",
+    subclass: "",
     dateOfBirth: "",
     gender: "",
     studentType: "",
@@ -326,6 +354,18 @@ export default function CreateNewStudent() {
     relationshipToGuardian: "",
   });
 
+  // Update available subclasses based on the selected class
+  useEffect(() => {
+    if (formData.class) {
+      const selectedClass = schoolData.schoolClasses.find(
+        (classData) => classData.name === formData.class
+      );
+      console.log(selectedClass);
+      setAvailableSubclasses(selectedClass ? selectedClass.subClasses : []);
+    } else {
+      setAvailableSubclasses([]);
+    }
+  }, [formData.class]);
   function handleChange(e) {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -378,6 +418,7 @@ export default function CreateNewStudent() {
       firstName: formData.firstName,
       lastName: formData.lastName,
       class: formData.class,
+      subclass: formData?.subclass,
       dateOfBirth: formData.dateOfBirth,
       gender: formData.gender,
       studentType: formData.studentType,
@@ -423,6 +464,7 @@ export default function CreateNewStudent() {
           firstName: "",
           lastName: "",
           class: "",
+          subclass: "",
           dateOfBirth: "",
           gender: "",
           studentType: "",
@@ -455,6 +497,7 @@ export default function CreateNewStudent() {
       firstName: "",
       lastName: "",
       class: "",
+      subclass: "",
       dateOfBirth: "",
       gender: "",
       studentType: "",
@@ -557,6 +600,7 @@ export default function CreateNewStudent() {
               loading={loading}
               activeFormIndex={activeFormIndex}
               setActiveFormIndex={setActiveFormIndex}
+              availableSubclasses={availableSubclasses}
             />
           )}
 

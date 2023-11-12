@@ -190,8 +190,8 @@ export default function AdminSideBar({ sideBarView, handleClick }) {
                     icon: <MdAdd size={14} />,
                   },
                   {
-                    name: "Manage Priviledges",
-                    link: "/staff?type=academic",
+                    name: "Manage Roles",
+                    link: "/admin/staff/roles",
                     icon: <MdAccessible size={14} />,
                   },
                 ]}
@@ -213,8 +213,8 @@ export default function AdminSideBar({ sideBarView, handleClick }) {
                     icon: <MdEditDocument size={12} />,
                   },
                   {
-                    name: "Create New Clsss",
-                    link: "/staff?type=academic",
+                    name: "Create Sub-class",
+                    link: "/staff/classes?type=academic",
                     icon: <MdAdd size={14} />,
                     roles: ["IT Personnel"],
                   },

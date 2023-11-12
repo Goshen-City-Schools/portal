@@ -23,9 +23,7 @@ import StudentLayout from "../layouts/StudentLayout";
 import StudentsPage from "../pages/admin/students/index.page";
 import AllStaffPage from "../pages/admin/staff/index.page";
 import ResultPage from "../pages/admin/results/Results.page";
-import AuthLayout from "../layouts/AuthLayout";
 import ParentPage from "../pages/admin/parents";
-// import ClassesPage from "../pages/admin/classes/Classes.page";
 import TransactionHistory from "../pages/admin/finance/TransactionHistory.page";
 import TuitionPage from "../pages/admin/finance/Tuition.page";
 import SessionTermPage from "../pages/admin/configs/SessionTerm";
@@ -48,6 +46,9 @@ import StaffPage from "../pages/admin/staff/Staff.page";
 import PermissionMiddleware from "../middlewares/PermissionMiddleWare";
 import AccessRestricted from "../pages/AccessRestricted";
 import AuthenticationMiddleware from "../middlewares/AuthMiddleWare";
+import AuthLayout from "../layouts/AuthLayout";
+import StaffRoles from "../pages/admin/staff/Roles";
+import NotificationsPage from "../pages/admin/notifications";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -62,11 +63,13 @@ const router = createBrowserRouter(
       />
 
       <Route
-        path="/admin/*"
+        path="/admin"
         element={
           <AuthenticationMiddleware>
             <PermissionMiddleware>
-              <AdminLayout />
+              <AuthLayout>
+                <AdminLayout />
+              </AuthLayout>
             </PermissionMiddleware>
           </AuthenticationMiddleware>
         }
@@ -84,6 +87,7 @@ const router = createBrowserRouter(
         <Route path="staff">
           <Route index element={<AllStaffPage />} />
           <Route path="new" element={<CreateNewStaff />} />
+          <Route path="roles" element={<StaffRoles />} />
           <Route path=":staffId" element={<StaffPage />} />
         </Route>
         <Route path="parents" element={<ParentPage />} />
@@ -109,6 +113,10 @@ const router = createBrowserRouter(
           </Route>
         </Route>
 
+        <Route path="notifications">
+          <Route index element={<NotificationsPage />} />
+        </Route>
+
         <Route path="receipts" element={<TuitionPage />} />
 
         <Route path="invoices">
@@ -129,7 +137,9 @@ const router = createBrowserRouter(
         path="/"
         element={
           <AuthenticationMiddleware>
-            <StudentLayout />
+            <AuthLayout>
+              <StudentLayout />
+            </AuthLayout>
           </AuthenticationMiddleware>
         }
       >

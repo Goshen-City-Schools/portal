@@ -1,84 +1,147 @@
 const staffRoles = [
   {
-    "id": "",
+    "id": "1",
     "name": "Principal",
     "description": "",
-    "rank": "", //Level number relative to other roles
-    "featuresAcsess": [], // Feature access is used for additional features that are within pages and are not handled by the RoleAccess middleware
+    "priviledges": ["All"],
+    "staff": ["IT Principal"],
   },
   {
-    "id": "",
+    "id": "2",
     "name": "IT Personnel",
     "description": "",
-    "rank": "", //Level number relative to other roles
-    "featuresAcsess": [], // Feature access is used for additional features that are within pages and are not handled by the RoleAccess middleware
+    "priviledges": [
+      "Staffs",
+      "Students",
+      "Results",
+      "Communication",
+      "CBT",
+      "Calendar",
+    ],
   },
   {
-    "id": "",
+    "id": "3",
     "name": "Bursar",
     "description": "",
-    "rank": "", //Level number relative to other roles
-    "featuresAcsess": [], // Feature access is used for additional features that are within pages and are not handled by the RoleAccess middleware
+    "priviledges": ["Students", "Finance", "e-Library"],
   },
   {
-    "id": "",
-    "name": "School Teacher",
+    "id": "4",
+    "name": "Librarian",
     "description": "",
-    "rank": "", //Level number relative to other roles
-    "featuresAcsess": [], // Feature access is used for additional features that are within pages and are not handled by the RoleAccess middleware
+    "priviledges": ["Students", "Staff", "e-Library"],
   },
   {
-    "id": "",
+    "id": "5",
     "name": "Class Teacher",
     "description": "",
-    "rank": "", //Level number relative to other roles
-    "featuresAcsess": [], // Feature access is used for additional features that are within pages and are not handled by the RoleAccess middleware
+    "priviledges": ["Students", "Classes", "e-Library"],
   },
   {
-    "id": "",
+    "id": "6",
     "name": "Subject Teacher",
     "description": "",
-    "rank": "", //Level number relative to other roles
-    "featuresAcsess": [], // Feature access is cused for additional features that are within pages and are nott handled by the RoleAcess middleware
+    "priviledges": ["Students", "Classes", "Lesson Manager"],
   },
 ];
 
 const schoolClasses = [
-  "Reception",
-  "Foundation",
-  "Discovery 1",
-  "Discovery 2",
-  "Discovery 3",
-  "Year 1",
-  "Year 2",
-  "Year 3",
-  "Year 4",
-  "Year 5",
-  "JSS 1",
-  "JSS 2",
-  "JSS 3",
-  "SSS 1",
-  "SSS 2",
-  "SSS 3",
-];
-
-const schoolClassesWithCategories = [
-  "Reception 1",
-  "Reception 2",
-  "Nursery 1",
-  "Nursery 2",
-  "Nursery 3",
-  "Basic 1",
-  "Basic 2",
-  "Basic 3",
-  "Basic 4",
-  "Basic 5",
-  "JSS 1",
-  "JSS 2",
-  "JSS 3",
-  "SSS 1",
-  "SSS 2",
-  "SSS 3",
+  {
+    id: "1",
+    name: "Reception",
+    allowSubClasses: true,
+    subClasses: [],
+  },
+  {
+    id: "2",
+    name: "Foundation",
+    allowSubClasses: true,
+    subClasses: [],
+  },
+  {
+    id: "3",
+    name: "Discovery 1",
+    allowSubClasses: true,
+    subClasses: [],
+  },
+  {
+    id: "4",
+    name: "Discovery 2",
+    allowSubClasses: true,
+    subClasses: [],
+  },
+  {
+    id: "5",
+    name: "Discovery 3",
+    allowSubClasses: true,
+    subClasses: [],
+  },
+  {
+    id: "6",
+    name: "Year 1",
+    allowSubClasses: true,
+    subClasses: [],
+  },
+  {
+    id: "7",
+    name: "Year 2",
+    allowSubClasses: true,
+    subClasses: [],
+  },
+  {
+    id: "8",
+    name: "Year 3",
+    allowSubClasses: true,
+    subClasses: [],
+  },
+  {
+    id: "9",
+    name: "Year 4",
+    allowSubClasses: true,
+    subClasses: [],
+  },
+  {
+    id: "10",
+    name: "Year 5",
+    allowSubClasses: true,
+    subClasses: [],
+  },
+  {
+    id: "11",
+    name: "JSS 1",
+    allowSubClasses: true,
+    subClasses: [],
+  },
+  {
+    id: "12",
+    name: "JSS 2",
+    allowSubClasses: true,
+    subClasses: [],
+  },
+  {
+    id: "13",
+    name: "JSS 3",
+    allowSubClasses: true,
+    subClasses: [],
+  },
+  {
+    id: "14",
+    name: "SSS 1",
+    allowSubClasses: true,
+    subClasses: [],
+  },
+  {
+    id: "15",
+    name: "SSS 2",
+    allowSubClasses: true,
+    subClasses: [],
+  },
+  {
+    id: "16",
+    name: "SSS 3",
+    allowSubClasses: true,
+    subClasses: ["kk"],
+  },
 ];
 
 export default { staffRoles, schoolClasses };

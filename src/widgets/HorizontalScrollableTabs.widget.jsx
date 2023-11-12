@@ -9,6 +9,7 @@ const HorizontalScrollableTabs = ({ tabs, activeTab, onTabClick }) => {
           key={tab.id}
           p={2}
           py={4}
+          flexShrink={0}
           px={4}
           fontSize={"sm"}
           fontWeight={"bold"}
@@ -16,9 +17,11 @@ const HorizontalScrollableTabs = ({ tabs, activeTab, onTabClick }) => {
           borderColor={tab.id === activeTab ? "brand.900" : "gray.200"}
           color={tab.id === activeTab ? "brand.900" : "gray.600"}
           cursor="pointer"
-          onClick={() => onTabClick(tab.id)}
+          onClick={() => {
+            tab.name ? onTabClick(tab.name) : onTabClick(tab.id);
+          }}
         >
-          {tab.label}
+          {tab.label ? tab.label : tab.name}
         </Box>
       ))}
     </Flex>

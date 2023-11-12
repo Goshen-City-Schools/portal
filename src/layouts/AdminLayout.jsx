@@ -94,7 +94,7 @@ export default function AdminLayout() {
         )}
       </>
       <Box
-        marginLeft={{ base: "0px", lg: "260px" }}
+        marginLeft={{ base: "0px", md: "260px" }}
         as="main"
         w={{ base: "100%", md: "calc(100vw - 260px)" }}
         className="ml-[260px] overflow-x-hidden main"

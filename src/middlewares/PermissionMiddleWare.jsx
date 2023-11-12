@@ -12,13 +12,80 @@ const routes = [
       "School Teacher",
       "Bursar",
     ],
+    allowedAccountTypes: ["Staff"],
   },
-  { path: "/admin/students", allowedRoles: ["IT Personnel"] },
-  { path: "/admin/students/:studentId", allowedRoles: ["IT Personnel"] },
-  { path: "/admin/staff", allowedRoles: ["IT Personnel"] },
-  { path: "/admin/staff/new", allowedRoles: ["IT Personnel"] },
-  { path: "/admin/staff/:staffId", allowedRoles: ["IT Personnel"] },
-  { path: "/admin/transactions", allowedRoles: ["Bursar"] },
+  {
+    path: "/admin/home",
+    allowedRoles: [
+      "IT Personnel",
+      "Class Teacher",
+      "Subject Teacher",
+      "School Teacher",
+      "Bursar",
+    ],
+    allowedAccountTypes: ["Staff"],
+  },
+
+  {
+    path: "/admin/profile",
+    allowedRoles: ["IT Personnel"],
+    allowedAccountTypes: ["Staff"],
+  },
+
+  {
+    path: "/admin/students",
+    allowedRoles: ["IT Personnel"],
+    allowedAccountTypes: ["Staff"],
+  },
+  {
+    path: "/admin/students/:studentId",
+    allowedRoles: ["IT Personnel"],
+    allowedAccountTypes: ["Staff"],
+  },
+  {
+    path: "/admin/staff",
+    allowedRoles: ["IT Personnel"],
+    allowedAccountTypes: ["Staff"],
+  },
+  {
+    path: "/admin/staff/new",
+    allowedRoles: ["IT Personnel"],
+    allowedAccountTypes: ["Staff"],
+  },
+  {
+    path: "/admin/staff/roles",
+    allowedRoles: ["IT Personnel"],
+    allowedAccountTypes: ["Staff"],
+  },
+  {
+    path: "/admin/staff/:staffId",
+    allowedRoles: ["IT Personnel"],
+    allowedAccountTypes: ["Staff"],
+  },
+  {
+    path: "/admin/transactions",
+    allowedRoles: ["Bursar"],
+    allowedAccountTypes: ["Staff"],
+  },
+  {
+    path: "/admin/classes",
+    allowedRoles: ["IT Personnel"],
+    allowedAccountTypes: ["Staff"],
+  },
+  {
+    path: "/admin/classes/:classId",
+    allowedRoles: ["IT Personnel"],
+    allowedAccountTypes: ["Staff"],
+  },
+  {
+    path: "/admin/notifications",
+    allowedRoles: ["IT Personnel"],
+    allowedAccountTypes: ["Staff"],
+  },
+  {
+    path: "/",
+    allowedAccountTypes: ["Staff"],
+  },
   // Add more routes here
 ];
 
@@ -27,11 +94,18 @@ const PermissionMiddleware = ({ children }) => {
   const location = useLocation();
   const { user } = useUser();
 
-  const isUserAllowed = useMemo(() => {
-    if (!user || !user.roles || user.roles.length === 0) {
-      return false; // User is not logged in or has no roles
-    }
+  if (
+    !user ||
+    user === "undefined" ||
+    !user.roles ||
+    user.roles.length === 0 ||
+    !user.accountType
+  ) {
+    // User is not logged in or has no roles or account type
+    return navigate("/auth");
+  }
 
+  const isUserAllowed = useMemo(() => {
     const currentRoute = routes.find((route) => {
       const pathRegex = new RegExp(
         `^${route.path.replace(/:[^/]+/g, "[^/]+")}$`
@@ -44,7 +118,12 @@ const PermissionMiddleware = ({ children }) => {
     }
 
     const allowedRoles = currentRoute.allowedRoles;
-    return allowedRoles.some((role) => user.roles.includes(role));
+    const allowedAccountTypes = currentRoute.allowedAccountTypes;
+
+    return (
+      allowedRoles.some((role) => user.roles.includes(role)) &&
+      allowedAccountTypes.includes(user.accountType)
+    );
   }, [location.pathname, user]);
 
   useEffect(() => {
@@ -70,7 +149,7 @@ const PermissionMiddleware = ({ children }) => {
     return () => {
       window.removeEventListener("click", handleNavLinkClick);
     };
-  }, [navigate, user.roles]);
+  }, [navigate, user.roles, user.accountType]);
 
   // Function to handle NavLink access
   const handleNavLinkAccess = (path) => {
@@ -82,9 +161,9 @@ const PermissionMiddleware = ({ children }) => {
     });
 
     if (currentRoute) {
-      const isAllowed = currentRoute.allowedRoles.some((role) =>
-        user.roles.includes(role)
-      );
+      const isAllowed =
+        currentRoute.allowedRoles.some((role) => user.roles.includes(role)) &&
+        currentRoute.allowedAccountTypes.includes(user.accountType);
 
       if (!isAllowed) {
         navigate("/restricted-access");

@@ -12,6 +12,7 @@ import { AnimatePresence } from "framer-motion";
 import defaultConfigValues from "./data/defaultConfigValues";
 import { ModalProvider } from "./app/contexts/ModalContext";
 import { UserProvider } from "./app/contexts/UserContext";
+// import { AuthProvider } from "./app/contexts/AuthContext";
 
 const colors = defaultConfigValues.colors;
 const fonts = defaultConfigValues.fonts;

@@ -49,6 +49,7 @@ export default function LoginScreen() {
     return parts[parts.length - 1];
   };
 
+  // Function to handle form submission
   const handleSubmit = useCallback(
     (e) => {
       e.preventDefault();
@@ -65,50 +66,33 @@ export default function LoginScreen() {
         });
         return;
       }
-      setLoginError("");
 
       if (userID) {
-        if (determineUserType(userID) === "Staff") {
-          const staff = staffData.find((staff) => staff.id === extracted);
-          if (staff) {
-            login(staff);
-            setIsLoading(true);
-          } else {
-            toast({
-              title: "Staff not found",
-              duration: "2000",
-              position: "top-right",
-              status: "error",
-            });
-          }
-        } else if (determineUserType(userID) === "Student") {
-          const student = studentsData.find(
-            (student) => student.id === extracted
-          );
-          if (student) {
-            login(student);
-            setIsLoading(true);
-          } else {
-            toast({
-              title: "Student not found",
-              duration: "2000",
-              position: "top-right",
-              status: "error",
-            });
-          }
+        const userType = determineUserType(userID);
+        const userData = userType === "Staff" ? staffData : studentsData;
+        const user = userData.find((data) => data.id === extracted);
+
+        if (user) {
+          login(user);
+          setIsLoading(true);
+        } else {
+          toast({
+            title: `${userType} not found`,
+            duration: "2000",
+            position: "top-right",
+            status: "error",
+          });
         }
       }
     },
-    [userID, password, staffData, studentsData, login, setUser]
+    [userID, password, extractID, staffData, studentsData, login]
   );
-
+  // Effect to navigate on successful login
   useEffect(() => {
     if (user) {
-      if (determineUserType(userID) === "Staff") {
-        navigate("/admin");
-      } else if (determineUserType(userID) === "Student") {
-        navigate("/");
-      }
+      const userType = determineUserType(userID);
+      const path = userType === "Staff" ? "/admin" : "/";
+      navigate(path);
     }
   }, [user, userID, navigate, extractedID]);
 

@@ -8,6 +8,7 @@ import StudentProfileScreen from "../../../screens/StudentProfileScreen";
 import ProfileNotFoundScreen from "../../../screens/ProfileNotFoundScreen";
 import { useUser } from "../../../app/contexts/UserContext";
 import { useNavigate } from "react-router-dom";
+import ReactPortal from "../../../widgets/ReactPortal";
 
 export default function StudentPage() {
   const navigate = useNavigate();
@@ -31,8 +32,9 @@ export default function StudentPage() {
   console.log(student);
   return (
     <PageWrapper>
+      <ReactPortal />
       <PageSectionHeader
-        pageTitle={"Student Profile"}
+        pageTitle={`Student Profile - ${student?.firstName}`}
         pageCrumb={`Home / Students / ${student?.firstName}`}
       />
 

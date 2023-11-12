@@ -514,7 +514,7 @@ export default function StaffProfileScreen({
                               variant="solid"
                               colorScheme="purple"
                             >
-                              {schoolClass}
+                              {schoolClass.name}
                             </Tag>
                           ))
                         ) : (

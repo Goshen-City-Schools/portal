@@ -39,6 +39,7 @@ export default function StaffPage() {
         pageTitle={"Staff Profile"}
         pageCrumb={`Home / Staff / ${staff?.firstName} `}
       />
+
       <StaffProfileScreen
         existingStaffData={existingStaffData}
         staff={staff}

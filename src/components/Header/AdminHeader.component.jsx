@@ -27,12 +27,15 @@ import IconComponent from "../Icon.component";
 import { toggleSideMenu } from "../../app/redux/slices/menuSlice";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../../app/contexts/UserContext";
+import { Link } from "react-router-dom";
+import { useState } from "react";
 
 export default function AdminHeader() {
   const { user } = useUser();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { logout } = useUser();
+  const [newNotification, setNewNotification] = useState(2);
 
   const handleToggleSideMenu = () => {
     dispatch(toggleSideMenu());
@@ -65,6 +68,7 @@ export default function AdminHeader() {
             <MdMenu size={24} />
           </IconComponent>
         </Grid>
+
         <Text as={"h3"} color={"brand.900"} className="text-md font-bold">
           {user.firstName}&nbsp;{user.lastName}
         </Text>
@@ -76,9 +80,33 @@ export default function AdminHeader() {
           <p>First Term</p>
         </Flex>
 
-        <div className="icon  mx-8">
-          <CiBellOn size={28} />
-        </div>
+        <Link to={"/admin/notifications"} onClick={() => setNewNotification(0)}>
+          <div className="icon  mx-8 relative">
+            <CiBellOn size={28} />{" "}
+            {newNotification && newNotification > 0 ? (
+              <Text
+                bg={"gray.100"}
+                height={"max-content"}
+                h={4}
+                w={4}
+                display={"grid"}
+                placeItems={"center"}
+                rounded={"full"}
+                lineHeight={1}
+                position={"absolute"}
+                top={-1}
+                right={-1}
+                as={"small"}
+                fontWeight={"bold"}
+                color={"red"}
+              >
+                {newNotification}
+              </Text>
+            ) : (
+              ""
+            )}
+          </div>
+        </Link>
 
         <Popover>
           <PopoverTrigger>
