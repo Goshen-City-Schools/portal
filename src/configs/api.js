@@ -1,6 +1,6 @@
 // api.js
 
-const API_BASE_URL = "https://gshncs-server.onrender.com/api";
+const API_BASE_URL = "https://gshncs-server.onrender.com/api/v1/";
 
 const API_ENDPOINTS = {
   CLASSES: "/classes",
