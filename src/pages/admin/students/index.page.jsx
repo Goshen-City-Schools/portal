@@ -1,40 +1,68 @@
-import React from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import PageWrapper from "../../../components/PageWrapper";
-
 import { Flex, Box, Button, Text, Grid, Select } from "@chakra-ui/react";
-
 import { MdAdd, MdIcecream, MdUploadFile } from "react-icons/md";
-
 import SearchWidget from "../../../widgets/Search.widget";
 import IconComponent from "../../../components/Icon.component";
-
 import PageSectionHeader from "../../../components/PageSectionHeader";
 import { useNavigate } from "react-router-dom";
 import allowedUserRoles from "../../../helpers/allowedUserRoles";
 import { useUser } from "../../../app/contexts/UserContext";
 import StudentPreviewCard from "../../../components/PreviewCards/StudentPreviewCard";
 import schoolData from "../../../data/school.data";
-import { useState } from "react";
-import { useEffect } from "react";
 
 export default function StudentsPage() {
   const navigate = useNavigate();
   const [selectedSchoolClass, setSelectedSchoolClass] = useState("");
+  const [selectedSubClass, setSelectedSubClass] = useState("");
+  const [subClasses, setSubClasses] = useState("");
   const [studentsData, setStudentsData] = useState(
     JSON.parse(localStorage.getItem("studentsData")) || []
   );
   const { user } = useUser();
 
-  const data = studentsData.filter(
-    (student) => student.class === selectedSchoolClass
-  );
+  const filteredStudentsData = useMemo(() => {
+    if (!selectedSchoolClass || selectedSchoolClass === "all_students") {
+      return studentsData;
+    }
+
+    if (selectedSubClass) {
+      return studentsData.filter(
+        (student) =>
+          student.class === selectedSchoolClass &&
+          student.subclass === selectedSubClass
+      );
+    }
+
+    return studentsData.filter(
+      (student) => student.class === selectedSchoolClass
+    );
+  }, [studentsData, selectedSchoolClass, selectedSubClass]);
+
+  const handleClassChange = (e) => {
+    const selectedClass = e.target.value;
+    setSelectedSchoolClass(selectedClass);
+
+    // Find the selected school class object
+    const selectedClassObject = schoolData.schoolClasses.find(
+      (schoolClass) => schoolClass.name === selectedClass
+    );
+
+    // Update the list of subclasses based on the selected school class
+    const subclasses = selectedClassObject
+      ? selectedClassObject.subclasses
+      : [];
+    setSubClasses(subclasses);
+
+    // Reset the selected subclass when the school class changes
+    setSelectedSubClass("");
+  };
+
+  const handleSubClassChange = (e) => setSelectedSubClass(e.target.value);
 
   useEffect(() => {
-    setStudentsData(data);
-    console.log(data, selectedSchoolClass);
-  }, selectedSchoolClass);
-
-  const handleClassChange = (e) => setSelectedSchoolClass(e.target.value);
+    setStudentsData(JSON.parse(localStorage.getItem("studentsData")) || []);
+  }, []);
 
   return (
     <PageWrapper>
@@ -98,20 +126,34 @@ export default function StudentsPage() {
           </Text>
           <Select size={"sm"} minW={"180px"} onChange={handleClassChange}>
             <option value="">-- Select Class --</option>
-
             {schoolData.schoolClasses.map((schoolClass) => (
               <option key={schoolClass.id} value={schoolClass.name}>
                 {schoolClass.name}
               </option>
             ))}
+            <option value="all_students">All</option>
           </Select>
-          <Select size={"sm"} minW={"180px"}>
-            <option value="">All</option>
-            <option value="">Gold</option>
-            <option value=""></option>
-          </Select>
+
+          {/* Subclass selection */}
+          {selectedSchoolClass && (
+            <Select
+              size={"sm"}
+              minW={"180px"}
+              onChange={handleSubClassChange}
+              value={selectedSubClass}
+            >
+              <option value="">-- Select Subclass --</option>
+              {schoolData.schoolClasses
+                .find((schoolClass) => schoolClass.name === selectedSchoolClass)
+                ?.subClasses.map((subClass, index) => (
+                  <option key={index} value={subClass}>
+                    {subClass}
+                  </option>
+                ))}
+            </Select>
+          )}
         </Flex>
-        {studentsData.length > 0 ? (
+        {filteredStudentsData.length > 0 ? (
           <Grid
             gridTemplateColumns={{
               "base": "1fr",
@@ -120,7 +162,7 @@ export default function StudentsPage() {
             }}
             gap={4}
           >
-            {studentsData.map((student, index) => (
+            {filteredStudentsData.map((student, index) => (
               <StudentPreviewCard key={index} student={student} />
             ))}
           </Grid>
