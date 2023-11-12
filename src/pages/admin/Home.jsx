@@ -18,6 +18,7 @@ import { useModal } from "../../app/contexts/ModalContext";
 import ReactPortal from "../../widgets/ReactPortal";
 import PageSectionHeader from "../../components/PageSectionHeader";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
+import subjectsData from "../../data/subjects.data";
 
 export default function AdminHome() {
   const { openPortal } = useModal();
@@ -48,7 +49,7 @@ export default function AdminHome() {
               color={"#F5DDFF"}
               imgSrc={"people.png"}
               text={"Total students:"}
-              number={123}
+              number={studentsData.length}
             />
             <StatCardComponent
               color={"#DCECFF"}
@@ -60,7 +61,7 @@ export default function AdminHome() {
               color={"#FFF2DB"}
               imgSrc={"book.png"}
               text={"Total Subjects:"}
-              number={79}
+              number={subjectsData.length}
             />
           </Flex>
 
@@ -94,7 +95,14 @@ export default function AdminHome() {
             </Flex>
 
             <ChartWidget
-              labels={["Cre", "Nur", "Pri", "JSS", "SSS"]}
+              labels={[
+                "Discovery",
+                "Foundation",
+                "Nursery",
+                "Year",
+                "JSS",
+                "SSS",
+              ]}
               data1={[47, 58, 45, 44, 56]}
               data2={[21, 12, 64, 56, 54]}
             />

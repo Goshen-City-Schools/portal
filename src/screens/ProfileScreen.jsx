@@ -9,8 +9,20 @@ import { MdChangeCircle, MdDelete, MdShare } from "react-icons/md";
 export default function ProfileScreen() {
   const { user } = useUser();
   return (
-    <Box bg={"white"} px={6} py={6} rounded={"lg"} mt={4} h={"280px"}>
-      <Flex gap={8} alignItems={"center"} h={"full"}>
+    <Box
+      bg={"white"}
+      px={6}
+      py={6}
+      rounded={"lg"}
+      mt={4}
+      h={{ base: "full", md: "320px" }}
+    >
+      <Flex
+        direction={{ base: "column", md: "row" }}
+        gap={8}
+        alignItems={"center"}
+        h={"full"}
+      >
         <Grid gap={4}>
           <Avatar width={180} height={180} imageUrl={"/avatar.png"} />
           <Button colorScheme="blue" size={"sm"}>
@@ -56,9 +68,10 @@ export default function ProfileScreen() {
           </Flex>
 
           <Flex
-            justifyContent={"flex-end"}
+            justifyContent={{ base: "center", md: "flex-end" }}
             w={"full"}
-            position={"absolute"}
+            mt={8}
+            position={{ base: "relative", md: "absolute" }}
             bottom={0}
             gap={4}
           >

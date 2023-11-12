@@ -51,7 +51,14 @@ function ChartWidget({ labels, data1, data2 }) {
   };
 
   return (
-    <div style={{ width: "100%", maxWidth: "680px", margin: "auto" }}>
+    <div
+      style={{
+        width: "100%",
+        maxWidth: "680px",
+        margin: "auto",
+        height: "320px",
+      }}
+    >
       <Bar options={options} data={data} />
     </div>
   );

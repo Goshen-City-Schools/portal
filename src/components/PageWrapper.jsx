@@ -14,13 +14,13 @@ export default function PageWrapper({ children, overflowX = "hidden" }) {
     // Simulate loading for a few seconds (adjust this as needed)
     setTimeout(() => {
       setIsLoading(false);
-    }, 2000); // 3 seconds
+    }, 1000); // 3 seconds
   }, []);
 
   return (
     <>
       {isLoading ? (
-        <LoadingScreen height="92vh" timer={2100} mt={"80px"} />
+        <LoadingScreen height="92vh" timer={1600} mt={"80px"} />
       ) : (
         <Box p={6} className="page-wrapper" mt={"80px"} overflowX={overflowX}>
           <motion.div
