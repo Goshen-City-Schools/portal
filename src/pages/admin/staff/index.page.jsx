@@ -1,7 +1,7 @@
 import React from "react";
 import PageWrapper from "../../../components/PageWrapper";
 
-import { Text, Flex, Box, Button } from "@chakra-ui/react";
+import { Text, Flex, Box, Button, Grid } from "@chakra-ui/react";
 import { MdAdd, MdIcecream, MdUploadFile } from "react-icons/md";
 
 import SearchWidget from "../../../widgets/Search.widget";
@@ -9,6 +9,7 @@ import IconComponent from "../../../components/Icon.component";
 import AllStaffTable from "../../../components/tables/AllStaffTable.component";
 import { useNavigate } from "react-router-dom";
 import { useLocalStorage } from "../../../hooks/useLocalStorage";
+import StaffPreviewCard from "../../../components/PreviewCards/StaffPreviewCard";
 
 export default function AllStaffPage() {
   const { getItem } = useLocalStorage("staffData");
@@ -77,9 +78,20 @@ export default function AllStaffPage() {
         </Flex>
       </Flex>
 
-      <Box p={4} bg={"white"} rounded={"md"}>
+      <Box px={8} py={6} pb={10} bg={"white"} rounded={"lg"}>
         {existingStaffData && existingStaffData?.length > 0 ? (
-          <AllStaffTable />
+          <Grid
+            gridTemplateColumns={{
+              "base": "1fr",
+              "md": "repeat(4, 1fr)",
+              "lg": "repeat(4, 1fr)",
+            }}
+            gap={4}
+          >
+            {existingStaffData.map((staff) => (
+              <StaffPreviewCard key={staff?.id} staff={staff} />
+            ))}
+          </Grid>
         ) : (
           <Text as={"h2"} letterSpacing={0.5} color={"neutral.700"}>
             No Staff data yet!

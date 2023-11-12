@@ -15,56 +15,51 @@ import { MdMailOutline, MdShare } from "react-icons/md";
 import { FaPhoneAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
-export default function StudentPreviewCard({ student }) {
+export default function StaffPreviewCard({ staff }) {
   return (
-    <Link to={`/admin/students/${student.id}`}>
+    <Link to={`/admin/staff/${staff?.id}`}>
       <Stack
-        bg={"brand.100"}
+        bg={"purple.50"}
         border={"2px solid"}
-        borderColor={"transparent"}
+        borderColor={"neutral.300"}
+        borderLeftColor={"transparent"}
         rounded={"xl"}
         p={4}
         spacing={4}
         shadow={"xs"}
         _hover={{
-          "borderColor": "brand.700",
-          "bg": "brand.100",
+          "borderColor": "accent.700",
         }}
       >
         <VStack
           position={"relative"}
-          href={`/admin/students/${student.id}`}
           gap={8}
           textAlign={"center"}
           height={"320px"}
         >
-          <Box
+          <Badge
+            as={"small"}
+            colorScheme="purple"
+            bg={"accent.700"}
+            color={"whiteAlpha.700"}
+            fontWeight={"bold"}
+            px={2}
+            py={1}
+            rounded={"lg"}
             alignSelf={"flex-start"}
             textAlign={"left"}
             textTransform={"uppercase"}
           >
+            Staff ID:{" "}
             <Text
+              as={"span"}
+              color={"white"}
               letterSpacing={1}
-              as={"small"}
-              fontWeight={"bold"}
-              fontSize={"xs"}
-              color={"green.700"}
-              display={"block"}
-            >
-              Student
-            </Text>
-
-            <Badge
               lineHeight={0.8}
-              as={"small"}
-              colorScheme="blue"
-              fontWeight={"bold"}
-              letterSpacing={1}
-              p={2}
             >
-              ID: {student?.id}
-            </Badge>
-          </Box>
+              {staff?.id}
+            </Text>
+          </Badge>
 
           <Avatar h={32} w={32} p={3} shadow={"lg"} bg={"white"}>
             <Image src="/Illustration.png" />
@@ -73,12 +68,12 @@ export default function StudentPreviewCard({ student }) {
           <Flex gap={4} direction={"column"}>
             <Text
               fontWeight={"bold"}
-              color={"brand.700"}
+              color={"accent.700"}
               as={"h3"}
               fontSize={"xl"}
               lineHeight={1}
             >
-              {student.firstName} {student.lastName}
+              {staff.firstName} {staff.lastName}
             </Text>
           </Flex>
 
@@ -91,7 +86,7 @@ export default function StudentPreviewCard({ student }) {
             letterSpacing={1}
             p={2}
           >
-            {student?.class}
+            {staff?.roles[0]}
           </Badge>
 
           <Stack

@@ -36,7 +36,7 @@ export default function StaffPage() {
     <PageWrapper>
       <ReactPortal />
       <PageSectionHeader
-        pageTitle={"Staff Profile"}
+        pageTitle={`Staff Profile - ${staff?.firstName}`}
         pageCrumb={`Home / Staff / ${staff?.firstName} `}
       />
 

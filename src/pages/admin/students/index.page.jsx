@@ -1,6 +1,14 @@
 import React, { useState, useEffect, useMemo } from "react";
 import PageWrapper from "../../../components/PageWrapper";
-import { Flex, Box, Button, Text, Grid, Select } from "@chakra-ui/react";
+import {
+  Flex,
+  Box,
+  Button,
+  Text,
+  Grid,
+  Select,
+  useToast,
+} from "@chakra-ui/react";
 import { MdAdd, MdIcecream, MdUploadFile } from "react-icons/md";
 import SearchWidget from "../../../widgets/Search.widget";
 import IconComponent from "../../../components/Icon.component";
@@ -10,9 +18,12 @@ import allowedUserRoles from "../../../helpers/allowedUserRoles";
 import { useUser } from "../../../app/contexts/UserContext";
 import StudentPreviewCard from "../../../components/PreviewCards/StudentPreviewCard";
 import schoolData from "../../../data/school.data";
+import { API_BASE_URL, API_ENDPOINTS } from "../../../configs/api";
 
 export default function StudentsPage() {
+  const toast = useToast();
   const navigate = useNavigate();
+  const [schoolClasses, setSSchoolClasses] = useState([]);
   const [selectedSchoolClass, setSelectedSchoolClass] = useState("");
   const [selectedSubClass, setSelectedSubClass] = useState("");
   const [subClasses, setSubClasses] = useState("");
@@ -20,6 +31,23 @@ export default function StudentsPage() {
     JSON.parse(localStorage.getItem("studentsData")) || []
   );
   const { user } = useUser();
+
+  useEffect(() => {
+    // Fetch class options from the API
+    fetch(`${API_BASE_URL}${API_ENDPOINTS.CLASSES}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setSSchoolClasses(data.classes || []);
+      })
+      .catch((error) => {
+        console.error("Error fetching class options:", error);
+        toast({
+          status: "error",
+          title: "Error fetching class options",
+          duration: 3000,
+        });
+      });
+  }, []);
 
   const filteredStudentsData = useMemo(() => {
     if (!selectedSchoolClass || selectedSchoolClass === "all_students") {
@@ -50,7 +78,7 @@ export default function StudentsPage() {
 
     // Update the list of subclasses based on the selected school class
     const subclasses = selectedClassObject
-      ? selectedClassObject.subclasses
+      ? selectedClassObject.subClasses
       : [];
     setSubClasses(subclasses);
 
@@ -126,7 +154,7 @@ export default function StudentsPage() {
           </Text>
           <Select size={"sm"} minW={"180px"} onChange={handleClassChange}>
             <option value="">-- Select Class --</option>
-            {schoolData.schoolClasses.map((schoolClass) => (
+            {schoolClasses?.map((schoolClass) => (
               <option key={schoolClass.id} value={schoolClass.name}>
                 {schoolClass.name}
               </option>
@@ -143,13 +171,11 @@ export default function StudentsPage() {
               value={selectedSubClass}
             >
               <option value="">-- Select Subclass --</option>
-              {schoolData.schoolClasses
-                .find((schoolClass) => schoolClass.name === selectedSchoolClass)
-                ?.subClasses.map((subClass, index) => (
-                  <option key={index} value={subClass}>
-                    {subClass}
-                  </option>
-                ))}
+              {subClasses.map((subClass, index) => (
+                <option key={index} value={subClass}>
+                  {subClass}
+                </option>
+              ))}
             </Select>
           )}
         </Flex>

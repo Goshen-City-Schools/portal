@@ -19,6 +19,8 @@ import {
   MdOutlineMailOutline,
   MdPersonOutline,
   MdPhone,
+  MdPictureInPictureAlt,
+  MdWhatsapp,
 } from "react-icons/md";
 import { FaRegIdCard } from "react-icons/fa";
 
@@ -26,6 +28,9 @@ import { useModal } from "../app/contexts/ModalContext";
 import schoolData from "../data/school.data";
 import Checklist from "../components/CheckList";
 import subjectsData from "../data/subjects.data";
+import dayjs from "dayjs";
+import allowedUserRoles from "../helpers/allowedUserRoles";
+import { useUser } from "../app/contexts/UserContext";
 
 const schoolClasses = schoolData.schoolClasses;
 const staffRoles = schoolData.staffRoles;
@@ -40,14 +45,16 @@ export default function StaffProfileScreen({
     firstName,
     lastName,
     gender,
+    dateOfBirth,
     email,
     phoneNumber,
     roles,
     subjects,
+    whatsappNumber,
     classes,
     id,
   } = staff;
-
+  const user = useUser();
   const fullname = `${firstName} ${lastName}`;
   const [selectedClasses, setSelectedClasses] = useState(staff?.classes || []);
   const [selectedRoles, setSelectedRoles] = useState(staff?.roles || []);
@@ -155,29 +162,259 @@ export default function StaffProfileScreen({
   }
 
   return (
-    <Grid gap={4} mt={4}>
-      <Flex bg={"white"} py={4} px={6} rounded={"lg"} gap={8}>
-        <Grid gap={6}>
+    <Grid gap={2}>
+      <Flex
+        gap={4}
+        py={4}
+        direction={{ "base": "column", "md": "row" }}
+        rounded={"lg"}
+      >
+        <Grid
+          gap={4}
+          px={6}
+          rounded={"lg"}
+          alignContent={"center"}
+          justifyContent={"center"}
+          bg={"white"}
+          position={"relative"}
+          pb={4}
+        >
           <Avatar width={180} height={180} imageUrl={"/avatar.png"} />
-          <Button colorScheme="purple" size={"sm"}>
-            Update avatar
-          </Button>
+
+          <Flex
+            justifyContent={"center"}
+            w={"full"}
+            position={{ "base": "relative", "md": "absolute" }}
+            bottom={{ "base": "0", "md": 4 }}
+          >
+            <Button
+              rightIcon={<MdPictureInPictureAlt />}
+              display={"flex"}
+              w={"max-full"}
+              colorScheme="purple"
+              variant={"outline"}
+              size={"sm"}
+            >
+              Update avatar
+            </Button>
+          </Flex>
         </Grid>
 
-        <Flex direction={"column"} justifyContent={"space-between"} w={"full"}>
-          <div className="">&nbsp;</div>
+        <Flex
+          direction={"column"}
+          justifyContent={"space-between"}
+          bg={"white"}
+          rounded={"lg"}
+          w={"full"}
+          pl={4}
+          pr={6}
+        >
+          <Grid
+            gap={4}
+            gridTemplateColumns={{ "base": "1fr", "md": "repeat(2, 1fr)" }}
+            position={"relative"}
+          >
+            <GridItem bg={"white"} py={4} px={6} rounded={"lg"}>
+              <Text
+                as={"h3"}
+                letterSpacing={1}
+                color={"brand.700"}
+                textTransform={"uppercase"}
+                fontWeight={"bold"}
+                mt={2}
+                mb={4}
+              >
+                Personal Details
+              </Text>
+              <Grid gap={5} color={"neutral.700"}>
+                <Box>
+                  <Flex gap={4}>
+                    <IconComponent>
+                      <MdPersonOutline size={20} />
+                    </IconComponent>
 
-          <ButtonGroup display={"flex"} w={"full"} justifyContent={"flex-end"}>
+                    <Box>
+                      <Text as={"h3"} fontSize={"sm"} fontWeight={"semibold"}>
+                        Full name
+                      </Text>
+                      <Text as={"p"}>{fullname}</Text>{" "}
+                    </Box>
+                  </Flex>
+                </Box>
+                <Box>
+                  <Flex gap={4}>
+                    <IconComponent>
+                      <MdPersonOutline size={20} />
+                    </IconComponent>
+
+                    <Box>
+                      <Text as={"h3"} fontSize={"sm"} fontWeight={"semibold"}>
+                        Gender
+                      </Text>
+                      <Text as={"p"} textTransform={"capitalize"}>
+                        {gender}
+                      </Text>{" "}
+                    </Box>
+                  </Flex>
+                </Box>
+                <Box>
+                  <Flex gap={4}>
+                    <IconComponent>
+                      <MdOutlineMailOutline size={20} />
+                    </IconComponent>
+
+                    <Box>
+                      <Text as={"h3"} fontSize={"sm"} fontWeight={"semibold"}>
+                        Date of Birth
+                      </Text>
+                      <Text
+                        as={"p"}
+                        textTransform={""}
+                        fontFamily={"monospace"}
+                      >
+                        {dayjs(dateOfBirth).format("dddd, MMM D")}
+                      </Text>{" "}
+                    </Box>
+                  </Flex>
+                </Box>
+                {/* <Box>
+                  <Flex gap={4}>
+                    <IconComponent>
+                      <MdPersonOutline size={20} />
+                    </IconComponent>
+
+                    <Box>
+                      <Text as={"h3"} fontSize={"sm"} fontWeight={"semibold"}>
+                        Student Type
+                      </Text>
+                      <Text as={"p"} textTransform={"capitalize"}>
+                        {studentType} Student
+                      </Text>{" "}
+                    </Box>
+                  </Flex>
+                </Box> */}
+              </Grid>
+            </GridItem>
+
+            <GridItem bg={"white"} py={4} px={6} rounded={"lg"}>
+              <Text
+                as={"h3"}
+                letterSpacing={1}
+                color={"brand.700"}
+                textTransform={"uppercase"}
+                fontWeight={"bold"}
+                mt={2}
+                mb={4}
+              >
+                Contact Details
+              </Text>
+
+              <Grid gap={5} color={"neutral.700"}>
+                <Box>
+                  <Flex gap={4}>
+                    <IconComponent>
+                      <MdOutlineMailOutline size={20} />
+                    </IconComponent>
+
+                    <Box>
+                      <Text as={"h3"} fontSize={"sm"} fontWeight={"semibold"}>
+                        Email
+                      </Text>
+                      <Text as={"p"} textTransform={"lowercase"}>
+                        {email}
+                      </Text>{" "}
+                    </Box>
+                  </Flex>
+                </Box>
+
+                <Box>
+                  <Flex gap={4}>
+                    <IconComponent>
+                      <MdPhone size={20} />
+                    </IconComponent>
+
+                    <Box>
+                      <Text as={"h3"} fontSize={"sm"} fontWeight={"semibold"}>
+                        Phone Number
+                      </Text>
+                      <Text as={"p"} textTransform={"capitalize"}>
+                        {phoneNumber}
+                      </Text>{" "}
+                    </Box>
+                  </Flex>
+                </Box>
+
+                <Box>
+                  <Flex gap={4}>
+                    <IconComponent>
+                      <MdWhatsapp size={20} />
+                    </IconComponent>
+
+                    <Box>
+                      <Text as={"h3"} fontSize={"sm"} fontWeight={"semibold"}>
+                        Whatsapp Number
+                      </Text>
+                      <Text as={"p"} textTransform={"capitalize"}>
+                        {whatsappNumber}
+                      </Text>{" "}
+                    </Box>
+                  </Flex>
+                </Box>
+              </Grid>
+            </GridItem>
+
+            {/* {allowedUserRoles(user, ["IT Personnel"]) && (
+              <Button
+                position={"absolute"}
+                right={2}
+                top={4}
+                leftIcon={<MdOutlineDeleteOutline size={18} />}
+                colorScheme="red"
+                variant={"outline"}
+                fontSize={"sm"}
+                size={"xs"}
+                pr={0}
+                py={4}
+                w={"max-content"}
+                display={"flex"}
+                alignItems={"center"}
+                justifyContent={"center"}
+              />
+            )} */}
+          </Grid>
+
+          <ButtonGroup
+            display={"flex"}
+            w={"full"}
+            mt={4}
+            mb={4}
+            gap={3}
+            justifyContent={"flex-end"}
+          >
             <Button
               fontSize={"sm"}
               leftIcon={<FaRegIdCard />}
               size={"sm"}
               colorScheme="purple"
               variant={"outline"}
+              onClick={() => openPortal()}
             >
               Staff ID Card
             </Button>
-            <Button
+
+            {/* {allowedUserRoles(user, ["IT Personnel"]) && (
+              <Button
+                fontSize={"sm"}
+                leftIcon={<MdEdit />}
+                size={"sm"}
+                colorScheme="blue"
+                onClick={() => openPortal()}
+              >
+                Edit Profile
+              </Button>
+            )} */}
+
+            {/* <Button
               leftIcon={<MdOutlineClose />}
               colorScheme="yellow"
               fontSize={"sm"}
@@ -185,20 +422,13 @@ export default function StaffProfileScreen({
             >
               Deactivate Account
             </Button>
-            <Button
-              leftIcon={<MdOutlineDeleteOutline size={18} />}
-              colorScheme="red"
-              fontSize={"sm"}
-              size={"sm"}
-              pr={0}
-              pl={2}
-            ></Button>
+           */}
           </ButtonGroup>
         </Flex>
       </Flex>
 
-      <Grid gap={4} gridTemplateColumns="repeat(auto-fit, minmax(0, 1fr))">
-        <GridItem
+      <Grid gap={4} /*gridTemplateColumns="repeat(auto-fit, minmax(0, 1fr))"*/>
+        {/* <GridItem
           bg={"white"}
           py={4}
           px={6}
@@ -277,17 +507,9 @@ export default function StaffProfileScreen({
               </Flex>
             </Box>
           </Grid>
-        </GridItem>
+        </GridItem> */}
 
-        <GridItem
-          bg={"white"}
-          py={4}
-          px={6}
-          w={"full"}
-          rounded={"lg"}
-          colStart={3}
-          colEnd={8}
-        >
+        <GridItem bg={"white"} py={4} px={6} w={"full"} rounded={"lg"}>
           <Grid gap={6} gridTemplateColumns="repeat(2, 1fr)" pt={2}>
             <Box display={"flex"} flexWrap={"wrap"}>
               <Flex gap={4}>
