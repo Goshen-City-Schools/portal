@@ -19,10 +19,9 @@ export default function StaffPreviewCard({ staff }) {
   return (
     <Link to={`/admin/staff/${staff?.id}`}>
       <Stack
-        bg={"purple.50"}
+        bg={"neutral.100"}
         border={"2px solid"}
-        borderColor={"neutral.300"}
-        borderLeftColor={"transparent"}
+        borderColor={"transparent"}
         rounded={"xl"}
         p={4}
         spacing={4}

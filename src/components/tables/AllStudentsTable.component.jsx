@@ -7,12 +7,10 @@ import { useNavigate } from "react-router-dom";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 import CustomCard from "../CustomTooltip";
 
-const AllStudentsTable = () => {
+const AllStudentsTable = ({ existingStudentsData }) => {
   const toast = useToast();
-  const [studentsData, setStudentsData] = useState([]);
-  const { setItem } = useLocalStorage("studentData");
   const navigate = useNavigate();
-  const existingStudentsData = JSON.parse(localStorage.getItem("studentsData"));
+  const [studentsData, setStudentsData] = useState([]);
 
   useEffect(() => {
     // Initialize studentsData with existingStudentsData
@@ -21,27 +19,52 @@ const AllStudentsTable = () => {
 
   const columns = [
     {
+      Header: "SN",
+      accessor: "sn",
+      Cell: ({ row }) => (
+        <Text
+          as={"p"}
+          color={"neutral.700"}
+          textTransform={"uppercase"}
+          letterSpacing={0.5}
+          fontWeight={"semibold"}
+        >
+          {row.index + 1}
+        </Text>
+      ),
+    },
+    {
       Header: "Student ID",
       accessor: "id",
       Cell: ({ value }) => (
         <Flex gap={2}>
-          <Text as={"p"} color={"neutral.700"} fontWeight={"bold"}>
-            {value}
+          <Text
+            as={"p"}
+            color={"neutral.700"}
+            textTransform={"uppercase"}
+            letterSpacing={0.5}
+            fontWeight={"semibold"}
+          >
+            GSHN/STU/{value}
           </Text>
         </Flex>
       ),
     },
     {
-      Header: "Surname",
+      Header: "Full name",
       accessor: "lastName",
+      Cell: ({ row }) => (
+        <Flex gap={2}>
+          <Text as={"p"} textTransform={"capitalize"}>
+            {row.original.firstName} {row.original.lastName}
+          </Text>
+        </Flex>
+      ),
     },
+
     {
-      Header: "First Name",
-      accessor: "firstName",
-    },
-    {
-      Header: "Student Type",
-      accessor: "studentType",
+      Header: "Gender",
+      accessor: "gender",
       Cell: ({ value }) => (
         <Flex gap={2}>
           <Text as={"p"} textTransform={"capitalize"} color={"neutral.700"}>
@@ -60,10 +83,15 @@ const AllStudentsTable = () => {
       accessor: "guardianPhoneNumber",
     },
     {
+      Header: "Guardian Email",
+      accessor: "guardianEmail",
+    },
+    {
       Header: "Action",
       accessor: "action",
       Cell: ({ row }) => (
         <Flex gap={2}>
+          {console.log(row.index)}
           <CustomCard>
             <Tooltip label="Delete" hasArrow>
               <IconComponent
@@ -75,14 +103,16 @@ const AllStudentsTable = () => {
             </Tooltip>
           </CustomCard>
 
-          <Tooltip label="Edit" hasArrow>
-            <IconComponent
-              className="text-green-700 cursor-pointer hover:scale-110 transition duration-300"
-              click={() => handleEditAction(row.original.id)}
-            >
-              <MdLink size={18} />
-            </IconComponent>
-          </Tooltip>
+          <CustomCard>
+            <Tooltip label="Edit" hasArrow>
+              <IconComponent
+                className="text-green-700 cursor-pointer hover:scale-110 transition duration-300"
+                click={() => handleEditAction(row.original.id)}
+              >
+                <MdLink size={18} />
+              </IconComponent>
+            </Tooltip>
+          </CustomCard>
         </Flex>
       ),
     },

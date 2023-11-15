@@ -22,7 +22,7 @@ ChartJS.register(
 function ChartWidget({ labels, data1, data2 }) {
   const options = {
     responsive: true,
-    maintainAspectRatio: false, // Allow the chart to adapt to the container size
+    maintainAspectRatio: true, // Allow the chart to adapt to the container size
     plugins: {
       legend: {
         position: "top",
@@ -38,14 +38,14 @@ function ChartWidget({ labels, data1, data2 }) {
     labels: labels,
     datasets: [
       {
-        label: "Female",
+        label: "Male",
         data: data1,
-        backgroundColor: "#9440b7",
+        backgroundColor: "#2750B1",
       },
       {
-        label: "Male",
+        label: "Female",
         data: data2,
-        backgroundColor: "#10296E",
+        backgroundColor: "#97c4fb",
       },
     ],
   };

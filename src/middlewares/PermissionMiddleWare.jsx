@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect } from "react";
+import { useMemo, useEffect } from "react";
 import { useUser } from "../app/contexts/UserContext";
 import { useNavigate, useLocation } from "react-router-dom";
 
@@ -9,7 +9,7 @@ const routes = [
       "IT Personnel",
       "Class Teacher",
       "Subject Teacher",
-      "School Teacher",
+      "School Teacherx",
       "Bursar",
     ],
     allowedAccountTypes: ["Staff"],
@@ -28,18 +28,18 @@ const routes = [
 
   {
     path: "/admin/profile",
-    allowedRoles: ["IT Personnel"],
+    allowedRoles: ["IT Personnel", "Class Teacher"],
     allowedAccountTypes: ["Staff"],
   },
 
   {
     path: "/admin/students",
-    allowedRoles: ["IT Personnel"],
+    allowedRoles: ["IT Personnel", "Bursar"],
     allowedAccountTypes: ["Staff"],
   },
   {
     path: "/admin/students/:studentId",
-    allowedRoles: ["IT Personnel"],
+    allowedRoles: ["IT Personnel", "Bursar"],
     allowedAccountTypes: ["Staff"],
   },
   {
@@ -69,7 +69,7 @@ const routes = [
   },
   {
     path: "/admin/classes",
-    allowedRoles: ["IT Personnel"],
+    allowedRoles: ["IT Personnel", "Class Teacher"],
     allowedAccountTypes: ["Staff"],
   },
   {
@@ -82,8 +82,26 @@ const routes = [
     allowedRoles: ["IT Personnel"],
     allowedAccountTypes: ["Staff"],
   },
+
+  // Finance Routes
+
+  {
+    path: "/admin/finance",
+    allowedRoles: ["Bursar", "Principal"],
+    allowedAccountTypes: ["Staff"],
+  },
+  {
+    path: "/admin/finance/fees",
+    allowedRoles: ["Bursar", "Principal"],
+    allowedAccountTypes: ["Staff"],
+  },
+
   {
     path: "/",
+    allowedAccountTypes: ["Student"],
+  },
+  {
+    path: "/admin",
     allowedAccountTypes: ["Staff"],
   },
   // Add more routes here

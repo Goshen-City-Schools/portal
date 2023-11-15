@@ -20,7 +20,7 @@ export default function PageWrapper({ children, overflowX = "hidden" }) {
   return (
     <>
       {isLoading ? (
-        <LoadingScreen height="92vh" timer={1600} mt={"80px"} />
+        <LoadingScreen height="92vh" timer={1000} mt={"80px"} />
       ) : (
         <Box p={6} className="page-wrapper" mt={"80px"} overflowX={overflowX}>
           <motion.div

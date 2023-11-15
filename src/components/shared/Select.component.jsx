@@ -6,7 +6,7 @@ import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 const CustomSelect = (props) => {
   return (
     <Box display="flex" alignItems="center">
-      <Select {...props} flex="1" fontSize={"sm"} />
+      <Select {...props} size={"sm"} flex="1" fontSize={"sm"} />
     </Box>
   );
 };

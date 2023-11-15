@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "env-cmd -f .env vite",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
@@ -20,6 +20,7 @@
     "chakra": "^0.0.3",
     "chart.js": "^4.4.0",
     "dayjs": "^1.11.10",
+    "env-cmd": "^10.1.0",
     "framer-motion": "^10.16.4",
     "react": "^18.2.0",
     "react-calendar": "^4.6.0",

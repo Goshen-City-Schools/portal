@@ -20,6 +20,7 @@ import {
   MdHistory,
   MdOutlineBroadcastOnPersonal,
   MdAccessible,
+  MdSettings,
 } from "react-icons/md";
 
 import { BsEye } from "react-icons/bs";
@@ -285,6 +286,11 @@ export default function AdminSideBar({ sideBarView, handleClick }) {
                     name: "Manage Fees",
                     link: "/admin/students",
                     icon: <MdHistory color={"white"} size={12} />,
+                  },
+                  {
+                    name: "Configure Payments",
+                    link: "/admin/finance/settings",
+                    icon: <MdSettings color={"white"} size={12} />,
                   },
                 ]}
               >

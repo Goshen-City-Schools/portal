@@ -30,6 +30,7 @@ import dayjs from "dayjs";
 import { useModal } from "../app/contexts/ModalContext";
 import allowedUserRoles from "../helpers/allowedUserRoles";
 import { useUser } from "../app/contexts/UserContext";
+import UpdateAvatarButton from "../components/Buttons/UpdateAvatarButton";
 
 export default function StudentProfileScreen({ student }) {
   const { openPortal } = useModal();
@@ -75,16 +76,7 @@ export default function StudentProfileScreen({ student }) {
             position={{ "base": "relative", "md": "absolute" }}
             bottom={{ "base": "0", "md": 4 }}
           >
-            <Button
-              rightIcon={<MdPictureInPictureAlt />}
-              display={"flex"}
-              w={"max-full"}
-              colorScheme="purple"
-              variant={"outline"}
-              size={"sm"}
-            >
-              Update avatar
-            </Button>
+            <UpdateAvatarButton />
           </Flex>
         </Grid>
 
@@ -160,7 +152,7 @@ export default function StudentProfileScreen({ student }) {
                         textTransform={""}
                         fontFamily={"monospace"}
                       >
-                        {dayjs(dateOfBirth).format("dddd, MMM D")}
+                        {dayjs(dateOfBirth).format("MMM d, YYYY")}
                       </Text>{" "}
                     </Box>
                   </Flex>

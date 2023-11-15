@@ -2,6 +2,7 @@
 import React from "react";
 import { Portal, Box, Button, Text } from "@chakra-ui/react";
 import { useModal } from "../app/contexts/ModalContext";
+import { MdCancel, MdOutlineCancel } from "react-icons/md";
 // import { useModal } from "./ModalContext";
 
 function ReactPortal({ width }) {
@@ -39,7 +40,15 @@ function ReactPortal({ width }) {
           >
             {portalContent}
           </Box>
-          <Button onClick={closePortal}>Close</Button>
+          <Button
+            size={"sm"}
+            colorScheme="red"
+            variant={"outline"}
+            leftIcon={<MdOutlineCancel />}
+            onClick={closePortal}
+          >
+            Close
+          </Button>
         </Box>
       </Box>
     </Portal>

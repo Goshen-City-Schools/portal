@@ -33,7 +33,6 @@ export default function StudentPreviewCard({ student }) {
       >
         <VStack
           position={"relative"}
-          href={`/admin/students/${student.id}`}
           gap={8}
           textAlign={"center"}
           height={"320px"}

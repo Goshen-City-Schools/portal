@@ -18,11 +18,11 @@ import { MdArrowForward, MdKeyboard, MdUpload } from "react-icons/md";
 import schoolData from "../../../data/school.data";
 import ReactPortal from "../../../widgets/ReactPortal";
 import { useModal } from "../../../app/contexts/ModalContext";
-import generateId from "../../../utilities/generateId";
 import { useEffect } from "react";
 import AccountCreatedScreen from "../../../screens/AccountCreatedScreen";
 import allowedUserRoles from "../../../helpers/allowedUserRoles";
 import { useUser } from "../../../app/contexts/UserContext";
+import generateId from "../../../utilities/generateId";
 
 const FirstForm = ({
   activeFormIndex,
@@ -413,7 +413,7 @@ export default function CreateNewStudent() {
     }
 
     const studentData = {
-      id: generateId().slice(-5),
+      id: generateId(),
       accountType: "Student",
       firstName: formData.firstName,
       lastName: formData.lastName,
@@ -429,6 +429,7 @@ export default function CreateNewStudent() {
       guardianPhoneNumber: formData.guardianPhoneNumber,
       guardianWhatsappNumber: formData.guardianWhatsappNumber,
       relationshipToGuardian: formData.relationshipToGuardian,
+      regDate: Date.now(),
     };
 
     // Simulating Backend Actions

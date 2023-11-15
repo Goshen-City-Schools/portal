@@ -1,52 +1,91 @@
 import React from "react";
 import PageWrapper from "../../../components/PageWrapper";
 
-import { Text, Flex, Box, Button } from "@chakra-ui/react";
+import { Text, Flex, Button, Grid, Stack } from "@chakra-ui/react";
 
-import ClassCategoryBox from "../../../components/ClassCategoryBox.component";
 import ReactPortal from "../../../widgets/ReactPortal";
 import { useModal } from "../../../app/contexts/ModalContext";
-import { Link } from "react-router-dom";
+import { useLocalStorage } from "../../../hooks/useLocalStorage";
+import { useNavigate } from "react-router-dom";
+import useClassOptions from "../../../hooks/useClassOptions";
+import StatCardComponent from "../../../components/StatCard.component";
 
 export default function ClassesPage() {
-  const { openPortal } = useModal();
+  const { openPortal, closePortal } = useModal();
+  const existingStudentsData = useLocalStorage("studentsData").getItem();
+  const navigate = useNavigate();
 
+  const schoolClasses = useClassOptions().schoolClasses;
   const classCategories = [
     {
       category: "Reception",
-      illustration: "/illustrations/reception-class.jpeg", // Replace with the actual image URL
-      studentCount: 50,
+      illustration: "reception-foundation.jpg", // Replace with the actual image URL
     },
     {
-      category: "Nursery",
-      illustration: "nursery.jpg", // Replace with the actual image URL
-      studentCount: 60,
+      category: "Foundation",
+      illustration: "reception-foundation.jpg", // Replace with the actual image URL
     },
     {
-      category: "Basic",
-      illustration: "basic.jpg", // Replace with the actual image URL
-      studentCount: 70,
+      category: "Discovery",
+      illustration: "discovery-nursery.jpg", // Replace with the actual image URL
     },
     {
-      category: "Secondary",
-      illustration: "secondary.jpg", // Replace with the actual image URL
-      studentCount: 80,
+      category: "Year",
+      illustration: "year-students.jpg", // Replace with the actual image URL
+    },
+    {
+      category: "JSS",
+      illustration: "secondary-students.jpg", // Replace with the actual image URL
+    },
+    {
+      category: "SSS",
+      illustration: "secondary-students.jpg", // Replace with the actual image URL
     },
     // Add more class categories as needed
   ];
 
-  const handleCategoryClick = (category) => {
-    // Handle click for the specific category
-    console.log(`Clicked on ${category}`);
-    openPortal(
-      <>
-        <Link to={"/admin/classes/ss1A"}>All classes in category</Link>
-      </>
+  const classesInCatrgory = (category) => {
+    const c = schoolClasses.filter((schoolClass) =>
+      schoolClass.name.includes(category)
     );
+    return c;
   };
 
-  const handleTabClick = (tabId) => {
-    setActiveTab(tabId);
+  const handleCategoryClick = (category) => {
+    // Handle click for the specific category
+
+    if (classesInCatrgory(category).length <= 1) {
+      navigate(
+        `/admin/classes/${category.toLocaleLowerCase().replace(/\s/g, "")}`
+      );
+      return;
+    } else {
+      openPortal(
+        <>
+          <Text as={"h3"} fontWeight={"bold"} mb={4} textAlign={"center"}>
+            Select class to view
+          </Text>
+          <Stack px={4} mb={4} py={2} spacing={4}>
+            {classesInCatrgory(category).map((schoolClass, index) => (
+              <Button
+                cursor={"pointer"}
+                key={index}
+                onClick={() => {
+                  navigate(
+                    `/admin/classes/${schoolClass.name
+                      .toLocaleLowerCase()
+                      .replace(/\s/g, "")}`
+                  );
+                  closePortal();
+                }}
+              >
+                {schoolClass.name}
+              </Button>
+            ))}
+          </Stack>
+        </>
+      );
+    }
   };
 
   return (
@@ -66,17 +105,26 @@ export default function ClassesPage() {
         <Text as={"small"}>Home / Classes/ All Staff</Text>
       </Flex>
 
-      <Flex gap={4} flexWrap={"wrap"}>
+      <Grid
+        gridTemplateColumns={{ base: "1fr", md: "repeat(3, 1fr)" }}
+        gap={4}
+        flexWrap={"wrap"}
+      >
         {classCategories.map((categoryData, index) => (
-          <ClassCategoryBox
+          <StatCardComponent
+            size={16}
             key={index}
-            category={categoryData.category}
-            illustration={categoryData.illustration}
-            studentCount={categoryData.studentCount}
+            text={categoryData.category}
+            imgSrc={categoryData.illustration}
+            number={
+              existingStudentsData.filter((student) =>
+                student.class.includes(categoryData.category)
+              ).length
+            }
             onClick={() => handleCategoryClick(categoryData.category)}
           />
         ))}
-      </Flex>
+      </Grid>
     </PageWrapper>
   );
 }

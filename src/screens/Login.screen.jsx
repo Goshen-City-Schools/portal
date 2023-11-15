@@ -50,43 +50,43 @@ export default function LoginScreen() {
   };
 
   // Function to handle form submission
-  const handleSubmit = useCallback(
-    (e) => {
-      e.preventDefault();
-      const extracted = extractID(userID); // Extract the ID from the user's input
-      setExtractedID(extracted);
+  const handleSubmit = useCallback(async (e) => {
+    e.preventDefault();
+    const extracted = extractID(userID); // Extract the ID from the user's input
+    setExtractedID(extracted);
 
-      if (!/^GSHN\/(STF|STU)\/\w{5}$/.test(userID) || password.trim() === "") {
-        setLoginError("Invalid login details");
-        toast({
-          title: "Invalid login details",
-          duration: "2000",
-          position: "top-right",
-          status: "error",
-        });
-        return;
+    if (!/^GSHN\/(STF|STU)\/\w{5}$/.test(userID) || password.trim() === "") {
+      setLoginError("Invalid login details");
+      showToast("Invalid login details", "error");
+      return;
+    }
+
+    if (userID) {
+      const userType = determineUserType(userID);
+      const userData = userType === "Staff" ? staffData : studentsData;
+      const userToLogin = {
+        id: userID,
+        password: password,
+      };
+
+      if (userToLogin) {
+        login(userToLogin);
+        setIsLoading(true);
+      } else {
+        showToast(`${userType} not found`, "error");
       }
+    }
+  });
 
-      if (userID) {
-        const userType = determineUserType(userID);
-        const userData = userType === "Staff" ? staffData : studentsData;
-        const user = userData.find((data) => data.id === extracted);
+  const showToast = (message, status) => {
+    toast({
+      title: message,
+      duration: "2000",
+      position: "top-right",
+      status: status,
+    });
+  };
 
-        if (user) {
-          login(user);
-          setIsLoading(true);
-        } else {
-          toast({
-            title: `${userType} not found`,
-            duration: "2000",
-            position: "top-right",
-            status: "error",
-          });
-        }
-      }
-    },
-    [userID, password, extractID, staffData, studentsData, login]
-  );
   // Effect to navigate on successful login
   useEffect(() => {
     if (user) {

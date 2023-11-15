@@ -49,6 +49,7 @@ import AuthenticationMiddleware from "../middlewares/AuthMiddleWare";
 import AuthLayout from "../layouts/AuthLayout";
 import StaffRoles from "../pages/admin/staff/Roles";
 import NotificationsPage from "../pages/admin/notifications";
+import ManageFees from "../pages/admin/finance/fees/ManageFees";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -102,6 +103,11 @@ const router = createBrowserRouter(
           <Route path="upload" element={<UploadResultPage />} />
           <Route path="settings" element={<ResultSettingsPage />} />
           <Route path=":session/:term/:userId" element={<ResultSinglePage />} />
+        </Route>
+
+        <Route path="finance">
+          <Route index element={<ManageFees />} />
+          <Route path="fees" element={<ManageFees />} />
         </Route>
 
         <Route path="transactions">

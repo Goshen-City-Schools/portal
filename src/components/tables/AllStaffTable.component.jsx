@@ -10,34 +10,55 @@ import { useUser } from "../../app/contexts/UserContext";
 import { Text, Tag } from "@chakra-ui/react";
 import CustomCard from "../CustomTooltip";
 
-const AllStaffTable = () => {
+const AllStaffTable = ({ existingStaffData }) => {
   const toast = useToast();
-  const existingStaffData = useLocalStorage("staffData").getItem();
   const navigate = useNavigate();
   const { user } = useUser();
   const [staffData, setStaffData] = useState(existingStaffData);
 
   const columns = [
     {
+      Header: "SN",
+      accessor: "sn",
+      Cell: ({ row }) => (
+        <Text
+          as={"p"}
+          color={"neutral.700"}
+          textTransform={"uppercase"}
+          letterSpacing={0.5}
+          fontWeight={"semibold"}
+        >
+          {row.index + 1}
+        </Text>
+      ),
+    },
+    {
       Header: "Staff ID",
       accessor: "id",
       Cell: ({ value }) => (
         <Flex gap={2}>
-          <Text as={"p"} color={"neutral.700"} fontWeight={"bold"}>
-            {value}
+          <Text
+            as={"p"}
+            color={"neutral.700"}
+            letterSpacing={0.5}
+            textTransform={"uppercase"}
+          >
+            GSHN/STF/{value}
           </Text>
         </Flex>
       ),
     },
     {
-      Header: "First Name",
+      Header: "Full Name",
       accessor: "firstName",
+      Cell: ({ row }) => (
+        <Flex gap={2}>
+          <Text as={"p"} textTransform={"capitalize"}>
+            {row.original.firstName} {row.original.lastName}
+          </Text>
+        </Flex>
+      ),
     },
-    {
-      Header: "Last Name",
-      accessor: "lastName",
-    },
-
     {
       Header: "Roles",
       accessor: "roles",
@@ -61,6 +82,10 @@ const AllStaffTable = () => {
     {
       Header: "Phone Number",
       accessor: "phoneNumber",
+    },
+    {
+      Header: "Email",
+      accessor: "email",
     },
     {
       Header: "Action",
@@ -127,7 +152,7 @@ const AllStaffTable = () => {
     <Table
       columns={columns}
       data={staffData}
-      fullWidthColumns={["Full Name", "Parent"]}
+      fullWidthColumns={["Roles", "Parent"]}
     />
   );
 };

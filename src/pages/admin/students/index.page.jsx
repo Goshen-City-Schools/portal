@@ -4,12 +4,18 @@ import {
   Flex,
   Box,
   Button,
+  HStack,
   Text,
   Grid,
   Select,
-  useToast,
 } from "@chakra-ui/react";
-import { MdAdd, MdIcecream, MdUploadFile } from "react-icons/md";
+import {
+  MdAdd,
+  MdGridView,
+  MdIcecream,
+  MdTableChart,
+  MdUploadFile,
+} from "react-icons/md";
 import SearchWidget from "../../../widgets/Search.widget";
 import IconComponent from "../../../components/Icon.component";
 import PageSectionHeader from "../../../components/PageSectionHeader";
@@ -18,36 +24,26 @@ import allowedUserRoles from "../../../helpers/allowedUserRoles";
 import { useUser } from "../../../app/contexts/UserContext";
 import StudentPreviewCard from "../../../components/PreviewCards/StudentPreviewCard";
 import schoolData from "../../../data/school.data";
-import { API_BASE_URL, API_ENDPOINTS } from "../../../configs/api";
+import useClassOptions from "../../../hooks/useClassOptions";
+import AllStudentsTable from "../../../components/tables/AllStudentsTable.component";
 
 export default function StudentsPage() {
-  const toast = useToast();
   const navigate = useNavigate();
-  const [schoolClasses, setSSchoolClasses] = useState([]);
   const [selectedSchoolClass, setSelectedSchoolClass] = useState("");
   const [selectedSubClass, setSelectedSubClass] = useState("");
+  const [dataView, setDataView] = useState("table");
   const [subClasses, setSubClasses] = useState("");
   const [studentsData, setStudentsData] = useState(
     JSON.parse(localStorage.getItem("studentsData")) || []
   );
   const { user } = useUser();
 
-  useEffect(() => {
-    // Fetch class options from the API
-    fetch(`${API_BASE_URL}${API_ENDPOINTS.CLASSES}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setSSchoolClasses(data.classes || []);
-      })
-      .catch((error) => {
-        console.error("Error fetching class options:", error);
-        toast({
-          status: "error",
-          title: "Error fetching class options",
-          duration: 3000,
-        });
-      });
-  }, []);
+  const schoolClasses = useClassOptions().schoolClasses;
+
+  function handleDataView(e) {
+    e.preventDefault;
+    setDataView(() => e);
+  }
 
   const filteredStudentsData = useMemo(() => {
     if (!selectedSchoolClass || selectedSchoolClass === "all_students") {
@@ -149,49 +145,81 @@ export default function StudentsPage() {
 
       <Box px={8} py={2} pb={10} bg={"white"} rounded={"lg"}>
         <Flex alignItems={"center"} gap={4} my={4}>
-          <Text flexShrink={0} fontWeight={"bold"} as={"small"}>
-            Filter by:
-          </Text>
-          <Select size={"sm"} minW={"180px"} onChange={handleClassChange}>
-            <option value="">-- Select Class --</option>
-            {schoolClasses?.map((schoolClass) => (
-              <option key={schoolClass.id} value={schoolClass.name}>
-                {schoolClass.name}
-              </option>
-            ))}
-            <option value="all_students">All</option>
-          </Select>
-
-          {/* Subclass selection */}
-          {selectedSchoolClass && (
-            <Select
-              size={"sm"}
-              minW={"180px"}
-              onChange={handleSubClassChange}
-              value={selectedSubClass}
-            >
-              <option value="">-- Select Subclass --</option>
-              {subClasses.map((subClass, index) => (
-                <option key={index} value={subClass}>
-                  {subClass}
+          <HStack width={"full"}>
+            <Text flexShrink={0} fontWeight={"bold"} as={"small"}>
+              Filter by:
+            </Text>
+            <Select size={"sm"} minW={"180px"} onChange={handleClassChange}>
+              <option value="">-- Select Class --</option>
+              {schoolClasses?.map((schoolClass) => (
+                <option key={schoolClass.id} value={schoolClass.name}>
+                  {schoolClass.name}
                 </option>
               ))}
+              <option value="all_students">All</option>
             </Select>
-          )}
+
+            {/* Subclass selection */}
+            {selectedSchoolClass && (
+              <Select
+                size={"sm"}
+                minW={"180px"}
+                onChange={handleSubClassChange}
+                value={selectedSubClass}
+              >
+                <option value="">-- Select Subclass --</option>
+                {subClasses.map((subClass, index) => (
+                  <option key={index} value={subClass}>
+                    {subClass}
+                  </option>
+                ))}
+              </Select>
+            )}
+          </HStack>
+          <HStack>
+            <Grid
+              cursor={"pointer"}
+              placeItems={"center"}
+              color={"neutral.600"}
+              bg={dataView === "grid" ? "red.100" : "neutral.300"}
+              rounded={"lg"}
+              onClick={() => handleDataView("grid")}
+            >
+              <IconComponent>
+                <MdGridView />
+              </IconComponent>
+            </Grid>
+            <Grid
+              cursor={"pointer"}
+              placeItems={"center"}
+              color={"neutral.600"}
+              bg={dataView === "table" ? "red.100" : "neutral.300"}
+              rounded={"lg"}
+              onClick={() => handleDataView("table")}
+            >
+              <IconComponent>
+                <MdTableChart />
+              </IconComponent>
+            </Grid>
+          </HStack>
         </Flex>
         {filteredStudentsData.length > 0 ? (
-          <Grid
-            gridTemplateColumns={{
-              "base": "1fr",
-              "md": "repeat(4, 1fr)",
-              "lg": "repeat(4, 1fr)",
-            }}
-            gap={4}
-          >
-            {filteredStudentsData.map((student, index) => (
-              <StudentPreviewCard key={index} student={student} />
-            ))}
-          </Grid>
+          dataView === "grid" ? (
+            <Grid
+              gridTemplateColumns={{
+                "base": "1fr",
+                "md": "repeat(4, 1fr)",
+                "lg": "repeat(4, 1fr)",
+              }}
+              gap={4}
+            >
+              {filteredStudentsData.map((student, index) => (
+                <StudentPreviewCard key={index} student={student} />
+              ))}
+            </Grid>
+          ) : (
+            <AllStudentsTable existingStudentsData={filteredStudentsData} />
+          )
         ) : (
           <Text as={"h2"} letterSpacing={0.5} color={"neutral.700"}>
             No students data yet!

@@ -61,6 +61,26 @@ const pageVariants = {
   },
 };
 
+const components = {
+  Table: {
+    variants: {
+      simple: {
+        th: {
+          borderColor: "neutral.700",
+          border: "1px solid",
+          px: "4",
+        },
+        td: {
+          borderColor: "neutral.700",
+          border: "1px solid",
+          px: "4",
+          width: "max-content",
+        },
+      },
+    },
+  },
+};
+
 const user = JSON.parse(localStorage.getItem("user"));
 
-export default { colors, pageVariants, fonts, user };
+export default { colors, pageVariants, fonts, user, components };

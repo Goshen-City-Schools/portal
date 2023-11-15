@@ -54,7 +54,7 @@ export default function StaffProfileScreen({
     classes,
     id,
   } = staff;
-  const user = useUser();
+  const { user } = useUser();
   const fullname = `${firstName} ${lastName}`;
   const [selectedClasses, setSelectedClasses] = useState(staff?.classes || []);
   const [selectedRoles, setSelectedRoles] = useState(staff?.roles || []);
@@ -277,7 +277,7 @@ export default function StaffProfileScreen({
                     </Box>
                   </Flex>
                 </Box>
-                {/* <Box>
+                <Box>
                   <Flex gap={4}>
                     <IconComponent>
                       <MdPersonOutline size={20} />
@@ -292,7 +292,7 @@ export default function StaffProfileScreen({
                       </Text>{" "}
                     </Box>
                   </Flex>
-                </Box> */}
+                </Box>
               </Grid>
             </GridItem>
 
@@ -363,7 +363,7 @@ export default function StaffProfileScreen({
               </Grid>
             </GridItem>
 
-            {/* {allowedUserRoles(user, ["IT Personnel"]) && (
+            {allowedUserRoles(user, ["IT Personnel"]) && (
               <Button
                 position={"absolute"}
                 right={2}
@@ -380,7 +380,7 @@ export default function StaffProfileScreen({
                 alignItems={"center"}
                 justifyContent={"center"}
               />
-            )} */}
+            )}
           </Grid>
 
           <ButtonGroup

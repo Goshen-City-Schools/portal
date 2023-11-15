@@ -16,8 +16,9 @@ import { UserProvider } from "./app/contexts/UserContext";
 
 const colors = defaultConfigValues.colors;
 const fonts = defaultConfigValues.fonts;
+const components = defaultConfigValues.components;
 
-const theme = extendTheme({ colors, fonts });
+const theme = extendTheme({ colors, fonts, components });
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>

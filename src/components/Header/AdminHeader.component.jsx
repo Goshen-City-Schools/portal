@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 
 import { BsChevronDown } from "react-icons/bs";
 import { CiBellOn } from "react-icons/ci";
-import { MdMenu } from "react-icons/md";
+import { MdChevronRight, MdMenu } from "react-icons/md";
 
 import {
   Box,
@@ -70,7 +70,7 @@ export default function AdminHeader() {
         </Grid>
 
         <Text as={"h3"} color={"brand.900"} className="text-md font-bold">
-          {user.firstName}&nbsp;{user.lastName}
+          Admin Dashboard
         </Text>
       </Flex>
 
@@ -118,7 +118,7 @@ export default function AdminHeader() {
                   className="absolute object-cover w-full h-full"
                 />
               </div>
-              <Flex direction={"column"} display={{ base: "none", md: "none" }}>
+              <Flex direction={"column"} display={{ base: "none", md: "flex" }}>
                 <p className="font-bold first-letter:">Nkechinyere Harrison</p>
                 <p>Admin</p>
               </Flex>
@@ -129,10 +129,26 @@ export default function AdminHeader() {
             <PopoverArrow />
             <PopoverCloseButton />
             <PopoverHeader>
-              <Text as={"h3"}>Administrator</Text>
+              <Text as={"small"} fontSize={"sm"} color={"accent.700"}>
+                Role: <strong>{user.roles[0]}</strong>
+              </Text>
             </PopoverHeader>
             <PopoverBody>
+              {user.roles.length > 1 && (
+                <Button
+                  size={"sm"}
+                  variant="ghost"
+                  w="100%"
+                  rightIcon={<MdChevronRight />}
+                  justifyContent="space-between"
+                  onClick={() => navigate("/admin/profile")}
+                >
+                  Switch Role
+                </Button>
+              )}
+
               <Button
+                size={"sm"}
                 variant="ghost"
                 w="100%"
                 justifyContent="flex-start"
@@ -141,6 +157,7 @@ export default function AdminHeader() {
                 My Profile
               </Button>
               <Button
+                size={"sm"}
                 variant="ghost"
                 w="100%"
                 justifyContent="flex-start"

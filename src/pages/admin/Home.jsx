@@ -19,11 +19,13 @@ import ReactPortal from "../../widgets/ReactPortal";
 import PageSectionHeader from "../../components/PageSectionHeader";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 import subjectsData from "../../data/subjects.data";
+import { useNavigate } from "react-router-dom";
 
 export default function AdminHome() {
   const { openPortal } = useModal();
   const staffData = useLocalStorage("staffData").getItem();
   const studentsData = useLocalStorage("studentsData").getItem();
+  const navigate = useNavigate();
 
   return (
     <PageWrapper>
@@ -46,18 +48,23 @@ export default function AdminHome() {
             flexDirection={{ "base": "column", "lg": "row" }}
           >
             <StatCardComponent
+              imagePadding={2}
               color={"#F5DDFF"}
               imgSrc={"people.png"}
               text={"Total students:"}
               number={studentsData.length}
+              onClick={() => navigate("/admin/students")}
             />
             <StatCardComponent
+              imagePadding={2}
               color={"#DCECFF"}
               imgSrc={"teacher.png"}
               text={"Total Staff:"}
               number={staffData.length}
+              onClick={() => navigate("/admin/staff")}
             />
             <StatCardComponent
+              imagePadding={2}
               color={"#FFF2DB"}
               imgSrc={"book.png"}
               text={"Total Subjects:"}
@@ -79,11 +86,14 @@ export default function AdminHome() {
               >
                 Fees Report
               </Text>
-              <Flex gap={2} alignItems={"center"}>
+              <Flex gap={4} alignItems={"center"}>
                 <CustomSelect>
-                  <option value="option1">Paid</option>
+                  <option value="option1">Unpaid</option>
                   <option value="option2" selected>
-                    Unpaid
+                    Part payment
+                  </option>
+                  <option value="option2" selected>
+                    Paid
                   </option>
                 </CustomSelect>
                 <CustomSelect>
@@ -91,7 +101,7 @@ export default function AdminHome() {
                   <option value="option2">Bus Fees</option>
                   <option value="option3">Hostel Fees</option>
                 </CustomSelect>
-              </Flex>{" "}
+              </Flex>
             </Flex>
 
             <ChartWidget
@@ -130,7 +140,7 @@ export default function AdminHome() {
                   </option>
                   <option value="option4">2023 / 2024</option>
                 </CustomSelect>
-              </Flex>{" "}
+              </Flex>
             </Flex>
 
             <NewStudentsTable />
@@ -157,8 +167,8 @@ export default function AdminHome() {
                 </Text>
                 <Flex
                   cursor={"pointer"}
-                  height={"40px"}
-                  width={"40px"}
+                  height={"32px"}
+                  width={"32px"}
                   justifyContent={"center"}
                   alignItems={"center"}
                   bg={"accent.700"}
@@ -168,8 +178,8 @@ export default function AdminHome() {
                   onClick={() => openPortal(<CreateEventPortal />)}
                 >
                   <IconComponent>
-                    <IoMdAdd size={18} />{" "}
-                  </IconComponent>{" "}
+                    <IoMdAdd size={16} />
+                  </IconComponent>
                 </Flex>
               </Flex>
 

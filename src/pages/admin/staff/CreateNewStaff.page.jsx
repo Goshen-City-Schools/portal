@@ -16,11 +16,11 @@ import { useState } from "react";
 import { MdUpload } from "react-icons/md";
 import schoolData from "../../../data/school.data";
 import AccountCreatedScreen from "../../../screens/AccountCreatedScreen";
-import generateId from "../../../utilities/generateId";
 import ReactPortal from "../../../widgets/ReactPortal";
 import { useModal } from "../../../app/contexts/ModalContext";
 import { useUser } from "../../../app/contexts/UserContext";
 import allowedUserRoles from "../../../helpers/allowedUserRoles";
+import generateId from "../../../utilities/generateId";
 
 export default function CreateNewStaff() {
   const toast = useToast();
@@ -80,7 +80,7 @@ export default function CreateNewStaff() {
     }
 
     const staffData = {
-      id: generateId().slice(-5),
+      id: generateId(),
       firstName: formData.firstName,
       lastName: formData.lastName,
       dateOfBirth: formData.dateOfBirth,

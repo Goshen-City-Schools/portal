@@ -1,5 +1,5 @@
 .react-calendar {
-  width: 350px;
+  width: 320px;
   max-width: 100%;
   background: white;
   border: none;
@@ -34,7 +34,7 @@
   margin: 0;
   border: 0;
   outline: none;
-  @apply rounded-md;
+  @apply rounded-md text-sm font-semibold;
 }
 
 .react-calendar button:enabled:hover {

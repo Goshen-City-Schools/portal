@@ -11,13 +11,19 @@ import IconComponent from "../../../components/Icon.component";
 import Timetable from "../../../components/tables/TimeTable.component";
 import ClassAttendance from "../../../components/tables/ClassAttendanceTable.component";
 import SubjectTable from "../../../components/tables/SubjectTable.component";
+import { useLocalStorage } from "../../../hooks/useLocalStorage";
 // import Timetable from "../../../components/tables/Timetable.component";
 
 export default function ClassPage() {
   const [activeTab, setActiveTab] = useState(1);
+  const studentsData = useLocalStorage("studentsData").getItem();
 
   const tabs = [
-    { id: 1, label: "Students (25)", component: <AllStudentsTable /> },
+    {
+      id: 1,
+      label: "Students (25)",
+      component: <AllStudentsTable existingStudentsData={studentsData} />,
+    },
     { id: 2, label: "Subjects", component: <SubjectTable /> },
     { id: 3, label: "Time table", component: <Timetable /> },
     { id: 4, label: "Attendance", component: <ClassAttendance /> },
