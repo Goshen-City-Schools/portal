@@ -39,12 +39,14 @@ const columns = [
 const NewStudentsTable = () => {
   const existingStudnets = useLocalStorage("studentsData").getItem();
 
-  const data = existingStudnets.filter(
+  const data = existingStudnets?.filter(
     (student) => student.studentType === "new"
   );
   return (
     <div>
-      <Table columns={columns} data={data} fullWidthColumns={["Full Name"]} />
+      {existingStudnets && (
+        <Table columns={columns} data={data} fullWidthColumns={["Full Name"]} />
+      )}
     </div>
   );
 };

@@ -26,9 +26,9 @@ export default function AccountCreatedScreen({ type, data, email }) {
               : "Username: "}
             <strong className="uppercase">
               {type?.toLocaleLowerCase() == "staff"
-                ? `GSHN/STF/${data.id}`
+                ? `GSHN/STF/${data.portalId}`
                 : type?.toLocaleLowerCase() == "student"
-                ? `GSHN/STU/${data.id}`
+                ? `GSHN/STU/${data.portalId}`
                 : data.id}
             </strong>
           </Text>

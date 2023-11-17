@@ -52,7 +52,7 @@ export default function AdminHome() {
               color={"#F5DDFF"}
               imgSrc={"people.png"}
               text={"Total students:"}
-              number={studentsData.length}
+              number={studentsData?.length}
               onClick={() => navigate("/admin/students")}
             />
             <StatCardComponent
@@ -60,7 +60,7 @@ export default function AdminHome() {
               color={"#DCECFF"}
               imgSrc={"teacher.png"}
               text={"Total Staff:"}
-              number={staffData.length}
+              number={staffData?.length}
               onClick={() => navigate("/admin/staff")}
             />
             <StatCardComponent

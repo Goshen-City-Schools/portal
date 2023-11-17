@@ -26,15 +26,16 @@ import IconComponent from "../Icon.component";
 
 import { toggleSideMenu } from "../../app/redux/slices/menuSlice";
 import { useNavigate } from "react-router-dom";
-import { useUser } from "../../app/contexts/UserContext";
+import { useAuth } from "../../app/contexts/AuthContext";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { useUser } from "../../app/contexts/UserContext";
 
 export default function AdminHeader() {
   const { user } = useUser();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { logout } = useUser();
+  const { logout } = useAuth();
   const [newNotification, setNewNotification] = useState(2);
 
   const handleToggleSideMenu = () => {

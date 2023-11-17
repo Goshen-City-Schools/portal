@@ -2,7 +2,6 @@ import React from "react";
 
 import {
   Flex,
-  Box,
   Text,
   Stack,
   Avatar,
@@ -17,7 +16,7 @@ import { Link } from "react-router-dom";
 
 export default function StaffPreviewCard({ staff }) {
   return (
-    <Link to={`/admin/staff/${staff?.id}`}>
+    <Link to={`/admin/staff/${staff?.portalId}`}>
       <Stack
         bg={"neutral.100"}
         border={"2px solid"}
@@ -56,7 +55,7 @@ export default function StaffPreviewCard({ staff }) {
               letterSpacing={1}
               lineHeight={0.8}
             >
-              {staff?.id}
+              {staff?.portalId}
             </Text>
           </Badge>
 

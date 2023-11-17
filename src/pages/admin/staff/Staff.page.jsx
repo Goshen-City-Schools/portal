@@ -8,12 +8,12 @@ import useStaff from "../../../hooks/useStaff";
 import ProfileNotFoundScreen from "../../../screens/ProfileNotFoundScreen";
 import ReactPortal from "../../../widgets/ReactPortal";
 import { useLocalStorage } from "../../../hooks/useLocalStorage";
-import { useUser } from "../../../app/contexts/UserContext";
+import { useAuth } from "../../../app/contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 export default function StaffPage() {
   const navigate = useNavigate();
-  const { user } = useUser();
+  const { user } = useAuth();
   const { staffId } = useParams();
   const fetchStaff = useCallback(() =>
     useStaff({ staffId: staffId.toLocaleLowerCase() })

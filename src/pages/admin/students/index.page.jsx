@@ -21,11 +21,12 @@ import IconComponent from "../../../components/Icon.component";
 import PageSectionHeader from "../../../components/PageSectionHeader";
 import { useNavigate } from "react-router-dom";
 import allowedUserRoles from "../../../helpers/allowedUserRoles";
-import { useUser } from "../../../app/contexts/UserContext";
+import { useAuth } from "../../../app/contexts/AuthContext";
 import StudentPreviewCard from "../../../components/PreviewCards/StudentPreviewCard";
 import schoolData from "../../../data/school.data";
 import useClassOptions from "../../../hooks/useClassOptions";
 import AllStudentsTable from "../../../components/tables/AllStudentsTable.component";
+import { getStudentsData } from "../../../api/student.api";
 
 export default function StudentsPage() {
   const navigate = useNavigate();
@@ -33,34 +34,55 @@ export default function StudentsPage() {
   const [selectedSubClass, setSelectedSubClass] = useState("");
   const [dataView, setDataView] = useState("table");
   const [subClasses, setSubClasses] = useState("");
+  const [filteredStudentsData, setFilteredStudentsData] =
+    useState(studentsData);
   const [studentsData, setStudentsData] = useState(
     JSON.parse(localStorage.getItem("studentsData")) || []
   );
-  const { user } = useUser();
+  const { user } = useAuth();
 
   const schoolClasses = useClassOptions().schoolClasses;
+
+  useEffect(() => {
+    // Fetch staff data from the API
+    const fetchStudentsData = async () => {
+      const response = await getStudentsData();
+      setStudentsData(response);
+    };
+
+    fetchStudentsData();
+  }, []);
+
+  useEffect(() => {
+    // Your logic to handle staffData change
+    console.log(studentsData.data);
+  }, [studentsData]);
 
   function handleDataView(e) {
     e.preventDefault;
     setDataView(() => e);
   }
 
-  const filteredStudentsData = useMemo(() => {
-    if (!selectedSchoolClass || selectedSchoolClass === "all_students") {
-      return studentsData;
-    }
+  useEffect(() => {
+    const filteredStudentsData = useMemo(() => {
+      if (!selectedSchoolClass || selectedSchoolClass === "all_students") {
+        return studentsData;
+      }
 
-    if (selectedSubClass) {
+      if (selectedSubClass) {
+        return studentsData?.filter(
+          (student) =>
+            student.class === selectedSchoolClass &&
+            student.subclass === selectedSubClass
+        );
+      }
+
       return studentsData.filter(
-        (student) =>
-          student.class === selectedSchoolClass &&
-          student.subclass === selectedSubClass
+        (student) => student.class === selectedSchoolClass
       );
-    }
 
-    return studentsData.filter(
-      (student) => student.class === selectedSchoolClass
-    );
+      setFilteredStudentsData(filteredStudentsData);
+    });
   }, [studentsData, selectedSchoolClass, selectedSubClass]);
 
   const handleClassChange = (e) => {
@@ -83,10 +105,6 @@ export default function StudentsPage() {
   };
 
   const handleSubClassChange = (e) => setSelectedSubClass(e.target.value);
-
-  useEffect(() => {
-    setStudentsData(JSON.parse(localStorage.getItem("studentsData")) || []);
-  }, []);
 
   return (
     <PageWrapper>
@@ -203,7 +221,7 @@ export default function StudentsPage() {
             </Grid>
           </HStack>
         </Flex>
-        {filteredStudentsData.length > 0 ? (
+        {filteredStudentsData?.length > 0 ? (
           dataView === "grid" ? (
             <Grid
               gridTemplateColumns={{
@@ -213,7 +231,7 @@ export default function StudentsPage() {
               }}
               gap={4}
             >
-              {filteredStudentsData.map((student, index) => (
+              {filteredStudentsData?.map((student, index) => (
                 <StudentPreviewCard key={index} student={student} />
               ))}
             </Grid>

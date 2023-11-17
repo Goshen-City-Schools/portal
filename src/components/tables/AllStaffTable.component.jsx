@@ -4,11 +4,11 @@ import { Flex, Tooltip, useToast } from "@chakra-ui/react";
 import IconComponent from "../Icon.component";
 import { MdDeleteOutline, MdLink } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
-import { useLocalStorage } from "../../hooks/useLocalStorage";
-import { useUser } from "../../app/contexts/UserContext";
 
 import { Text, Tag } from "@chakra-ui/react";
 import CustomCard from "../CustomTooltip";
+import { useEffect } from "react";
+import { useUser } from "../../app/contexts/UserContext";
 
 const AllStaffTable = ({ existingStaffData }) => {
   const toast = useToast();
@@ -16,10 +16,17 @@ const AllStaffTable = ({ existingStaffData }) => {
   const { user } = useUser();
   const [staffData, setStaffData] = useState(existingStaffData);
 
-  const columns = [
+  console.log(existingStaffData);
+
+  useEffect(() => {
+    // Your logic to handle staffData change
+    setStaffData(existingStaffData);
+  }, [existingStaffData]);
+
+  const columns = React.useMemo(() => [
     {
       Header: "SN",
-      accessor: "sn",
+      accessor: "id",
       Cell: ({ row }) => (
         <Text
           as={"p"}
@@ -34,7 +41,7 @@ const AllStaffTable = ({ existingStaffData }) => {
     },
     {
       Header: "Staff ID",
-      accessor: "id",
+      accessor: "portalId",
       Cell: ({ value }) => (
         <Flex gap={2}>
           <Text
@@ -59,26 +66,7 @@ const AllStaffTable = ({ existingStaffData }) => {
         </Flex>
       ),
     },
-    {
-      Header: "Roles",
-      accessor: "roles",
-      Cell: ({ value }) => (
-        <Flex gap={2} wrap={"wrap"}>
-          {value.map((role, index) => (
-            <Tag
-              flexShrink={0}
-              size="sm"
-              key={index}
-              variant="outline"
-              fontWeight={"semibold"}
-              colorScheme="blue"
-            >
-              {role}
-            </Tag>
-          ))}
-        </Flex>
-      ),
-    },
+    ,
     {
       Header: "Phone Number",
       accessor: "phoneNumber",
@@ -92,11 +80,11 @@ const AllStaffTable = ({ existingStaffData }) => {
       accessor: "action",
       Cell: ({ row }) => (
         <Flex gap={2}>
-          {user.id !== row.original.id && ( // Check if the logged-in staff is not the one being deleted
+          {user?.portalId !== row.original.portalId && ( // Check if the logged-in staff is not the one being deleted
             <CustomCard>
               <Tooltip label="Delete" hasArrow>
                 <IconComponent
-                  click={() => handleDeleteAction(row.original.id)}
+                  click={() => handleDeleteAction(row.original.portalId)}
                   className="text-red-600 cursor-pointer hover:scale-110 transition duration-300"
                 >
                   <MdDeleteOutline size={20} />
@@ -108,7 +96,7 @@ const AllStaffTable = ({ existingStaffData }) => {
           <Tooltip label="Edit" hasArrow>
             <IconComponent
               className="text-green-700 cursor-pointer hover:scale-110 transition duration-300"
-              click={() => handleLink(row.original.id)}
+              click={() => handleLink(row.original.portalId)}
             >
               <MdLink size={18} />
             </IconComponent>
@@ -116,7 +104,7 @@ const AllStaffTable = ({ existingStaffData }) => {
         </Flex>
       ),
     },
-  ];
+  ]);
 
   const handleDeleteAction = (staffId) => {
     if (user.id === staffId) {
@@ -129,7 +117,9 @@ const AllStaffTable = ({ existingStaffData }) => {
       window.confirm(`Are you sure to delete the staff with ID ${staffId}?`)
     ) {
       // Filter the staff member with the specified staffId and update the state
-      const newStaffData = staffData.filter((staff) => staff.id !== staffId);
+      const newStaffData = staffData.filter(
+        (staff) => staff?.portalId !== staffId
+      );
       setStaffData(newStaffData);
 
       // Show a toast notification
@@ -151,7 +141,7 @@ const AllStaffTable = ({ existingStaffData }) => {
   return (
     <Table
       columns={columns}
-      data={staffData}
+      data={staffData ? staffData.data : []}
       fullWidthColumns={["Roles", "Parent"]}
     />
   );

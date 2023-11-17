@@ -6,13 +6,13 @@ import { useCallback } from "react";
 import { useParams } from "react-router-dom";
 import StudentProfileScreen from "../../../screens/StudentProfileScreen";
 import ProfileNotFoundScreen from "../../../screens/ProfileNotFoundScreen";
-import { useUser } from "../../../app/contexts/UserContext";
+import { useAuth } from "../../../app/contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import ReactPortal from "../../../widgets/ReactPortal";
 
 export default function StudentPage() {
   const navigate = useNavigate();
-  const { user } = useUser();
+  const { user } = useAuth();
   const { studentId } = useParams();
   const fetchStudent = useCallback(() =>
     useStudent({ studentId: studentId.toLocaleLowerCase() })

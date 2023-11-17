@@ -14,15 +14,15 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import { MdArrowForward, MdKeyboard, MdUpload } from "react-icons/md";
+import { MdArrowForward, MdUpload } from "react-icons/md";
 import schoolData from "../../../data/school.data";
 import ReactPortal from "../../../widgets/ReactPortal";
 import { useModal } from "../../../app/contexts/ModalContext";
 import { useEffect } from "react";
 import AccountCreatedScreen from "../../../screens/AccountCreatedScreen";
 import allowedUserRoles from "../../../helpers/allowedUserRoles";
+import { registerStudent } from "../../../api/student.api";
 import { useUser } from "../../../app/contexts/UserContext";
-import generateId from "../../../utilities/generateId";
 
 const FirstForm = ({
   activeFormIndex,
@@ -337,7 +337,6 @@ export default function CreateNewStudent() {
   const { user } = useUser();
 
   const [formData, setFormData] = useState({
-    id: "",
     firstName: "",
     lastName: "",
     class: "",
@@ -360,7 +359,6 @@ export default function CreateNewStudent() {
       const selectedClass = schoolData.schoolClasses.find(
         (classData) => classData.name === formData.class
       );
-      console.log(selectedClass);
       setAvailableSubclasses(selectedClass ? selectedClass.subClasses : []);
     } else {
       setAvailableSubclasses([]);
@@ -371,7 +369,7 @@ export default function CreateNewStudent() {
     setFormData({ ...formData, [name]: value });
   }
 
-  function handleFormSubmit(e) {
+  async function handleFormSubmit(e) {
     e.preventDefault();
     setLoading(true);
 
@@ -412,44 +410,33 @@ export default function CreateNewStudent() {
       return;
     }
 
-    const studentData = {
-      id: generateId(),
-      accountType: "Student",
-      firstName: formData.firstName,
-      lastName: formData.lastName,
-      class: formData.class,
-      subclass: formData?.subclass,
-      dateOfBirth: formData.dateOfBirth,
-      gender: formData.gender,
-      studentType: formData.studentType,
-      guardianTitle: formData.guardianTitle,
-      guardianFirstName: formData.guardianFirstName,
-      guardianLastName: formData.guardianLastName,
-      guardianEmail: formData.guardianEmail,
-      guardianPhoneNumber: formData.guardianPhoneNumber,
-      guardianWhatsappNumber: formData.guardianWhatsappNumber,
-      relationshipToGuardian: formData.relationshipToGuardian,
-      regDate: Date.now(),
-    };
-
     // Simulating Backend Actions
     if (allowedUserRoles(user, ["IT Personnel"])) {
-      const existingStudentsData =
-        JSON.parse(localStorage.getItem("studentsData")) || [];
+      try {
+        const studentData = {
+          accountType: "student",
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          schoolClass: formData.class,
+          subclass: formData.subclass ? formData.subclass : "",
+          dateOfBirth: formData.dateOfBirth,
+          gender: formData.gender,
+          studentType: formData.studentType,
+          guardianTitle: formData.guardianTitle,
+          guardianFirstName: formData.guardianFirstName,
+          guardianLastName: formData.guardianLastName,
+          guardianEmail: formData.guardianEmail,
+          guardianPhoneNumber: formData.guardianPhoneNumber,
+          guardianWhatsappNumber: formData.guardianWhatsappNumber,
+          guardianRelationshipToStudent: formData.relationshipToGuardian,
+        };
 
-      const newStudentsData = [...existingStudentsData, studentData];
+        console.log(studentData);
 
-      localStorage.setItem("studentsData", JSON.stringify(newStudentsData));
+        const result = await registerStudent(studentData);
+        console.log("Student registration successful:", result);
+        // Handle success, e.g., show a success message to the user
 
-      setTimeout(() => {
-        openPortal(
-          <AccountCreatedScreen
-            type={"student"}
-            data={studentData}
-            email={studentData.guardianEmail}
-          />
-        );
-        // Simulate data from Backend API
         setTimeout(() => {
           setLoading(false);
           toast({
@@ -460,24 +447,38 @@ export default function CreateNewStudent() {
           });
         }, 2000);
 
-        setFormData({
-          id: "",
-          firstName: "",
-          lastName: "",
-          class: "",
-          subclass: "",
-          dateOfBirth: "",
-          gender: "",
-          studentType: "",
-          guardianTitle: "",
-          guardianFirstName: "",
-          guardianLastName: "",
-          guardianEmail: "",
-          guardianPhoneNumber: "",
-          guardianWhatsappNumber: "",
-          relationshipToGuardian: "",
-        });
-      }, 3000);
+        setTimeout(() => {
+          openPortal(
+            <AccountCreatedScreen
+              type={"student"}
+              data={result.student}
+              email={studentData.guardianEmail}
+            />
+          );
+          // Simulate data from Backend API
+
+          setFormData({
+            id: "",
+            firstName: "",
+            lastName: "",
+            class: "",
+            subclass: "",
+            dateOfBirth: "",
+            gender: "",
+            studentType: "",
+            guardianTitle: "",
+            guardianFirstName: "",
+            guardianLastName: "",
+            guardianEmail: "",
+            guardianPhoneNumber: "",
+            guardianWhatsappNumber: "",
+            relationshipToGuardian: "",
+          });
+        }, 3000);
+      } catch (error) {
+        // Handle error, e.g., show an error message to the user
+        console.error("Error registering student:", error.message);
+      }
     } else {
       // Simulate data from Backend API
       setTimeout(() => {
@@ -492,7 +493,6 @@ export default function CreateNewStudent() {
     }
 
     // Clears form data
-
     setFormData({
       id: "",
       firstName: "",

@@ -1,36 +1,38 @@
-import React, { useEffect } from "react";
+// AuthMiddleware.jsx
+import React, { useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../app/contexts/AuthContext";
+
 import { useUser } from "../app/contexts/UserContext";
-import { useNavigate, useLocation } from "react-router-dom";
+// import { useAuth } from './AuthContext';
 
-const AuthenticationMiddleware = ({ children }) => {
+const AuthMiddleware = ({ children }) => {
+  const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
-  const location = useLocation();
-  const { user, logout } = useUser();
+  const { user } = useUser();
+
+  const navigateBasedOnUserType = (user) => {
+    // Add logic to navigate based on user type using `window.location.href`
+    if (user.accountType === "staff") {
+      navigate("/admin");
+    } else if (user.accountType === "student") {
+      navigate("/");
+    } else {
+      navigate("/default"); // Default route for other account types)
+    }
+  };
 
   useEffect(() => {
-    if (!user) {
-      return navigate("/auth");
+    // Redirect unauthenticated users to the login page
+    if (!isAuthenticated && window.location.pathname !== "/auth") {
+      navigate("/auth");
+    } else if (isAuthenticated) {
+      // If authenticated, navigate based on user type
+      navigateBasedOnUserType(user);
     }
-  });
+  }, [isAuthenticated, navigate, navigateBasedOnUserType]);
 
-  useEffect(() => {
-    if (user && location.pathname === "/auth") {
-      // Redirect to the appropriate page based on the user's account type
-      if (user.accountType === "Staff") {
-        navigate("/admin");
-      } else if (user.accountType === "Student") {
-        navigate("/");
-      } else {
-        // Handle unexpected account type or other conditions
-        logout();
-      }
-
-      return;
-    }
-  }, [user, location.pathname, navigate, logout]);
-
-  // Render the children whether the user is logged in or not
-  return children;
+  return <>{children}</>;
 };
 
-export default AuthenticationMiddleware;
+export default AuthMiddleware;

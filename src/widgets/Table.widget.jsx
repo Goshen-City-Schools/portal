@@ -19,6 +19,8 @@ import ReusableBadge from "../components/ReusableBadge";
 const DataTable = ({ columns, data, fullWidthColumns, customPageSize }) => {
   const [isMobile] = useMediaQuery("(max-width: 768px)"); // Detect mobile view
 
+  console.log(columns, data);
+
   const {
     getTableProps,
     getTableBodyProps,
@@ -44,6 +46,9 @@ const DataTable = ({ columns, data, fullWidthColumns, customPageSize }) => {
   );
 
   const customStyles = useStyleConfig("Table"); // Get Chakra UI table styles
+  if (!data || data.length === 0) {
+    return <p>No data available</p>;
+  }
 
   return (
     <Box>

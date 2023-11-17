@@ -12,6 +12,8 @@ import { AnimatePresence } from "framer-motion";
 import defaultConfigValues from "./data/defaultConfigValues";
 import { ModalProvider } from "./app/contexts/ModalContext";
 import { UserProvider } from "./app/contexts/UserContext";
+import { AuthProvider } from "./app/contexts/AuthContext";
+import { BrowserRouter as Router } from "react-router-dom";
 // import { AuthProvider } from "./app/contexts/AuthContext";
 
 const colors = defaultConfigValues.colors;
@@ -22,17 +24,21 @@ const theme = extendTheme({ colors, fonts, components });
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <Provider store={store}>
-      <UserProvider>
-        <ChakraProvider theme={theme}>
-          <CSSReset />
-          <AnimatePresence>
-            <ModalProvider>
-              <App />
-            </ModalProvider>
-          </AnimatePresence>
-        </ChakraProvider>
-      </UserProvider>
-    </Provider>
+    <Router>
+      <Provider store={store}>
+        <UserProvider>
+          <AuthProvider>
+            <ChakraProvider theme={theme}>
+              <CSSReset />
+              <AnimatePresence>
+                <ModalProvider>
+                  <App />
+                </ModalProvider>
+              </AnimatePresence>
+            </ChakraProvider>
+          </AuthProvider>
+        </UserProvider>
+      </Provider>{" "}
+    </Router>
   </React.StrictMode>
 );

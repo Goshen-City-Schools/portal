@@ -33,9 +33,9 @@ import IconComponent from "../Icon.component";
 import NavItemComponent from "../NavItem.component";
 import { FaChevronRight, FaTimes } from "react-icons/fa";
 import { toggleSideMenu } from "../../app/redux/slices/menuSlice";
-import { useUser } from "../../app/contexts/UserContext";
 import allowedUserRoles from "../../helpers/allowedUserRoles";
 import Avatar from "../Avatar.component";
+import { useUser } from "../../app/contexts/UserContext";
 
 export default function AdminSideBar({ sideBarView, handleClick }) {
   const dispatch = useDispatch();

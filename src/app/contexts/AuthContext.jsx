@@ -1,46 +1,90 @@
-import React, { createContext, useContext, useState } from "react";
+// AuthContext.js
+import React, { createContext, useContext, useReducer, useEffect } from "react";
+import { API_BASE_URL, API_ENDPOINTS } from "../../configs/api";
+import { useNavigate } from "react-router-dom";
+import { useUser } from "./UserContext";
 
 const AuthContext = createContext();
 
+const authReducer = (state, action) => {
+  switch (action.type) {
+    case "LOGIN":
+      return { ...state, isAuthenticated: true };
+    case "LOGOUT":
+      return { ...state, isAuthenticated: false };
+    default:
+      return state;
+  }
+};
+
 export const AuthProvider = ({ children }) => {
-  const [auth, setAuth] = useState({
-    roles: [], // Array of user roles
-    accountType: "", // User account type (e.g., "Staff", "Student")
+  const navigate = useNavigate();
+  const { getUser, setUser } = useUser();
+
+  const [state, dispatch] = useReducer(authReducer, {
+    isAuthenticated: false,
   });
 
-  // Function to set or update authentication information
-  const setAuthInfo = (newAuth) => {
-    setAuth((prevAuth) => ({ ...prevAuth, ...newAuth }));
+  const login = async (credentials) => {
+    try {
+      const response = await fetch(`${API_BASE_URL}${API_ENDPOINTS.LOGIN}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(credentials),
+      });
+
+      if (!response.ok) {
+        console.error("Login failed:", response.statusText);
+        return;
+      }
+
+      const user = await response.json();
+      setUser(user.user);
+      dispatch({ type: "LOGIN" });
+
+      // Redirect to appropriate route based on user type
+      navigateBasedOnUserType(user.user);
+    } catch (error) {
+      console.error("Login failed:", error.message);
+    }
   };
 
-  // Function to check if the user has specific roles
-  const hasRoles = (requiredRoles) => {
-    return requiredRoles.every((role) => auth.roles.includes(role));
+  const logout = () => {
+    dispatch({ type: "LOGOUT" });
+    getUser(); // Reset the user in useUser context
+    navigate("/auth");
   };
 
-  // Function to check if the user belongs to specific account types
-  const hasAccountTypes = (requiredAccountTypes) => {
-    return requiredAccountTypes.includes(auth.accountType);
+  const navigateBasedOnUserType = (user) => {
+    // Add logic to navigate based on user type using `navigate` from useNavigate
+    if (user.accountType === "staff") {
+      navigate("/admin");
+    } else if (user.accountType === "student") {
+      navigate("/");
+    } else {
+      navigate("/default"); // Default route for other account types
+    }
   };
 
-  // Combine both role and account type checks
-  const hasAccess = (requiredRoles, requiredAccountTypes) => {
-    const roleCheck = hasRoles(requiredRoles);
-    const accountTypeCheck = hasAccountTypes(requiredAccountTypes);
-
-    return roleCheck && accountTypeCheck;
-  };
-
-  const contextValue = {
-    auth,
-    setAuthInfo,
-    hasRoles,
-    hasAccountTypes,
-    hasAccess,
-  };
+  useEffect(() => {
+    // Redirect unauthenticated users to the login page
+    if (!state.isAuthenticated && window.location.pathname !== "/auth") {
+      navigate("/auth");
+    }
+  }, [state.isAuthenticated, navigate]);
 
   return (
-    <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
+    <AuthContext.Provider
+      value={{
+        isAuthenticated: state.isAuthenticated,
+        login,
+        logout,
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
   );
 };
 

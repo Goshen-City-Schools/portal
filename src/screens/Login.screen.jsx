@@ -12,25 +12,20 @@ import {
   FormHelperText,
   Button,
 } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
 import defaultConfigValues from "../data/defaultConfigValues";
 import determineUserType from "../helpers/determineUserType";
-import { useLocalStorage } from "../hooks/useLocalStorage";
-import { useUser } from "../app/contexts/UserContext";
+
 import { useToast } from "@chakra-ui/react";
+import { useAuth } from "../app/contexts/AuthContext";
 
 export default function LoginScreen() {
-  const navigate = useNavigate();
   const toast = useToast();
-  const { user, setUser, login } = useUser();
-  const studentsData = useLocalStorage("studentsData").getItem();
-  const staffData = useLocalStorage("staffData").getItem();
+  const { login } = useAuth();
 
   const [isLoading, setIsLoading] = useState(false);
   const [userID, setUserID] = useState("");
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState("");
-  const [extractedID, setExtractedID] = useState("");
 
   const handleInputChange = useCallback((e) => {
     e.preventDefault();
@@ -44,16 +39,9 @@ export default function LoginScreen() {
     }
   }, []);
 
-  const extractID = (userID) => {
-    const parts = userID.split("/");
-    return parts[parts.length - 1];
-  };
-
   // Function to handle form submission
   const handleSubmit = useCallback(async (e) => {
     e.preventDefault();
-    const extracted = extractID(userID); // Extract the ID from the user's input
-    setExtractedID(extracted);
 
     if (!/^GSHN\/(STF|STU)\/\w{5}$/.test(userID) || password.trim() === "") {
       setLoginError("Invalid login details");
@@ -63,9 +51,8 @@ export default function LoginScreen() {
 
     if (userID) {
       const userType = determineUserType(userID);
-      const userData = userType === "Staff" ? staffData : studentsData;
       const userToLogin = {
-        id: userID,
+        username: userID,
         password: password,
       };
 
@@ -86,15 +73,6 @@ export default function LoginScreen() {
       status: status,
     });
   };
-
-  // Effect to navigate on successful login
-  useEffect(() => {
-    if (user) {
-      const userType = determineUserType(userID);
-      const path = userType === "Staff" ? "/admin" : "/";
-      navigate(path);
-    }
-  }, [user, userID, navigate, extractedID]);
 
   return (
     <motion.div

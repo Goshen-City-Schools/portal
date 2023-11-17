@@ -12,7 +12,7 @@ const routes = [
       "School Teacherx",
       "Bursar",
     ],
-    allowedAccountTypes: ["Staff"],
+    allowedAccountTypes: ["staff"],
   },
   {
     path: "/admin/home",
@@ -23,64 +23,64 @@ const routes = [
       "School Teacher",
       "Bursar",
     ],
-    allowedAccountTypes: ["Staff"],
+    allowedAccountTypes: ["staff"],
   },
 
   {
     path: "/admin/profile",
     allowedRoles: ["IT Personnel", "Class Teacher"],
-    allowedAccountTypes: ["Staff"],
+    allowedAccountTypes: ["staff"],
   },
 
   {
     path: "/admin/students",
     allowedRoles: ["IT Personnel", "Bursar"],
-    allowedAccountTypes: ["Staff"],
+    allowedAccountTypes: ["staff"],
   },
   {
     path: "/admin/students/:studentId",
     allowedRoles: ["IT Personnel", "Bursar"],
-    allowedAccountTypes: ["Staff"],
+    allowedAccountTypes: ["staff"],
   },
   {
     path: "/admin/staff",
     allowedRoles: ["IT Personnel"],
-    allowedAccountTypes: ["Staff"],
+    allowedAccountTypes: ["staff"],
   },
   {
     path: "/admin/staff/new",
     allowedRoles: ["IT Personnel"],
-    allowedAccountTypes: ["Staff"],
+    allowedAccountTypes: ["staff"],
   },
   {
     path: "/admin/staff/roles",
     allowedRoles: ["IT Personnel"],
-    allowedAccountTypes: ["Staff"],
+    allowedAccountTypes: ["staff"],
   },
   {
     path: "/admin/staff/:staffId",
     allowedRoles: ["IT Personnel"],
-    allowedAccountTypes: ["Staff"],
+    allowedAccountTypes: ["staff"],
   },
   {
     path: "/admin/transactions",
     allowedRoles: ["Bursar"],
-    allowedAccountTypes: ["Staff"],
+    allowedAccountTypes: ["staff"],
   },
   {
     path: "/admin/classes",
     allowedRoles: ["IT Personnel", "Class Teacher"],
-    allowedAccountTypes: ["Staff"],
+    allowedAccountTypes: ["staff"],
   },
   {
     path: "/admin/classes/:classId",
     allowedRoles: ["IT Personnel"],
-    allowedAccountTypes: ["Staff"],
+    allowedAccountTypes: ["staff"],
   },
   {
     path: "/admin/notifications",
     allowedRoles: ["IT Personnel"],
-    allowedAccountTypes: ["Staff"],
+    allowedAccountTypes: ["staff"],
   },
 
   // Finance Routes
@@ -88,22 +88,19 @@ const routes = [
   {
     path: "/admin/finance",
     allowedRoles: ["Bursar", "Principal"],
-    allowedAccountTypes: ["Staff"],
+    allowedAccountTypes: ["staff"],
   },
   {
     path: "/admin/finance/fees",
     allowedRoles: ["Bursar", "Principal"],
-    allowedAccountTypes: ["Staff"],
+    allowedAccountTypes: ["staff"],
   },
 
   {
     path: "/",
     allowedAccountTypes: ["Student"],
   },
-  {
-    path: "/admin",
-    allowedAccountTypes: ["Staff"],
-  },
+
   // Add more routes here
 ];
 
@@ -111,6 +108,8 @@ const PermissionMiddleware = ({ children }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const { user } = useUser();
+
+  console.log(user);
 
   if (
     !user ||
@@ -139,8 +138,8 @@ const PermissionMiddleware = ({ children }) => {
     const allowedAccountTypes = currentRoute.allowedAccountTypes;
 
     return (
-      allowedRoles.some((role) => user.roles.includes(role)) &&
-      allowedAccountTypes.includes(user.accountType)
+      allowedRoles.some((role) => user?.roles.includes(role)) &&
+      allowedAccountTypes.includes(user?.accountType)
     );
   }, [location.pathname, user]);
 

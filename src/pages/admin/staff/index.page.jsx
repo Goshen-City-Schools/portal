@@ -22,16 +22,38 @@ import SearchWidget from "../../../widgets/Search.widget";
 import IconComponent from "../../../components/Icon.component";
 import AllStaffTable from "../../../components/tables/AllStaffTable.component";
 import { useNavigate } from "react-router-dom";
-import { useLocalStorage } from "../../../hooks/useLocalStorage";
 import StaffPreviewCard from "../../../components/PreviewCards/StaffPreviewCard";
 import schoolData from "../../../data/school.data";
 import { useState } from "react";
+import { useEffect } from "react";
+import { getStaffData } from "../../../api/staff.api";
+import { useMemo } from "react";
+import axios from "../../../api/axios";
 
 export default function AllStaffPage() {
-  const { getItem } = useLocalStorage("staffData");
   const navigate = useNavigate();
-  const [dataView, setDataView] = useState("table");
-  const existingStaffData = getItem();
+  const [dataView, setDataView] = useState("grid");
+
+  const [staffData, setStaffData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Fetch staff data from the API
+    const fetchStaffData = async () => {
+      const response = await getStaffData();
+      setStaffData(response);
+    };
+
+    fetchStaffData();
+  }, []);
+
+  useEffect(() => {
+    // Your logic to handle staffData change
+    console.log(staffData.data);
+  }, [staffData]);
+
+  // Memoize the staffData using useMemo
+  const memoizedStaffData = useMemo(() => staffData, [staffData]);
 
   function handleDataView(e) {
     e.preventDefault;
@@ -148,23 +170,23 @@ export default function AllStaffPage() {
           </HStack>
         </Flex>
 
-        {existingStaffData && existingStaffData?.length > 0 ? (
+        {staffData && staffData?.data ? (
           dataView === "grid" ? (
             <Grid
               gridTemplateColumns={{
                 "base": "1fr",
-                "md": "repeat(4, 1fr)",
+                "md": "repeat(2, 1fr)",
                 "lg": "repeat(4, 1fr)",
               }}
               mt={"4"}
               gap={4}
             >
-              {existingStaffData.map((staff) => (
-                <StaffPreviewCard key={staff?.id} staff={staff} />
+              {staffData?.data?.map((staff) => (
+                <StaffPreviewCard key={staff?.portalId} staff={staff} />
               ))}
             </Grid>
           ) : (
-            <AllStaffTable existingStaffData={existingStaffData} />
+            <AllStaffTable existingStaffData={staffData} />
           )
         ) : (
           <Text as={"h2"} letterSpacing={0.5} color={"neutral.700"}>

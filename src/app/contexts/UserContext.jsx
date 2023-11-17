@@ -1,66 +1,43 @@
-import React, { createContext, useContext } from "react";
-import { useLocalStorage } from "../../hooks/useLocalStorage";
-import { API_BASE_URL, API_ENDPOINTS } from "../../configs/api";
-import { useToast } from "@chakra-ui/react";
-// import { useLocalStorage } from "./useLocalStorage"; // Import the useLocalStorage hook
+// UserContext.js
+import React, { createContext, useContext, useState, useEffect } from "react";
 
 const UserContext = createContext();
 
-export function UserProvider({ children }) {
-  const { getItem, setItem } = useLocalStorage("user"); // Replace "userData" with your key
-  const storedUserData = getItem();
-  const toast = useToast();
+export const UserProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
 
-  const [user, setUser] = React.useState(storedUserData);
-
-  const login = async (userToLogin) => {
-    console.log(userToLogin);
-    try {
-      const response = await fetch(`${API_BASE_URL}${API_ENDPOINTS.LOGIN}`, {
-        method: "POST", // Adjust the method as needed
-        headers: {
-          "Content-Type": "application/json",
-          // Add any additional headers required for your API
-        },
-        // Add any body parameters required for your login API
-        body: JSON.stringify({
-          username: userToLogin.id,
-          password: userToLogin.password,
-        }),
-      });
-
-      const data = await response.json();
-
-      // Handle the response, e.g., redirect to a different page upon successful login
-      if (response.ok) {
-        window.location.href = "/dashboard"; // Replace with your desired redirect path
-      } else {
-        // Handle login failure
-        toast({
-          title: `Login failed:,${data.message}`,
-          duration: "2000",
-          position: "top-right",
-          status: "error",
-        });
-      }
-    } catch (error) {
-      // Handle API call error
-      console.error("Error during login:", error);
-    }
+  const getUser = () => {
+    const storedUser = JSON.parse(localStorage.getItem("user")) || null;
+    setUser(storedUser);
+    return storedUser;
   };
 
-  const logout = () => {
-    setUser(null);
-    setItem(null); // Clear user data from localStorage
+  const setUserAndStorage = (newUser) => {
+    setUser(newUser);
+    localStorage.setItem("user", JSON.stringify(newUser));
   };
+
+  useEffect(() => {
+    getUser(); // Set the user when the component mounts
+  }, []);
 
   return (
-    <UserContext.Provider value={{ user, setUser, login, logout }}>
+    <UserContext.Provider
+      value={{
+        user,
+        getUser,
+        setUser: setUserAndStorage,
+      }}
+    >
       {children}
     </UserContext.Provider>
   );
-}
+};
 
-export function useUser() {
-  return useContext(UserContext);
-}
+export const useUser = () => {
+  const context = useContext(UserContext);
+  if (!context) {
+    throw new Error("useUser must be used within a UserProvider");
+  }
+  return context;
+};

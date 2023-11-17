@@ -18,9 +18,9 @@ import schoolData from "../../../data/school.data";
 import AccountCreatedScreen from "../../../screens/AccountCreatedScreen";
 import ReactPortal from "../../../widgets/ReactPortal";
 import { useModal } from "../../../app/contexts/ModalContext";
-import { useUser } from "../../../app/contexts/UserContext";
 import allowedUserRoles from "../../../helpers/allowedUserRoles";
-import generateId from "../../../utilities/generateId";
+import { useUser } from "../../../app/contexts/UserContext";
+import axios from "../../../api/axios";
 
 export default function CreateNewStaff() {
   const toast = useToast();
@@ -28,13 +28,12 @@ export default function CreateNewStaff() {
   const [loading, setLoading] = useState(false);
   const { user } = useUser();
   const [formData, setFormData] = useState({
-    id: "",
     firstName: "",
     lastName: "",
     email: "",
     phoneNumber: "",
     whatsappNumber: "",
-    roles: [],
+    primaryRole: "",
     dateOfBirth: "",
     gender: "",
   });
@@ -54,7 +53,7 @@ export default function CreateNewStaff() {
     }
   }
 
-  function handleFormSubmit(e) {
+  async function handleFormSubmit(e) {
     e.preventDefault();
     setLoading(true);
 
@@ -65,7 +64,7 @@ export default function CreateNewStaff() {
       !formData.dateOfBirth ||
       !formData.phoneNumber ||
       !formData.whatsappNumber ||
-      !formData.roles ||
+      !formData.primaryRole ||
       !formData.gender
     ) {
       toast({
@@ -80,59 +79,82 @@ export default function CreateNewStaff() {
     }
 
     const staffData = {
-      id: generateId(),
       firstName: formData.firstName,
       lastName: formData.lastName,
       dateOfBirth: formData.dateOfBirth,
       gender: formData.gender,
-      accountType: "Staff",
+      accountType: "staff",
       phoneNumber: formData.phoneNumber,
       whatsappNumber: formData.whatsappNumber,
       email: formData.email,
-      roles: formData.roles,
+      primaryRole: formData.primaryRole,
     };
 
     // Simulating Backend Actions
     if (allowedUserRoles(user, ["IT Personnel"])) {
-      const existingStaffData =
-        JSON.parse(localStorage.getItem("staffData")) || [];
-
-      const newStaffData = [...existingStaffData, staffData];
-
-      localStorage.setItem("staffData", JSON.stringify(newStaffData));
-
-      // Simulate data from Backend API
-      setTimeout(() => {
-        setLoading(false);
-        toast({
-          status: "success",
-          position: "top-right",
-          title: "Account Successfully Created!",
-          duration: 2000,
-        });
-      }, 2000);
-
-      setTimeout(() => {
-        openPortal(
-          <AccountCreatedScreen
-            type={"staff"}
-            data={staffData}
-            email={staffData.email}
-          />
+      try {
+        // Make an API request to register the staff
+        const response = await axios.post(
+          "/api/v1/auth/register",
+          JSON.stringify(staffData),
+          {
+            headers: { "Content-Type": "application/json" },
+          }
         );
 
-        setFormData({
-          id: "",
-          firstName: "",
-          lastName: "",
-          roles: [],
-          dateOfBirth: "",
-          gender: "",
-          email: "",
-          phoneNumber: "",
-          whatsappNumber: "",
+        console.log(response);
+
+        // Check the response status and handle accordingly
+        if (response.status === 201) {
+          setLoading(false);
+          toast({
+            status: "success",
+            position: "top-right",
+            title: "Account Successfully Created!",
+            duration: 2000,
+          });
+
+          setTimeout(() => {
+            openPortal(
+              <AccountCreatedScreen
+                type={"staff"}
+                data={response.data.user}
+                email={staffData.email}
+              />
+            );
+
+            setFormData({
+              firstName: "",
+              lastName: "",
+              primaryRole: "",
+              dateOfBirth: "",
+              gender: "",
+              email: "",
+              phoneNumber: "",
+              whatsappNumber: "",
+            });
+          }, 3000);
+
+          // Additional actions after successful registration
+        } else {
+          setLoading(false);
+          toast({
+            status: "error",
+            position: "top-right",
+            title: "Registration failed!",
+            duration: 2000,
+          });
+        }
+      } catch (error) {
+        console.error("Registration failed:", error.message);
+        setLoading(false);
+        toast({
+          status: "error",
+          position: "top-right",
+          title: "Registration failed!",
+          duration: 2000,
         });
-      }, 3000);
+      }
     } else {
       // Simulate data from Backend API
       setTimeout(() => {
@@ -148,10 +170,9 @@ export default function CreateNewStaff() {
 
     // Clears form data
     setFormData({
-      id: "",
       firstName: "",
       lastName: "",
-      roles: [],
+      primaryRole: "",
       dateOfBirth: "",
       gender: "",
       email: "",
@@ -251,12 +272,12 @@ export default function CreateNewStaff() {
             {/* Staff Role */}
             <FormControl id="date">
               <FormLabel fontWeight={"bold"} fontSize={"sm"}>
-                Role
+                Primary Role
               </FormLabel>
               <Select
-                name="roles"
+                name="primaryRole"
                 fontSize={"sm"}
-                value={formData.roles}
+                value={formData.primaryRole}
                 onChange={handleChange}
               >
                 <option value="">-- Select a Role --</option>

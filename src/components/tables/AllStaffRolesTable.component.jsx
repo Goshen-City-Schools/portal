@@ -3,7 +3,7 @@ import Table from "../../widgets/Table.widget";
 import { Flex, useToast } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
-import { useUser } from "../../app/contexts/UserContext";
+import { useAuth } from "../../app/contexts/AuthContext";
 
 import { Text, Tag } from "@chakra-ui/react";
 import schoolData from "../../data/school.data";
@@ -12,13 +12,12 @@ const AllStaffRolesTable = () => {
   const toast = useToast();
   const existingStaffData = useLocalStorage("staffData").getItem();
   const navigate = useNavigate();
-  const { user } = useUser();
-  const [staffData, setStaffData] = useState(existingStaffData);
+  const { user } = useAuth();
 
   const columns = [
     {
       Header: "ID",
-      accessor: "id",
+      accessor: "portalId",
 
       Cell: ({ value }) => (
         <Flex gap={2} wrap={"wrap"} flexShrink={1}>
