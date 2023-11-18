@@ -9,23 +9,19 @@ import { useLocalStorage } from "../../../hooks/useLocalStorage";
 import { useNavigate } from "react-router-dom";
 import useClassOptions from "../../../hooks/useClassOptions";
 import StatCardComponent from "../../../components/StatCard.component";
+import { useEffect } from "react";
+import { getStudentsData } from "../../../api/student.api";
+import useStudents from "../../../hooks/useStudents";
+import useClasses from "../../../hooks/useClasses";
 
 export default function ClassesPage() {
   const { openPortal, closePortal } = useModal();
-  const existingStudentsData = useLocalStorage("studentsData").getItem();
+  const { studentsData } = useStudents();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    // Fetch staff data from the API
-    const fetchStaffData = async () => {
-      const response = await getStaffData();
-      setStaffData(response);
-    };
+  console.log(studentsData);
 
-    fetchStaffData();
-  }, []);
-
-  const schoolClasses = useClassOptions().schoolClasses;
+  const { schoolClasses } = useClasses();
   const classCategories = [
     {
       category: "Reception",
@@ -127,8 +123,8 @@ export default function ClassesPage() {
             text={categoryData.category}
             imgSrc={categoryData.illustration}
             number={
-              existingStudentsData.filter((student) =>
-                student.class.includes(categoryData.category)
+              studentsData.filter((student) =>
+                student.schoolClass.includes(categoryData.category)
               ).length
             }
             onClick={() => handleCategoryClick(categoryData.category)}

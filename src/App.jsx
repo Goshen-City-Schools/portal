@@ -80,7 +80,7 @@ const App = () => {
         <Route path="parents" element={<ParentPage />} />
         <Route path="classes">
           <Route index element={<ClassesPage />} />
-          <Route path=":class" element={<ClassPage />} />
+          <Route path=":schoolClass" element={<ClassPage />} />
         </Route>
 
         <Route path="results">

@@ -7,15 +7,17 @@ import Avatar from "../Avatar.component";
 import { CiBellOn } from "react-icons/ci";
 
 import { Box } from "@chakra-ui/react";
+import { useUser } from "../../app/contexts/UserContext";
 
 export default function Header() {
+  const { user } = useUser();
   return (
     <Box
       bg={"white"}
       paddingX={6}
       className="h-20 sticky top-0 left-0 z-40 shadow-md w-full flex items-center justify-between"
     >
-      <h3 className="text-xl font-bold">Welcome back, Nkechinyere</h3>
+      <h3 className="text-xl font-bold">Welcome back, {user.firstName}</h3>
 
       <div className="flex items-center gap-4 text-sm">
         <div className="flex flex-col">

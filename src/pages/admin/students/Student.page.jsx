@@ -9,15 +9,32 @@ import ProfileNotFoundScreen from "../../../screens/ProfileNotFoundScreen";
 import { useAuth } from "../../../app/contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import ReactPortal from "../../../widgets/ReactPortal";
+import { useState } from "react";
+import { getSingleStudent, getStudentsData } from "../../../api/student.api";
+import { useEffect } from "react";
 
 export default function StudentPage() {
   const navigate = useNavigate();
   const { user } = useAuth();
   const { studentId } = useParams();
-  const fetchStudent = useCallback(() =>
-    useStudent({ studentId: studentId.toLocaleLowerCase() })
-  );
-  const student = fetchStudent();
+
+  const [student, setStudent] = useState();
+
+  useEffect(() => {
+    const fetchStudentData = async () => {
+      try {
+        const response = await getSingleStudent(studentId);
+        setStudent(response);
+      } catch (error) {
+        console.error("Error fetching student:", error.message);
+        // Handle the error, e.g., set an error state
+      }
+    };
+
+    fetchStudentData(); // Call the async function
+  }, [studentId]); // Include staffId in the dependency array
+
+  const existingStaffData = async () => await getStudentsData();
 
   if (!student) {
     return <ProfileNotFoundScreen />;

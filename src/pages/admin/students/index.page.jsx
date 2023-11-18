@@ -20,11 +20,13 @@ import SearchWidget from "../../../widgets/Search.widget";
 import IconComponent from "../../../components/Icon.component";
 import PageSectionHeader from "../../../components/PageSectionHeader";
 import { useNavigate } from "react-router-dom";
+
 import allowedUserRoles from "../../../helpers/allowedUserRoles";
 import StudentPreviewCard from "../../../components/PreviewCards/StudentPreviewCard";
 import schoolData from "../../../data/school.data";
 import AllStudentsTable from "../../../components/tables/AllStudentsTable.component";
-import { getStudentsData } from "../../../api/student.api";
+
+// Custom Hooks
 import { useUser } from "../../../app/contexts/UserContext";
 import useClasses from "../../../hooks/useClasses";
 import useStudents from "../../../hooks/useStudents";
@@ -48,7 +50,7 @@ export default function StudentsPage() {
   }, [studentsData]);
 
   function handleDataView(e) {
-    e.preventDefault();
+    e.preventDefault;
     setDataView(() => e);
   }
 
@@ -79,7 +81,7 @@ export default function StudentsPage() {
     setSelectedSchoolClass(selectedClass);
 
     // Find the selected school class object
-    const selectedClassObject = schoolData.schoolClasses.find(
+    const selectedClassObject = schoolClasses.find(
       (schoolClass) => schoolClass.name === selectedClass
     );
 

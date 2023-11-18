@@ -21,7 +21,6 @@ import {
   MdOutlineSchool,
   MdPersonOutline,
   MdPhone,
-  MdPictureInPictureAlt,
   MdRoom,
   MdWhatsapp,
 } from "react-icons/md";
@@ -42,11 +41,11 @@ export default function StudentProfileScreen({ student }) {
     gender,
     guardianEmail,
     guardianPhoneNumber,
-    class: schoolClass,
+    schoolClass,
     subClass,
     dateOfBirth,
     studentType,
-    id,
+    portalId,
   } = student;
 
   const fullname = `${firstName} ${lastName}`;
@@ -361,7 +360,7 @@ export default function StudentProfileScreen({ student }) {
                     letterSpacing={1}
                     fontFamily={"monospace"}
                   >
-                    GSHN/STU/{id}
+                    GSHN/STU/{portalId}
                   </Text>{" "}
                 </Box>
               </Flex>

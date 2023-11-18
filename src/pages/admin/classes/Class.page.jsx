@@ -1,34 +1,43 @@
 import React, { useState } from "react";
 import { Text, Flex, Box, Button, useDisclosure } from "@chakra-ui/react";
-import { MdAdd, MdIcecream, MdUploadFile } from "react-icons/md";
 
 import PageWrapper from "../../../components/PageWrapper";
 import ClassSummaryBox from "../../../components/ClassSummaryBox";
 import HorizontalScrollableTabs from "../../../widgets/HorizontalScrollableTabs.widget";
 import AllStudentsTable from "../../../components/tables/AllStudentsTable.component";
-import SearchWidget from "../../../widgets/Search.widget";
-import IconComponent from "../../../components/Icon.component";
+
 import Timetable from "../../../components/tables/TimeTable.component";
 import ClassAttendance from "../../../components/tables/ClassAttendanceTable.component";
 import SubjectTable from "../../../components/tables/SubjectTable.component";
-import { useLocalStorage } from "../../../hooks/useLocalStorage";
-// import Timetable from "../../../components/tables/Timetable.component";
+import useStudents from "../../../hooks/useStudents";
+import { useParams } from "react-router-dom";
+import useClasses from "../../../hooks/useClasses";
 
 export default function ClassPage() {
   const [activeTab, setActiveTab] = useState(1);
-  const studentsData = useLocalStorage("studentsData").getItem();
+  const { schoolClass } = useParams();
+  const { studentsData } = useStudents();
+
+  const { schoolClasses } = useClasses();
+
+  const schoolClassData = schoolClasses.find(
+    (singleSchoolClass) => singleSchoolClass.value === schoolClass
+  );
+  console.log(studentsData, schoolClasses, schoolClassData);
+
+  const filteredStudents = studentsData.filter(
+    (student) => student.schoolClass.toLocaleLowerCase() === schoolClass
+  );
 
   const tabs = [
     {
       id: 1,
-      label: "Students (25)",
-      component: <AllStudentsTable existingStudentsData={studentsData} />,
+      label: `Students (${filteredStudents.length})`,
+      component: <AllStudentsTable existingStudentsData={filteredStudents} />,
     },
     { id: 2, label: "Subjects", component: <SubjectTable /> },
     { id: 3, label: "Time table", component: <Timetable /> },
     { id: 4, label: "Attendance", component: <ClassAttendance /> },
-    { id: 5, label: "Social Behaviour" },
-    { id: 6, label: "Broadsheet" },
     // Add more tabs as needed
   ];
 
@@ -64,15 +73,20 @@ export default function ClassPage() {
           fontSize={"2xl"}
           fontWeight={"bold"}
         >
-          Senior Secondary School (SSS 1A)
+          {schoolClassData?.name}
         </Text>
-        <Text as={"small"}>Home / Classes / SSS 1A</Text>
+        <Text as={"small"}>Home / Classes / {schoolClassData?.name}</Text>
       </Flex>
 
       <ClassSummaryBox
-        totalStudents={"40"}
-        maleStudents={"24"}
-        femaleStudents={"18"}
+        totalStudents={filteredStudents.length}
+        maleStudents={
+          filteredStudents.filter((student) => student.gender === "male").length
+        }
+        femaleStudents={
+          filteredStudents.filter((student) => student.gender === "female")
+            .length
+        }
         classTeacher={"Nwa Oriaku"}
       />
 

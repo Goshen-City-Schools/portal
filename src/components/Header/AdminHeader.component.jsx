@@ -120,8 +120,12 @@ export default function AdminHeader() {
                 />
               </div>
               <Flex direction={"column"} display={{ base: "none", md: "flex" }}>
-                <p className="font-bold first-letter:">Nkechinyere Harrison</p>
-                <p>Admin</p>
+                <p className="font-bold first-letter:">
+                  {user.firstName} {user.lastName}
+                </p>
+                <Text as={"small"} fontSize={"xs"}>
+                  {user.roles[0]}
+                </Text>
               </Flex>
               <BsChevronDown size={18} />
             </Box>
@@ -129,11 +133,7 @@ export default function AdminHeader() {
           <PopoverContent>
             <PopoverArrow />
             <PopoverCloseButton />
-            <PopoverHeader>
-              <Text as={"small"} fontSize={"sm"} color={"accent.700"}>
-                Role: <strong>{user.roles[0]}</strong>
-              </Text>
-            </PopoverHeader>
+
             <PopoverBody>
               {user.roles.length > 1 && (
                 <Button

@@ -107,7 +107,7 @@ const AllStaffTable = ({ existingStaffData }) => {
   ]);
 
   const handleDeleteAction = (staffId) => {
-    if (user.id === staffId) {
+    if (user.poralId === staffId) {
       // Prevent staff from deleting themselves
       toast({
         title: "You cannot delete yourself.",

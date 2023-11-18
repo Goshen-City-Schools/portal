@@ -109,7 +109,7 @@ export default function StaffProfileScreen({
     staff.classes = selectedClasses;
 
     const updatedStaffData = existingStaffData.map((staff) => {
-      if (staff.id === staffId) {
+      if (staff.portalId === staffId) {
         // Update the classes for the specified staff member
         staff.classes = selectedClasses;
       }
@@ -128,7 +128,7 @@ export default function StaffProfileScreen({
     staff.roles = selectedRoles;
 
     const updatedStaffData = existingStaffData.map((staff) => {
-      if (staff.id === staffId) {
+      if (staff.portalId === staffId) {
         // Update the roles for the specified staff member
         staff.roles = selectedRoles;
       }

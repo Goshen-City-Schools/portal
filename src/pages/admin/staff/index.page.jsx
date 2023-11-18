@@ -34,14 +34,14 @@ export default function AllStaffPage() {
   const navigate = useNavigate();
   const [dataView, setDataView] = useState("grid");
 
-  const { staffsData: staffData, setStaffData } = useStaffs();
+  const { staffsData, setStaffData } = useStaffs();
 
   useEffect(() => {
-    // Your logic to handle staffData change
-    console.log(staffData);
-  }, [staffData]);
+    // Your logic to handle staffsData change
+    console.log(staffsData);
+  }, [staffsData]);
 
-  // Memoize the staffData using useMemo
+  // Memoize the staffsData using useMemo
 
   function handleDataView(e) {
     e.preventDefault;
@@ -158,7 +158,7 @@ export default function AllStaffPage() {
           </HStack>
         </Flex>
 
-        {staffData && staffData ? (
+        {staffsData && staffsData ? (
           dataView === "grid" ? (
             <Grid
               gridTemplateColumns={{
@@ -170,12 +170,12 @@ export default function AllStaffPage() {
               mt={"4"}
               gap={4}
             >
-              {staffData?.map((staff) => (
+              {staffsData?.map((staff) => (
                 <StaffPreviewCard key={staff?.portalId} staff={staff} />
               ))}
             </Grid>
           ) : (
-            <AllStaffTable existingStaffData={staffData} />
+            <AllStaffTable existingStaffData={staffsData} />
           )
         ) : (
           <Text as={"h2"} letterSpacing={0.5} color={"neutral.700"}>

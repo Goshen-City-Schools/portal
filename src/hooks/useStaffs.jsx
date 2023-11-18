@@ -23,9 +23,9 @@ const useStaffs = () => {
   }, []);
 
   // Memoize the value to prevent unnecessary re-renders
-  const memoizedStudents = useMemo(() => staffsData, [staffsData]);
+  const memoizedStaffs = useMemo(() => staffsData, [staffsData]);
 
-  return { staffsData: memoizedStudents, loading, setStaffsData };
+  return { staffsData: memoizedStaffs, loading, setStaffsData };
 };
 
 export default useStaffs;
