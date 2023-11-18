@@ -73,7 +73,7 @@ export default function ClassPage() {
           fontSize={"2xl"}
           fontWeight={"bold"}
         >
-          {schoolClassData?.name}
+          {schoolClassData?.name} Class
         </Text>
         <Text as={"small"}>Home / Classes / {schoolClassData?.name}</Text>
       </Flex>

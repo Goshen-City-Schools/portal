@@ -19,7 +19,7 @@ const ClassSummaryBox = ({
 
       <StatCardComponent
         color={"#F5DDFF"}
-        imgSrc={"people.png"}
+        imgSrc={"male-student.png"}
         text={"Total Male"}
         number={maleStudents}
       />
