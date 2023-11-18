@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Logo() {
   return (
-    <div className="flex relative h-16 w-16 px-1">
+    <div className="flex relative h-16 w-16 ">
       <img
         src={"/new-logo.png"}
         alt="Goshen Logo with Name"

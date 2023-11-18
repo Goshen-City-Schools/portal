@@ -4,7 +4,6 @@ import { Flex, Tooltip, useToast, Text } from "@chakra-ui/react";
 import { MdDeleteOutline, MdLink, MdModeEditOutline } from "react-icons/md";
 import IconComponent from "../Icon.component";
 import { useNavigate } from "react-router-dom";
-import { useLocalStorage } from "../../hooks/useLocalStorage";
 import CustomCard from "../CustomTooltip";
 
 const AllStudentsTable = ({ existingStudentsData }) => {
@@ -35,7 +34,7 @@ const AllStudentsTable = ({ existingStudentsData }) => {
     },
     {
       Header: "Student ID",
-      accessor: "id",
+      accessor: "portalId",
       Cell: ({ value }) => (
         <Flex gap={2}>
           <Text
@@ -75,7 +74,7 @@ const AllStudentsTable = ({ existingStudentsData }) => {
     },
     {
       Header: "Class",
-      accessor: "class",
+      accessor: "schoolClass",
       width: "max-content",
     },
     {
@@ -107,7 +106,7 @@ const AllStudentsTable = ({ existingStudentsData }) => {
             <Tooltip label="Edit" hasArrow>
               <IconComponent
                 className="text-green-700 cursor-pointer hover:scale-110 transition duration-300"
-                click={() => handleEditAction(row.original.id)}
+                click={() => handleEditAction(row.original.portalId)}
               >
                 <MdLink size={18} />
               </IconComponent>

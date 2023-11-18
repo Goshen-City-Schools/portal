@@ -15,6 +15,16 @@ export default function ClassesPage() {
   const existingStudentsData = useLocalStorage("studentsData").getItem();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    // Fetch staff data from the API
+    const fetchStaffData = async () => {
+      const response = await getStaffData();
+      setStaffData(response);
+    };
+
+    fetchStaffData();
+  }, []);
+
   const schoolClasses = useClassOptions().schoolClasses;
   const classCategories = [
     {

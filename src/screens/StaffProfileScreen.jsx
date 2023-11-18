@@ -14,7 +14,6 @@ import IconComponent from "../components/Icon.component";
 import {
   MdAdd,
   MdEdit,
-  MdOutlineClose,
   MdOutlineDeleteOutline,
   MdOutlineMailOutline,
   MdPersonOutline,
@@ -52,7 +51,7 @@ export default function StaffProfileScreen({
     subjects,
     whatsappNumber,
     classes,
-    id,
+    portalId,
   } = staff;
   const { user } = useUser();
   const fullname = `${firstName} ${lastName}`;
@@ -277,7 +276,7 @@ export default function StaffProfileScreen({
                     </Box>
                   </Flex>
                 </Box>
-                <Box>
+                {/* <Box>
                   <Flex gap={4}>
                     <IconComponent>
                       <MdPersonOutline size={20} />
@@ -292,7 +291,7 @@ export default function StaffProfileScreen({
                       </Text>{" "}
                     </Box>
                   </Flex>
-                </Box>
+                </Box> */}
               </Grid>
             </GridItem>
 
@@ -534,7 +533,7 @@ export default function StaffProfileScreen({
                     letterSpacing={0.8}
                     textTransform={"uppercase"}
                   >
-                    {`GSHN/STF/${id}`}
+                    {`GSHN/STF/${portalId}`}
                   </Text>
                 </Box>
               </Flex>
@@ -556,7 +555,7 @@ export default function StaffProfileScreen({
                       Roles
                     </Text>
 
-                    {roles.length > 0 && (
+                    {roles?.length > 0 && (
                       <Grid
                         height={7}
                         w={7}
@@ -577,8 +576,8 @@ export default function StaffProfileScreen({
                   </Flex>
 
                   <Flex w="full" gap={4} mt={2} flexWrap={"wrap"}>
-                    {roles && roles.length > 0 ? (
-                      roles.map((role, index) => (
+                    {roles && roles?.length > 0 ? (
+                      roles?.map((role, index) => (
                         <Tag
                           flexShrink={0}
                           size="sm"
@@ -613,7 +612,7 @@ export default function StaffProfileScreen({
               </Flex>
             </Box>
 
-            {roles.some((role) =>
+            {roles?.some((role) =>
               ["Subject Teacher", "School Teacher", "Class Teacher"].includes(
                 role
               )

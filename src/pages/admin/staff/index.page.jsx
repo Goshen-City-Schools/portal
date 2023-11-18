@@ -28,32 +28,20 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { getStaffData } from "../../../api/staff.api";
 import { useMemo } from "react";
-import axios from "../../../api/axios";
+import useStaffs from "../../../hooks/useStaffs";
 
 export default function AllStaffPage() {
   const navigate = useNavigate();
   const [dataView, setDataView] = useState("grid");
 
-  const [staffData, setStaffData] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    // Fetch staff data from the API
-    const fetchStaffData = async () => {
-      const response = await getStaffData();
-      setStaffData(response);
-    };
-
-    fetchStaffData();
-  }, []);
+  const { staffsData: staffData, setStaffData } = useStaffs();
 
   useEffect(() => {
     // Your logic to handle staffData change
-    console.log(staffData.data);
+    console.log(staffData);
   }, [staffData]);
 
   // Memoize the staffData using useMemo
-  const memoizedStaffData = useMemo(() => staffData, [staffData]);
 
   function handleDataView(e) {
     e.preventDefault;
@@ -170,18 +158,19 @@ export default function AllStaffPage() {
           </HStack>
         </Flex>
 
-        {staffData && staffData?.data ? (
+        {staffData && staffData ? (
           dataView === "grid" ? (
             <Grid
               gridTemplateColumns={{
                 "base": "1fr",
-                "md": "repeat(2, 1fr)",
-                "lg": "repeat(4, 1fr)",
+                "sm": "2, 1fr",
+                "md": "repeat(3, 1fr)",
+                "lg": "repeat(5, 1fr)",
               }}
               mt={"4"}
               gap={4}
             >
-              {staffData?.data?.map((staff) => (
+              {staffData?.map((staff) => (
                 <StaffPreviewCard key={staff?.portalId} staff={staff} />
               ))}
             </Grid>

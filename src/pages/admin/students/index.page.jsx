@@ -21,69 +21,58 @@ import IconComponent from "../../../components/Icon.component";
 import PageSectionHeader from "../../../components/PageSectionHeader";
 import { useNavigate } from "react-router-dom";
 import allowedUserRoles from "../../../helpers/allowedUserRoles";
-import { useAuth } from "../../../app/contexts/AuthContext";
 import StudentPreviewCard from "../../../components/PreviewCards/StudentPreviewCard";
 import schoolData from "../../../data/school.data";
-import useClassOptions from "../../../hooks/useClassOptions";
 import AllStudentsTable from "../../../components/tables/AllStudentsTable.component";
 import { getStudentsData } from "../../../api/student.api";
+import { useUser } from "../../../app/contexts/UserContext";
+import useClasses from "../../../hooks/useClasses";
+import useStudents from "../../../hooks/useStudents";
 
 export default function StudentsPage() {
   const navigate = useNavigate();
   const [selectedSchoolClass, setSelectedSchoolClass] = useState("");
   const [selectedSubClass, setSelectedSubClass] = useState("");
-  const [dataView, setDataView] = useState("table");
+  const [dataView, setDataView] = useState("grid");
   const [subClasses, setSubClasses] = useState("");
+  const { studentsData, setStudentsData } = useStudents();
   const [filteredStudentsData, setFilteredStudentsData] =
     useState(studentsData);
-  const [studentsData, setStudentsData] = useState(
-    JSON.parse(localStorage.getItem("studentsData")) || []
-  );
-  const { user } = useAuth();
+  const { user } = useUser();
 
-  const schoolClasses = useClassOptions().schoolClasses;
-
-  useEffect(() => {
-    // Fetch staff data from the API
-    const fetchStudentsData = async () => {
-      const response = await getStudentsData();
-      setStudentsData(response);
-    };
-
-    fetchStudentsData();
-  }, []);
+  const { schoolClasses, loading } = useClasses(); // Use the new hook
 
   useEffect(() => {
     // Your logic to handle staffData change
-    console.log(studentsData.data);
+    console.log(studentsData);
   }, [studentsData]);
 
   function handleDataView(e) {
-    e.preventDefault;
+    e.preventDefault();
     setDataView(() => e);
   }
 
-  useEffect(() => {
-    const filteredStudentsData = useMemo(() => {
-      if (!selectedSchoolClass || selectedSchoolClass === "all_students") {
-        return studentsData;
-      }
+  const memoizedFilteredStudentsData = useMemo(() => {
+    if (!selectedSchoolClass || selectedSchoolClass === "all_students") {
+      return studentsData;
+    }
 
-      if (selectedSubClass) {
-        return studentsData?.filter(
-          (student) =>
-            student.class === selectedSchoolClass &&
-            student.subclass === selectedSubClass
-        );
-      }
-
-      return studentsData.filter(
-        (student) => student.class === selectedSchoolClass
+    if (selectedSubClass) {
+      return studentsData?.filter(
+        (student) =>
+          student.schoolClass === selectedSchoolClass &&
+          student.subclass === selectedSubClass
       );
+    }
 
-      setFilteredStudentsData(filteredStudentsData);
-    });
+    return studentsData.filter(
+      (student) => student.schoolClass === selectedSchoolClass
+    );
   }, [studentsData, selectedSchoolClass, selectedSubClass]);
+
+  useEffect(() => {
+    setFilteredStudentsData(memoizedFilteredStudentsData);
+  }, [memoizedFilteredStudentsData]);
 
   const handleClassChange = (e) => {
     const selectedClass = e.target.value;
@@ -226,8 +215,9 @@ export default function StudentsPage() {
             <Grid
               gridTemplateColumns={{
                 "base": "1fr",
-                "md": "repeat(4, 1fr)",
-                "lg": "repeat(4, 1fr)",
+                "sm": "2, 1fr",
+                "md": "repeat(, 1fr)",
+                "lg": "repeat(5, 1fr)",
               }}
               gap={4}
             >

@@ -3,31 +3,42 @@ import PageWrapper from "../../../components/PageWrapper";
 import PageSectionHeader from "../../../components/PageSectionHeader";
 import StaffProfileScreen from "../../../screens/StaffProfileScreen";
 import { useParams } from "react-router-dom";
-import { useCallback } from "react";
-import useStaff from "../../../hooks/useStaff";
 import ProfileNotFoundScreen from "../../../screens/ProfileNotFoundScreen";
 import ReactPortal from "../../../widgets/ReactPortal";
-import { useLocalStorage } from "../../../hooks/useLocalStorage";
 import { useAuth } from "../../../app/contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { getSingleStaff, getStaffData } from "../../../api/staff.api";
+import { useState } from "react";
+import { useEffect } from "react";
 
 export default function StaffPage() {
   const navigate = useNavigate();
   const { user } = useAuth();
   const { staffId } = useParams();
-  const fetchStaff = useCallback(() =>
-    useStaff({ staffId: staffId.toLocaleLowerCase() })
-  );
-  const staff = fetchStaff();
-  const { getItem } = useLocalStorage("staffData");
-  const existingStaffData = getItem();
+  const [staff, setStaff] = useState();
+
+  useEffect(() => {
+    const fetchStaffData = async () => {
+      try {
+        const response = await getSingleStaff(staffId);
+        setStaff(response);
+      } catch (error) {
+        console.error("Error fetching staff:", error.message);
+        // Handle the error, e.g., set an error state
+      }
+    };
+
+    fetchStaffData(); // Call the async function
+  }, [staffId]); // Include staffId in the dependency array
+
+  const existingStaffData = async () => await getStaffData();
 
   if (!staff) {
     return <ProfileNotFoundScreen />;
   }
 
   // Check if the student being viewed is the logged-in user
-  if (user && staffId === user.id) {
+  if (user && staffId === user.portalid) {
     // Navigate to the "My Profile" screen
     return navigate("/admin/profile");
   }
@@ -43,7 +54,7 @@ export default function StaffPage() {
       <StaffProfileScreen
         existingStaffData={existingStaffData}
         staff={staff}
-        staffId={staff.id}
+        staffId={staff.portalId}
       />
     </PageWrapper>
   );

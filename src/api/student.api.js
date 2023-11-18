@@ -26,3 +26,13 @@ export const registerStudent = async (studentData) => {
     throw error; // You might want to handle the error in the component using this API
   }
 };
+
+export const getSingleStudent = async (portalId) => {
+  try {
+    const response = await axios.get(`/api/v1/students/${portalId}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching single student:", error.message);
+    throw error;
+  }
+};

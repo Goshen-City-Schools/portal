@@ -12,6 +12,7 @@ import {
   Text,
   Button,
   useToast,
+  HStack,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { MdArrowForward, MdUpload } from "react-icons/md";
@@ -23,6 +24,7 @@ import AccountCreatedScreen from "../../../screens/AccountCreatedScreen";
 import allowedUserRoles from "../../../helpers/allowedUserRoles";
 import { registerStudent } from "../../../api/student.api";
 import { useUser } from "../../../app/contexts/UserContext";
+import Logo from "../../../components/Logo.component";
 
 const FirstForm = ({
   activeFormIndex,
@@ -555,7 +557,7 @@ export default function CreateNewStudent() {
       <ReactPortal />
 
       <PageSectionHeader
-        pageTitle={"Create Student Account"}
+        pageTitle={"Student Enroll"}
         pageCrumb={"Home / Students / New"}
       />
 

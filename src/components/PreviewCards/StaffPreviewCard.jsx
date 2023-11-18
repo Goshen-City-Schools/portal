@@ -33,7 +33,7 @@ export default function StaffPreviewCard({ staff }) {
           position={"relative"}
           gap={8}
           textAlign={"center"}
-          height={"320px"}
+          height={"280px"}
         >
           <Badge
             as={"small"}
@@ -59,7 +59,7 @@ export default function StaffPreviewCard({ staff }) {
             </Text>
           </Badge>
 
-          <Avatar h={32} w={32} p={3} shadow={"lg"} bg={"white"}>
+          <Avatar h={24} w={24} p={3} shadow={"lg"} bg={"white"}>
             <Image src="/Illustration.png" />
           </Avatar>
 
@@ -68,7 +68,7 @@ export default function StaffPreviewCard({ staff }) {
               fontWeight={"bold"}
               color={"accent.700"}
               as={"h3"}
-              fontSize={"xl"}
+              fontSize={"lg"}
               lineHeight={1}
             >
               {staff.firstName} {staff.lastName}
@@ -89,25 +89,26 @@ export default function StaffPreviewCard({ staff }) {
 
           <Stack
             bg={"neutral.300"}
-            py={2}
-            px={1}
+            py={1}
+            px={0.8}
             rounded={"2xl"}
             position={"absolute"}
             right={0}
+            spacing={0}
           >
             <Link to={"/admin"}>
               <IconComponent>
-                <MdShare size={"18"} />
+                <MdShare size={"14"} />
               </IconComponent>
             </Link>
             <Link to={"/admin"}>
               <IconComponent>
-                <MdMailOutline size={18} />
+                <MdMailOutline size={14} />
               </IconComponent>
             </Link>
             <Link to={"/admin"}>
               <IconComponent>
-                <FaPhoneAlt size={14} />
+                <FaPhoneAlt size={10} />
               </IconComponent>
             </Link>
           </Stack>

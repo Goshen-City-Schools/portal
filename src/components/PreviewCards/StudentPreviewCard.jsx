@@ -17,7 +17,7 @@ import { Link } from "react-router-dom";
 
 export default function StudentPreviewCard({ student }) {
   return (
-    <Link to={`/admin/students/${student.id}`}>
+    <Link to={`/admin/students/${student.portalId}`}>
       <Stack
         bg={"brand.100"}
         border={"2px solid"}
@@ -35,7 +35,7 @@ export default function StudentPreviewCard({ student }) {
           position={"relative"}
           gap={8}
           textAlign={"center"}
-          height={"320px"}
+          height={"280px"}
         >
           <Box
             alignSelf={"flex-start"}
@@ -61,11 +61,11 @@ export default function StudentPreviewCard({ student }) {
               letterSpacing={1}
               p={2}
             >
-              ID: {student?.id}
+              ID: {student?.portalId}
             </Badge>
           </Box>
 
-          <Avatar h={32} w={32} p={3} shadow={"lg"} bg={"white"}>
+          <Avatar h={24} w={24} p={3} shadow={"lg"} bg={"white"}>
             <Image src="/Illustration.png" />
           </Avatar>
 
@@ -74,7 +74,7 @@ export default function StudentPreviewCard({ student }) {
               fontWeight={"bold"}
               color={"brand.700"}
               as={"h3"}
-              fontSize={"xl"}
+              fontSize={"lg"}
               lineHeight={1}
             >
               {student.firstName} {student.lastName}
@@ -90,30 +90,31 @@ export default function StudentPreviewCard({ student }) {
             letterSpacing={1}
             p={2}
           >
-            {student?.class}
+            {student?.schoolClass}
           </Badge>
 
           <Stack
             bg={"neutral.300"}
-            py={2}
-            px={1}
+            py={1}
+            px={0.8}
             rounded={"2xl"}
             position={"absolute"}
             right={0}
+            spacing={0}
           >
             <Link to={"/admin"}>
               <IconComponent>
-                <MdShare size={"18"} />
+                <MdShare size={"12"} />
               </IconComponent>
             </Link>
             <Link to={"/admin"}>
               <IconComponent>
-                <MdMailOutline size={18} />
+                <MdMailOutline size={12} />
               </IconComponent>
             </Link>
             <Link to={"/admin"}>
               <IconComponent>
-                <FaPhoneAlt size={14} />
+                <FaPhoneAlt size={10} />
               </IconComponent>
             </Link>
           </Stack>

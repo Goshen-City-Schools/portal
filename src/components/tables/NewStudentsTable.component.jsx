@@ -22,7 +22,6 @@ const columns = [
     width: "100%", // Set the width to 100% to stretch
     mobileHidden: true,
   },
-
   {
     Header: "Class",
     accessor: "class",

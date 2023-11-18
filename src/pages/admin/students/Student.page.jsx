@@ -1,7 +1,7 @@
 import React from "react";
 import PageWrapper from "../../../components/PageWrapper";
 import PageSectionHeader from "../../../components/PageSectionHeader";
-import useStudent from "../../../hooks/useStudent";
+import useStudent from "../../../hooks/useStudents";
 import { useCallback } from "react";
 import { useParams } from "react-router-dom";
 import StudentProfileScreen from "../../../screens/StudentProfileScreen";

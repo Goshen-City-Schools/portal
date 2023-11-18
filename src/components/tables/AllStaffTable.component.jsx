@@ -141,7 +141,7 @@ const AllStaffTable = ({ existingStaffData }) => {
   return (
     <Table
       columns={columns}
-      data={staffData ? staffData.data : []}
+      data={staffData ? staffData : []}
       fullWidthColumns={["Roles", "Parent"]}
     />
   );
