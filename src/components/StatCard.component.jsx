@@ -35,7 +35,7 @@ export default function StatCardComponent({
         overflow={"hidden"}
       >
         <Image
-          src={`/public/illustrations/${imgSrc}`}
+          src={`/illustrations/${imgSrc}`}
           objectFit={"cover"}
           h={"full"}
           w={"full"}

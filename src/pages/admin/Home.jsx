@@ -17,15 +17,18 @@ import CreateEventPortal from "../../portals/CreateEvent.portal";
 import { useModal } from "../../app/contexts/ModalContext";
 import ReactPortal from "../../widgets/ReactPortal";
 import PageSectionHeader from "../../components/PageSectionHeader";
-import { useLocalStorage } from "../../hooks/useLocalStorage";
 import subjectsData from "../../data/subjects.data";
 import { useNavigate } from "react-router-dom";
+import useStaffs from "../../hooks/useStaffs";
+import useStudents from "../../hooks/useStudents";
 
 export default function AdminHome() {
   const { openPortal } = useModal();
-  const staffData = useLocalStorage("staffData").getItem();
-  const studentsData = useLocalStorage("studentsData").getItem();
+  const { staffsData: staffData } = useStaffs();
+  const { studentsData } = useStudents();
   const navigate = useNavigate();
+
+  console.log(staffData, studentsData);
 
   return (
     <PageWrapper>
