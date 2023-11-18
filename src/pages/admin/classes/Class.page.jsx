@@ -35,7 +35,11 @@ export default function ClassPage() {
       label: `Students (${filteredStudents.length})`,
       component: <AllStudentsTable existingStudentsData={filteredStudents} />,
     },
-    { id: 2, label: "Subjects", component: <SubjectTable /> },
+    {
+      id: 2,
+      label: `Subjects (${subjectsData.length})`,
+      component: <SubjectTable />,
+    },
     { id: 3, label: "Time table", component: <Timetable /> },
     { id: 4, label: "Attendance", component: <ClassAttendance /> },
     // Add more tabs as needed
