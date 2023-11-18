@@ -3,6 +3,7 @@ import React, { createContext, useContext, useReducer, useEffect } from "react";
 import { API_BASE_URL, API_ENDPOINTS } from "../../configs/api";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "./UserContext";
+import axios from "../../api/axios";
 
 const AuthContext = createContext();
 
@@ -27,26 +28,23 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (credentials) => {
     try {
-      const response = await fetch(`${API_BASE_URL}${API_ENDPOINTS.LOGIN}`, {
-        method: "POST",
+      const response = await axios.post("/api/v1/auth/login", credentials, {
         headers: {
           "Content-Type": "application/json",
         },
-        credentials: true,
-        body: JSON.stringify(credentials),
+        withCredentials: true,
       });
 
-      if (!response.ok) {
-        console.error("Login failed:", response.statusText);
+      if (!response.data.success) {
+        console.error("Login failed:", response.data.message);
         return;
       }
 
-      const user = await response.json();
-      setUser(user.user);
+      setUser(response.data.user);
       dispatch({ type: "LOGIN" });
 
       // Redirect to appropriate route based on user type
-      navigateBasedOnUserType(user.user);
+      navigateBasedOnUserType(response.data.user);
     } catch (error) {
       console.error("Login failed:", error.message);
     }
