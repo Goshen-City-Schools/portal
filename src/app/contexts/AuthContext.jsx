@@ -28,12 +28,16 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (credentials) => {
     try {
-      const response = await axios.post("/api/v1/auth/login", credentials, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        withCredentials: true,
-      });
+      const response = await axios.post(
+        "/api/v1/auth/login",
+        JSON.stringify(credentials),
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        }
+      );
 
       if (!response.data.success) {
         console.error("Login failed:", response.data.message);
