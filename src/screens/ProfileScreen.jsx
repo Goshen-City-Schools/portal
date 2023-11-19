@@ -84,9 +84,9 @@ export default function ProfileScreen() {
               w={{ base: "full" }}
             >
               <Text as={"h3"}>
-                {user.accountType == "Staff" ? "Staff ID" : "Student ID"} No:
+                {user.accountType == "staff" ? "Staff ID" : "Student ID"} No:
                 &nbsp;
-                <strong>{user.id}</strong>
+                <strong>{user.portalID}</strong>
               </Text>
               <Text as={"h3"}>
                 Staff Role:&nbsp;<strong>{user.roles[0]}</strong>
