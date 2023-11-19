@@ -43,7 +43,7 @@ export default function LoginScreen() {
     e.preventDefault();
 
     if (!/^GSHN\/(STF|STU)\/\w{5}$/.test(userID) || password.trim() === "") {
-      setLoginError("Invalid login format");
+      setLoginError("Invalid login format, try again.");
       return;
     }
 
