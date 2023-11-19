@@ -20,9 +20,8 @@ import { useAuth } from "../app/contexts/AuthContext";
 
 export default function LoginScreen() {
   const toast = useToast();
-  const { login } = useAuth();
+  const { login, isLoading, setIsLoading } = useAuth();
 
-  const [isLoading, setIsLoading] = useState(false);
   const [userID, setUserID] = useState("");
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState("");
@@ -44,24 +43,37 @@ export default function LoginScreen() {
     e.preventDefault();
 
     if (!/^GSHN\/(STF|STU)\/\w{5}$/.test(userID) || password.trim() === "") {
-      setLoginError("Invalid login details");
-      showToast("Invalid login details", "error");
+      setLoginError("Invalid login format");
       return;
     }
 
-    if (userID) {
-      const userType = determineUserType(userID);
-      const userToLogin = {
-        username: userID,
-        password: password,
-      };
+    try {
+      if (userID) {
+        const userType = determineUserType(userID);
+        const userToLogin = {
+          username: userID,
+          password: password,
+        };
 
-      if (userToLogin) {
-        login(userToLogin);
-        setIsLoading(true);
+        if (userToLogin) {
+          await login(userToLogin);
+          setIsLoading(true);
+        } else {
+          setIsLoading(false);
+          showToast(`${userType} not found`, "error");
+        }
       } else {
-        showToast(`${userType} not found`, "error");
+        setIsLoading(false);
+        showToast(`Account not found`, "error");
       }
+    } catch (error) {
+      // Handle the error and reset loading state
+      console.error("Login failed:", error.message);
+      setError("Invalid username or password");
+    } finally {
+      showToast(`Invalid login details`, "error");
+
+      setIsLoading(false);
     }
   });
 
@@ -71,6 +83,7 @@ export default function LoginScreen() {
       duration: "2000",
       position: "top-right",
       status: status,
+      size: "sm",
     });
   };
 

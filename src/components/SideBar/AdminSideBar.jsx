@@ -5,7 +5,7 @@ import "./SideMenu.style.css";
 import { Box, List, Flex, Text, VStack } from "@chakra-ui/react";
 
 import { TbSchool, TbReport } from "react-icons/tb";
-import { PiDotsNine } from "react-icons/pi";
+import { PiChalkboardTeacherDuotone, PiDotsNine } from "react-icons/pi";
 import {
   MdOutlineBed,
   MdOutlineAssignment,
@@ -22,6 +22,8 @@ import {
   MdAccessible,
   MdSettings,
 } from "react-icons/md";
+
+import { PiStudentDuotone } from "react-icons/pi";
 
 import { BsEye } from "react-icons/bs";
 
@@ -165,7 +167,7 @@ export default function AdminSideBar({ sideBarView, handleClick }) {
                 ]}
               >
                 <IconComponent>
-                  <MdOutlineAssignment size={18} />
+                  <PiStudentDuotone size={18} />
                 </IconComponent>
                 Students
               </NavItemComponent>
@@ -198,7 +200,7 @@ export default function AdminSideBar({ sideBarView, handleClick }) {
                 ]}
               >
                 <IconComponent>
-                  <TbReport size={18} />
+                  <PiChalkboardTeacherDuotone size={18} />
                 </IconComponent>
                 Staff
               </NavItemComponent>

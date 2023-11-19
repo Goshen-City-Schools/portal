@@ -1,9 +1,9 @@
 // AuthContext.js
 import React, { createContext, useContext, useReducer, useEffect } from "react";
-import { API_BASE_URL, API_ENDPOINTS } from "../../configs/api";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "./UserContext";
 import axios from "../../api/axios";
+import { useState } from "react";
 
 const AuthContext = createContext();
 
@@ -21,6 +21,7 @@ const authReducer = (state, action) => {
 export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
   const { getUser, setUser } = useUser();
+  const [isLoading, setIsLoading] = useState(false);
 
   const [state, dispatch] = useReducer(authReducer, {
     isAuthenticated: false,
@@ -28,6 +29,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (credentials) => {
     try {
+      setIsLoading(!isLoading);
       const response = await axios.post(
         "/api/v1/auth/login",
         JSON.stringify(credentials),
@@ -41,10 +43,12 @@ export const AuthProvider = ({ children }) => {
 
       if (!response.data.success) {
         console.error("Login failed:", response.data.message);
+        setIsLoading(false);
         return;
       }
 
       setUser(response.data.user);
+      setIsLoading(false);
       dispatch({ type: "LOGIN" });
 
       // Redirect to appropriate route based on user type
@@ -84,6 +88,8 @@ export const AuthProvider = ({ children }) => {
         isAuthenticated: state.isAuthenticated,
         login,
         logout,
+        isLoading,
+        setIsLoading,
       }}
     >
       {children}
