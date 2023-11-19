@@ -22,7 +22,8 @@ ChartJS.register(
 function ChartWidget({ labels, data1, data2 }) {
   const options = {
     responsive: true,
-    maintainAspectRatio: true, // Allow the chart to adapt to the container size
+    maintainAspectRatio: false, // Allow the chart to adapt to the container size
+
     plugins: {
       legend: {
         position: "top",

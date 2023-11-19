@@ -9,12 +9,13 @@ const ClassSummaryBox = ({
   classTeacher,
 }) => {
   return (
-    <Flex gap={4} my={4}>
+    <Flex gap={4} my={4} mt={8} overflowX={"scroll"} pb={{ base: 10, md: 6 }}>
       <StatCardComponent
         color={"#F5DDFF"}
         imgSrc={"people.png"}
         text={"Total students:"}
         number={totalStudents}
+        maxW={"280px"}
       />
 
       <StatCardComponent
@@ -22,6 +23,7 @@ const ClassSummaryBox = ({
         imgSrc={"male-student.png"}
         text={"Total Male"}
         number={maleStudents}
+        maxW={"280px"}
       />
 
       <StatCardComponent
@@ -29,6 +31,7 @@ const ClassSummaryBox = ({
         imgSrc={"people.png"}
         text={"Total Female:"}
         number={femaleStudents}
+        maxW={"280px"}
       />
       <Flex
         border={"1px solid"}
@@ -40,7 +43,8 @@ const ClassSummaryBox = ({
         alignItems={"center"}
         mt={2}
         w={"full"}
-        maxW={"xs"}
+        flexShrink={0}
+        maxW={"320px"}
       >
         <Image
           bg={"whiteAlpha.300"}

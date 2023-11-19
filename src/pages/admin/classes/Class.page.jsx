@@ -36,14 +36,6 @@ export default function ClassPage() {
   const newClass = (data) =>
     schoolClasses.find((schoolCl) => schoolCl.name === data)?.name;
 
-  console.log(
-    classData("sss3"),
-    newClass("SSS 3"),
-    schoolClasses,
-    "SD",
-    schoolClass
-  );
-
   const filteredStudents = studentsData.filter(
     (student) => student.schoolClass === classData(schoolClass)
   );

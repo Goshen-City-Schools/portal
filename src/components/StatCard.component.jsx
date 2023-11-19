@@ -10,6 +10,7 @@ export default function StatCardComponent({
   imagePadding,
   size,
   onClick,
+  maxW,
 }) {
   return (
     <Box
@@ -19,6 +20,8 @@ export default function StatCardComponent({
       border={"1px solid transparent"}
       px={6}
       py={4}
+      maxW={maxW}
+      flexShrink={0}
       rounded={"md"}
       _hover={{ bg: "accent.100", borderColor: "neutral.700" }}
       animation={"ease-in-out"}

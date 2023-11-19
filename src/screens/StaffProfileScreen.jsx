@@ -173,19 +173,19 @@ export default function StaffProfileScreen({
         <Grid
           gap={4}
           px={6}
+          w={"full"}
           rounded={"lg"}
           alignContent={"center"}
           justifyContent={"center"}
           bg={"white"}
-          position={"relative"}
           pb={4}
+          position={"relative"}
           minW={"200px"}
-          maxW={"240px"}
+          maxW={{ base: "none", md: "240px" }}
         >
           <Avatar
-            width={128}
-            pt={-8}
-            height={128}
+            width={{ base: 120, md: 128 }}
+            height={{ base: 120, md: 128 }}
             imageUrl={
               selectedFile
                 ? URL.createObjectURL(selectedFile)
@@ -224,7 +224,12 @@ export default function StaffProfileScreen({
             gridTemplateColumns={{ "base": "1fr", "md": "repeat(2, 1fr)" }}
             position={"relative"}
           >
-            <GridItem bg={"white"} py={4} px={6} rounded={"lg"}>
+            <GridItem
+              bg={"white"}
+              py={4}
+              px={{ base: 4, md: 6 }}
+              rounded={"lg"}
+            >
               <Text
                 as={"h3"}
                 letterSpacing={1}
@@ -306,7 +311,12 @@ export default function StaffProfileScreen({
               </Grid>
             </GridItem>
 
-            <GridItem bg={"white"} py={4} px={6} rounded={"lg"}>
+            <GridItem
+              bg={"white"}
+              py={4}
+              px={{ base: 4, md: 6 }}
+              rounded={"lg"}
+            >
               <Text
                 as={"h3"}
                 letterSpacing={1}
@@ -438,8 +448,18 @@ export default function StaffProfileScreen({
       </Flex>
 
       <Grid gap={4}>
-        <GridItem bg={"white"} py={4} px={6} w={"full"} rounded={"lg"}>
-          <Grid gap={6} gridTemplateColumns="repeat(2, 1fr)" pt={2}>
+        <GridItem
+          bg={"white"}
+          py={4}
+          px={{ base: 4, md: 6 }}
+          w={"full"}
+          rounded={"lg"}
+        >
+          <Grid
+            gap={6}
+            gridTemplateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }}
+            pt={2}
+          >
             <Box display={"flex"} flexWrap={"wrap"}>
               <Flex gap={4}>
                 <IconComponent>

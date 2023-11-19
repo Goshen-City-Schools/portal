@@ -1,5 +1,12 @@
 import React, { useState, useEffect, useMemo } from "react";
-import PageWrapper from "../../../components/PageWrapper";
+import { useNavigate } from "react-router-dom";
+
+// Custom Hooks
+import useClasses from "../../../hooks/useClasses";
+import useStudents from "../../../hooks/useStudents";
+
+import { useUser } from "../../../app/contexts/UserContext";
+
 import {
   Flex,
   Box,
@@ -9,6 +16,7 @@ import {
   Grid,
   Select,
 } from "@chakra-ui/react";
+
 import {
   MdAdd,
   MdGridView,
@@ -16,20 +24,16 @@ import {
   MdTableChart,
   MdUploadFile,
 } from "react-icons/md";
-import SearchWidget from "../../../widgets/Search.widget";
-import IconComponent from "../../../components/Icon.component";
-import PageSectionHeader from "../../../components/PageSectionHeader";
-import { useNavigate } from "react-router-dom";
 
 import allowedUserRoles from "../../../helpers/allowedUserRoles";
-import StudentPreviewCard from "../../../components/PreviewCards/StudentPreviewCard";
-import schoolData from "../../../data/school.data";
-import AllStudentsTable from "../../../components/tables/AllStudentsTable.component";
 
-// Custom Hooks
-import { useUser } from "../../../app/contexts/UserContext";
-import useClasses from "../../../hooks/useClasses";
-import useStudents from "../../../hooks/useStudents";
+import SearchWidget from "../../../widgets/Search.widget";
+
+import IconComponent from "../../../components/Icon.component";
+import PageSectionHeader from "../../../components/PageSectionHeader";
+import AllStudentsTable from "../../../components/tables/AllStudentsTable.component";
+import PageWrapper from "../../../components/PageWrapper";
+import StudentPreviewCard from "../../../components/PreviewCards/StudentPreviewCard";
 
 export default function StudentsPage() {
   const navigate = useNavigate();
@@ -46,7 +50,7 @@ export default function StudentsPage() {
 
   useEffect(() => {
     // Your logic to handle staffData change
-    console.log(studentsData);
+    console.log("...");
   }, [studentsData]);
 
   function handleDataView(e) {

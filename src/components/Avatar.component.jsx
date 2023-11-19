@@ -1,9 +1,9 @@
-import { Image } from "@chakra-ui/react";
+import { Image, Box } from "@chakra-ui/react";
 
 const Avatar = ({ imageUrl, altText, width = 40, height = 40, className }) => {
   return (
-    <div
-      className={`relative rounded-full overflow-hidden ${className}`}
+    <Box
+      className={`relative rounded-full border-2 border-gray-50 overflow-hidden ${className}`}
       style={{ width, height }}
     >
       <Image
@@ -13,7 +13,7 @@ const Avatar = ({ imageUrl, altText, width = 40, height = 40, className }) => {
         width={"full"}
         objectFit={"cover"}
       />
-    </div>
+    </Box>
   );
 };
 

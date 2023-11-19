@@ -1,21 +1,20 @@
-import React from "react";
+import { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+
+import { useUser } from "../../../app/contexts/UserContext";
+import { getSingleStudent } from "../../../api/student.api";
+
 import PageWrapper from "../../../components/PageWrapper";
 import PageSectionHeader from "../../../components/PageSectionHeader";
-import useStudent from "../../../hooks/useStudents";
-import { useCallback } from "react";
-import { useParams } from "react-router-dom";
+
+import ReactPortal from "../../../widgets/ReactPortal";
+
 import StudentProfileScreen from "../../../screens/StudentProfileScreen";
 import ProfileNotFoundScreen from "../../../screens/ProfileNotFoundScreen";
-import { useAuth } from "../../../app/contexts/AuthContext";
-import { useNavigate } from "react-router-dom";
-import ReactPortal from "../../../widgets/ReactPortal";
-import { useState } from "react";
-import { getSingleStudent, getStudentsData } from "../../../api/student.api";
-import { useEffect } from "react";
 
 export default function StudentPage() {
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const { user } = useUser();
   const { studentId } = useParams();
 
   const [student, setStudent] = useState();
@@ -34,8 +33,6 @@ export default function StudentPage() {
     fetchStudentData(); // Call the async function
   }, [studentId]); // Include staffId in the dependency array
 
-  const existingStaffData = async () => await getStudentsData();
-
   if (!student) {
     return <ProfileNotFoundScreen />;
   }
@@ -46,7 +43,6 @@ export default function StudentPage() {
     navigate("/admin/profile");
   }
 
-  console.log(student);
   return (
     <PageWrapper>
       <ReactPortal />

@@ -52,8 +52,14 @@ export default function ProfileScreen() {
             h={"full"}
             alignItems={"center"}
             justifyContent={"flex-start"}
+            flexDirection={{ base: "column", md: "row" }}
           >
-            <VStack w={"40%"} alignItems={"flex-start"} flexShrink={0} gap={3}>
+            <VStack
+              w={{ base: "full", md: "40%" }}
+              alignItems={"flex-start"}
+              flexShrink={0}
+              gap={3}
+            >
               <Text as={"h3"}>
                 Name:&nbsp;
                 <strong>
@@ -70,7 +76,13 @@ export default function ProfileScreen() {
                 Account Type:&nbsp;<strong>{user.accountType}</strong>{" "}
               </Text>
             </VStack>
-            <VStack flexShrink={0} alignItems={"flex-start"} gap={3}>
+
+            <VStack
+              flexShrink={0}
+              alignItems={"flex-start"}
+              gap={3}
+              w={{ base: "full" }}
+            >
               <Text as={"h3"}>
                 {user.accountType == "Staff" ? "Staff ID" : "Student ID"} No:
                 &nbsp;
@@ -86,6 +98,7 @@ export default function ProfileScreen() {
           <Flex
             justifyContent={{ base: "center", md: "flex-end" }}
             w={"full"}
+            flexDirection={{ base: "column", md: "row" }}
             mt={8}
             position={{ base: "relative", md: "absolute" }}
             bottom={0}

@@ -59,6 +59,8 @@ export default function UpdateAvatarButton({
 
           const errorData = response.data;
           console.error("Image upload failed:", errorData.message);
+          setSelectedFile(null);
+
           // Handle failure, e.g., display an error message
           toast({
             title: "Profile Image Upload Failed",

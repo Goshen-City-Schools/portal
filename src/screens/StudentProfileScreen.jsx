@@ -30,6 +30,7 @@ import { useModal } from "../app/contexts/ModalContext";
 import allowedUserRoles from "../helpers/allowedUserRoles";
 import { useUser } from "../app/contexts/UserContext";
 import UpdateAvatarButton from "../components/Buttons/UpdateAvatarButton";
+import { useState } from "react";
 
 export default function StudentProfileScreen({ student }) {
   const { openPortal } = useModal();
@@ -66,9 +67,21 @@ export default function StudentProfileScreen({ student }) {
           justifyContent={"center"}
           bg={"white"}
           position={"relative"}
+          width={{ base: "full", md: "max-content" }}
           pb={4}
+          maxW={{ base: "none", md: "240px" }}
         >
-          <Avatar width={156} height={156} imageUrl={"/avatar.png"} />
+          <Avatar
+            width={156}
+            height={156}
+            imageUrl={
+              selectedFile
+                ? URL.createObjectURL(selectedFile)
+                : student.avatarImageURL
+                ? student.avatarImageURL
+                : "/avatar.png"
+            }
+          />
 
           <Flex
             justifyContent={"center"}
@@ -79,6 +92,7 @@ export default function StudentProfileScreen({ student }) {
             <UpdateAvatarButton
               selectedFile={selectedFile}
               setSelectedFile={setSelectedFile}
+              theUser={student}
             />
           </Flex>
         </Grid>
@@ -286,6 +300,7 @@ export default function StudentProfileScreen({ student }) {
             w={"full"}
             mt={4}
             mb={4}
+            flexDirection={{ base: "column", md: "row" }}
             gap={3}
             justifyContent={"flex-end"}
           >

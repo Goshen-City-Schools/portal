@@ -11,6 +11,8 @@ import {
   Flex,
   Button,
   useToast,
+  Grid,
+  Text,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { MdUpload } from "react-icons/md";
@@ -21,6 +23,8 @@ import { useModal } from "../../../app/contexts/ModalContext";
 import allowedUserRoles from "../../../helpers/allowedUserRoles";
 import { useUser } from "../../../app/contexts/UserContext";
 import axios from "../../../api/axios";
+import Avatar from "../../../components/Avatar.component";
+import Logo from "../../../components/Logo.component";
 
 export default function CreateNewStaff() {
   const toast = useToast();
@@ -193,6 +197,48 @@ export default function CreateNewStaff() {
           className="rounded-lg px-8 bg-white text-sm py-6 flex-col flex gap-x-6 gap-y-8"
           onSubmit={handleFormSubmit}
         >
+          {/* <Flex
+            placeItems={"center"}
+            w={"full"}
+            justifyContent={"space-between"}
+            position={"relative"}
+          >
+            <Avatar
+              height={72}
+              width={72}
+              className={
+                "hover:mix-blend-multiply hover:bg-opacity-70 cursor-pointer"
+              }
+              imageUrl={"/Illustration.png"}
+            />
+
+            <Box position={"absolute"} left={"40%"} translateX={"-50%"}>
+              <Logo />
+            </Box>
+
+            <Box
+              height={24}
+              w={48}
+              bgColor={"gray.400"}
+              px={6}
+              shadow={"sm"}
+              rounded={"lg"}
+              display={"grid"}
+              placeItems={"center"}
+              bgImage={"/public/school-books.jpeg"}
+              bgBlendMode={"overlay"}
+              bgSize={"cover"}
+            >
+              <Text
+                as={"small"}
+                letterSpacing={".5"}
+                fontWeight={"semibold"}
+                color={"neutral.700"}
+              >
+                Upload Means of ID
+              </Text>
+            </Box>
+          </Flex> */}
           <Flex gap={6}>
             <FormControl id="firstName">
               <FormLabel fontWeight={"bold"} fontSize={"sm"}>
