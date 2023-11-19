@@ -19,7 +19,7 @@ export default function StudentPreviewCard({ student }) {
   return (
     <Link to={`/admin/students/${student.portalId}`}>
       <Stack
-        bg={"brand.100"}
+        bg={"blue.50"}
         border={"2px solid"}
         borderColor={"transparent"}
         rounded={"xl"}

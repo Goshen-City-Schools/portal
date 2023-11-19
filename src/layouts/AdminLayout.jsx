@@ -9,6 +9,9 @@ import { useState } from "react";
 import ReactPortal from "../widgets/ReactPortal";
 import { useModal } from "../app/contexts/ModalContext";
 import { useNavigate } from "react-router-dom";
+import CreateNewClassForm from "../components/forms/CreateNewClassForm";
+import { useUser } from "../app/contexts/UserContext";
+import { useEffect } from "react";
 
 const ViewStaffForm = ({ handleSubmit }) => {
   const staffIdRef = useRef(null);
@@ -77,6 +80,8 @@ export default function AdminLayout() {
       return openPortal(<ViewStaffForm handleSubmit={handleStaffSearch} />);
     if (type === "student")
       return openPortal(<ViewStudentForm handleSubmit={handleStudentSearch} />);
+
+    if (type === "createClass") return openPortal(<CreateNewClassForm />);
   };
 
   const toggleSidebar = () => {

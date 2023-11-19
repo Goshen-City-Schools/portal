@@ -14,14 +14,13 @@ import {
   PopoverContent,
   Button,
   PopoverArrow,
-  PopoverHeader,
   PopoverCloseButton,
   PopoverBody,
   Text,
   Grid,
+  Image,
 } from "@chakra-ui/react";
 
-import SearchWidget from "../../widgets/Search.widget";
 import IconComponent from "../Icon.component";
 
 import { toggleSideMenu } from "../../app/redux/slices/menuSlice";
@@ -45,7 +44,6 @@ export default function AdminHeader() {
   const handleLogout = () => {
     // Dispatch the logout action when the "Logout" button is clicked
     logout();
-    console.log("m");
     setTimeout(() => {
       navigate("/auth");
     }, 1000); // Adjust the delay as needed
@@ -113,9 +111,14 @@ export default function AdminHeader() {
           <PopoverTrigger>
             <Box className="flex gap-3 items-center" cursor="pointer">
               <div className="h-10 w-10 rounded-full relative shadow-md overflow-hidden">
-                <img
-                  src="/avatar.png"
+                <Image
+                  src={
+                    user.avatarImageURL ? user.avatarImageURL : "/avatar.png"
+                  }
+                  height={10}
+                  width={10}
                   alt="User avatar"
+                  loading="lazy"
                   className="absolute object-cover w-full h-full"
                 />
               </div>

@@ -34,6 +34,7 @@ import UpdateAvatarButton from "../components/Buttons/UpdateAvatarButton";
 export default function StudentProfileScreen({ student }) {
   const { openPortal } = useModal();
   const { user } = useUser();
+  const [selectedFile, setSelectedFile] = useState(null);
 
   const {
     firstName,
@@ -67,7 +68,7 @@ export default function StudentProfileScreen({ student }) {
           position={"relative"}
           pb={4}
         >
-          <Avatar width={180} height={180} imageUrl={"/avatar.png"} />
+          <Avatar width={156} height={156} imageUrl={"/avatar.png"} />
 
           <Flex
             justifyContent={"center"}
@@ -75,7 +76,10 @@ export default function StudentProfileScreen({ student }) {
             position={{ "base": "relative", "md": "absolute" }}
             bottom={{ "base": "0", "md": 4 }}
           >
-            <UpdateAvatarButton />
+            <UpdateAvatarButton
+              selectedFile={selectedFile}
+              setSelectedFile={setSelectedFile}
+            />
           </Flex>
         </Grid>
 

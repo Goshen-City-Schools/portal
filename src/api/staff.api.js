@@ -12,7 +12,16 @@ export const getStaffData = async () => {
 
 export const registerStaff = async (staffData) => {
   try {
-    const response = await axios.post("/api/v1/auth/register", staffData);
+    const response = await axios.post(
+      "/api/v1/auth/register",
+      JSON.stringify(staffData),
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      }
+    );
 
     console.log(response);
     return response.data; // Assuming your API returns data upon successful registration

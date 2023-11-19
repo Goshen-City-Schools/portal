@@ -1,12 +1,15 @@
 import React from "react";
 
-export default function IconComponent({ children, click }) {
+import { Box } from "@chakra-ui/react";
+
+export default function IconComponent({ children, click, color, classes }) {
   return (
-    <div
+    <Box
       onClick={click}
-      className="icon h-6 w-6 flex items-center justify-center"
+      className={`icon h-6 w-6 flex items-center justify-center ${classes}`}
+      color={color}
     >
       {children}
-    </div>
+    </Box>
   );
 }

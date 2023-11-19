@@ -4,7 +4,7 @@ import "./SideMenu.style.css";
 
 import { Box, List, Flex, Text, VStack } from "@chakra-ui/react";
 
-import { TbSchool, TbReport } from "react-icons/tb";
+import { TbSchool, TbReport, TbFolderSearch } from "react-icons/tb";
 import { PiChalkboardTeacherDuotone, PiDotsNine } from "react-icons/pi";
 import {
   MdOutlineBed,
@@ -24,6 +24,10 @@ import {
 } from "react-icons/md";
 
 import { PiStudentDuotone } from "react-icons/pi";
+import { SiGoogleclassroom } from "react-icons/si";
+import { LuCalendarDays } from "react-icons/lu";
+import { BiSpreadsheet } from "react-icons/bi";
+import { TbMessages } from "react-icons/tb";
 
 import { BsEye } from "react-icons/bs";
 
@@ -50,6 +54,7 @@ export default function AdminSideBar({ sideBarView, handleClick }) {
 
   return (
     <Box
+      as="aside"
       bg={"brand.900"}
       width={{ "base": isSideMenuOpen ? "260px" : "0px", "md": "260px" }}
       position={"fixed"}
@@ -77,7 +82,7 @@ export default function AdminSideBar({ sideBarView, handleClick }) {
         alignItems={"center"}
         onClick={handleToggleSideMenu}
       >
-        <IconComponent>
+        <IconComponent color={"warning.200"}>
           <FaTimes size={20} />
         </IconComponent>
       </Box>
@@ -115,7 +120,11 @@ export default function AdminSideBar({ sideBarView, handleClick }) {
 
       <VStack>
         <VStack mt={4}>
-          <Avatar height={108} width={108} imageUrl={"/avatar.png"} />
+          <Avatar
+            height={108}
+            width={108}
+            imageUrl={user.avatarImageURL ? user.avatarImageURL : "/avatar.png"}
+          />
         </VStack>
         <Box
           display={"flex"}
@@ -133,7 +142,7 @@ export default function AdminSideBar({ sideBarView, handleClick }) {
               onClick={handleToggleSideMenu}
               link={"/admin/home"}
             >
-              <IconComponent>
+              <IconComponent color={"warning.200"}>
                 <PiDotsNine size={16} />
               </IconComponent>
               Dashboard
@@ -151,7 +160,7 @@ export default function AdminSideBar({ sideBarView, handleClick }) {
                     name: "View Student",
                     link: "/admin/students",
                     onClick: () => handleClick("student"),
-                    icon: <MdEditDocument size={12} />,
+                    icon: <TbFolderSearch size={12} />,
                   },
                   {
                     name: "Manage Students",
@@ -166,7 +175,7 @@ export default function AdminSideBar({ sideBarView, handleClick }) {
                   },
                 ]}
               >
-                <IconComponent>
+                <IconComponent color={"warning.200"}>
                   <PiStudentDuotone size={18} />
                 </IconComponent>
                 Students
@@ -180,7 +189,7 @@ export default function AdminSideBar({ sideBarView, handleClick }) {
                     name: "View Staff",
                     link: `/admin/staff`,
                     onClick: () => handleClick("staff"),
-                    icon: <MdEditDocument size={12} />,
+                    icon: <TbFolderSearch size={12} />,
                   },
                   {
                     name: "Manage Staff",
@@ -199,7 +208,7 @@ export default function AdminSideBar({ sideBarView, handleClick }) {
                   },
                 ]}
               >
-                <IconComponent>
+                <IconComponent color={"warning.200"}>
                   <PiChalkboardTeacherDuotone size={18} />
                 </IconComponent>
                 Staff
@@ -216,15 +225,16 @@ export default function AdminSideBar({ sideBarView, handleClick }) {
                     icon: <MdEditDocument size={12} />,
                   },
                   {
+                    link: "/admin/classes",
                     name: "Create Sub-class",
-                    link: "/staff/classes?type=academic",
                     icon: <MdAdd size={14} />,
                     roles: ["IT Personnel"],
+                    onClick: () => handleClick("createClass"),
                   },
                 ]}
               >
-                <IconComponent>
-                  <TbSchool size={18} />
+                <IconComponent color={"warning.200"}>
+                  <SiGoogleclassroom size={18} />
                 </IconComponent>
                 Classes
               </NavItemComponent>
@@ -239,9 +249,9 @@ export default function AdminSideBar({ sideBarView, handleClick }) {
               <NavItemComponent
                 submenu={[
                   {
-                    name: "View Results",
+                    name: "Search Results",
                     link: "/admin/students",
-                    icon: <BsEye size={12} />,
+                    icon: <TbFolderSearch size={12} />,
                   },
                   {
                     name: "Manage Results",
@@ -267,8 +277,8 @@ export default function AdminSideBar({ sideBarView, handleClick }) {
                   },
                 ]}
               >
-                <IconComponent>
-                  <MdOutlineBed size={18} />
+                <IconComponent color={"warning.200"}>
+                  <BiSpreadsheet size={18} />
                 </IconComponent>
                 Results
               </NavItemComponent>
@@ -296,7 +306,7 @@ export default function AdminSideBar({ sideBarView, handleClick }) {
                   },
                 ]}
               >
-                <IconComponent>
+                <IconComponent color={"warning.200"}>
                   <MdOutlineBed size={18} />
                 </IconComponent>
                 Finance
@@ -309,7 +319,7 @@ export default function AdminSideBar({ sideBarView, handleClick }) {
                 {
                   name: "View Events",
                   link: "/admin/students",
-                  icon: <BsEye size={12} />,
+                  icon: <TbFolderSearch size={12} />,
                 },
                 {
                   name: "Create new event",
@@ -325,8 +335,8 @@ export default function AdminSideBar({ sideBarView, handleClick }) {
                 },
               ]}
             >
-              <IconComponent>
-                <MdOutlineBed size={18} />
+              <IconComponent color={"warning.200"}>
+                <LuCalendarDays size={18} />
               </IconComponent>
               Calendar
             </NavItemComponent>
@@ -357,8 +367,8 @@ export default function AdminSideBar({ sideBarView, handleClick }) {
                   },
                 ]}
               >
-                <IconComponent>
-                  <MdOutlineBed size={18} />
+                <IconComponent color={"warning.200"}>
+                  <TbMessages size={18} />
                 </IconComponent>
                 Communication
               </NavItemComponent>
@@ -375,7 +385,7 @@ export default function AdminSideBar({ sideBarView, handleClick }) {
             link={"/admin/support"}
             onClick={handleToggleSideMenu}
           >
-            <IconComponent>
+            <IconComponent color={"warning.200"}>
               <MdOutlineSupportAgent size={20} />
             </IconComponent>
             Help & Support
@@ -384,7 +394,7 @@ export default function AdminSideBar({ sideBarView, handleClick }) {
             link={"/admin/login_history"}
             onClick={handleToggleSideMenu}
           >
-            <IconComponent>
+            <IconComponent color={"warning.200"}>
               <MdOutlinePrecisionManufacturing size={20} />
             </IconComponent>
             Login History
@@ -392,7 +402,7 @@ export default function AdminSideBar({ sideBarView, handleClick }) {
 
           {allowedUserRoles(user, ["IT Personnel", "Principal"]) && (
             <NavItemComponent link={"/admin/#"} click={sideBarView}>
-              <IconComponent>
+              <IconComponent color={"warning.200"}>
                 <MdOutlinePrecisionManufacturing size={20} />
               </IconComponent>
               <Flex

@@ -5,8 +5,11 @@ import Avatar from "../components/Avatar.component";
 import { useUser } from "../app/contexts/UserContext";
 import dayjs from "dayjs";
 import { MdChangeCircle, MdDelete, MdShare } from "react-icons/md";
+import UpdateAvatarButton from "../components/Buttons/UpdateAvatarButton";
+import { useState } from "react";
 
 export default function ProfileScreen() {
+  const [selectedFile, setSelectedFile] = useState(null);
   const { user } = useUser();
   return (
     <Box
@@ -24,10 +27,23 @@ export default function ProfileScreen() {
         h={"full"}
       >
         <Grid gap={4}>
-          <Avatar width={180} height={180} imageUrl={"/avatar.png"} />
-          <Button colorScheme="blue" size={"sm"}>
-            Update avatar
-          </Button>
+          <Avatar
+            width={156}
+            height={156}
+            imageUrl={
+              selectedFile
+                ? URL.createObjectURL(selectedFile)
+                : user.avatarImageURL
+                ? user.avatarImageURL
+                : "/avatar.png"
+            }
+          />
+
+          <UpdateAvatarButton
+            selectedFile={selectedFile}
+            theUser={user}
+            setSelectedFile={setSelectedFile}
+          />
         </Grid>
 
         <Flex direction={"column"} w={"full"} h={"full"} position={"relative"}>

@@ -1,10 +1,12 @@
 // UserContext.js
 import React, { createContext, useContext, useState, useEffect } from "react";
+import { getSingleStaff } from "../../api/staff.api";
 
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [infoIsUpdated, setInfoIsUpdated] = useState(false);
 
   const getUser = () => {
     const storedUser = JSON.parse(localStorage.getItem("user")) || null;
@@ -12,20 +14,45 @@ export const UserProvider = ({ children }) => {
     return storedUser;
   };
 
-  const setUserAndStorage = (newUser) => {
-    setUser(newUser);
+  const setUserAndStorage = async (newUser) => {
+    await setUser(newUser);
     localStorage.setItem("user", JSON.stringify(newUser));
   };
 
   useEffect(() => {
-    getUser(); // Set the user when the component mounts
+    getUser();
   }, []);
+
+  useEffect(() => {
+    if (infoIsUpdated) {
+      if (user && user.accountType === "staff") {
+        const updateAndSetUser = async () => {
+          try {
+            const updatedUser = await getSingleStaff(user.portalId);
+            setUser(updatedUser);
+          } catch (error) {
+            console.error("Error updating user:", error.message);
+          }
+        };
+
+        updateAndSetUser();
+      }
+
+      setInfoIsUpdated(false);
+    }
+  }, [infoIsUpdated, user]);
+
+  useEffect(() => {
+    console.log("...");
+  }, [user]);
 
   return (
     <UserContext.Provider
       value={{
         user,
         getUser,
+        infoIsUpdated,
+        setInfoIsUpdated,
         setUser: setUserAndStorage,
       }}
     >

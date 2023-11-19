@@ -71,8 +71,7 @@ export default function LoginScreen() {
       console.error("Login failed:", error.message);
       setError("Invalid username or password");
     } finally {
-      showToast(`Invalid login details`, "error");
-
+      // showToast(`Invalid login details`, "error");
       setIsLoading(false);
     }
   });

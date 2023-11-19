@@ -19,8 +19,6 @@ import ReusableBadge from "../components/ReusableBadge";
 const DataTable = ({ columns, data, fullWidthColumns, customPageSize }) => {
   const [isMobile] = useMediaQuery("(max-width: 768px)"); // Detect mobile view
 
-  console.log(columns, data);
-
   const {
     getTableProps,
     getTableBodyProps,

@@ -109,8 +109,6 @@ const PermissionMiddleware = ({ children }) => {
   const location = useLocation();
   const { user } = useUser();
 
-  console.log(user);
-
   if (
     !user ||
     user === "undefined" ||

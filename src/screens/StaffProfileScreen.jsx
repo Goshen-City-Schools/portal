@@ -18,7 +18,6 @@ import {
   MdOutlineMailOutline,
   MdPersonOutline,
   MdPhone,
-  MdPictureInPictureAlt,
   MdWhatsapp,
 } from "react-icons/md";
 import { FaRegIdCard } from "react-icons/fa";
@@ -30,6 +29,7 @@ import subjectsData from "../data/subjects.data";
 import dayjs from "dayjs";
 import allowedUserRoles from "../helpers/allowedUserRoles";
 import { useUser } from "../app/contexts/UserContext";
+import UpdateAvatarButton from "../components/Buttons/UpdateAvatarButton";
 
 const schoolClasses = schoolData.schoolClasses;
 const staffRoles = schoolData.staffRoles;
@@ -40,6 +40,8 @@ export default function StaffProfileScreen({
   staffId,
 }) {
   const { openPortal, closePortal } = useModal();
+  const [selectedFile, setSelectedFile] = useState(null);
+
   const {
     firstName,
     lastName,
@@ -177,25 +179,34 @@ export default function StaffProfileScreen({
           bg={"white"}
           position={"relative"}
           pb={4}
+          minW={"200px"}
+          maxW={"240px"}
         >
-          <Avatar width={180} height={180} imageUrl={"/avatar.png"} />
+          <Avatar
+            width={128}
+            pt={-8}
+            height={128}
+            imageUrl={
+              selectedFile
+                ? URL.createObjectURL(selectedFile)
+                : staff.avatarImageURL
+                ? staff.avatarImageURL
+                : "/avatar.png"
+            }
+          />
 
           <Flex
             justifyContent={"center"}
             w={"full"}
+            pt={10}
             position={{ "base": "relative", "md": "absolute" }}
             bottom={{ "base": "0", "md": 4 }}
           >
-            <Button
-              rightIcon={<MdPictureInPictureAlt />}
-              display={"flex"}
-              w={"max-full"}
-              colorScheme="purple"
-              variant={"outline"}
-              size={"sm"}
-            >
-              Update avatar
-            </Button>
+            <UpdateAvatarButton
+              selectedFile={selectedFile}
+              setSelectedFile={setSelectedFile}
+              theUser={staff}
+            />
           </Flex>
         </Grid>
 
@@ -426,88 +437,7 @@ export default function StaffProfileScreen({
         </Flex>
       </Flex>
 
-      <Grid gap={4} /*gridTemplateColumns="repeat(auto-fit, minmax(0, 1fr))"*/>
-        {/* <GridItem
-          bg={"white"}
-          py={4}
-          px={6}
-          rounded={"lg"}
-          colStart={1}
-          colEnd={3}
-          flexShrink={0}
-        >
-          <Text as="h2" fontWeight="bold" mt={2} mb={4}>
-            Personal Details
-          </Text>
-
-          <Grid gap={6}>
-            <Box>
-              <Flex gap={4}>
-                <IconComponent>
-                  <MdPersonOutline size={20} />
-                </IconComponent>
-
-                <Box>
-                  <Text as="h3" fontWeight="semibold">
-                    Full name
-                  </Text>
-                  <Text as="p" fontSize="sm">
-                    {fullname}
-                  </Text>
-                </Box>
-              </Flex>
-            </Box>
-            <Box>
-              <Flex gap={4}>
-                <IconComponent>
-                  <MdPersonOutline size={20} />
-                </IconComponent>
-
-                <Box>
-                  <Text as="h3" fontWeight="semibold">
-                    Gender
-                  </Text>
-                  <Text as="p" fontSize="sm" textTransform="capitalize">
-                    {gender}
-                  </Text>
-                </Box>
-              </Flex>
-            </Box>
-            <Box>
-              <Flex gap={4}>
-                <IconComponent>
-                  <MdOutlineMailOutline size={20} />
-                </IconComponent>
-
-                <Box>
-                  <Text as="h3" fontWeight="semibold">
-                    Email
-                  </Text>
-                  <Text as="p" fontSize="sm" textTransform="lowercase">
-                    {email}
-                  </Text>
-                </Box>
-              </Flex>
-            </Box>
-            <Box>
-              <Flex gap={4}>
-                <IconComponent>
-                  <MdPhone size={20} />
-                </IconComponent>
-
-                <Box>
-                  <Text as="h3" fontWeight="semibold">
-                    Phone Number
-                  </Text>
-                  <Text as="p" fontSize="sm" textTransform="capitalize">
-                    {phoneNumber}
-                  </Text>
-                </Box>
-              </Flex>
-            </Box>
-          </Grid>
-        </GridItem> */}
-
+      <Grid gap={4}>
         <GridItem bg={"white"} py={4} px={6} w={"full"} rounded={"lg"}>
           <Grid gap={6} gridTemplateColumns="repeat(2, 1fr)" pt={2}>
             <Box display={"flex"} flexWrap={"wrap"}>

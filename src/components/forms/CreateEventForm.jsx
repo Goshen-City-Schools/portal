@@ -76,7 +76,6 @@ export default function CreateEventForm() {
         status: "success",
         duration: "1200",
       });
-      console.log(formData);
       closePortal();
     }, 1600);
   }

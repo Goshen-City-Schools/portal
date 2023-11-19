@@ -1,29 +1,117 @@
-import React from "react";
-
-import { Button, Input } from "@chakra-ui/react";
+import React, { useRef } from "react";
+import { Button, Input, VStack, useToast } from "@chakra-ui/react";
 import { MdPictureInPictureAlt } from "react-icons/md";
-import { useRef } from "react";
+import { useUser } from "../../app/contexts/UserContext";
 
-export default function UpdateAvatarButton() {
-  const ref = useRef();
+import axios from "../../api/axios";
 
-  const handleClick = (e) => {
-    ref.current.click();
+export default function UpdateAvatarButton({
+  selectedFile,
+  setSelectedFile,
+  theUser,
+}) {
+  const fileInputRef = useRef();
+  const toast = useToast();
+  const { user, setInfoIsUpdated } = useUser();
+
+  const handleClick = () => {
+    fileInputRef.current.click();
   };
+
+  const handleUpload = async () => {
+    try {
+      const reader = new FileReader();
+      reader.readAsDataURL(selectedFile);
+
+      reader.onloadend = async () => {
+        const dataURL = reader.result;
+
+        const response = await axios.post(
+          "/api/v1/upload-avatar",
+          JSON.stringify({
+            dataURL: dataURL,
+            accountType: theUser.accountType,
+            firstName: theUser.firstName,
+            lastName: theUser.lastName,
+            portalId: theUser.portalId,
+          }),
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        if (response.status === 200) {
+          setSelectedFile(null);
+
+          // Handle success, e.g., update UI or show a success message
+          toast({
+            title: "Profile Image Upload Successful",
+            position: "top-right",
+            status: "success",
+            duration: 5000,
+          });
+
+          if (theUser.portalId === user.portalId) setInfoIsUpdated(true);
+        } else {
+          setSelectedFile(null);
+
+          const errorData = response.data;
+          console.error("Image upload failed:", errorData.message);
+          // Handle failure, e.g., display an error message
+          toast({
+            title: "Profile Image Upload Failed",
+            description: errorData.message || "Unknown error",
+            position: "top-right",
+            status: "error",
+            duration: 5000,
+          });
+        }
+      };
+    } catch (error) {
+      console.error("Error handling file:", error.message);
+    }
+  };
+
+  const handleFileChange = (e) => {
+    setSelectedFile(e.target.files[0]);
+  };
+
   return (
     <>
-      <Button
-        onClick={handleClick}
-        rightIcon={<MdPictureInPictureAlt />}
-        display={"flex"}
-        w={"max-full"}
-        colorScheme="purple"
-        variant={"outline"}
-        size={"sm"}
-      >
-        Update avatar
-      </Button>
-      <Input ref={ref} type="file" display={"none"} />
+      <VStack pt={10}>
+        <Button
+          onClick={handleClick}
+          rightIcon={<MdPictureInPictureAlt />}
+          display={"flex"}
+          w={"max-full"}
+          colorScheme="purple"
+          variant={"outline"}
+          size={"sm"}
+        >
+          Update avatar
+        </Button>
+        {selectedFile && (
+          <Button
+            onClick={handleUpload}
+            rightIcon={<MdPictureInPictureAlt />}
+            display={"flex"}
+            w={"max-full"}
+            colorScheme="green"
+            size={"sm"}
+          >
+            Upload Image
+          </Button>
+        )}
+      </VStack>
+      <Input
+        type="file"
+        accept="image/*"
+        onChange={handleFileChange}
+        style={{ display: "none" }}
+        ref={fileInputRef}
+      />
     </>
   );
 }

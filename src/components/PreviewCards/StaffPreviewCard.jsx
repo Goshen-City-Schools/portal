@@ -13,10 +13,18 @@ import IconComponent from "../Icon.component";
 import { MdMailOutline, MdShare } from "react-icons/md";
 import { FaPhoneAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { useUser } from "../../app/contexts/UserContext";
 
 export default function StaffPreviewCard({ staff }) {
+  const { user } = useUser();
   return (
-    <Link to={`/admin/staff/${staff?.portalId}`}>
+    <Link
+      to={
+        staff.portalId === user.portalId
+          ? `/admin/profile`
+          : `/admin/staff/${staff?.portalId}`
+      }
+    >
       <Stack
         bg={"neutral.100"}
         border={"2px solid"}
@@ -59,8 +67,18 @@ export default function StaffPreviewCard({ staff }) {
             </Text>
           </Badge>
 
-          <Avatar h={24} w={24} p={3} shadow={"lg"} bg={"white"}>
-            <Image src="/Illustration.png" />
+          <Avatar h={24} w={24} shadow={"lg"} bg={"white"} overflow={"hidden"}>
+            <Image
+              src={
+                staff.avatarImageURL
+                  ? staff.avatarImageURL
+                  : "/Illustration.png"
+              }
+              h={24}
+              w={24}
+              loading="lazy"
+              objectFit={"cover"}
+            />
           </Avatar>
 
           <Flex gap={4} direction={"column"}>

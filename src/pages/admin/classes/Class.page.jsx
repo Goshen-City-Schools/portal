@@ -1,17 +1,23 @@
 import React, { useState } from "react";
-import { Text, Flex, Box, Button, useDisclosure } from "@chakra-ui/react";
+import { useParams } from "react-router-dom";
+import { Text, Flex, Box } from "@chakra-ui/react";
+
+import useClasses from "../../../hooks/useClasses";
+import useStudents from "../../../hooks/useStudents";
+
+import HorizontalScrollableTabs from "../../../widgets/HorizontalScrollableTabs.widget";
+
+import subjectsData from "../../../data/subjects.data";
 
 import PageWrapper from "../../../components/PageWrapper";
 import ClassSummaryBox from "../../../components/ClassSummaryBox";
-import HorizontalScrollableTabs from "../../../widgets/HorizontalScrollableTabs.widget";
 import AllStudentsTable from "../../../components/tables/AllStudentsTable.component";
-
 import Timetable from "../../../components/tables/TimeTable.component";
 import ClassAttendance from "../../../components/tables/ClassAttendanceTable.component";
 import SubjectTable from "../../../components/tables/SubjectTable.component";
-import useStudents from "../../../hooks/useStudents";
-import { useParams } from "react-router-dom";
-import useClasses from "../../../hooks/useClasses";
+import IconComponent from "../../../components/Icon.component";
+
+import { MdArrowBack } from "react-icons/md";
 
 export default function ClassPage() {
   const [activeTab, setActiveTab] = useState(1);
@@ -23,10 +29,23 @@ export default function ClassPage() {
   const schoolClassData = schoolClasses.find(
     (singleSchoolClass) => singleSchoolClass.value === schoolClass
   );
-  console.log(studentsData, schoolClasses, schoolClassData);
+
+  const classData = (classValue) =>
+    schoolClasses.find((schoolCl) => schoolCl.value === classValue)?.name;
+
+  const newClass = (data) =>
+    schoolClasses.find((schoolCl) => schoolCl.name === data)?.name;
+
+  console.log(
+    classData("sss3"),
+    newClass("SSS 3"),
+    schoolClasses,
+    "SD",
+    schoolClass
+  );
 
   const filteredStudents = studentsData.filter(
-    (student) => student.schoolClass.toLocaleLowerCase() === schoolClass
+    (student) => student.schoolClass === classData(schoolClass)
   );
 
   const tabs = [
@@ -45,26 +64,10 @@ export default function ClassPage() {
     // Add more tabs as needed
   ];
 
-  const subjectsData = {
-    "Monday": {
-      "8:00 AM": "Math",
-      "9:00 AM": "Science",
-      "10:00 AM": "History",
-      "11:00 AM": "English",
-      "12:00 PM": "Lunch Break",
-      "1:00 PM": "Physics",
-      "2:00 PM": "Chemistry",
-      "3:00 PM": "Biology",
-    },
-  };
-
-  const handleSubjectClick = (day, hour) => {
-    // Implement the logic for handling subject clicks, e.g., opening a modal or performing an action.
-    console.log(`Clicked on ${subjectsData[day][hour]} at ${day}, ${hour}`);
-  };
-
   const handleTabClick = (tabId) => {
-    setActiveTab(tabId);
+    if (tabId >= 1 && tabId <= tabs.length) {
+      setActiveTab(tabId);
+    }
   };
 
   return (
@@ -94,11 +97,19 @@ export default function ClassPage() {
         classTeacher={"Nwa Oriaku"}
       />
 
-      <HorizontalScrollableTabs
-        tabs={tabs}
-        activeTab={activeTab}
-        onTabClick={handleTabClick}
-      />
+      <Flex alignItems={"center"} gap={4}>
+        <IconComponent
+          classes={"cursor-pointer"}
+          click={() => window.history.back(-1)}
+        >
+          <MdArrowBack size={24} />
+        </IconComponent>
+        <HorizontalScrollableTabs
+          tabs={tabs}
+          activeTab={activeTab}
+          onTabClick={handleTabClick}
+        />
+      </Flex>
 
       <Box p={4} bg={"white"} rounded={"md"}>
         {tabs[activeTab - 1].component}

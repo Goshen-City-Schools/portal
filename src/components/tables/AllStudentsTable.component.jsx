@@ -90,7 +90,6 @@ const AllStudentsTable = ({ existingStudentsData }) => {
       accessor: "action",
       Cell: ({ row }) => (
         <Flex gap={2}>
-          {console.log(row.index)}
           <CustomCard>
             <Tooltip label="Delete" hasArrow>
               <IconComponent

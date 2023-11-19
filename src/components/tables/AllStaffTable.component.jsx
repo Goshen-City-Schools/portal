@@ -16,8 +16,6 @@ const AllStaffTable = ({ existingStaffData }) => {
   const { user } = useUser();
   const [staffData, setStaffData] = useState(existingStaffData);
 
-  console.log(existingStaffData);
-
   useEffect(() => {
     // Your logic to handle staffData change
     setStaffData(existingStaffData);

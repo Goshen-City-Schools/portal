@@ -28,8 +28,6 @@ export default function AdminHome() {
   const { studentsData } = useStudents();
   const navigate = useNavigate();
 
-  console.log(staffData, studentsData);
-
   return (
     <PageWrapper>
       <ReactPortal />
