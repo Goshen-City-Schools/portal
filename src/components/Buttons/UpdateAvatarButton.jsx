@@ -4,6 +4,7 @@ import { MdPictureInPictureAlt } from "react-icons/md";
 import { useUser } from "../../app/contexts/UserContext";
 
 import axios from "../../api/axios";
+import { useState } from "react";
 
 export default function UpdateAvatarButton({
   selectedFile,
@@ -14,12 +15,16 @@ export default function UpdateAvatarButton({
   const toast = useToast();
   const { user, setInfoIsUpdated } = useUser();
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleClick = () => {
     fileInputRef.current.click();
   };
 
   const handleUpload = async () => {
     try {
+      setIsLoading(false);
+
       const reader = new FileReader();
       reader.readAsDataURL(selectedFile);
 
@@ -44,7 +49,7 @@ export default function UpdateAvatarButton({
 
         if (response.status === 200) {
           setSelectedFile(null);
-
+          setIsLoading(false);
           // Handle success, e.g., update UI or show a success message
           toast({
             title: "Profile Image Upload Successful",
@@ -56,6 +61,7 @@ export default function UpdateAvatarButton({
           if (theUser.portalId === user.portalId) setInfoIsUpdated(true);
         } else {
           setSelectedFile(null);
+          setIsLoading(false);
 
           const errorData = response.data;
           console.error("Image upload failed:", errorData.message);
@@ -102,6 +108,7 @@ export default function UpdateAvatarButton({
             w={"max-full"}
             colorScheme="green"
             size={"sm"}
+            isLoading={isLoading}
           >
             Upload Image
           </Button>
