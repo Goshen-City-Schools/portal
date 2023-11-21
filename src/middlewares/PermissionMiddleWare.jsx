@@ -95,6 +95,11 @@ const routes = [
     allowedRoles: ["Bursar", "Principal"],
     allowedAccountTypes: ["staff"],
   },
+  {
+    path: "/admin/finance/fees/settings",
+    allowedRoles: ["Bursar", "Principal"],
+    allowedAccountTypes: ["staff"],
+  },
 
   // Results
   {

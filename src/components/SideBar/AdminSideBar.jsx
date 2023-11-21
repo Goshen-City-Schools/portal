@@ -296,12 +296,12 @@ export default function AdminSideBar({ sideBarView, handleClick }) {
                   },
                   {
                     name: "Manage Fees",
-                    link: "/admin/students",
+                    link: "/admin/finance/fees",
                     icon: <MdHistory color={"white"} size={12} />,
                   },
                   {
                     name: "Configure Payments",
-                    link: "/admin/finance/settings",
+                    link: "/admin/finance/fees/settings",
                     icon: <MdSettings color={"white"} size={12} />,
                   },
                 ]}
