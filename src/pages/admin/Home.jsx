@@ -1,26 +1,30 @@
-import React from "react";
-
-import { Text, Grid, GridItem, Box, Flex } from "@chakra-ui/react";
-import CalendarWidget from "../../widgets/Calendar";
-import PageWrapper from "../../components/PageWrapper";
-import IconComponent from "../../components/Icon.component";
-
-import { IoMdAdd } from "react-icons/io";
-import EventCardComponent from "../../components/EventCard.component";
-import formatDate from "../../utilities/formatDate.utils";
-import StatCardComponent from "../../components/StatCard.component";
-import ChartWidget from "../../widgets/Chart.widget";
-import NewStudentsTable from "../../components/tables/NewStudentsTable.component";
-import CustomSelect from "../../components/shared/Select.component";
-
-import CreateEventPortal from "../../portals/CreateEvent.portal";
-import { useModal } from "../../app/contexts/ModalContext";
-import ReactPortal from "../../widgets/ReactPortal";
-import PageSectionHeader from "../../components/PageSectionHeader";
-import subjectsData from "../../data/subjects.data";
 import { useNavigate } from "react-router-dom";
+
+import subjectsData from "../../data/subjects.data";
+
+import CalendarWidget from "../../widgets/Calendar";
+import ReactPortal from "../../widgets/ReactPortal";
+import ChartWidget from "../../widgets/Chart.widget";
+
+import { useModal } from "../../app/contexts/ModalContext";
 import useStaffs from "../../hooks/useStaffs";
 import useStudents from "../../hooks/useStudents";
+
+import { Text, Grid, GridItem, Box, Flex } from "@chakra-ui/react";
+
+import CreateEventPortal from "../../portals/CreateEvent.portal";
+
+import formatDate from "../../utilities/formatDate.utils";
+
+import { IoMdAdd } from "react-icons/io";
+
+import EventCardComponent from "../../components/EventCard.component";
+import StatCardComponent from "../../components/StatCard.component";
+import NewStudentsTable from "../../components/tables/NewStudentsTable.component";
+import CustomSelect from "../../components/shared/Select.component";
+import PageSectionHeader from "../../components/PageSectionHeader";
+import PageWrapper from "../../components/PageWrapper";
+import IconComponent from "../../components/Icon.component";
 
 export default function AdminHome() {
   const { openPortal } = useModal();
@@ -46,7 +50,9 @@ export default function AdminHome() {
           <Flex
             justifyContent={"space-between"}
             gap={4}
-            flexDirection={{ "base": "column", "lg": "row" }}
+            flexDirection={{ "base": "column", "md": "row" }}
+            overflowX={"scroll"}
+            pb={8}
           >
             <StatCardComponent
               imagePadding={2}
@@ -55,6 +61,7 @@ export default function AdminHome() {
               text={"Total students:"}
               number={studentsData?.length}
               onClick={() => navigate("/admin/students")}
+              maxW={"300px"}
             />
             <StatCardComponent
               imagePadding={2}
@@ -63,6 +70,7 @@ export default function AdminHome() {
               text={"Total Staff:"}
               number={staffData?.length}
               onClick={() => navigate("/admin/staff")}
+              maxW={"300px"}
             />
             <StatCardComponent
               imagePadding={2}
@@ -70,6 +78,7 @@ export default function AdminHome() {
               imgSrc={"book.png"}
               text={"Total Subjects:"}
               number={subjectsData.length}
+              maxW={"300px"}
             />
           </Flex>
 
