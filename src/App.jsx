@@ -1,20 +1,17 @@
-import { Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
-// layouts
-
-// pages
-import Home from "./pages/Home";
-import GenerateInvoicePage from "./pages/payments/GenerateInvoice.page";
-import ReceiptsPage from "./pages/payments/Receipts.page";
-import PrintReceiptScreen from "./screens/PrintReceipt.screen";
-import PrintInvoiceScreen from "./screens/PrintInvoice.screen";
-import LoginScreen from "./screens/Login.screen";
-import AdminHome from "./pages/admin/Home";
+// Middlewares
+import PermissionMiddleware from "./middlewares/PermissionMiddleWare";
 
 // Layouts
 import AdminLayout from "./layouts/AdminLayout";
 import StudentLayout from "./layouts/StudentLayout";
 
+// Pages
+import Home from "./pages/Home";
+import GenerateInvoicePage from "./pages/payments/GenerateInvoice.page";
+import ReceiptsPage from "./pages/payments/Receipts.page";
+import AdminHome from "./pages/admin/Home";
 import StudentsPage from "./pages/admin/students/index.page";
 import AllStaffPage from "./pages/admin/staff/index.page";
 import ResultPage from "./pages/admin/results/Results.page";
@@ -37,15 +34,15 @@ import NewInvoicePage from "./pages/admin/finance/invoices/New";
 import { InvoicePage } from "./pages/admin/finance/invoices/invoice";
 import StudentPage from "./pages/admin/students/Student.page";
 import StaffPage from "./pages/admin/staff/Staff.page";
-import PermissionMiddleware from "./middlewares/PermissionMiddleWare";
 import AccessRestricted from "./pages/AccessRestricted";
-// import AuthenticationMiddleware from "./middlewares/AuthMiddleWare";
-import AuthLayout from "./layouts/AuthLayout";
 import StaffRoles from "./pages/admin/staff/Roles";
 import NotificationsPage from "./pages/admin/notifications";
 import ManageFees from "./pages/admin/finance/fees/ManageFees";
-import AuthenticationMiddleware from "./middlewares/AuthMiddleWare";
-import { Routes } from "react-router-dom";
+
+// Screens
+import PrintReceiptScreen from "./screens/PrintReceipt.screen";
+import PrintInvoiceScreen from "./screens/PrintInvoice.screen";
+import LoginScreen from "./screens/Login.screen";
 
 const App = () => {
   return (
