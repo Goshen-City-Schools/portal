@@ -22,9 +22,10 @@ import SearchWidget from "../../../widgets/Search.widget";
 import PageWrapper from "../../../components/PageWrapper";
 import StatCardComponent from "../../../components/StatCard.component";
 import IconComponent from "../../../components/Icon.component";
-import CreateNewClassForm from "../../../components/forms/CreateNewClassForm";
+// import ClassForm from "../../../components/forms/ClassForm";
 
 import { MdAdd } from "react-icons/md";
+import SchoolClassForm from "../../../components/forms/SchoolClassForm";
 
 export const classCategories = [
   {
@@ -34,7 +35,7 @@ export const classCategories = [
   },
   {
     category: "Foundation",
-    value: "rfoundation",
+    value: "foundation",
     illustration: "reception-foundation.jpg", // Replace with the actual image URL
   },
   {
@@ -168,12 +169,7 @@ export default function ClassesPage() {
         <SearchWidget height={10} text={"Search for classes"} />
 
         <Flex gap={4} fontSize={"sm"}>
-          <Button
-            bg={"brand.700"}
-            size={"sm"}
-            color={"neutral.100"}
-            onClick={() => openPortal(<CreateNewClassForm />)}
-          >
+          <Button bg={"brand.700"} size={"sm"} color={"neutral.100"}>
             <IconComponent>
               <MdAdd />
             </IconComponent>

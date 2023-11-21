@@ -142,6 +142,19 @@ const PermissionMiddleware = ({ children }) => {
     const allowedRoles = currentRoute.allowedRoles;
     const allowedAccountTypes = currentRoute.allowedAccountTypes;
 
+    // Additional check to restrict student route for non-student users
+    if (currentRoute.path === "/" && user?.accountType !== "student") {
+      return false;
+    }
+
+    // Additional check to restrict staff route for non-staff users
+    if (
+      currentRoute.path.startsWith("/admin") &&
+      user?.accountType !== "staff"
+    ) {
+      return false;
+    }
+
     return (
       allowedRoles.some((role) => user?.roles.includes(role)) &&
       allowedAccountTypes.includes(user?.accountType)
