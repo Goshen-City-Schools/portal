@@ -1,4 +1,6 @@
-import React from "react";
+import { useState } from "react";
+
+import dayjs from "dayjs";
 
 import {
   Box,
@@ -11,8 +13,7 @@ import {
   Stack,
   Tag,
 } from "@chakra-ui/react";
-import Avatar from "../components/Avatar.component";
-import IconComponent from "../components/Icon.component";
+
 import {
   MdEdit,
   MdEmojiTransportation,
@@ -24,13 +25,17 @@ import {
   MdRoom,
   MdWhatsapp,
 } from "react-icons/md";
+
 import { FaRegIdCard } from "react-icons/fa";
-import dayjs from "dayjs";
+
 import { useModal } from "../app/contexts/ModalContext";
-import allowedUserRoles from "../helpers/allowedUserRoles";
 import { useUser } from "../app/contexts/UserContext";
+
+import allowedUserRoles from "../helpers/allowedUserRoles";
+
 import UpdateAvatarButton from "../components/Buttons/UpdateAvatarButton";
-import { useState } from "react";
+import Avatar from "../components/Avatar.component";
+import IconComponent from "../components/Icon.component";
 
 export default function StudentProfileScreen({ student }) {
   const { openPortal } = useModal();

@@ -13,7 +13,7 @@ import { useModal } from "../../app/contexts/ModalContext";
 import CustomSelect from "../shared/Select.component";
 import useClasses from "../../hooks/useClasses";
 
-export default function CreateNewClassForm() {
+export default function SchoolClassForm() {
   const [isLoading, setIsLoading] = useState(false);
   const { schoolClasses } = useClasses();
   const [formData, setFormData] = useState({

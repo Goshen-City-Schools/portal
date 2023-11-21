@@ -96,9 +96,16 @@ const routes = [
     allowedAccountTypes: ["staff"],
   },
 
+  // Results
+  {
+    path: "/admin/results",
+    allowedRoles: ["IT Personnel", "Principal"],
+    allowedAccountTypes: ["staff"],
+  },
+
   {
     path: "/",
-    allowedAccountTypes: ["Student"],
+    allowedAccountTypes: ["student"],
   },
 
   // Add more routes here

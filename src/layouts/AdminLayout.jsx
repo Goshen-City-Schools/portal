@@ -1,64 +1,16 @@
-import React, { useRef } from "react";
+import React from "react";
 import { Outlet } from "react-router-dom";
 import AdminSideBar from "../components/SideBar/AdminSideBar";
 import AdminHeader from "../components/Header/AdminHeader.component";
 
-import { Box, FormControl, FormLabel, Input, Button } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import ConfigurationSideBar from "../components/SideBar/ConfigurationSideBar";
 import { useState } from "react";
 import ReactPortal from "../widgets/ReactPortal";
 import { useModal } from "../app/contexts/ModalContext";
 import { useNavigate } from "react-router-dom";
-import CreateNewClassForm from "../components/forms/CreateNewClassForm";
-import { useUser } from "../app/contexts/UserContext";
-import { useEffect } from "react";
-
-const ViewStaffForm = ({ handleSubmit }) => {
-  const staffIdRef = useRef(null);
-
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-    handleSubmit(staffIdRef.current.value);
-  };
-
-  return (
-    <form onSubmit={handleFormSubmit}>
-      <FormControl>
-        <FormLabel fontSize={"sm"} fontWeight={"bold"}>
-          Enter Staff ID:
-        </FormLabel>
-        <Input type="text" ref={staffIdRef} />
-      </FormControl>
-      <Button mb={4} fontSize={"sm"} colorScheme={"blue"} type="submit">
-        View Staff Profile
-      </Button>
-    </form>
-  );
-};
-
-//
-const ViewStudentForm = ({ handleSubmit }) => {
-  const studentIdRef = useRef(null);
-
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-    handleSubmit(studentIdRef.current.value);
-  };
-
-  return (
-    <form onSubmit={handleFormSubmit}>
-      <FormControl>
-        <FormLabel fontSize={"sm"} fontWeight={"bold"}>
-          Enter Student ID:
-        </FormLabel>
-        <Input type="text" ref={studentIdRef} />
-      </FormControl>
-      <Button mb={4} fontSize={"sm"} colorScheme={"blue"} type="submit">
-        View Student Profile
-      </Button>
-    </form>
-  );
-};
+import SchoolClassForm from "../components/forms/SchoolClassForm";
+import SearchUserForm from "../components/forms/SearchUserForm";
 
 export default function AdminLayout() {
   const navigate = useNavigate();
@@ -77,11 +29,21 @@ export default function AdminLayout() {
 
   const handleClick = (type) => {
     if (type === "staff")
-      return openPortal(<ViewStaffForm handleSubmit={handleStaffSearch} />);
+      return openPortal(
+        <SearchUserForm
+          accountType={"staff"}
+          handleSubmit={handleStaffSearch}
+        />
+      );
     if (type === "student")
-      return openPortal(<ViewStudentForm handleSubmit={handleStudentSearch} />);
+      return openPortal(
+        <SearchUserForm
+          accountType={"student"}
+          handleSubmit={handleStudentSearch}
+        />
+      );
 
-    if (type === "createClass") return openPortal(<CreateNewClassForm />);
+    if (type === "createClass") return openPortal(<SchoolClassForm />);
   };
 
   const toggleSidebar = () => {

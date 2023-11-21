@@ -57,11 +57,7 @@ export default function AdminHeader() {
       left={{ "lg": "260px" }}
       className="h-20 no-print fixed top-0 z-40 shadow-sm flex items-center justify-between"
     >
-      <Flex
-        // display={{ "base": "flex", "md": "none" }}
-        alignItems={"center"}
-        gap={3}
-      >
+      <Flex alignItems={"center"} gap={4}>
         <Grid placeItems={"center"} p={0.5} border={"1px solid"} rounded={"md"}>
           <IconComponent click={handleToggleSideMenu}>
             <MdMenu size={24} />
@@ -73,7 +69,7 @@ export default function AdminHeader() {
         </Text>
       </Flex>
 
-      <div className="flex items-center gap-4 text-sm">
+      <Flex className="items-center text-sm" gap={{ base: 3, md: 4 }}>
         <Flex direction={"column"} display={{ "base": "none", "md": "flex" }}>
           <p className="font-bold first-letter:">2023/2024 session</p>
           <p>First Term</p>
@@ -172,7 +168,7 @@ export default function AdminHeader() {
             </PopoverBody>
           </PopoverContent>
         </Popover>
-      </div>
+      </Flex>
     </Box>
   );
 }

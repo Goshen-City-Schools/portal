@@ -16,7 +16,7 @@ import { useState } from "react";
 import { useModal } from "../../app/contexts/ModalContext";
 import CustomSelect from "../shared/Select.component";
 
-export default function CreateEventForm() {
+export default function EventForm() {
   const [isPeriodicEvent, setIsPeriodicEvent] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({

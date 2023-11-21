@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Text, Box } from "@chakra-ui/react";
-import CreateEventForm from "../components/forms/CreateEventForm";
+import EventForm from "../components/forms/EventForm";
 
 export default function CreateEventPortal() {
   return (
@@ -16,7 +16,7 @@ export default function CreateEventPortal() {
         Add New Event
       </Text>
 
-      <CreateEventForm />
+      <EventForm />
     </Box>
   );
 }
