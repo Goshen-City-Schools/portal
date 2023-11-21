@@ -144,7 +144,7 @@ export default function AdminHome() {
               </Flex>
             </Flex>
 
-            <NewStudentsTable />
+            <NewStudentsTable existingStudnets={studentsData} />
           </Box>
         </GridItem>
 

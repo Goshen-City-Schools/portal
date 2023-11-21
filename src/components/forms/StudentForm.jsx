@@ -17,6 +17,7 @@ const FirstForm = ({
   handleNextForm,
   loading,
   availableSubclasses,
+  schoolData,
 }) => {
   return (
     <Flex direction={"column"} rowGap={6} columnGap={8} pb={6}>
@@ -95,7 +96,7 @@ const FirstForm = ({
             value={formData.class}
           >
             <option value="">-- Select class --</option>
-            {schoolData.schoolClasses.map((schoolClass, index) => (
+            {schoolData?.schoolClasses.map((schoolClass, index) => (
               <option key={index} value={schoolClass.name}>
                 {schoolClass.name}
               </option>
@@ -321,6 +322,7 @@ export default function StudentForm({
   formData,
   availableSubclasses,
   handleFormSubmit,
+  schoolData,
 }) {
   return (
     <form onSubmit={handleFormSubmit}>

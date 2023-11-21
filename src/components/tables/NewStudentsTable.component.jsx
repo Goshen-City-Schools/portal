@@ -1,30 +1,40 @@
-import React from "react";
 import Table from "../../widgets/Table.widget";
-import { useLocalStorage } from "../../hooks/useLocalStorage";
 import dayjs from "dayjs";
-// import Table from "./Table";
+
+import { Text, Flex } from "@chakra-ui/react";
 
 const columns = [
   {
     Header: "Student ID",
-    accessor: "id",
+    accessor: "portalId",
     width: "max-content", // Set the width to max content
+    Cell: ({ value }) => (
+      <Flex gap={2}>
+        <Text
+          as={"p"}
+          color={"neutral.700"}
+          letterSpacing={0.5}
+          textTransform={"uppercase"}
+        >
+          GSHN/STU/{value}
+        </Text>
+      </Flex>
+    ),
   },
   {
-    Header: "First name",
+    Header: "Full Name",
     accessor: "firstName",
-    width: "100%", // Set the width to 100% to stretch
-    mobileHidden: true,
-  },
-  {
-    Header: "Last name",
-    accessor: "lastName",
-    width: "100%", // Set the width to 100% to stretch
-    mobileHidden: true,
+    Cell: ({ row }) => (
+      <Flex gap={2}>
+        <Text as={"p"} textTransform={"capitalize"}>
+          {row.original.firstName} {row.original.lastName}
+        </Text>
+      </Flex>
+    ),
   },
   {
     Header: "Class",
-    accessor: "class",
+    accessor: "schoolClass",
     width: "max-content",
   },
   {
@@ -35,9 +45,7 @@ const columns = [
   },
 ];
 
-const NewStudentsTable = () => {
-  const existingStudnets = useLocalStorage("studentsData").getItem();
-
+const NewStudentsTable = ({ existingStudnets }) => {
   const data = existingStudnets?.filter(
     (student) => student.studentType === "new"
   );

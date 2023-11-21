@@ -65,8 +65,18 @@ export default function StudentPreviewCard({ student }) {
             </Badge>
           </Box>
 
-          <Avatar h={24} w={24} p={3} shadow={"lg"} bg={"white"}>
-            <Image src="/Illustration.png" />
+          <Avatar h={24} w={24} shadow={"lg"} bg={"white"} overflow={"hidden"}>
+            <Image
+              src={
+                student.avatarImageURL
+                  ? student.avatarImageURL
+                  : "/Illustration.png"
+              }
+              h={24}
+              w={24}
+              loading="lazy"
+              objectFit={"cover"}
+            />
           </Avatar>
 
           <Flex gap={4} direction={"column"}>

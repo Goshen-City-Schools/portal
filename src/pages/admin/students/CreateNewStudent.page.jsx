@@ -288,6 +288,7 @@ export default function CreateNewStudent() {
           handleFormSubmit={handleFormSubmit}
           loading={loading}
           availableSubclasses={availableSubclasses}
+          schoolData={schoolData}
         />
       </Box>
     </PageWrapper>

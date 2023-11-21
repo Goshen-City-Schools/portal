@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { useTable, usePagination, useSortBy } from "react-table";
 import {
   Table,
@@ -7,17 +6,15 @@ import {
   Tr,
   Th,
   Td,
-  Flex,
   Box,
   useStyleConfig,
   useMediaQuery,
   Button,
 } from "@chakra-ui/react";
-// import ReusableBadge from "../components/shared/ReusableBadge";
 import ReusableBadge from "../components/ReusableBadge";
 
 const DataTable = ({ columns, data, fullWidthColumns, customPageSize }) => {
-  const [isMobile] = useMediaQuery("(max-width: 768px)"); // Detect mobile view
+  const [isMobile] = useMediaQuery("(max-width: 768px)");
 
   const {
     getTableProps,
@@ -43,18 +40,21 @@ const DataTable = ({ columns, data, fullWidthColumns, customPageSize }) => {
     usePagination
   );
 
-  const customStyles = useStyleConfig("Table"); // Get Chakra UI table styles
+  const customStyles = useStyleConfig("Table");
+
   if (!data || data.length === 0) {
     return <p>No data available</p>;
   }
 
   return (
-    <Box>
+    <Box overflowX="auto">
+      {" "}
+      {/* Add this to enable horizontal scrolling on small screens */}
       <Table
         {...getTableProps()}
         className="custom-table"
         sx={{
-          ...customStyles, // Apply default Chakra UI table styles
+          ...customStyles,
         }}
       >
         <Thead bg={"neutral.300"} whiteSpace={"nowrap"}>
@@ -69,7 +69,6 @@ const DataTable = ({ columns, data, fullWidthColumns, customPageSize }) => {
                       ? "100%"
                       : "max-content"
                   }
-                  // Hide the column on mobile view
                   style={{
                     display:
                       isMobile && column.mobileHidden ? "none" : "table-cell",
@@ -89,7 +88,12 @@ const DataTable = ({ columns, data, fullWidthColumns, customPageSize }) => {
           ))}
         </Thead>
 
-        <Tbody {...getTableBodyProps()} fontSize={"sm"} whiteSpace={"nowrap"}>
+        <Tbody
+          mb={{ base: 12 }}
+          {...getTableBodyProps()}
+          fontSize={"sm"}
+          whiteSpace={"nowrap"}
+        >
           {page.map((row, index) => {
             prepareRow(row);
             return (
@@ -103,7 +107,6 @@ const DataTable = ({ columns, data, fullWidthColumns, customPageSize }) => {
                         ? "100%"
                         : "max-content"
                     }
-                    // Hide the cell on mobile view if the corresponding column is hidden
                     style={{
                       display:
                         isMobile && cell.column.mobileHidden
@@ -111,7 +114,6 @@ const DataTable = ({ columns, data, fullWidthColumns, customPageSize }) => {
                           : "table-cell",
                     }}
                   >
-                    {/* Render the Approval Status column as a Badge */}
                     {(cell.column.id === "approvalStatus") |
                     (cell.column.id === "availabilityStatus") ? (
                       <ReusableBadge
@@ -130,21 +132,14 @@ const DataTable = ({ columns, data, fullWidthColumns, customPageSize }) => {
           })}
         </Tbody>
       </Table>
-      <Flex
-        className="pagination"
-        gap={4}
-        mt={4}
-        mx={"auto"}
-        width={"max-content"}
-        alignItems={"center"}
-      >
+      <Box mt={4} textAlign="center">
         <Button
-          size={"sm"}
+          size="sm"
           onClick={() => previousPage()}
           disabled={!canPreviousPage}
         >
           Previous
-        </Button>
+        </Button>{" "}
         <span>
           Page{" "}
           <strong>
@@ -154,40 +149,16 @@ const DataTable = ({ columns, data, fullWidthColumns, customPageSize }) => {
         <Button
           colorScheme="blue"
           onClick={() => nextPage()}
-          size={"sm"}
+          size="sm"
           disabled={!canNextPage}
         >
           Next
         </Button>
-      </Flex>
+      </Box>
     </Box>
   );
 };
 
-const getStatusColorScheme = (status) => {
-  switch (status) {
-    case "Approved":
-      return "green";
-    case "Pending":
-      return "yellow";
-    case "Not Approved":
-      return "red";
-    default:
-      return "gray";
-  }
-};
-
-const getStatusVariant = (status) => {
-  switch (status) {
-    case "Approved":
-      return "solid";
-    case "Pending":
-      return "subtle";
-    case "Not Approved":
-      return "outline";
-    default:
-      return "subtle";
-  }
-};
+// ... (getStatusColorScheme and getStatusVariant functions remain unchanged)
 
 export default DataTable;

@@ -8,6 +8,7 @@ import {
   FormControl,
   Select,
 } from "@chakra-ui/react";
+import { MdUpload } from "react-icons/md";
 
 export default function StaffForm({
   handleChange,

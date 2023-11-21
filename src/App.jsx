@@ -27,7 +27,6 @@ import ResultSinglePage from "./pages/admin/results/Result.page";
 import ResultSettingsPage from "./pages/admin/results/ResultSettings.page";
 import MyProfilePage from "./pages/admin/profile";
 import UploadResultPage from "./pages/admin/results/UploadResult.page";
-import ExamHomePage from "./pages/admin/cbt/exam/Home.page";
 import NotFound from "./pages/admin/NotFound";
 import GeneralNotFound from "./pages/NotFound";
 import ClassesPage from "./pages/admin/classes/Index.page";
@@ -125,7 +124,14 @@ const App = () => {
         <Route path="*" element={<NotFound />} />
       </Route>
 
-      <Route path="/" element={<StudentLayout />}>
+      <Route
+        path="/"
+        element={
+          <PermissionMiddleware>
+            <StudentLayout />
+          </PermissionMiddleware>
+        }
+      >
         {/* Home Route */}
         <Route index element={<Home />} />
 
