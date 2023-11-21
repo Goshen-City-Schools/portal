@@ -1,18 +1,23 @@
 import React from "react";
-import Logo from "../Logo.component";
+
+import { useDispatch, useSelector } from "react-redux";
+
 import "./SideMenu.style.css";
+
+import { toggleSideMenu } from "../../app/redux/slices/menuSlice";
+import { useUser } from "../../app/contexts/UserContext";
+import allowedUserRoles from "../../helpers/allowedUserRoles";
 
 import { Box, List, Flex, Text, VStack } from "@chakra-ui/react";
 
-import { TbSchool, TbReport, TbFolderSearch } from "react-icons/tb";
+import { TbFolderSearch } from "react-icons/tb";
 import { PiChalkboardTeacherDuotone, PiDotsNine } from "react-icons/pi";
+import { FaChevronRight, FaTimes } from "react-icons/fa";
 import {
   MdOutlineBed,
-  MdOutlineAssignment,
   MdOutlineSupportAgent,
   MdOutlinePrecisionManufacturing,
   MdAdd,
-  MdEdit,
   MdEditDocument,
   MdOutlineMail,
   MdWhatsapp,
@@ -29,19 +34,10 @@ import { LuCalendarDays } from "react-icons/lu";
 import { BiSpreadsheet } from "react-icons/bi";
 import { TbMessages } from "react-icons/tb";
 
-import { BsEye } from "react-icons/bs";
-
-import "./SideMenu.style.css";
-
-import { useDispatch, useSelector } from "react-redux";
-
 import IconComponent from "../Icon.component";
 import NavItemComponent from "../NavItem.component";
-import { FaChevronRight, FaTimes } from "react-icons/fa";
-import { toggleSideMenu } from "../../app/redux/slices/menuSlice";
-import allowedUserRoles from "../../helpers/allowedUserRoles";
+import Logo from "../Logo.component";
 import Avatar from "../Avatar.component";
-import { useUser } from "../../app/contexts/UserContext";
 
 export default function AdminSideBar({ sideBarView, handleClick }) {
   const dispatch = useDispatch();
@@ -249,9 +245,10 @@ export default function AdminSideBar({ sideBarView, handleClick }) {
               <NavItemComponent
                 submenu={[
                   {
-                    name: "Search Results",
+                    name: "Add Class Result",
                     link: "/admin/students",
-                    icon: <TbFolderSearch size={12} />,
+                    icon: <MdWhatsapp size={12} />,
+                    roles: ["IT Personnel"],
                   },
                   {
                     name: "Manage Results",
@@ -259,18 +256,13 @@ export default function AdminSideBar({ sideBarView, handleClick }) {
                     icon: <MdOutlineChat size={12} />,
                   },
                   {
-                    name: "Results Broadsheet",
+                    name: "View Broadsheet",
                     link: "/staff?type=academic",
                     icon: <MdOutlineMail size={14} />,
                   },
+
                   {
-                    name: "Upload Result",
-                    link: "/admin/students",
-                    icon: <MdWhatsapp size={12} />,
-                    roles: ["IT Personnel"],
-                  },
-                  {
-                    name: "Set Results Format",
+                    name: "Set Result Format",
                     link: "/staff?type=academic",
                     icon: <MdOutlineBroadcastOnPersonal size={14} />,
                     roles: ["IT Personnel", "Principal"],
