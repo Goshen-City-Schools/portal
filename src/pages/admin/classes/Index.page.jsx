@@ -22,7 +22,6 @@ import SearchWidget from "../../../widgets/Search.widget";
 import PageWrapper from "../../../components/PageWrapper";
 import StatCardComponent from "../../../components/StatCard.component";
 import IconComponent from "../../../components/Icon.component";
-// import ClassForm from "../../../components/forms/ClassForm";
 
 import { MdAdd } from "react-icons/md";
 import SchoolClassForm from "../../../components/forms/SchoolClassForm";
@@ -169,7 +168,12 @@ export default function ClassesPage() {
         <SearchWidget height={10} text={"Search for classes"} />
 
         <Flex gap={4} fontSize={"sm"}>
-          <Button bg={"brand.700"} size={"sm"} color={"neutral.100"}>
+          <Button
+            bg={"brand.700"}
+            size={"sm"}
+            color={"neutral.100"}
+            onClick={() => openPortal(<SchoolClassForm />)}
+          >
             <IconComponent>
               <MdAdd />
             </IconComponent>
