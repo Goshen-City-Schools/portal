@@ -9,10 +9,13 @@ import {
   Flex,
   ButtonGroup,
 } from "@chakra-ui/react";
+import { GiCoronation } from "react-icons/gi";
 import Avatar from "../components/Avatar.component";
 import IconComponent from "../components/Icon.component";
 import {
   MdAdd,
+  MdCalendarMonth,
+  MdClass,
   MdEdit,
   MdOutlineDeleteOutline,
   MdOutlineMailOutline,
@@ -30,6 +33,7 @@ import dayjs from "dayjs";
 import allowedUserRoles from "../helpers/allowedUserRoles";
 import { useUser } from "../app/contexts/UserContext";
 import UpdateAvatarButton from "../components/Buttons/UpdateAvatarButton";
+import InfoBox from "../components/shared/InfoBox.component";
 
 const schoolClasses = schoolData.schoolClasses;
 const staffRoles = schoolData.staffRoles;
@@ -242,72 +246,25 @@ export default function StaffProfileScreen({
                 Personal Details
               </Text>
               <Grid gap={5} color={"neutral.700"}>
-                <Box>
-                  <Flex gap={4}>
-                    <IconComponent>
-                      <MdPersonOutline size={20} />
-                    </IconComponent>
+                <InfoBox
+                  icon={<MdPersonOutline size={20} />}
+                  label={"Full name"}
+                >
+                  {fullname}
+                </InfoBox>
 
-                    <Box>
-                      <Text as={"h3"} fontSize={"sm"} fontWeight={"semibold"}>
-                        Full name
-                      </Text>
-                      <Text as={"p"}>{fullname}</Text>{" "}
-                    </Box>
-                  </Flex>
-                </Box>
-                <Box>
-                  <Flex gap={4}>
-                    <IconComponent>
-                      <MdPersonOutline size={20} />
-                    </IconComponent>
+                <InfoBox icon={<MdPersonOutline size={20} />} label={"Gender"}>
+                  {gender}
+                </InfoBox>
 
-                    <Box>
-                      <Text as={"h3"} fontSize={"sm"} fontWeight={"semibold"}>
-                        Gender
-                      </Text>
-                      <Text as={"p"} textTransform={"capitalize"}>
-                        {gender}
-                      </Text>{" "}
-                    </Box>
-                  </Flex>
-                </Box>
-                <Box>
-                  <Flex gap={4}>
-                    <IconComponent>
-                      <MdOutlineMailOutline size={20} />
-                    </IconComponent>
-
-                    <Box>
-                      <Text as={"h3"} fontSize={"sm"} fontWeight={"semibold"}>
-                        Date of Birth
-                      </Text>
-                      <Text
-                        as={"p"}
-                        textTransform={""}
-                        fontFamily={"monospace"}
-                      >
-                        {dayjs(dateOfBirth).format("dddd, MMM D")}
-                      </Text>{" "}
-                    </Box>
-                  </Flex>
-                </Box>
-                {/* <Box>
-                  <Flex gap={4}>
-                    <IconComponent>
-                      <MdPersonOutline size={20} />
-                    </IconComponent>
-
-                    <Box>
-                      <Text as={"h3"} fontSize={"sm"} fontWeight={"semibold"}>
-                        Student Type
-                      </Text>
-                      <Text as={"p"} textTransform={"capitalize"}>
-                        {studentType} Student
-                      </Text>{" "}
-                    </Box>
-                  </Flex>
-                </Box> */}
+                <InfoBox
+                  icon={<MdCalendarMonth size={20} />}
+                  label={"Date of Birth"}
+                >
+                  <Text as={"p"} textTransform={""} fontFamily={"monospace"}>
+                    {dayjs(dateOfBirth).format("dddd, MMM D")}
+                  </Text>
+                </InfoBox>
               </Grid>
             </GridItem>
 
@@ -330,56 +287,23 @@ export default function StaffProfileScreen({
               </Text>
 
               <Grid gap={5} color={"neutral.700"}>
-                <Box>
-                  <Flex gap={4}>
-                    <IconComponent>
-                      <MdOutlineMailOutline size={20} />
-                    </IconComponent>
+                <InfoBox
+                  icon={<MdOutlineMailOutline size={20} />}
+                  label={"Email"}
+                >
+                  {email}
+                </InfoBox>
 
-                    <Box>
-                      <Text as={"h3"} fontSize={"sm"} fontWeight={"semibold"}>
-                        Email
-                      </Text>
-                      <Text as={"p"} textTransform={"lowercase"}>
-                        {email}
-                      </Text>{" "}
-                    </Box>
-                  </Flex>
-                </Box>
+                <InfoBox icon={<MdPhone size={20} />} label={"Phone Number"}>
+                  {phoneNumber}
+                </InfoBox>
 
-                <Box>
-                  <Flex gap={4}>
-                    <IconComponent>
-                      <MdPhone size={20} />
-                    </IconComponent>
-
-                    <Box>
-                      <Text as={"h3"} fontSize={"sm"} fontWeight={"semibold"}>
-                        Phone Number
-                      </Text>
-                      <Text as={"p"} textTransform={"capitalize"}>
-                        {phoneNumber}
-                      </Text>{" "}
-                    </Box>
-                  </Flex>
-                </Box>
-
-                <Box>
-                  <Flex gap={4}>
-                    <IconComponent>
-                      <MdWhatsapp size={20} />
-                    </IconComponent>
-
-                    <Box>
-                      <Text as={"h3"} fontSize={"sm"} fontWeight={"semibold"}>
-                        Whatsapp Number
-                      </Text>
-                      <Text as={"p"} textTransform={"capitalize"}>
-                        {whatsappNumber}
-                      </Text>{" "}
-                    </Box>
-                  </Flex>
-                </Box>
+                <InfoBox
+                  icon={<MdWhatsapp size={20} />}
+                  label={"WhatsApp Number"}
+                >
+                  {whatsappNumber}
+                </InfoBox>
               </Grid>
             </GridItem>
 
@@ -421,299 +345,224 @@ export default function StaffProfileScreen({
             >
               Staff ID Card
             </Button>
-
-            {/* {allowedUserRoles(user, ["IT Personnel"]) && (
-              <Button
-                fontSize={"sm"}
-                leftIcon={<MdEdit />}
-                size={"sm"}
-                colorScheme="blue"
-                onClick={() => openPortal()}
-              >
-                Edit Profile
-              </Button>
-            )} */}
-
-            {/* <Button
-              leftIcon={<MdOutlineClose />}
-              colorScheme="yellow"
-              fontSize={"sm"}
-              size={"sm"}
-            >
-              Deactivate Account
-            </Button>
-           */}
           </ButtonGroup>
         </Flex>
       </Flex>
 
-      <Grid gap={4}>
-        <GridItem
-          bg={"white"}
-          py={4}
-          px={{ base: 4, md: 6 }}
-          w={"full"}
-          rounded={"lg"}
-        >
-          <Grid
-            gap={6}
-            gridTemplateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }}
-            pt={2}
-          >
-            <Box display={"flex"} flexWrap={"wrap"}>
-              <Flex gap={4}>
-                <IconComponent>
-                  <MdPersonOutline size={20} />
-                </IconComponent>
+      <Grid
+        gap={4}
+        bg={"white"}
+        gridTemplateColumns={{ base: "1fr", md: "repeat(3, 1fr)" }}
+        px={6}
+        py={4}
+        w={"full"}
+        rounded={"lg"}
+        alignContent={"center"}
+        justifyContent={"center"}
+      >
+        <GridItem display={"grid"} gap={4}>
+          <InfoBox label={"Nationality"} icon={<GiCoronation />}>
+            <Text
+              as="p"
+              fontSize={"sm"}
+              letterSpacing={0.8}
+              textTransform={"uppercase"}
+            >
+              Nigerian
+            </Text>
+          </InfoBox>{" "}
+          <InfoBox icon={<GiCoronation />} label={"State of Origin"}>
+            ""
+          </InfoBox>
+        </GridItem>
 
-                <Box w="full">
-                  <Flex
-                    justifyContent="space-between"
-                    w="full"
-                    alignItems="center"
-                  >
-                    <Text as="h3" mb={1} fontWeight="semibold">
-                      Staff ID
-                    </Text>
-                  </Flex>
+        <GridItem display={"grid"} gap={4}>
+          <InfoBox label={"L.G.A"} icon={<GiCoronation />}>
+            <Text
+              as="p"
+              fontSize={"sm"}
+              letterSpacing={0.8}
+              textTransform={"uppercase"}
+            >
+              L.G.A
+            </Text>
+          </InfoBox>{" "}
+          <InfoBox icon={<GiCoronation />} label={"Religion"}>
+            ""
+          </InfoBox>
+        </GridItem>
 
-                  <Text
-                    as="p"
-                    fontSize={"sm"}
-                    letterSpacing={0.8}
-                    textTransform={"uppercase"}
-                  >
-                    {`GSHN/STF/${portalId}`}
-                  </Text>
-                </Box>
-              </Flex>
-            </Box>
-
-            <Box display={"flex"} flexWrap={"wrap"}>
-              <Flex gap={4}>
-                <IconComponent>
-                  <MdPersonOutline size={20} />
-                </IconComponent>
-
-                <Box w="full">
-                  <Flex
-                    justifyContent="space-between"
-                    w="full"
-                    alignItems="center"
-                  >
-                    <Text as="h3" fontWeight="semibold">
-                      Roles
-                    </Text>
-
-                    {roles?.length > 0 && (
-                      <Grid
-                        height={7}
-                        w={7}
-                        bg="transparent"
-                        color="neutral.700"
-                        rounded="lg"
-                        placeItems="center"
-                        border="1px solid"
-                        borderColor="neutral.700"
-                        onClick={() => handleAssignClick("roles")}
-                        cursor="pointer"
-                      >
-                        <IconComponent h="full" w="full">
-                          <MdEdit />
-                        </IconComponent>
-                      </Grid>
-                    )}
-                  </Flex>
-
-                  <Flex w="full" gap={4} mt={2} flexWrap={"wrap"}>
-                    {roles && roles?.length > 0 ? (
-                      roles?.map((role, index) => (
-                        <Tag
-                          flexShrink={0}
-                          size="sm"
-                          key={index}
-                          variant="solid"
-                          colorScheme="blue"
-                        >
-                          {role}
-                        </Tag>
-                      ))
-                    ) : (
-                      <Box>
-                        <Text as="small" mb={4}>
-                          No Roles assigned yet!
-                        </Text>
-                        <Button
-                          display="flex"
-                          w="max-content"
-                          size="sm"
-                          fontSize="xs"
-                          variant="outline"
-                          colorScheme="blue"
-                          leftIcon={<MdAdd size={18} />}
-                          onClick={() => handleAssignClick("roles")}
-                        >
-                          Assign Roles
-                        </Button>
-                      </Box>
-                    )}
-                  </Flex>
-                </Box>
-              </Flex>
-            </Box>
-
-            {roles?.some((role) =>
-              ["Subject Teacher", "School Teacher", "Class Teacher"].includes(
-                role
-              )
-            ) && (
-              <>
-                <Box w="full">
-                  <Flex gap={4}>
-                    <IconComponent>
-                      <MdPersonOutline size={20} />
-                    </IconComponent>
-
-                    <Box w="full">
-                      <Flex
-                        justifyContent="space-between"
-                        w="full"
-                        alignItems="center"
-                      >
-                        <Text as="h3" fontWeight="semibold">
-                          Subjects
-                        </Text>
-
-                        {subjects?.length > 0 && (
-                          <Grid
-                            height={7}
-                            w={7}
-                            bg="transparent"
-                            color="neutral.700"
-                            rounded="lg"
-                            placeItems="center"
-                            border="1px solid"
-                            borderColor="neutral.700"
-                            onClick={() => handleAssignClick("subjects")}
-                            cursor="pointer"
-                          >
-                            <IconComponent h="full" w="full">
-                              <MdEdit />
-                            </IconComponent>
-                          </Grid>
-                        )}
-                      </Flex>
-
-                      <Flex w="full" gap={2} mt={2} flexWrap={"wrap"}>
-                        {subjects && subjects?.length > 0 ? (
-                          subjects.map((subject, index) => (
-                            <Tag
-                              w="max-content"
-                              flexShrink={0}
-                              size="sm"
-                              key={index}
-                              variant="outline"
-                              colorScheme="red"
-                            >
-                              {subject}
-                            </Tag>
-                          ))
-                        ) : (
-                          <Flex direction="column" w="full" gap={4}>
-                            <Text as="small">No subjects assigned yet!</Text>
-                            <Button
-                              display="flex"
-                              w="max-content"
-                              size="sm"
-                              fontSize="xs"
-                              colorScheme="red"
-                              variant="outline"
-                              leftIcon={<MdAdd size={18} />}
-                              onClick={() => handleAssignClick("subjects")}
-                            >
-                              Assign Subject
-                            </Button>
-                          </Flex>
-                        )}
-                      </Flex>
-                    </Box>
-                  </Flex>
-                </Box>
-
-                <Box>
-                  <Flex gap={4}>
-                    <IconComponent>
-                      <MdPersonOutline size={20} />
-                    </IconComponent>
-                    <Box w="full">
-                      <Flex
-                        justifyContent="space-between"
-                        w="full"
-                        alignItems="center"
-                      >
-                        <Text as="h3" fontWeight="semibold">
-                          Classes
-                        </Text>
-
-                        {classes?.length > 0 && (
-                          <Grid
-                            height={7}
-                            w={7}
-                            bg="transparent"
-                            color="neutral.700"
-                            rounded="lg"
-                            placeItems="center"
-                            border="1px solid"
-                            borderColor="neutral.700"
-                            onClick={() => handleAssignClick("classes")}
-                            cursor="pointer"
-                          >
-                            <IconComponent h="full" w="full">
-                              <MdEdit />
-                            </IconComponent>
-                          </Grid>
-                        )}
-                      </Flex>
-
-                      <Flex w="full" gap={2} mt={2} flexWrap={"wrap"}>
-                        {classes && classes.length > 0 ? (
-                          classes.map((schoolClass, index) => (
-                            <Tag
-                              flexShrink={0}
-                              size="sm"
-                              key={index}
-                              variant="solid"
-                              colorScheme="purple"
-                            >
-                              {schoolClass.name}
-                            </Tag>
-                          ))
-                        ) : (
-                          <Flex direction="column" w="full" gap={4}>
-                            <Text as="small">No classes assigned yet!</Text>
-                            <Button
-                              display="flex"
-                              w="max-content"
-                              size="sm"
-                              fontSize="xs"
-                              variant="outline"
-                              colorScheme="purple"
-                              leftIcon={<MdAdd size={18} />}
-                              onClick={() => handleAssignClick("classes")}
-                            >
-                              Assign Class
-                            </Button>
-                          </Flex>
-                        )}
-                      </Flex>
-                    </Box>
-                  </Flex>
-                </Box>
-              </>
-            )}
-          </Grid>
+        <GridItem display={"grid"} gap={4}>
+          <InfoBox label={"Blood Group"} icon={<GiCoronation />}>
+            <Text
+              as="p"
+              fontSize={"sm"}
+              letterSpacing={0.8}
+              textTransform={"uppercase"}
+            >
+              ""
+            </Text>
+          </InfoBox>{" "}
+          <InfoBox icon={<GiCoronation />} label={"Genotype"}>
+            ""
+          </InfoBox>
         </GridItem>
       </Grid>
+
+      <GridItem
+        gap={6}
+        gridTemplateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }}
+        pt={6}
+        py={4}
+        mt={4}
+        bg={"white"}
+        px={{ base: 4, md: 6 }}
+        w={"full"}
+        display={"grid"}
+        rounded={"lg"}
+      >
+        <Box display={"flex"} flexWrap={"wrap"}>
+          <Flex gap={4}>
+            <IconComponent>
+              <MdPersonOutline size={20} />
+            </IconComponent>
+
+            <Box w="full">
+              <Flex justifyContent="space-between" w="full" alignItems="center">
+                <Text as="h3" mb={1} fontWeight="semibold">
+                  Staff ID
+                </Text>
+              </Flex>
+
+              <Text
+                as="p"
+                fontSize={"sm"}
+                letterSpacing={0.8}
+                textTransform={"uppercase"}
+              >
+                {`GSHN/STF/${portalId}`}
+              </Text>
+            </Box>
+          </Flex>
+        </Box>
+
+        <Box display={"flex"} flexWrap={"wrap"}>
+          <Flex gap={4}>
+            <IconComponent>
+              <MdPersonOutline size={20} />
+            </IconComponent>
+
+            <Box w="full">
+              <Flex justifyContent="space-between" w="full" alignItems="center">
+                <Text as="h3" fontWeight="semibold">
+                  Roles
+                </Text>
+
+                {roles?.length > 0 && (
+                  <Grid
+                    height={7}
+                    w={7}
+                    bg="transparent"
+                    color="neutral.700"
+                    rounded="lg"
+                    placeItems="center"
+                    border="1px solid"
+                    borderColor="neutral.700"
+                    onClick={() => handleAssignClick("roles")}
+                    cursor="pointer"
+                  >
+                    <IconComponent h="full" w="full">
+                      <MdEdit />
+                    </IconComponent>
+                  </Grid>
+                )}
+              </Flex>
+
+              <Flex w="full" gap={4} mt={2} flexWrap={"wrap"}>
+                {roles && roles?.length > 0 ? (
+                  roles?.map((role, index) => (
+                    <Tag
+                      flexShrink={0}
+                      size="sm"
+                      key={index}
+                      variant="solid"
+                      colorScheme="blue"
+                    >
+                      {role}
+                    </Tag>
+                  ))
+                ) : (
+                  <Box>
+                    <Text as="small" mb={4}>
+                      No Roles assigned yet!
+                    </Text>
+                    <Button
+                      display="flex"
+                      w="max-content"
+                      size="sm"
+                      fontSize="xs"
+                      variant="outline"
+                      colorScheme="blue"
+                      leftIcon={<MdAdd size={18} />}
+                      onClick={() => handleAssignClick("roles")}
+                    >
+                      Assign Roles
+                    </Button>
+                  </Box>
+                )}
+              </Flex>
+            </Box>
+          </Flex>
+        </Box>
+
+        {roles?.some((role) =>
+          ["Subject Teacher", "School Teacher", "Class Teacher"].includes(role)
+        ) && (
+          <>
+            <InfoBox label={"Subjects"} icon={<MdPersonOutline size={20} />}>
+              {subjects?.length > 0 && (
+                <Grid
+                  height={7}
+                  w={7}
+                  bg="transparent"
+                  color="neutral.700"
+                  rounded="lg"
+                  placeItems="center"
+                  border="1px solid"
+                  borderColor="neutral.700"
+                  onClick={() => handleAssignClick("subjects")}
+                  cursor="pointer"
+                >
+                  <IconComponent h="full" w="full">
+                    <MdEdit />
+                  </IconComponent>
+                </Grid>
+              )}
+            </InfoBox>
+
+            <InfoBox label={"Classes"} icon={<MdClass />}>
+              {classes?.length > 0 && (
+                <Grid
+                  height={7}
+                  w={7}
+                  bg="transparent"
+                  color="neutral.700"
+                  rounded="lg"
+                  placeItems="center"
+                  border="1px solid"
+                  borderColor="neutral.700"
+                  onClick={() => handleAssignClick("classes")}
+                  cursor="pointer"
+                >
+                  <IconComponent h="full" w="full">
+                    <MdEdit />
+                  </IconComponent>
+                </Grid>
+              )}
+            </InfoBox>
+          </>
+        )}
+      </GridItem>
     </Grid>
   );
 }

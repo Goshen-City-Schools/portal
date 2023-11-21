@@ -1,4 +1,5 @@
 import { FormControl, FormLabel, Input, Button } from "@chakra-ui/react";
+import { useRef } from "react";
 
 const SearchUserForm = ({ accountType, handleSubmit }) => {
   const userIdRef = useRef(null);

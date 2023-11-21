@@ -1,4 +1,3 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
 
 import schoolData from "../../data/school.data";
@@ -11,7 +10,7 @@ import Table from "../../widgets/Table.widget";
 
 import { Flex, useToast, Text, Tag } from "@chakra-ui/react";
 
-const AllStaffRolesTable = () => {
+export default function AllFeesTable() {
   const toast = useToast();
   const navigate = useNavigate();
   const { user } = useAuth();
@@ -33,12 +32,12 @@ const AllStaffRolesTable = () => {
       ),
     },
     {
-      Header: "Role Name",
+      Header: "Fee Type",
       accessor: "name",
     },
     {
-      Header: "Priviledges",
-      accessor: "priviledges",
+      Header: "Classes",
+      accessor: "schoolClass",
       Cell: ({ value }) => (
         <Flex gap={2} overflowX={"hidden"} wrap={"wrap"}>
           {value?.map((priviledge, index) => (
@@ -56,30 +55,26 @@ const AllStaffRolesTable = () => {
         </Flex>
       ),
     },
-
     {
-      Header: "Staff",
-      accessor: "staff",
-      Cell: ({ row }) => (
+      Header: "Student Type",
+      accessor: "schoolClass",
+      Cell: ({ value }) => (
         <Flex gap={2} overflowX={"hidden"} wrap={"wrap"}>
-          {staffData
-            .filter((staff) => staff.roles.includes(row.original.name))
-            ?.map((staff, index) => (
-              <Tag
-                flexShrink={0}
-                size="sm"
-                key={index}
-                variant="outline"
-                fontWeight={"semibold"}
-                colorScheme="blue"
-              >
-                {staff.firstName}
-              </Tag>
-            ))}
+          {value?.map((priviledge, index) => (
+            <Tag
+              flexShrink={0}
+              size="sm"
+              key={index}
+              variant="outline"
+              fontWeight={"semibold"}
+              colorScheme="orange"
+            >
+              {priviledge}
+            </Tag>
+          ))}
         </Flex>
       ),
     },
-
     {
       Header: "Action",
       accessor: "action",
@@ -123,6 +118,4 @@ const AllStaffRolesTable = () => {
       fullWidthColumns={["Priviledges", "Staff"]}
     />
   );
-};
-
-export default AllStaffRolesTable;
+}

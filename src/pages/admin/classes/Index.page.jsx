@@ -24,7 +24,7 @@ import StatCardComponent from "../../../components/StatCard.component";
 import IconComponent from "../../../components/Icon.component";
 
 import { MdAdd } from "react-icons/md";
-import SchoolClassForm from "../../../components/forms/SchoolClassForm";
+import CreateSubClassPortal from "../../../portals/CreateSubClass.portal";
 
 export const classCategories = [
   {
@@ -172,7 +172,7 @@ export default function ClassesPage() {
             bg={"brand.700"}
             size={"sm"}
             color={"neutral.100"}
-            onClick={() => openPortal(<SchoolClassForm />)}
+            onClick={() => openPortal(<CreateSubClassPortal />)}
           >
             <IconComponent>
               <MdAdd />

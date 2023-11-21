@@ -9,8 +9,9 @@ import { useState } from "react";
 import ReactPortal from "../widgets/ReactPortal";
 import { useModal } from "../app/contexts/ModalContext";
 import { useNavigate } from "react-router-dom";
-import SchoolClassForm from "../components/forms/SchoolClassForm";
 import SearchUserForm from "../components/forms/SearchUserForm";
+import CreateSubClassPortal from "../portals/CreateSubClass.portal";
+import CreateEventPortal from "../portals/CreateEvent.portal";
 
 export default function AdminLayout() {
   const navigate = useNavigate();
@@ -43,7 +44,9 @@ export default function AdminLayout() {
         />
       );
 
-    if (type === "createClass") return openPortal(<SchoolClassForm />);
+    if (type === "event") return openPortal(<CreateEventPortal />);
+
+    if (type === "createClass") return openPortal(<CreateSubClassPortal />);
   };
 
   const toggleSidebar = () => {

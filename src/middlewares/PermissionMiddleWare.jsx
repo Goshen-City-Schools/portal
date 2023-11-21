@@ -108,6 +108,13 @@ const routes = [
     allowedAccountTypes: ["staff"],
   },
 
+  // Events
+  {
+    path: "/admin/events",
+    allowedRoles: ["IT Personnel", "Principal"],
+    allowedAccountTypes: ["staff"],
+  },
+
   {
     path: "/",
     allowedAccountTypes: ["student"],

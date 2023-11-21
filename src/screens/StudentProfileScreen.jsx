@@ -36,6 +36,8 @@ import allowedUserRoles from "../helpers/allowedUserRoles";
 import UpdateAvatarButton from "../components/Buttons/UpdateAvatarButton";
 import Avatar from "../components/Avatar.component";
 import IconComponent from "../components/Icon.component";
+import InfoBox from "../components/shared/InfoBox.component";
+import { GiCoronation } from "react-icons/gi";
 
 export default function StudentProfileScreen({ student }) {
   const { openPortal } = useModal();
@@ -344,6 +346,67 @@ export default function StudentProfileScreen({ student }) {
           </ButtonGroup>
         </Flex>
       </Flex>
+
+      <Grid
+        gap={4}
+        bg={"white"}
+        gridTemplateColumns={{ base: "1fr", md: "repeat(3, 1fr)" }}
+        px={6}
+        py={4}
+        w={"full"}
+        rounded={"lg"}
+        alignContent={"center"}
+        justifyContent={"center"}
+        mb={4}
+      >
+        <GridItem display={"grid"} gap={4}>
+          <InfoBox label={"Nationality"} icon={<GiCoronation />}>
+            <Text
+              as="p"
+              fontSize={"sm"}
+              letterSpacing={0.8}
+              textTransform={"uppercase"}
+            >
+              Nigerian
+            </Text>
+          </InfoBox>{" "}
+          <InfoBox icon={<GiCoronation />} label={"State of Origin"}>
+            ""
+          </InfoBox>
+        </GridItem>
+
+        <GridItem display={"grid"} gap={4}>
+          <InfoBox label={"L.G.A"} icon={<GiCoronation />}>
+            <Text
+              as="p"
+              fontSize={"sm"}
+              letterSpacing={0.8}
+              textTransform={"uppercase"}
+            >
+              L.G.A
+            </Text>
+          </InfoBox>{" "}
+          <InfoBox icon={<GiCoronation />} label={"Religion"}>
+            ""
+          </InfoBox>
+        </GridItem>
+
+        <GridItem display={"grid"} gap={4}>
+          <InfoBox label={"Blood Group"} icon={<GiCoronation />}>
+            <Text
+              as="p"
+              fontSize={"sm"}
+              letterSpacing={0.8}
+              textTransform={"uppercase"}
+            >
+              ""
+            </Text>
+          </InfoBox>{" "}
+          <InfoBox icon={<GiCoronation />} label={"Genotype"}>
+            ""
+          </InfoBox>
+        </GridItem>
+      </Grid>
 
       <Grid
         gap={4}

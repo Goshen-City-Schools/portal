@@ -43,6 +43,7 @@ import ManageFees from "./pages/admin/finance/fees/ManageFees";
 import PrintReceiptScreen from "./screens/PrintReceipt.screen";
 import PrintInvoiceScreen from "./screens/PrintInvoice.screen";
 import LoginScreen from "./screens/Login.screen";
+import AllEventsPage from "./pages/admin/events";
 
 const App = () => {
   return (
@@ -85,6 +86,10 @@ const App = () => {
           <Route path="upload" element={<UploadResultPage />} />
           <Route path="settings" element={<ResultSettingsPage />} />
           <Route path=":session/:term/:userId" element={<ResultSinglePage />} />
+        </Route>
+
+        <Route path="events">
+          <Route index element={<AllEventsPage />} />
         </Route>
 
         <Route path="finance">

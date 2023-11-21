@@ -282,18 +282,23 @@ export default function AdminSideBar({ sideBarView, handleClick }) {
               <NavItemComponent
                 submenu={[
                   {
+                    name: "All Fees",
+                    link: "/admin/finance/fees",
+                    icon: <MdHistory color={"white"} size={12} />,
+                  },
+                  {
                     name: "Transacttion History",
                     link: "/admin/transactions",
                     icon: <MdHistory color={"white"} size={12} />,
                   },
                   {
-                    name: "Manage Fees",
-                    link: "/admin/finance/fees",
+                    name: "School Expenditure",
+                    link: "/admin/finance/expenses",
                     icon: <MdHistory color={"white"} size={12} />,
                   },
                   {
-                    name: "Configure Payments",
-                    link: "/admin/finance/fees/settings",
+                    name: "Invoice",
+                    link: "/admin/transactions/invoices",
                     icon: <MdSettings color={"white"} size={12} />,
                   },
                 ]}
@@ -310,20 +315,22 @@ export default function AdminSideBar({ sideBarView, handleClick }) {
               submenu={[
                 {
                   name: "View Events",
-                  link: "/admin/students",
+                  link: "/admin/events",
                   icon: <TbFolderSearch size={12} />,
                 },
                 {
                   name: "Create new event",
-                  link: "/admin/students",
+                  link: "/admin/events",
                   icon: <MdOutlineChat size={12} />,
                   roles: ["IT Personnel"],
+                  onClick: () => handleClick("event"),
                 },
                 {
                   name: "Send Invite",
-                  link: "/staff?type=academic",
+                  link: "/admin/events",
                   icon: <MdOutlineMail size={14} />,
                   roles: ["IT Personnel"],
+                  onClick: () => alert("feature updates..."),
                 },
               ]}
             >
