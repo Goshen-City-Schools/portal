@@ -2,18 +2,18 @@
 
 This project is developed with a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Login Screen
 
-## todos
+> ### Mobile Device
+> <img src="https://github.com/Goshen-City-Schools/portal/assets/20476203/11319c9b-8203-4799-aba3-bd17ac3c3303" height="320px"  width="auto" object-fit="cover" alt="Goshen Group of Schools portal mobile login screen"/>
 
-### Components
 
-- [ ] Transaction invoice
-- [ ] Transaction receipt
-- [ ] Result sheet
+
+> ### Desktop Device
+> <img width="auto" height="600px" alt="Screenshot 2023-11-21 at 15 17 11" src="https://github.com/Goshen-City-Schools/portal/assets/20476203/dc0f8b39-945d-417f-96ba-4211ad0100d3">
+
+
 
 ### Screens / Pages
 
@@ -21,7 +21,7 @@ Currently, two official plugins are available:
 - [ ] Home Page
 
 Student selects Invoice
-Sees previous invoice generated, if any
+Sees the previous invoice generated, if any
 Click Generate nee invoice
 Select session, term, payment purpose and payment method.
 
