@@ -10,6 +10,8 @@ import useStaffs from "../../hooks/useStaffs";
 import Table from "../../widgets/Table.widget";
 
 import { Flex, useToast, Text, Tag } from "@chakra-ui/react";
+import RowId from "./shared/RowId";
+import TagInTable from "./shared/TagInTable";
 
 const AllStaffRolesTable = () => {
   const toast = useToast();
@@ -24,13 +26,7 @@ const AllStaffRolesTable = () => {
     {
       Header: "SN",
       accessor: "id",
-      Cell: ({ row }) => (
-        <Flex gap={2} wrap={"wrap"} flexShrink={1}>
-          <Text as={"p"} color={"neutral.700"} fontWeight={"bold"}>
-            {Number(row.id) + 1}
-          </Text>
-        </Flex>
-      ),
+      Cell: ({ row }) => <RowId row={row} />,
     },
     {
       Header: "Role Name",
@@ -42,16 +38,12 @@ const AllStaffRolesTable = () => {
       Cell: ({ value }) => (
         <Flex gap={2} overflowX={"hidden"} wrap={"wrap"}>
           {value?.map((priviledge, index) => (
-            <Tag
-              flexShrink={0}
-              size="sm"
+            <TagInTable
               key={index}
-              variant="outline"
-              fontWeight={"semibold"}
-              colorScheme="orange"
-            >
-              {priviledge}
-            </Tag>
+              label={priviledge}
+              variant={"outline"}
+              colorScheme={"orange"}
+            />
           ))}
         </Flex>
       ),
@@ -65,16 +57,12 @@ const AllStaffRolesTable = () => {
           {staffData
             .filter((staff) => staff.roles.includes(row.original.name))
             ?.map((staff, index) => (
-              <Tag
-                flexShrink={0}
-                size="sm"
+              <TagInTable
+                label={staff.firstName}
+                colorScheme={"blue"}
+                variant={"outline"}
                 key={index}
-                variant="outline"
-                fontWeight={"semibold"}
-                colorScheme="blue"
-              >
-                {staff.firstName}
-              </Tag>
+              />
             ))}
         </Flex>
       ),

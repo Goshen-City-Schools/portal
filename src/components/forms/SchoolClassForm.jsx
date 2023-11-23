@@ -18,7 +18,6 @@ import { useNavigate } from "react-router-dom";
 export default function SchoolClassForm() {
   const toast = useToast();
   const { closePortal } = useModal();
-  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const { schoolClasses } = useClasses();
   const [formData, setFormData] = useState({

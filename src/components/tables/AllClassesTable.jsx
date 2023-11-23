@@ -4,6 +4,7 @@ import Table from "../../widgets/Table.widget";
 import { Flex, Text, Tag, Button } from "@chakra-ui/react";
 import { getNumberOfStudentsInClass } from "../../pages/admin/classes/Index.page";
 import { FaEllipsisH } from "react-icons/fa";
+import RowId from "./shared/RowId";
 
 const AllClassesTable = ({ data, studentsData }) => {
   const numberOfStudentsInClass = (className) => {
@@ -14,13 +15,7 @@ const AllClassesTable = ({ data, studentsData }) => {
     {
       Header: "SN",
       accessor: "sn",
-      Cell: ({ row }) => (
-        <Flex gap={2} wrap={"wrap"} flexShrink={1}>
-          <Text as={"p"} color={"neutral.700"} fontWeight={"bold"}>
-            {Number(row.id) + 1}
-          </Text>
-        </Flex>
-      ),
+      Cell: ({ row }) => <RowId row={row} />,
     },
     {
       Header: "Classes",

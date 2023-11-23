@@ -135,13 +135,13 @@ export default function EventForm() {
           >
             <option value="">Select Periodic type</option>
             <option value="daily">Daily</option>
-            <option value="daily">Bi-weekly (twice a week)</option>
-            <option value="daily">Weekly</option>
-            <option value="daily">Bi-monthly (twice a month)</option>
-            <option value="daily">Monthly</option>
-            <option value="daily">Quaterly (thrice a year)</option>
-            <option value="daily">Bi-yearly (twice a year)</option>
-            <option value="daily">Yearly (twice a year)</option>
+            <option value="biWeekly">Bi-weekly (twice a week)</option>
+            <option value="weekly">Weekly</option>
+            <option value="bimonthly">Bi-monthly (twice a month)</option>
+            <option value="monthly">Monthly</option>
+            <option value="quaterly">Quaterly (thrice a year)</option>
+            <option value="biyearly">Bi-yearly (twice a year)</option>
+            <option value="yearly">Yearly</option>
           </CustomSelect>
         )}
         <FormControl

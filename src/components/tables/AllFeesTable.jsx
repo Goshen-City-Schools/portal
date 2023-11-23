@@ -2,34 +2,39 @@ import { useNavigate } from "react-router-dom";
 
 import schoolData from "../../data/school.data";
 
-import { useAuth } from "../../app/contexts/AuthContext";
-
 import useStaffs from "../../hooks/useStaffs";
 
 import Table from "../../widgets/Table.widget";
 
 import { Flex, useToast, Text, Tag } from "@chakra-ui/react";
+import { MdRemoveRedEye } from "react-icons/md";
+import ActionsPopUp from "../../widgets/ActionsPopUp";
+import RowId from "./shared/RowId";
 
 export default function AllFeesTable() {
   const toast = useToast();
   const navigate = useNavigate();
-  const { user } = useAuth();
 
   const { staffsData: staffData } = useStaffs();
 
-  console.log(staffData);
+  const actionsMenu = [
+    {
+      name: "editFeeDetails",
+      label: "Edit Details",
+      icon: <MdEdit />,
+    },
+    {
+      name: "deactivateFeeType",
+      label: "Deactivate Fee",
+      icon: <MdRemoveRedEye />,
+    },
+  ];
 
   const columns = [
     {
       Header: "SN",
       accessor: "id",
-      Cell: ({ row }) => (
-        <Flex gap={2} wrap={"wrap"} flexShrink={1}>
-          <Text as={"p"} color={"neutral.700"} fontWeight={"bold"}>
-            {Number(row.id) + 1}
-          </Text>
-        </Flex>
-      ),
+      Cell: ({ row }) => <RowId row={row} />,
     },
     {
       Header: "Fee Type",
@@ -78,37 +83,15 @@ export default function AllFeesTable() {
     {
       Header: "Action",
       accessor: "action",
+      Cell: ({}) => <ActionsPopUp menu={actionsMenu} />,
     },
   ];
 
-  const handleDeleteAction = (staffId) => {
-    if (user.id === staffId) {
-      // Prevent staff from deleting themselves
-      toast({
-        title: "You cannot delete yourself.",
-        status: "warning",
-      });
-    } else if (
+  const handleFeeDeactivation = (FeeId) => {
+    if (
       window.confirm(`Are you sure to delete the staff with ID ${staffId}?`)
     ) {
-      // Filter the staff member with the specified staffId and update the state
-      const newStaffData = staffData.filter((staff) => staff.id !== staffId);
-      setStaffData(newStaffData);
-
-      // Show a toast notification
-      toast({
-        title: `Deleted staff with ID ${staffId}`,
-        duration: 2000,
-        status: "warning",
-      });
-
-      // Update localStorage
-      localStorage.setItem("staffData", JSON.stringify(newStaffData));
     }
-  };
-
-  const handleLink = (staffId) => {
-    navigate(`/admin/staff/${staffId}`);
   };
 
   return (

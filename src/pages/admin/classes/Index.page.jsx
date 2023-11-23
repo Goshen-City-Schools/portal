@@ -1,4 +1,5 @@
-import React from "react";
+import { useState } from "react";
+
 import { useNavigate } from "react-router-dom";
 
 import {
@@ -62,7 +63,6 @@ const GridViewComponent = ({
     </Grid>
   );
 };
-import { useState } from "react";
 
 export const classCategories = [
   {
@@ -125,34 +125,21 @@ export default function ClassesPage() {
     setDataView(() => e);
   }
 
-  const classesInCatrgory = (category) => {
-    const c = schoolClasses.filter((schoolClass) =>
-      schoolClass?.name.includes(category)
-    );
-    return c;
-  };
-
   const handleCategoryClick = (category) => {
     // Handle click for the specific category
-    `/admin/classes/${category.toLocaleLowerCase().replace(/\s/g, "")}`;
+    navigate(
+      `/admin/classes/${category.toLocaleLowerCase().replace(/\s/g, "")}`
+    );
   };
 
   return (
     <PageWrapper>
       <ReactPortal />
 
-      <Flex justifyContent={"space-between"} alignItems={"center"} mb={2}>
-        <Text
-          as={"h2"}
-          mt={0}
-          className=""
-          fontSize={"2xl"}
-          fontWeight={"bold"}
-        >
-          All Classes
-        </Text>
-        <Text as={"small"}>Home / Classes/ All Staff</Text>
-      </Flex>
+      <PageSectionHeader
+        pageTitle={"All Classes"}
+        pageCrumb={"Home / Classes "}
+      />
 
       {/*  */}
       <Flex

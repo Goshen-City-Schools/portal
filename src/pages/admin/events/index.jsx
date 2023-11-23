@@ -10,31 +10,19 @@ import {
   Select,
   HStack,
 } from "@chakra-ui/react";
-import { MdAdd, MdGridView, MdTableChart } from "react-icons/md";
+import { MdAdd } from "react-icons/md";
 
 import SearchWidget from "../../../widgets/Search.widget";
 import IconComponent from "../../../components/Icon.component";
-import AllStaffTable from "../../../components/tables/AllStaffTable.component";
-import { useNavigate } from "react-router-dom";
-import StaffPreviewCard from "../../../components/PreviewCards/StaffPreviewCard";
 import schoolData from "../../../data/school.data";
 import { useState } from "react";
-import { useEffect } from "react";
 
-import useStaffs from "../../../hooks/useStaffs";
+import PageSectionHeader from "../../../components/PageSectionHeader";
+import DataViewSwitcher from "../../../widgets/DataViewSwitcher";
+import AllEventsTable from "../../../components/tables/AllEventsTable";
 
 export default function AllEventsPage() {
-  const navigate = useNavigate();
   const [dataView, setDataView] = useState("grid");
-
-  const { staffsData } = useStaffs();
-
-  useEffect(() => {
-    // Your logic to handle staffsData change
-    console.log(staffsData);
-  }, [staffsData]);
-
-  // Memoize the staffsData using useMemo
 
   function handleDataView(e) {
     e.preventDefault;
@@ -42,18 +30,10 @@ export default function AllEventsPage() {
   }
   return (
     <PageWrapper>
-      <Flex justifyContent={"space-between"} alignItems={"center"} mb={2}>
-        <Text
-          as={"h2"}
-          mt={0}
-          className=""
-          fontSize={"2xl"}
-          fontWeight={"bold"}
-        >
-          All Events
-        </Text>
-        <Text as={"small"}>Home / Events / All </Text>
-      </Flex>
+      <PageSectionHeader
+        pageTitle={"All Events"}
+        pageCrumb={"Home / Events / All"}
+      />
 
       <Flex
         justifyContent={"space-between"}
@@ -68,7 +48,7 @@ export default function AllEventsPage() {
             bg={"brand.700"}
             size={"sm"}
             color={"neutral.100"}
-            onClick={() => navigate("/admin/staff/new")}
+            // onClick={() => navigate("/admin/staff/new")}
           >
             <IconComponent>
               <MdAdd />
@@ -100,57 +80,28 @@ export default function AllEventsPage() {
             </Select>
           </HStack>
 
-          <HStack>
-            <Grid
-              cursor={"pointer"}
-              placeItems={"center"}
-              color={"neutral.600"}
-              bg={dataView === "grid" ? "red.100" : "neutral.300"}
-              rounded={"lg"}
-              onClick={() => handleDataView("grid")}
-            >
-              <IconComponent>
-                <MdGridView />
-              </IconComponent>
-            </Grid>
-            <Grid
-              cursor={"pointer"}
-              placeItems={"center"}
-              color={"neutral.600"}
-              bg={dataView === "table" ? "red.100" : "neutral.300"}
-              rounded={"lg"}
-              onClick={() => handleDataView("table")}
-            >
-              <IconComponent>
-                <MdTableChart />
-              </IconComponent>
-            </Grid>
-          </HStack>
+          <DataViewSwitcher
+            dataView={dataView}
+            handleDataView={handleDataView}
+          />
         </Flex>
 
-        {staffsData && staffsData ? (
-          dataView === "grid" ? (
-            <Grid
-              gridTemplateColumns={{
-                "base": "1fr",
-                "sm": "2, 1fr",
-                "md": "repeat(3, 1fr)",
-                "lg": "repeat(5, 1fr)",
-              }}
-              mt={"4"}
-              gap={4}
-            >
-              {staffsData?.map((staff) => (
-                <StaffPreviewCard key={staff?.portalId} staff={staff} />
-              ))}
-            </Grid>
-          ) : (
-            <AllStaffTable existingStaffData={staffsData} />
-          )
+        {dataView === "grid" ? (
+          <Grid
+            gridTemplateColumns={{
+              "base": "1fr",
+              "sm": "2, 1fr",
+              "md": "repeat(3, 1fr)",
+              "lg": "repeat(5, 1fr)",
+            }}
+            mt={"4"}
+            gap={4}
+          >
+            {/* TODO:  */}
+            ''''Grid view''''
+          </Grid>
         ) : (
-          <Text as={"h2"} letterSpacing={0.5} color={"neutral.700"}>
-            No Staff data yet!
-          </Text>
+          <AllEventsTable />
         )}
       </Box>
     </PageWrapper>

@@ -33,9 +33,6 @@ export default function ClassPage() {
   const classData = (classValue) =>
     schoolClasses.find((schoolCl) => schoolCl.value === classValue)?.name;
 
-  const newClass = (data) =>
-    schoolClasses.find((schoolCl) => schoolCl.name === data)?.name;
-
   const filteredStudents = studentsData.filter(
     (student) => student.schoolClass === classData(schoolClass)
   );
@@ -64,18 +61,10 @@ export default function ClassPage() {
 
   return (
     <PageWrapper>
-      <Flex justifyContent={"space-between"} alignItems={"center"} mb={2}>
-        <Text
-          as={"h2"}
-          mt={0}
-          className=""
-          fontSize={"2xl"}
-          fontWeight={"bold"}
-        >
-          {schoolClassData?.name} Class
-        </Text>
-        <Text as={"small"}>Home / Classes / {schoolClassData?.name}</Text>
-      </Flex>
+      <PageSectionHeader
+        pageTitle={`${schoolClassData?.name} Class`}
+        pageCrumb={`Home / Classes / ${schoolClassData?.name}`}
+      />
 
       <ClassSummaryBox
         totalStudents={filteredStudents.length}
