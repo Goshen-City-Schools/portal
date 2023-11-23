@@ -6,7 +6,6 @@ import {
   Flex,
   Button,
   Grid,
-  Stack,
   Box,
   useToast,
   HStack,
@@ -28,6 +27,41 @@ import { MdAdd } from "react-icons/md";
 import CreateSubClassPortal from "../../../portals/CreateSubClass.portal";
 import AllClassesTable from "../../../components/tables/AllClassesTable";
 import CustomSelect from "../../../components/shared/Select.component";
+import DataViewSwitcher from "../../../widgets/DataViewSwitcher";
+
+const GridViewComponent = ({
+  schoolClasses,
+  studentsData,
+  handleCategoryClick,
+}) => {
+  return (
+    <Grid
+      gridTemplateColumns={{
+        base: "1fr",
+        md: "repeat(2, 1fr)",
+        lg: "repeat(3, 1fr)",
+      }}
+      gap={4}
+      flexWrap={"wrap"}
+    >
+      {schoolClasses.map((schoolClass, index) => (
+        <StatCardComponent
+          size={16}
+          key={index}
+          text={schoolClass.name + " Class"}
+          imgSrc={"secondary-students.jpg"}
+          number={
+            studentsData.filter(
+              (student) => student.schoolClass === schoolClass._id
+            ).length
+          }
+          onClick={() => handleCategoryClick(schoolClass.value)}
+        />
+      ))}
+    </Grid>
+  );
+};
+import { useState } from "react";
 
 export const classCategories = [
   {
@@ -84,7 +118,11 @@ export default function ClassesPage() {
 
   const { schoolClasses } = useClasses();
 
-  console.log(schoolClasses);
+  const [dataView, setDataView] = useState("grid");
+  function handleDataView(e) {
+    e.preventDefault;
+    setDataView(() => e);
+  }
 
   const classesInCatrgory = (category) => {
     const c = schoolClasses.filter((schoolClass) =>
@@ -95,68 +133,7 @@ export default function ClassesPage() {
 
   const handleCategoryClick = (category) => {
     // Handle click for the specific category
-
-    if (classesInCatrgory(category).length <= 1) {
-      navigate(
-        `/admin/classes/${category.toLocaleLowerCase().replace(/\s/g, "")}`
-      );
-      return;
-    } else {
-      openPortal(
-        <>
-          <Text as={"h3"} fontWeight={"bold"} mb={4} textAlign={"center"}>
-            Select class to view
-          </Text>
-
-          <Stack px={4} mb={4} py={2} spacing={4}>
-            {classesInCatrgory(category).map((schoolClass, index) => (
-              <Button
-                disabled={
-                  studentsData.filter(
-                    (student) => student.schoolClass === schoolClass.name
-                  ).length <= 0
-                }
-                display={"flex"}
-                justifyContent={"space-between"}
-                cursor={"pointer"}
-                key={index}
-                onClick={() => {
-                  if (
-                    studentsData.filter(
-                      (student) => student.schoolClass === schoolClass.name
-                    ).length > 0
-                  ) {
-                    navigate(
-                      `/admin/classes/${schoolClass.name
-                        .toLocaleLowerCase()
-                        .replace(/\s/g, "")}`
-                    );
-                    closePortal();
-                    return;
-                  } else {
-                    toast({
-                      title: `No Student in ${schoolClass.name} currently`,
-                      position: "top-right",
-                      status: "error",
-                      duration: "1100",
-                    });
-                    closePortal();
-                    return;
-                  }
-                }}
-              >
-                {schoolClass.name} <Box></Box>
-                {
-                  studentsData.filter(
-                    (student) => student.schoolClass === schoolClass.name
-                  ).length
-                }
-              </Button>
-            ))}
-          </Stack>
-        </>
-      );
-    }
+    `/admin/classes/${category.toLocaleLowerCase().replace(/\s/g, "")}`;
   };
 
   return (
@@ -203,12 +180,18 @@ export default function ClassesPage() {
       {/*  */}
 
       <Box px={8} py={2} pb={10} bg={"white"} rounded={"lg"}>
-        <Flex alignItems={"center"} gap={4} my={4}>
+        <Flex alignItems={"center"} gap={4} my={4} w={"full"}>
           <HStack width={"full"}>
             <Text flexShrink={0} fontWeight={"bold"} as={"small"}>
               Filter by:
             </Text>
-            <CustomSelect size={"sm"} minW={"180px"} onChange={() => {}}>
+            <CustomSelect
+              size={"sm"}
+              minW={"180px"}
+              flexShrink={0}
+              width={"full"}
+              onChange={() => {}}
+            >
               <option value="">-- Select Class --</option>
               {schoolClasses?.map((schoolClass) => (
                 <option key={schoolClass.id} value={schoolClass.name}>
@@ -218,31 +201,23 @@ export default function ClassesPage() {
               <option value="all_students">All</option>
             </CustomSelect>
           </HStack>
+
+          <DataViewSwitcher
+            dataView={dataView}
+            handleDataView={handleDataView}
+          />
         </Flex>
 
-        <AllClassesTable data={schoolClasses} studentsData={studentsData} />
-      </Box>
-
-      <Grid
-        gridTemplateColumns={{ base: "1fr", md: "repeat(3, 1fr)" }}
-        gap={4}
-        flexWrap={"wrap"}
-      >
-        {classCategories.map((categoryData, index) => (
-          <StatCardComponent
-            size={16}
-            key={index}
-            text={categoryData.category}
-            imgSrc={categoryData.illustration}
-            number={
-              studentsData.filter((student) =>
-                student.schoolClass?.includes(categoryData.category)
-              ).length
-            }
-            onClick={() => handleCategoryClick(categoryData.category)}
+        {dataView === "grid" ? (
+          <GridViewComponent
+            studentsData={studentsData}
+            schoolClasses={schoolClasses}
+            handleCategoryClick={handleCategoryClick}
           />
-        ))}
-      </Grid>
+        ) : (
+          <AllClassesTable data={schoolClasses} studentsData={studentsData} />
+        )}
+      </Box>
     </PageWrapper>
   );
 }

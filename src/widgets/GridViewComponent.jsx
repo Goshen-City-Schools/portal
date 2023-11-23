@@ -1,6 +1,11 @@
 import { Grid } from "@chakra-ui/react";
 
-const GridViewComponent = ({ data, Component, dataEntity }) => {
+const GridViewComponent = ({
+  data,
+  Component,
+  dataEntity,
+  ...additionalProps
+}) => {
   return (
     <Grid
       gridTemplateColumns={{
@@ -16,7 +21,7 @@ const GridViewComponent = ({ data, Component, dataEntity }) => {
         <Component
           key={dataItem?.portalId}
           data={dataItem}
-          entity={dataEntity}
+          {...additionalProps}
         />
       ))}
     </Grid>

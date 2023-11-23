@@ -20,10 +20,10 @@ import GridViewComponent from "../../../widgets/GridViewComponent";
 
 export default function AllStaffPage() {
   const navigate = useNavigate();
-  const [dataView, setDataView] = useState("grid");
 
   const { staffsData } = useStaffs();
 
+  const [dataView, setDataView] = useState("grid");
   function handleDataView(e) {
     e.preventDefault;
     setDataView(() => e);

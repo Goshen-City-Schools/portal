@@ -35,6 +35,7 @@ const AllClassesTable = ({ data, studentsData }) => {
               colorScheme={subclass.color}
               color={"neutral.700"}
               fontWeight={"bold"}
+              size={"sm"}
             >
               {subclass.name}
             </Tag>
@@ -48,7 +49,7 @@ const AllClassesTable = ({ data, studentsData }) => {
       Cell: ({ row }) => (
         <Text
           as={"p"}
-          fontSize={"lg"}
+          fontSize={"sm"}
           textAlign={"center"}
           color={"neutral.700"}
           fontWeight={"bold"}

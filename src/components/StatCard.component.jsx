@@ -22,6 +22,7 @@ export default function StatCardComponent({
       py={4}
       maxW={maxW}
       flexShrink={0}
+      shadow={"sm"}
       rounded={"md"}
       _hover={{ bg: "accent.100", borderColor: "neutral.700" }}
       animation={"ease-in-out"}
