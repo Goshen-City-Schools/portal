@@ -46,6 +46,7 @@ const GridViewComponent = ({
     >
       {schoolClasses.map((schoolClass, index) => (
         <StatCardComponent
+          color={"yellow"}
           size={16}
           key={index}
           text={schoolClass.name + " Class"}

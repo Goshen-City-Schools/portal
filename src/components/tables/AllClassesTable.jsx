@@ -1,8 +1,9 @@
 import React from "react";
 import Table from "../../widgets/Table.widget";
 
-import { Flex, Text, Tag } from "@chakra-ui/react";
+import { Flex, Text, Tag, Button } from "@chakra-ui/react";
 import { getNumberOfStudentsInClass } from "../../pages/admin/classes/Index.page";
+import { FaEllipsisH } from "react-icons/fa";
 
 const AllClassesTable = ({ data, studentsData }) => {
   const numberOfStudentsInClass = (className) => {
@@ -26,7 +27,7 @@ const AllClassesTable = ({ data, studentsData }) => {
       accessor: "name",
     },
     {
-      Header: "Sub Classes",
+      Header: "SubClasses",
       accessor: "subClasses",
       Cell: ({ cell }) => (
         <Flex gap={2} wrap={"wrap"} flexShrink={1}>
@@ -35,6 +36,7 @@ const AllClassesTable = ({ data, studentsData }) => {
               colorScheme={subclass.color}
               color={"neutral.700"}
               fontWeight={"bold"}
+              textTransform={"capitalize"}
               size={"sm"}
             >
               {subclass.name}
@@ -44,7 +46,7 @@ const AllClassesTable = ({ data, studentsData }) => {
       ),
     },
     {
-      Header: "No. of Students",
+      Header: "Students",
       accessor: "value",
       Cell: ({ row }) => (
         <Text
@@ -61,6 +63,15 @@ const AllClassesTable = ({ data, studentsData }) => {
     {
       Header: "Action",
       accessor: "action",
+      Cell: ({}) => (
+        <Button
+          ml={0}
+          pr={1}
+          size={"sm"}
+          py={0.2}
+          leftIcon={<FaEllipsisH />}
+        ></Button>
+      ),
     },
   ];
 
@@ -69,7 +80,7 @@ const AllClassesTable = ({ data, studentsData }) => {
       <Table
         columns={columns}
         data={data ? data : []}
-        fullWidthColumns={["Sub Classes"]}
+        fullWidthColumns={["SubClasses"]}
       />
     </div>
   );
