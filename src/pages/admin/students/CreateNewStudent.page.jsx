@@ -4,7 +4,6 @@ import PageSectionHeader from "../../../components/PageSectionHeader";
 
 import { Box, Flex, useToast } from "@chakra-ui/react";
 import { useState } from "react";
-import schoolData from "../../../data/school.data";
 import ReactPortal from "../../../widgets/ReactPortal";
 import { useModal } from "../../../app/contexts/ModalContext";
 import { useEffect } from "react";
@@ -13,6 +12,7 @@ import allowedUserRoles from "../../../helpers/allowedUserRoles";
 import { registerStudent } from "../../../api/student.api";
 import { useUser } from "../../../app/contexts/UserContext";
 import StudentForm from "../../../components/forms/StudentForm";
+import useClasses from "../../../hooks/useClasses";
 
 export default function CreateNewStudent() {
   const { openPortal } = useModal();
@@ -21,6 +21,10 @@ export default function CreateNewStudent() {
   const toast = useToast();
   const [loading, setLoading] = useState(false);
   useEffect(() => {}, [loading]);
+
+  const { schoolClasses } = useClasses();
+
+  console.log(schoolClasses);
 
   const { user } = useUser();
 
@@ -44,10 +48,10 @@ export default function CreateNewStudent() {
   // Update available subclasses based on the selected class
   useEffect(() => {
     if (formData.class) {
-      const selectedClass = schoolData.schoolClasses.find(
-        (classData) => classData.name === formData.class
+      const selectedClass = schoolClasses?.find(
+        (classData) => classData._id === formData.class
       );
-      setAvailableSubclasses(selectedClass ? selectedClass.subClasses : []);
+      setAvailableSubclasses(selectedClass ? selectedClass?.subClasses : []);
     } else {
       setAvailableSubclasses([]);
     }
@@ -106,7 +110,7 @@ export default function CreateNewStudent() {
           firstName: formData.firstName,
           lastName: formData.lastName,
           schoolClass: formData.class,
-          subclass: formData.subclass ? formData.subclass : "",
+          subClass: formData.subclass ? formData.subclass : "",
           dateOfBirth: formData.dateOfBirth,
           gender: formData.gender,
           studentType: formData.studentType,
@@ -139,7 +143,7 @@ export default function CreateNewStudent() {
           openPortal(
             <AccountCreatedScreen
               type={"student"}
-              data={result.student}
+              data={result.user}
               email={studentData.guardianEmail}
             />
           );
@@ -288,7 +292,8 @@ export default function CreateNewStudent() {
           handleFormSubmit={handleFormSubmit}
           loading={loading}
           availableSubclasses={availableSubclasses}
-          schoolData={schoolData}
+          schoolData={schoolClasses}
+          handleNextForm={handleNextForm}
         />
       </Box>
     </PageWrapper>

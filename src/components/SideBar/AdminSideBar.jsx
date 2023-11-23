@@ -297,8 +297,8 @@ export default function AdminSideBar({ sideBarView, handleClick }) {
                     icon: <MdHistory color={"white"} size={12} />,
                   },
                   {
-                    name: "Invoice",
-                    link: "/admin/transactions/invoices",
+                    name: "Configure",
+                    link: "/admin/finance",
                     icon: <MdSettings color={"white"} size={12} />,
                   },
                 ]}

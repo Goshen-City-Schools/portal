@@ -1,52 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import PageWrapper from "../../../components/PageWrapper";
 
-import {
-  Text,
-  Flex,
-  Box,
-  Button,
-  Grid,
-  Select,
-  HStack,
-} from "@chakra-ui/react";
-import {
-  MdAdd,
-  MdGridView,
-  MdIcecream,
-  MdTableChart,
-  MdUploadFile,
-} from "react-icons/md";
+import { Text, Flex, Box, Button, Select, HStack } from "@chakra-ui/react";
 
+import { MdAdd, MdIcecream, MdUploadFile } from "react-icons/md";
+
+import schoolData from "../../../data/school.data";
+
+import useStaffs from "../../../hooks/useStaffs";
+
+import DataViewSwitcher from "../../../widgets/DataViewSwitcher";
 import SearchWidget from "../../../widgets/Search.widget";
+
 import IconComponent from "../../../components/Icon.component";
 import AllStaffTable from "../../../components/tables/AllStaffTable.component";
-import { useNavigate } from "react-router-dom";
 import StaffPreviewCard from "../../../components/PreviewCards/StaffPreviewCard";
-import schoolData from "../../../data/school.data";
-import { useState } from "react";
-import { useEffect } from "react";
-import { getStaffData } from "../../../api/staff.api";
-import { useMemo } from "react";
-import useStaffs from "../../../hooks/useStaffs";
+import GridViewComponent from "../../../widgets/GridViewComponent";
 
 export default function AllStaffPage() {
   const navigate = useNavigate();
   const [dataView, setDataView] = useState("grid");
 
-  const { staffsData, setStaffData } = useStaffs();
-
-  useEffect(() => {
-    // Your logic to handle staffsData change
-    console.log(staffsData);
-  }, [staffsData]);
-
-  // Memoize the staffsData using useMemo
+  const { staffsData } = useStaffs();
 
   function handleDataView(e) {
     e.preventDefault;
     setDataView(() => e);
   }
+
   return (
     <PageWrapper>
       <Flex justifyContent={"space-between"} alignItems={"center"} mb={2}>
@@ -55,7 +37,7 @@ export default function AllStaffPage() {
           mt={0}
           className=""
           fontSize={"2xl"}
-          fontWeight={"bold"}
+          fontWeighbt={"bold"}
         >
           All Staff
         </Text>
@@ -130,50 +112,19 @@ export default function AllStaffPage() {
             </Select>
           </HStack>
 
-          <HStack>
-            <Grid
-              cursor={"pointer"}
-              placeItems={"center"}
-              color={"neutral.600"}
-              bg={dataView === "grid" ? "red.100" : "neutral.300"}
-              rounded={"lg"}
-              onClick={() => handleDataView("grid")}
-            >
-              <IconComponent>
-                <MdGridView />
-              </IconComponent>
-            </Grid>
-            <Grid
-              cursor={"pointer"}
-              placeItems={"center"}
-              color={"neutral.600"}
-              bg={dataView === "table" ? "red.100" : "neutral.300"}
-              rounded={"lg"}
-              onClick={() => handleDataView("table")}
-            >
-              <IconComponent>
-                <MdTableChart />
-              </IconComponent>
-            </Grid>
-          </HStack>
+          <DataViewSwitcher
+            dataView={dataView}
+            handleDataView={handleDataView}
+          />
         </Flex>
 
         {staffsData && staffsData ? (
           dataView === "grid" ? (
-            <Grid
-              gridTemplateColumns={{
-                "base": "1fr",
-                "sm": "2, 1fr",
-                "md": "repeat(3, 1fr)",
-                "lg": "repeat(5, 1fr)",
-              }}
-              mt={"4"}
-              gap={4}
-            >
-              {staffsData?.map((staff) => (
-                <StaffPreviewCard key={staff?.portalId} staff={staff} />
-              ))}
-            </Grid>
+            <GridViewComponent
+              Component={StaffPreviewCard}
+              dataEntity={"staff"}
+              data={staffsData}
+            />
           ) : (
             <AllStaffTable existingStaffData={staffsData} />
           )

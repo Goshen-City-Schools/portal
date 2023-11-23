@@ -16,7 +16,7 @@ export const registerStudent = async (studentData) => {
       "/api/v1/auth/register",
       JSON.stringify(studentData),
       {
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", withCredentials: true },
       }
     );
     return response.data; // Assuming your API returns data upon successful registration
@@ -34,5 +34,15 @@ export const getSingleStudent = async (portalId) => {
   } catch (error) {
     console.error("Error fetching single student:", error.message);
     throw error;
+  }
+};
+
+export const deleteStudent = async (portalId) => {
+  try {
+    const response = await axios.delete(`/api/v1/students/${portalId}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching single staff:", error.message);
+    return null; // Return a default value or handle the error appropriately
   }
 };

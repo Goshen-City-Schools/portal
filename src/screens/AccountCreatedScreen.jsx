@@ -35,7 +35,7 @@ export default function AccountCreatedScreen({ type, data, email }) {
         </Flex>
         <Flex>
           <Text>
-            Password:&nbsp; <strong>{data.id}</strong>
+            Password:&nbsp; <strong>12345</strong>
           </Text>
         </Flex>
       </Flex>
@@ -52,7 +52,7 @@ export default function AccountCreatedScreen({ type, data, email }) {
         fontWeight={"bold"}
         my={4}
       >
-        Welcome email with login details has been forwarded to:{" "}
+        Welcome email will be forwarded to:{" "}
         <strong>
           &nbsp;
           {email}

@@ -3,6 +3,7 @@ import React from "react";
 import { Text, Box } from "@chakra-ui/react";
 import EventForm from "../components/forms/EventForm";
 import SchoolClassForm from "../components/forms/SchoolClassForm";
+import { useState } from "react";
 
 export default function CreateSubClassPortal() {
   return (

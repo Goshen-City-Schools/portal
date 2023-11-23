@@ -7,23 +7,9 @@ import useStudents from "../../../hooks/useStudents";
 
 import { useUser } from "../../../app/contexts/UserContext";
 
-import {
-  Flex,
-  Box,
-  Button,
-  HStack,
-  Text,
-  Grid,
-  Select,
-} from "@chakra-ui/react";
+import { Flex, Box, Button, HStack, Text, Grid } from "@chakra-ui/react";
 
-import {
-  MdAdd,
-  MdGridView,
-  MdIcecream,
-  MdTableChart,
-  MdUploadFile,
-} from "react-icons/md";
+import { MdAdd, MdIcecream, MdUploadFile } from "react-icons/md";
 
 import allowedUserRoles from "../../../helpers/allowedUserRoles";
 
@@ -34,6 +20,8 @@ import PageSectionHeader from "../../../components/PageSectionHeader";
 import AllStudentsTable from "../../../components/tables/AllStudentsTable.component";
 import PageWrapper from "../../../components/PageWrapper";
 import StudentPreviewCard from "../../../components/PreviewCards/StudentPreviewCard";
+import DataViewSwitcher from "../../../widgets/DataViewSwitcher";
+import GridViewComponent from "../../../widgets/GridViewComponent";
 
 export default function StudentsPage() {
   const navigate = useNavigate();
@@ -41,17 +29,12 @@ export default function StudentsPage() {
   const [selectedSubClass, setSelectedSubClass] = useState("");
   const [dataView, setDataView] = useState("grid");
   const [subClasses, setSubClasses] = useState("");
-  const { studentsData, setStudentsData } = useStudents();
+  const { studentsData } = useStudents();
   const [filteredStudentsData, setFilteredStudentsData] =
     useState(studentsData);
   const { user } = useUser();
 
   const { schoolClasses, loading } = useClasses(); // Use the new hook
-
-  useEffect(() => {
-    // Your logic to handle staffData change
-    console.log("...");
-  }, [studentsData]);
 
   function handleDataView(e) {
     e.preventDefault;
@@ -86,7 +69,7 @@ export default function StudentsPage() {
 
     // Find the selected school class object
     const selectedClassObject = schoolClasses.find(
-      (schoolClass) => schoolClass.name === selectedClass
+      (schoolClass) => schoolClass._id === selectedClass
     );
 
     // Update the list of subclasses based on the selected school class
@@ -165,7 +148,7 @@ export default function StudentsPage() {
             <Select size={"sm"} minW={"180px"} onChange={handleClassChange}>
               <option value="">-- Select Class --</option>
               {schoolClasses?.map((schoolClass) => (
-                <option key={schoolClass.id} value={schoolClass.name}>
+                <option key={schoolClass._id} value={schoolClass._id}>
                   {schoolClass.name}
                 </option>
               ))}
@@ -182,55 +165,26 @@ export default function StudentsPage() {
               >
                 <option value="">-- Select Subclass --</option>
                 {subClasses.map((subClass, index) => (
-                  <option key={index} value={subClass}>
-                    {subClass}
+                  <option key={index} value={subClass._id}>
+                    {subClass.name}
                   </option>
                 ))}
               </Select>
             )}
           </HStack>
-          <HStack>
-            <Grid
-              cursor={"pointer"}
-              placeItems={"center"}
-              color={"neutral.600"}
-              bg={dataView === "grid" ? "red.100" : "neutral.300"}
-              rounded={"lg"}
-              onClick={() => handleDataView("grid")}
-            >
-              <IconComponent>
-                <MdGridView />
-              </IconComponent>
-            </Grid>
-            <Grid
-              cursor={"pointer"}
-              placeItems={"center"}
-              color={"neutral.600"}
-              bg={dataView === "table" ? "red.100" : "neutral.300"}
-              rounded={"lg"}
-              onClick={() => handleDataView("table")}
-            >
-              <IconComponent>
-                <MdTableChart />
-              </IconComponent>
-            </Grid>
-          </HStack>
+
+          <DataViewSwitcher
+            handleDataView={handleDataView}
+            dataView={dataView}
+          />
         </Flex>
         {filteredStudentsData?.length > 0 ? (
           dataView === "grid" ? (
-            <Grid
-              gridTemplateColumns={{
-                "base": "1fr",
-                "sm": "2, 1fr",
-                "md": "repeat(, 1fr)",
-                "lg": "repeat(5, 1fr)",
-              }}
-              gap={4}
-            >
-              {filteredStudentsData?.map((student, index) => (
-                <StudentPreviewCard key={index} student={student} />
-              ))}
-            </Grid>
+            <GridViewComponent
+              Component={StudentPreviewCard}
+              dataEntity={"student"}
+              data={studentsData}
+            />
           ) : (
             <AllStudentsTable existingStudentsData={filteredStudentsData} />
           )

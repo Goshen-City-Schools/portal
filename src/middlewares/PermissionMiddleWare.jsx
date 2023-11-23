@@ -28,7 +28,13 @@ const routes = [
 
   {
     path: "/admin/profile",
-    allowedRoles: ["IT Personnel", "Class Teacher"],
+    allowedRoles: [
+      "IT Personnel",
+      "Class Teacher",
+      "Subject Teacher",
+      "School Teacher",
+      "Bursar",
+    ],
     allowedAccountTypes: ["staff"],
   },
 

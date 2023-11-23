@@ -15,14 +15,18 @@ import { FaPhoneAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useUser } from "../../app/contexts/UserContext";
 
-export default function StaffPreviewCard({ staff }) {
+export default function StaffPreviewCard({ data }) {
   const { user } = useUser();
+
+  if (!data) {
+    return;
+  }
   return (
     <Link
       to={
-        staff.portalId === user.portalId
+        data.portalId === user.portalId
           ? `/admin/profile`
-          : `/admin/staff/${staff?.portalId}`
+          : `/admin/staff/${data?.portalId}`
       }
     >
       <Stack
@@ -63,16 +67,14 @@ export default function StaffPreviewCard({ staff }) {
               letterSpacing={1}
               lineHeight={0.8}
             >
-              {staff?.portalId}
+              {data?.portalId}
             </Text>
           </Badge>
 
           <Avatar h={24} w={24} shadow={"lg"} bg={"white"} overflow={"hidden"}>
             <Image
               src={
-                staff.avatarImageURL
-                  ? staff.avatarImageURL
-                  : "/Illustration.png"
+                data.avatarImageURL ? data.avatarImageURL : "/Illustration.png"
               }
               h={24}
               w={24}
@@ -88,8 +90,9 @@ export default function StaffPreviewCard({ staff }) {
               as={"h3"}
               fontSize={"lg"}
               lineHeight={1}
+              textTransform={"capitalize"}
             >
-              {staff.firstName} {staff.lastName}
+              {data.firstName} {data.lastName}
             </Text>
           </Flex>
 
@@ -102,7 +105,7 @@ export default function StaffPreviewCard({ staff }) {
             letterSpacing={1}
             p={2}
           >
-            {staff?.roles[0]}
+            {data?.roles[0]}
           </Badge>
 
           <Stack

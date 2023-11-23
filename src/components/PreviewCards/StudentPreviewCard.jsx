@@ -14,10 +14,16 @@ import IconComponent from "../Icon.component";
 import { MdMailOutline, MdShare } from "react-icons/md";
 import { FaPhoneAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import useStudentClassDetails from "../../hooks/useStudentClassDetails";
 
-export default function StudentPreviewCard({ student }) {
+export default function StudentPreviewCard({ data }) {
+  const { classDetails, subclassDetails } = useStudentClassDetails(
+    data?.schoolClass,
+    data?.subClass
+  );
+
   return (
-    <Link to={`/admin/students/${student.portalId}`}>
+    <Link to={`/admin/students/${data.portalId}`}>
       <Stack
         bg={"blue.50"}
         border={"2px solid"}
@@ -61,16 +67,14 @@ export default function StudentPreviewCard({ student }) {
               letterSpacing={1}
               p={2}
             >
-              ID: {student?.portalId}
+              ID: {data?.portalId}
             </Badge>
           </Box>
 
           <Avatar h={24} w={24} shadow={"lg"} bg={"white"} overflow={"hidden"}>
             <Image
               src={
-                student.avatarImageURL
-                  ? student.avatarImageURL
-                  : "/Illustration.png"
+                data.avatarImageURL ? data.avatarImageURL : "/Illustration.png"
               }
               h={24}
               w={24}
@@ -85,9 +89,10 @@ export default function StudentPreviewCard({ student }) {
               color={"brand.700"}
               as={"h3"}
               fontSize={"lg"}
+              textTransform={"capitalize"}
               lineHeight={1}
             >
-              {student.firstName} {student.lastName}
+              {data.firstName} {data.lastName}
             </Text>
           </Flex>
 
@@ -100,7 +105,7 @@ export default function StudentPreviewCard({ student }) {
             letterSpacing={1}
             p={2}
           >
-            {student?.schoolClass}
+            {classDetails?.name} {subclassDetails?.name}
           </Badge>
 
           <Stack

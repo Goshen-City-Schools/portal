@@ -1,3 +1,5 @@
+import axios from "./axios";
+
 export const getSchoolClasses = async () => {
   try {
     const response = await axios.get(`/api/v1/schoolClasses`);
@@ -8,12 +10,12 @@ export const getSchoolClasses = async () => {
   }
 };
 
-export const createSubClass = async () => {
+export const createSubClass = async (formData) => {
   try {
-    const response = await axios.get(`/api/v1/schoolClasses`);
+    const response = await axios.post(`/api/v1/schoolClasses/new`, formData);
     return response.data; // Assuming the response is expected to be JSON
   } catch (error) {
-    console.error("Failed to fetch school classes data:", error.message);
+    console.error("Failed to create school classes data:", error.message);
     throw error; // Re-throw the error for the caller to handle
   }
 };

@@ -57,7 +57,7 @@ export default function AllFeesTable() {
     },
     {
       Header: "Student Type",
-      accessor: "schoolClass",
+      accessor: "studentType",
       Cell: ({ value }) => (
         <Flex gap={2} overflowX={"hidden"} wrap={"wrap"}>
           {value?.map((priviledge, index) => (
@@ -115,7 +115,7 @@ export default function AllFeesTable() {
     <Table
       columns={columns}
       data={schoolData.staffRoles}
-      fullWidthColumns={["Priviledges", "Staff"]}
+      fullWidthColumns={["Classes"]}
     />
   );
 }

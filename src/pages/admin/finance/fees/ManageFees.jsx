@@ -1,170 +1,72 @@
-import React from "react";
-import PageWrapper from "../../../../components/PageWrapper";
-import PageSectionHeader from "../../../../components/PageSectionHeader";
-import {
-  Grid,
-  Box,
-  GridItem,
-  Text,
-  Flex,
-  Table,
-  Th,
-  Td,
-  Button,
-  Tr,
-  Thead,
-  Tbody,
-} from "@chakra-ui/react";
-import schoolData from "../../../../data/school.data";
-import { MdModeEditOutline } from "react-icons/md";
+import { useEffect } from "react";
 
-export default function ManageFees() {
-  const busFeesData = [
-    {
-      route: "Enugu Emenike",
-      toOrFrom: "22,500",
-      toAndFrom: "40,500",
-    },
-  ];
+import { Text, Flex, Box, Button } from "@chakra-ui/react";
+
+import { MdAdd } from "react-icons/md";
+
+import SearchWidget from "../../../../widgets/Search.widget";
+
+import IconComponent from "../../../../components/Icon.component";
+
+import PageWrapper from "../../../../components/PageWrapper";
+import useStaffs from "../../../../hooks/useStaffs";
+import AllFeesTable from "../../../../components/tables/AllFeesTable";
+import { useModal } from "../../../../app/contexts/ModalContext";
+import AddNewFeeTypePortal from "../../../../portals/AddNewFeeType.portal";
+
+export default function AllFeesPage() {
+  const { openPortal } = useModal();
+  const { staffsData } = useStaffs();
+
+  useEffect(() => {
+    // Your logic to handle staffsData change
+    console.log("...");
+  }, [staffsData]);
+
+  // Memoize the staffsData using useMemo
+
   return (
     <PageWrapper>
-      <PageSectionHeader
-        pageTitle={"Manage Fees"}
-        pageCrumb={"Home / Finance / Fees / Manage"}
-      />
-
-      <Box mt={6}>
-        <Grid
-          gridTemplateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }}
-          gap={4}
+      <Flex justifyContent={"space-between"} alignItems={"center"} mb={2}>
+        <Text
+          as={"h2"}
+          mt={0}
+          className=""
+          fontSize={"2xl"}
+          fontWeight={"bold"}
         >
-          <GridItem
-            bg={"white"}
-            rounded={"lg"}
-            px={6}
-            py={4}
-            height={"320px"}
-            overflowY={"scroll"}
+          All Fees
+        </Text>
+        <Text as={"small"}>Home / Staff / All Staff</Text>
+      </Flex>
+
+      <Flex
+        justifyContent={"space-between"}
+        alignItems={"center"}
+        mt={8}
+        mb={6}
+      >
+        <SearchWidget height={10} text={"Search staff"} />
+
+        <Flex gap={4} fontSize={"sm"}>
+          <Button
+            bg={"brand.700"}
+            size={"sm"}
+            color={"neutral.100"}
+            onClick={() => {
+              openPortal(<AddNewFeeTypePortal />);
+            }}
           >
-            <Flex justifyContent={"space-between"} alignItems={"center"}>
-              <Text as={"h3"} fontWeight={"bold"} color={"neutral.700"}>
-                School Fees
-              </Text>
+            <IconComponent>
+              <MdAdd />
+            </IconComponent>
+            New Fee Type
+          </Button>
+        </Flex>
+      </Flex>
 
-              <Button leftIcon={<MdModeEditOutline />} size={"sm"} pr={0.5} />
-            </Flex>
-
-            <Table mt={2} borderTop={"1px solid"} px={0} variant={"simple"}>
-              <Thead color={"neutral.700"}>
-                <Th px={1}>Classes</Th>
-                <Th textAlign={"right"}>New</Th>
-                <Th textAlign={"right"}>Returning</Th>
-              </Thead>
-
-              <Tbody fontSize={"sm"}>
-                {schoolData.schoolClasses.map((schoolClass) => (
-                  <Tr>
-                    <Td
-                      fontWeight={"semibold"}
-                      color={"neutral.700"}
-                      px={1}
-                      whiteSpace={"nowrap"}
-                      flexShrink={0}
-                    >
-                      {schoolClass.name}
-                    </Td>
-                    <Td textAlign={"right"}>0.00</Td>
-                    <Td textAlign={"right"}>0.00</Td>
-                  </Tr>
-                ))}
-              </Tbody>
-            </Table>
-          </GridItem>
-          <GridItem
-            height={"320px"}
-            overflowY={"scroll"}
-            bg={"white"}
-            rounded={"lg"}
-            px={6}
-            py={4}
-          >
-            <Flex justifyContent={"space-between"} alignItems={"center"}>
-              <Text as={"h3"} fontWeight={"bold"} color={"neutral.700"}>
-                Bus Fees
-              </Text>
-
-              <Button leftIcon={<MdModeEditOutline />} size={"sm"} pr={0.5} />
-            </Flex>
-
-            <Table mt={2} borderTop={"1px solid"} px={0} variant={"simple"}>
-              <Thead color={"neutral.700"}>
-                <Th px={1}>Route</Th>
-                <Th textAlign={"right"}>To/From School</Th>
-                <Th textAlign={"right"}>To & From School </Th>
-              </Thead>
-
-              <Tbody fontSize={"sm"}>
-                {busFeesData.map((busFee) => (
-                  <Tr>
-                    <Td
-                      fontWeight={"semibold"}
-                      color={"neutral.700"}
-                      px={1}
-                      whiteSpace={"nowrap"}
-                      flexShrink={0}
-                    >
-                      {busFee.route}
-                    </Td>
-                    <Td textAlign={"right"}>{busFee.toOrFrom}</Td>
-                    <Td textAlign={"right"}>{busFee.toAndFrom}</Td>
-                  </Tr>
-                ))}
-              </Tbody>
-            </Table>
-          </GridItem>
-          <GridItem
-            height={"320px"}
-            overflowY={"scroll"}
-            bg={"white"}
-            rounded={"lg"}
-            px={6}
-            py={4}
-          >
-            <Flex justifyContent={"space-between"} alignItems={"center"}>
-              <Text as={"h3"} fontWeight={"bold"} color={"neutral.700"}>
-                Hostel Fees
-              </Text>
-
-              <Button leftIcon={<MdModeEditOutline />} size={"sm"} pr={0.5} />
-            </Flex>
-
-            <Table mt={2} borderTop={"1px solid"} px={0} variant={"simple"}>
-              <Thead color={"neutral.700"}>
-                <Th px={1}>Classes</Th>
-                <Th textAlign={"right"}>Male</Th>
-                <Th textAlign={"right"}>Female</Th>
-              </Thead>
-
-              <Tbody fontSize={"sm"}>
-                {schoolData.schoolClasses.map((schoolClass) => (
-                  <Tr>
-                    <Td
-                      fontWeight={"semibold"}
-                      color={"neutral.700"}
-                      px={1}
-                      whiteSpace={"nowrap"}
-                      flexShrink={0}
-                    >
-                      {schoolClass.name}
-                    </Td>
-                    <Td textAlign={"right"}>0.00</Td>
-                    <Td textAlign={"right"}>0.00</Td>
-                  </Tr>
-                ))}
-              </Tbody>
-            </Table>
-          </GridItem>
-        </Grid>
+      <Box px={8} py={6} pb={10} bg={"white"} rounded={"lg"}>
+        <AllFeesTable existingStaffData={staffsData} />)
       </Box>
     </PageWrapper>
   );

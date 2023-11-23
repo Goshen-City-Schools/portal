@@ -7,6 +7,7 @@ import {
   GridItem,
   Tag,
   Flex,
+  useToast,
   ButtonGroup,
 } from "@chakra-ui/react";
 import { GiCoronation } from "react-icons/gi";
@@ -34,6 +35,9 @@ import allowedUserRoles from "../helpers/allowedUserRoles";
 import { useUser } from "../app/contexts/UserContext";
 import UpdateAvatarButton from "../components/Buttons/UpdateAvatarButton";
 import InfoBox from "../components/shared/InfoBox.component";
+import { useNavigate } from "react-router-dom";
+import useStaffs from "../hooks/useStaffs";
+import { deleteStaff } from "../api/staff.api";
 
 const schoolClasses = schoolData.schoolClasses;
 const staffRoles = schoolData.staffRoles;
@@ -44,7 +48,10 @@ export default function StaffProfileScreen({
   staffId,
 }) {
   const { openPortal, closePortal } = useModal();
+  const toast = useToast();
   const [selectedFile, setSelectedFile] = useState(null);
+  const navigate = useNavigate();
+  const { staffsData, setStaffsData } = useStaffs();
 
   const {
     firstName,
@@ -66,6 +73,53 @@ export default function StaffProfileScreen({
   const [selectedSubjects, setSelectedSubjects] = useState(
     staff?.subjects || []
   );
+
+  const handleDeleteAction = async (staffId) => {
+    if (user.portalId === staffId) {
+      // Prevent staff from deleting themselves
+      return toast({
+        title: "You cannot delete yourself.",
+        status: "warning",
+      });
+    } else if (
+      window.confirm(`Are you sure to delete the staff with ID ${staffId}?`)
+    ) {
+      try {
+        // Use the deleteStaff function to delete the staff member
+        const deletedStaff = await deleteStaff(staffId);
+
+        // Check if the delete operation was successful
+        if (deletedStaff) {
+          // Filter the staff member with the specified staffId and update the state
+          const newStaffData = staffsData.filter(
+            (staff) => staff?.portalId !== staffId
+          );
+          setStaffsData(newStaffData);
+          navigate("/admin/staff");
+
+          // Show a toast notification
+          toast({
+            title: `Deleted staff with ID ${staffId}`,
+            duration: 2000,
+            status: "warning",
+          });
+        } else {
+          // Show an error toast if the delete operation was not successful
+          toast({
+            title: `Failed to delete staff with ID ${staffId}`,
+            status: "error",
+          });
+        }
+      } catch (error) {
+        // Handle any error that occurred during the deleteStaff function
+        console.error("Error deleting staff:", error.message);
+        toast({
+          title: "An error occurred while deleting the staff.",
+          status: "error",
+        });
+      }
+    }
+  };
 
   function handleAssignClick(cmd) {
     if (cmd === "classes") {
@@ -309,6 +363,7 @@ export default function StaffProfileScreen({
 
             {allowedUserRoles(user, ["IT Personnel"]) && (
               <Button
+                onClick={() => handleDeleteAction(staff.portalId)}
                 position={"absolute"}
                 right={2}
                 top={4}

@@ -38,6 +38,7 @@ import Avatar from "../components/Avatar.component";
 import IconComponent from "../components/Icon.component";
 import InfoBox from "../components/shared/InfoBox.component";
 import { GiCoronation } from "react-icons/gi";
+import useStudentClassDetails from "../hooks/useStudentClassDetails";
 
 export default function StudentProfileScreen({ student }) {
   const { openPortal } = useModal();
@@ -58,6 +59,14 @@ export default function StudentProfileScreen({ student }) {
   } = student;
 
   const fullname = `${firstName} ${lastName}`;
+
+  const { classDetails, subclassDetails } = useStudentClassDetails(
+    schoolClass,
+    subClass
+  );
+
+  console.log(classDetails, subclassDetails);
+
   return (
     <Grid gap={1} mt={4}>
       <Flex
@@ -84,8 +93,8 @@ export default function StudentProfileScreen({ student }) {
             imageUrl={
               selectedFile
                 ? URL.createObjectURL(selectedFile)
-                : student.avatarImageURL
-                ? student.avatarImageURL
+                : student?.avatarImageURL
+                ? student?.avatarImageURL
                 : "/avatar.png"
             }
           />
@@ -469,8 +478,8 @@ export default function StudentProfileScreen({ student }) {
                     Class
                   </Text>
                   <Text as={"p"}>
-                    {schoolClass} {subClass}
-                  </Text>{" "}
+                    {classDetails?.name} {subclassDetails?.name}
+                  </Text>
                 </Box>
               </Flex>
             </Box>
@@ -741,7 +750,9 @@ export default function StudentProfileScreen({ student }) {
                   >
                     Class
                   </Text>
-                  <Text as={"p"}>{schoolClass}</Text>{" "}
+                  <Text as={"p"}>
+                    {classDetails?.name} {subclassDetails?.name}
+                  </Text>
                 </Box>
               </Flex>
             </Box>

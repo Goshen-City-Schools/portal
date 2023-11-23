@@ -33,7 +33,7 @@ const DataTable = ({ columns, data, fullWidthColumns, customPageSize }) => {
       data,
       initialState: {
         pageIndex: 0,
-        pageSize: customPageSize ? customPageSize : 10,
+        pageSize: customPageSize ? customPageSize : 20,
       },
     },
     useSortBy,

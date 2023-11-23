@@ -96,8 +96,8 @@ const FirstForm = ({
             value={formData.class}
           >
             <option value="">-- Select class --</option>
-            {schoolData?.schoolClasses.map((schoolClass, index) => (
-              <option key={index} value={schoolClass.name}>
+            {schoolData?.map((schoolClass, index) => (
+              <option key={index} value={schoolClass._id}>
                 {schoolClass.name}
               </option>
             ))}
@@ -119,8 +119,8 @@ const FirstForm = ({
             >
               <option value="">-- Select subclass --</option>
               {availableSubclasses?.map((subclass, index) => (
-                <option key={index} value={subclass}>
-                  {subclass}
+                <option key={index} value={subclass._id}>
+                  {subclass.name}
                 </option>
               ))}
             </Select>
@@ -332,6 +332,7 @@ export default function StudentForm({
           handleChange={handleChange}
           handleNextForm={handleNextForm}
           loading={loading}
+          schoolData={schoolData}
           activeFormIndex={activeFormIndex}
           setActiveFormIndex={setActiveFormIndex}
           availableSubclasses={availableSubclasses}

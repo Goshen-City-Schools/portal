@@ -9,6 +9,7 @@ import {
   Stack,
   Box,
   useToast,
+  HStack,
 } from "@chakra-ui/react";
 
 import { useModal } from "../../../app/contexts/ModalContext";
@@ -25,6 +26,8 @@ import IconComponent from "../../../components/Icon.component";
 
 import { MdAdd } from "react-icons/md";
 import CreateSubClassPortal from "../../../portals/CreateSubClass.portal";
+import AllClassesTable from "../../../components/tables/AllClassesTable";
+import CustomSelect from "../../../components/shared/Select.component";
 
 export const classCategories = [
   {
@@ -60,6 +63,19 @@ export const classCategories = [
   // Add more class categories as needed
 ];
 
+export const getNumberOfStudentsInClass = (studentsData, classId) => {
+  if (!studentsData || !classId) {
+    return 0;
+  }
+
+  // Filter students based on the provided classId
+  const studentsInClass = studentsData.filter(
+    (student) => student.schoolClass === classId
+  );
+
+  return studentsInClass.length;
+};
+
 export default function ClassesPage() {
   const toast = useToast();
   const { openPortal, closePortal } = useModal();
@@ -68,9 +84,11 @@ export default function ClassesPage() {
 
   const { schoolClasses } = useClasses();
 
+  console.log(schoolClasses);
+
   const classesInCatrgory = (category) => {
     const c = schoolClasses.filter((schoolClass) =>
-      schoolClass.name.includes(category)
+      schoolClass?.name.includes(category)
     );
     return c;
   };
@@ -184,6 +202,27 @@ export default function ClassesPage() {
 
       {/*  */}
 
+      <Box px={8} py={2} pb={10} bg={"white"} rounded={"lg"}>
+        <Flex alignItems={"center"} gap={4} my={4}>
+          <HStack width={"full"}>
+            <Text flexShrink={0} fontWeight={"bold"} as={"small"}>
+              Filter by:
+            </Text>
+            <CustomSelect size={"sm"} minW={"180px"} onChange={() => {}}>
+              <option value="">-- Select Class --</option>
+              {schoolClasses?.map((schoolClass) => (
+                <option key={schoolClass.id} value={schoolClass.name}>
+                  {schoolClass.name}
+                </option>
+              ))}
+              <option value="all_students">All</option>
+            </CustomSelect>
+          </HStack>
+        </Flex>
+
+        <AllClassesTable data={schoolClasses} studentsData={studentsData} />
+      </Box>
+
       <Grid
         gridTemplateColumns={{ base: "1fr", md: "repeat(3, 1fr)" }}
         gap={4}
@@ -197,7 +236,7 @@ export default function ClassesPage() {
             imgSrc={categoryData.illustration}
             number={
               studentsData.filter((student) =>
-                student.schoolClass.includes(categoryData.category)
+                student.schoolClass?.includes(categoryData.category)
               ).length
             }
             onClick={() => handleCategoryClick(categoryData.category)}

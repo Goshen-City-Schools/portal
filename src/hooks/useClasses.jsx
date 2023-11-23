@@ -1,6 +1,6 @@
 // useClasses.js (or useClasses.ts for TypeScript)
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import axios from "../api/axios";
 // import axios from "axios";
 
@@ -23,7 +23,10 @@ const useClasses = () => {
     fetchClassData();
   }, []);
 
-  return { schoolClasses, loading };
+  // Memoize the schoolClasses state
+  const memoizedSchoolClasses = useMemo(() => schoolClasses, [schoolClasses]);
+
+  return { schoolClasses: memoizedSchoolClasses, loading };
 };
 
 export default useClasses;

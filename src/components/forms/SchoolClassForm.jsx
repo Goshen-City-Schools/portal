@@ -12,17 +12,20 @@ import { useState } from "react";
 import { useModal } from "../../app/contexts/ModalContext";
 import CustomSelect from "../shared/Select.component";
 import useClasses from "../../hooks/useClasses";
+import { createSubClass } from "../../api/schoolClass.api";
+import { useNavigate } from "react-router-dom";
 
 export default function SchoolClassForm() {
+  const toast = useToast();
+  const { closePortal } = useModal();
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const { schoolClasses } = useClasses();
   const [formData, setFormData] = useState({
-    schoolClass_name: "",
-    schoolClass_subClass_name: "",
+    schoolClass: "",
+    name: "",
+    color: "",
   });
-
-  const toast = useToast();
-  const { closePortal } = useModal();
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -32,7 +35,7 @@ export default function SchoolClassForm() {
   function handleSubmitCreateEvent(e) {
     e.preventDefault();
 
-    if (!formData.schoolClass_name || !formData.schoolClass_subClass_name) {
+    if (!formData.schoolClass || !formData.name || !formData.color) {
       toast({
         title: "All fields are required!",
         position: "top-right",
@@ -44,21 +47,35 @@ export default function SchoolClassForm() {
 
     setIsLoading(true);
 
-    setTimeout(() => {
-      setIsLoading(false);
+    // Assuming createSubClass API function is available
+    createSubClass(formData)
+      .then((response) => {
+        setIsLoading(false);
+        console.log(response);
 
-      toast({
-        title: `${
-          schoolClasses.find(
-            (schoolClass) => schoolClass.value === formData.schoolClass_name
-          ).name
-        } ${formData.schoolClass_subClass_name} class created successfully!`,
-        position: "top-right",
-        status: "success",
-        duration: "1200",
+        toast({
+          title: `${
+            schoolClasses.find(
+              (schoolClass) => schoolClass.value === formData.schoolClass
+            ).name
+          } ${response.name} class created successfully!`,
+          position: "top-right",
+          status: "success",
+          duration: "1200",
+        });
+        closePortal();
+      })
+      .catch((error) => {
+        setIsLoading(false);
+
+        toast({
+          title: "Error creating class. Please try again.",
+          position: "top-right",
+          status: "error",
+          duration: "1200",
+        });
+        console.error("Error creating class:", error);
       });
-      closePortal();
-    }, 1600);
   }
 
   return (
@@ -74,9 +91,9 @@ export default function SchoolClassForm() {
           </FormLabel>
 
           <CustomSelect
-            name="schoolClass_name"
+            name="schoolClass"
             onChange={handleChange}
-            value={formData.schoolClass_name}
+            value={formData.schoolClass}
           >
             <option value="">-- School Class --</option>
 
@@ -86,7 +103,7 @@ export default function SchoolClassForm() {
           </CustomSelect>
         </FormControl>
 
-        {formData.schoolClass_name && (
+        {formData.schoolClass && (
           <>
             <FormControl
               my={2}
@@ -100,13 +117,33 @@ export default function SchoolClassForm() {
               <Input
                 type="text"
                 size={"sm"}
-                name="schoolClass_subClass_name"
+                name="name"
                 onChange={handleChange}
-                value={formData.schoolClass_subClass_name}
+                value={formData.name}
               />
             </FormControl>
           </>
         )}
+
+        <FormControl
+          my={2}
+          alignItems={"center"}
+          justifyContent={"space-between"}
+        >
+          <FormLabel flexShrink={0} fontSize={"sm"} fontWeight={"bold"}>
+            Select Color
+          </FormLabel>
+
+          <CustomSelect
+            name="color"
+            onChange={handleChange}
+            value={formData.color}
+          >
+            <option value="">-- Select Color --</option>
+
+            <option value="blue">Blue</option>
+          </CustomSelect>
+        </FormControl>
 
         <Button
           colorScheme={"green"}

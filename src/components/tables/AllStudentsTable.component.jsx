@@ -1,20 +1,25 @@
-import React, { useState, useEffect } from "react";
-import Table from "../../widgets/Table.widget";
-import { Flex, Tooltip, useToast, Text } from "@chakra-ui/react";
-import { MdDeleteOutline, MdLink, MdModeEditOutline } from "react-icons/md";
-import IconComponent from "../Icon.component";
 import { useNavigate } from "react-router-dom";
-import CustomCard from "../CustomTooltip";
+import { MdDeleteOutline, MdLink } from "react-icons/md";
 
-const AllStudentsTable = ({ existingStudentsData }) => {
+import { Flex, Tooltip, useToast, Text } from "@chakra-ui/react";
+
+import { deleteStudent } from "../../api/student.api";
+
+import { useUser } from "../../app/contexts/UserContext";
+
+import useStudents from "../../hooks/useStudents";
+import useClassDetails from "../../hooks/useClassDetails";
+
+import Table from "../../widgets/Table.widget";
+
+import CustomCard from "../CustomTooltip";
+import IconComponent from "../Icon.component";
+
+const AllStudentsTable = () => {
   const toast = useToast();
   const navigate = useNavigate();
-  const [studentsData, setStudentsData] = useState([]);
-
-  useEffect(() => {
-    // Initialize studentsData with existingStudentsData
-    setStudentsData(existingStudentsData);
-  }, [existingStudentsData]);
+  const { studentsData, setStudentsData } = useStudents();
+  const { user } = useUser();
 
   const columns = [
     {
@@ -76,6 +81,17 @@ const AllStudentsTable = ({ existingStudentsData }) => {
       Header: "Class",
       accessor: "schoolClass",
       width: "max-content",
+      Cell: ({ value }) => {
+        const { classDetails, loading } = useClassDetails(value);
+
+        return (
+          <Flex gap={2}>
+            <Text as={"p"} color={"neutral.700"}>
+              {loading ? "Loading..." : classDetails?.name || ""}
+            </Text>
+          </Flex>
+        );
+      },
     },
     {
       Header: "Guardian Tel.",
@@ -93,7 +109,7 @@ const AllStudentsTable = ({ existingStudentsData }) => {
           <CustomCard>
             <Tooltip label="Delete" hasArrow>
               <IconComponent
-                click={() => handleDeleteAction(row.original.id)}
+                click={() => handleDeleteAction(row.original.portalId)}
                 className="text-red-600 cursor-pointer hover:scale-110 transition duration-300"
               >
                 <MdDeleteOutline size={20} />
@@ -116,25 +132,49 @@ const AllStudentsTable = ({ existingStudentsData }) => {
     },
   ];
 
-  const handleDeleteAction = (studentId) => {
-    if (
-      window.confirm(`Are you sure to delete the student with ID ${studentId}?`)
-    ) {
-      // Filter the student with the specified studentId and update the state
-      const newStudentsData = studentsData.filter(
-        (student) => student.id !== studentId
-      );
-      setStudentsData(newStudentsData);
-
-      // Show a toast notification
-      toast({
-        title: `Deleted student with ID ${studentId}`,
-        duration: 2000,
+  const handleDeleteAction = async (studentId) => {
+    if (user.portalId === studentId) {
+      // Prevent student from deleting themselves
+      return toast({
+        title: "You cannot delete yourself.",
         status: "warning",
       });
+    } else if (
+      window.confirm(`Are you sure to delete the student with ID ${studentId}?`)
+    ) {
+      try {
+        // Use the deleteStaff function to delete the student member
+        const deletedStudent = await deleteStudent(studentId);
 
-      // Update localStorage
-      localStorage.setItem("studentsData", JSON.stringify(newStudentsData));
+        // Check if the delete operation was successful
+        if (deletedStudent) {
+          // Filter the student member with the specified studentId and update the state
+          const newStudentsData = studentsData.filter(
+            (student) => student?.portalId !== studentId
+          );
+          setStudentsData(newStudentsData);
+
+          // Show a toast notification
+          toast({
+            title: `Deleted student with ID ${studentId}`,
+            duration: 2000,
+            status: "warning",
+          });
+        } else {
+          // Show an error toast if the delete operation was not successful
+          toast({
+            title: `Failed to delete student with ID ${studentId}`,
+            status: "error",
+          });
+        }
+      } catch (error) {
+        // Handle any error that occurred during the deleteStaff function
+        console.error("Error deleting student:", error.message);
+        toast({
+          title: "An error occurred while deleting the student.",
+          status: "error",
+        });
+      }
     }
   };
 
