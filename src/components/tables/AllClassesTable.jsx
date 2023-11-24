@@ -5,8 +5,26 @@ import { Flex, Text, Tag, Button } from "@chakra-ui/react";
 import { getNumberOfStudentsInClass } from "../../pages/admin/classes/Index.page";
 import { FaEllipsisH } from "react-icons/fa";
 import RowId from "./shared/RowId";
+import ActionsPopUp from "../../widgets/ActionsPopUp";
+import { IoMdEye } from "react-icons/io";
+import { MdDelete, MdEdit } from "react-icons/md";
 
 const AllClassesTable = ({ data, studentsData }) => {
+  const actionsMenu = [
+    {
+      name: "viewClass",
+      label: "View Class",
+      icon: <IoMdEye />,
+      action: "view",
+    },
+    {
+      name: "editClass",
+      label: "Edit Class",
+      icon: <MdEdit />,
+      action: "edit",
+    },
+  ];
+
   const numberOfStudentsInClass = (className) => {
     return getNumberOfStudentsInClass(studentsData, className);
   };
@@ -58,15 +76,7 @@ const AllClassesTable = ({ data, studentsData }) => {
     {
       Header: "Action",
       accessor: "action",
-      Cell: ({}) => (
-        <Button
-          ml={0}
-          pr={1}
-          size={"sm"}
-          py={0.2}
-          leftIcon={<FaEllipsisH />}
-        ></Button>
-      ),
+      Cell: <ActionsPopUp menu={actionsMenu} />,
     },
   ];
 

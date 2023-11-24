@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useMemo } from "react";
 import axios from "../api/axios";
-// import axios from "axios";
 
 const useClasses = () => {
   const [schoolClasses, setSchoolClasses] = useState([]);

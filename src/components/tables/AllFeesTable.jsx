@@ -7,7 +7,7 @@ import useStaffs from "../../hooks/useStaffs";
 import Table from "../../widgets/Table.widget";
 
 import { Flex, useToast, Text, Tag } from "@chakra-ui/react";
-import { MdRemoveRedEye } from "react-icons/md";
+import { MdEdit, MdRemoveRedEye } from "react-icons/md";
 import ActionsPopUp from "../../widgets/ActionsPopUp";
 import RowId from "./shared/RowId";
 
@@ -41,8 +41,8 @@ export default function AllFeesTable() {
       accessor: "name",
     },
     {
-      Header: "Classes",
-      accessor: "schoolClass",
+      Header: "Configuration Data",
+      accessor: "configData ",
       Cell: ({ value }) => (
         <Flex gap={2} overflowX={"hidden"} wrap={"wrap"}>
           {value?.map((priviledge, index) => (
@@ -61,8 +61,8 @@ export default function AllFeesTable() {
       ),
     },
     {
-      Header: "Student Type",
-      accessor: "studentType",
+      Header: "Account Type",
+      accessor: "accountType",
       Cell: ({ value }) => (
         <Flex gap={2} overflowX={"hidden"} wrap={"wrap"}>
           {value?.map((priviledge, index) => (
@@ -98,7 +98,7 @@ export default function AllFeesTable() {
     <Table
       columns={columns}
       data={schoolData.staffRoles}
-      fullWidthColumns={["Classes"]}
+      fullWidthColumns={["Configuration Data"]}
     />
   );
 }

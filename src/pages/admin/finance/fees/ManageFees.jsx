@@ -13,17 +13,34 @@ import useStaffs from "../../../../hooks/useStaffs";
 import AllFeesTable from "../../../../components/tables/AllFeesTable";
 import { useModal } from "../../../../app/contexts/ModalContext";
 import AddNewFeeTypePortal from "../../../../portals/AddNewFeeType.portal";
+import { useState } from "react";
+import HorizontalScrollableTabs from "../../../../widgets/HorizontalScrollableTabs.widget";
 
 export default function AllFeesPage() {
+  const [activeTab, setActiveTab] = useState(1);
   const { openPortal } = useModal();
   const { staffsData } = useStaffs();
 
-  useEffect(() => {
-    // Your logic to handle staffsData change
-    console.log("...");
-  }, [staffsData]);
+  const handleTabClick = (tabId) => {
+    if (tabId >= 1 && tabId <= tabs.length) {
+      setActiveTab(tabId);
+    }
+  };
 
-  // Memoize the staffsData using useMemo
+  const tabs = [
+    {
+      id: 1,
+      label: `Tuition`,
+      component: "skn",
+    },
+    {
+      id: 2,
+      label: `Boarding`,
+      component: "ksd",
+    },
+    { id: 3, label: "Bus", component: "ksd" },
+    // Add more tabs as needed
+  ];
 
   return (
     <PageWrapper>
@@ -64,6 +81,12 @@ export default function AllFeesPage() {
           </Button>
         </Flex>
       </Flex>
+
+      <HorizontalScrollableTabs
+        tabs={tabs}
+        activeTab={activeTab}
+        onTabClick={handleTabClick}
+      />
 
       <Box px={8} py={6} pb={10} bg={"white"} rounded={"lg"}>
         <AllFeesTable existingStaffData={staffsData} />)

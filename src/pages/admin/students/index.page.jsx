@@ -7,7 +7,7 @@ import useStudents from "../../../hooks/useStudents";
 
 import { useUser } from "../../../app/contexts/UserContext";
 
-import { Flex, Box, Button, HStack, Text, Grid } from "@chakra-ui/react";
+import { Flex, Box, Button, HStack, Text, Select } from "@chakra-ui/react";
 
 import { MdAdd, MdIcecream, MdUploadFile } from "react-icons/md";
 

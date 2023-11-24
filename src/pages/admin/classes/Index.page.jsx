@@ -29,6 +29,7 @@ import CreateSubClassPortal from "../../../portals/CreateSubClass.portal";
 import AllClassesTable from "../../../components/tables/AllClassesTable";
 import CustomSelect from "../../../components/shared/Select.component";
 import DataViewSwitcher from "../../../widgets/DataViewSwitcher";
+import PageSectionHeader from "../../../components/PageSectionHeader";
 
 const GridViewComponent = ({
   schoolClasses,

@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import { MdDeleteOutline, MdLink } from "react-icons/md";
+import { MdDelete, MdEdit } from "react-icons/md";
 
-import { Flex, Tooltip, useToast, Text } from "@chakra-ui/react";
+import { Flex, useToast, Text } from "@chakra-ui/react";
 
 import { deleteStudent } from "../../api/student.api";
 
@@ -12,14 +12,37 @@ import useClassDetails from "../../hooks/useClassDetails";
 
 import Table from "../../widgets/Table.widget";
 
-import CustomCard from "../CustomTooltip";
-import IconComponent from "../Icon.component";
+import ActionsPopUp from "../../widgets/ActionsPopUp";
+import { IoMdEye } from "react-icons/io";
 
 const AllStudentsTable = () => {
   const toast = useToast();
   const navigate = useNavigate();
   const { studentsData, setStudentsData } = useStudents();
   const { user } = useUser();
+
+  const actionsMenu = [
+    {
+      name: "viewStudentProfile",
+      label: "View Student Profile",
+      action: "view",
+      icon: <IoMdEye />,
+    },
+    {
+      name: "editStudent",
+      label: "Edit Student",
+      action: "edit",
+
+      icon: <MdEdit />,
+    },
+    {
+      name: "deleteStudent",
+      label: "Delete Student",
+      action: "delete",
+
+      icon: <MdDelete />,
+    },
+  ];
 
   const columns = [
     {
@@ -105,29 +128,12 @@ const AllStudentsTable = () => {
       Header: "Action",
       accessor: "action",
       Cell: ({ row }) => (
-        <Flex gap={2}>
-          <CustomCard>
-            <Tooltip label="Delete" hasArrow>
-              <IconComponent
-                click={() => handleDeleteAction(row.original.portalId)}
-                className="text-red-600 cursor-pointer hover:scale-110 transition duration-300"
-              >
-                <MdDeleteOutline size={20} />
-              </IconComponent>
-            </Tooltip>
-          </CustomCard>
-
-          <CustomCard>
-            <Tooltip label="Edit" hasArrow>
-              <IconComponent
-                className="text-green-700 cursor-pointer hover:scale-110 transition duration-300"
-                click={() => handleEditAction(row.original.portalId)}
-              >
-                <MdLink size={18} />
-              </IconComponent>
-            </Tooltip>
-          </CustomCard>
-        </Flex>
+        <ActionsPopUp
+          menu={actionsMenu}
+          row={row}
+          deleteAction={handleDeleteAction}
+          viewAction={handleLink}
+        />
       ),
     },
   ];
@@ -176,6 +182,10 @@ const AllStudentsTable = () => {
         });
       }
     }
+  };
+
+  const handleLink = (studentId) => {
+    navigate(`/admin/students/${studentId}`);
   };
 
   const handleEditAction = (studentId) => {

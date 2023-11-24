@@ -20,9 +20,25 @@ import { useState } from "react";
 import PageSectionHeader from "../../../components/PageSectionHeader";
 import DataViewSwitcher from "../../../widgets/DataViewSwitcher";
 import AllEventsTable from "../../../components/tables/AllEventsTable";
+import CreateEventPortal from "../../../portals/CreateEvent.portal";
+import { useModal } from "../../../app/contexts/ModalContext";
+import EventPreviewCard from "../../../components/PreviewCards/EventPreviewCard";
 
 export default function AllEventsPage() {
+  const { openPortal } = useModal();
   const [dataView, setDataView] = useState("grid");
+
+  const events = [
+    {
+      eventName: "Fidelity Bank",
+      eventDescription: "Goshen Group of Schools",
+      eventDate: "8783728378",
+      eventTime: "8783728378",
+      eventFrequency: "8783728378",
+      eventFrequency: "8783728378",
+      eventStatus: "inactive",
+    },
+  ];
 
   function handleDataView(e) {
     e.preventDefault;
@@ -48,7 +64,9 @@ export default function AllEventsPage() {
             bg={"brand.700"}
             size={"sm"}
             color={"neutral.100"}
-            // onClick={() => navigate("/admin/staff/new")}
+            onClick={() => {
+              openPortal(<CreateEventPortal />);
+            }}
           >
             <IconComponent>
               <MdAdd />
@@ -90,7 +108,7 @@ export default function AllEventsPage() {
           <Grid
             gridTemplateColumns={{
               "base": "1fr",
-              "sm": "2, 1fr",
+              "sm": "repeat(2, 1fr)",
               "md": "repeat(3, 1fr)",
               "lg": "repeat(5, 1fr)",
             }}
@@ -98,10 +116,13 @@ export default function AllEventsPage() {
             gap={4}
           >
             {/* TODO:  */}
-            ''''Grid view''''
+
+            {events.map((event) => (
+              <EventPreviewCard key={event.eventName} event={event} />
+            ))}
           </Grid>
         ) : (
-          <AllEventsTable />
+          <AllEventsTable events={events} />
         )}
       </Box>
     </PageWrapper>

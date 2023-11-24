@@ -22,7 +22,10 @@ export default function EventForm() {
   const [formData, setFormData] = useState({
     event_name: "",
     event_description: "",
-    event_date: "",
+    event_startDate: "",
+    event_endDate: "",
+    event_startTime: "",
+    event_endTime: "",
     event_period: "",
     event_notification: "",
   });
@@ -41,7 +44,8 @@ export default function EventForm() {
     if (
       !formData.event_name ||
       !formData.event_description ||
-      !formData.event_date ||
+      !formData.event_startDate ||
+      !formData.event_startTime ||
       !formData.event_notification
     ) {
       toast({
@@ -105,17 +109,62 @@ export default function EventForm() {
             name="event_description"
           />
         </FormControl>
-        <FormControl>
-          <FormLabel fontSize={"sm"} fontWeight={"semibold"}>
-            Date
-          </FormLabel>
-          <Input
-            value={formData.event_date}
-            type="date"
-            onChange={handleChange}
-            name="event_date"
-          />
-        </FormControl>
+
+        {/* Event Date */}
+        <Flex alignItems={"center"} gap={4}>
+          <FormControl>
+            <FormLabel fontSize={"xs"} fontWeight={"semibold"}>
+              Start Date
+            </FormLabel>
+            <Input
+              value={formData.event_startDate}
+              type="date"
+              size={"sm"}
+              onChange={handleChange}
+              name="event_startDate"
+            />
+          </FormControl>
+          <FormControl>
+            <FormLabel fontSize={"xs"} fontWeight={"semibold"}>
+              End Date
+            </FormLabel>
+            <Input
+              value={formData.event_endDate}
+              type="date"
+              size={"sm"}
+              onChange={handleChange}
+              name="event_endDate"
+            />
+          </FormControl>
+        </Flex>
+
+        {/* Event Time */}
+        <Flex alignItems={"center"} gap={4} my={1}>
+          <FormControl>
+            <FormLabel fontSize={"xs"} fontWeight={"semibold"}>
+              Start Time
+            </FormLabel>
+            <Input
+              value={formData.event_startTime}
+              type="date"
+              size={"sm"}
+              onChange={handleChange}
+              name="event_startTime"
+            />
+          </FormControl>
+          <FormControl>
+            <FormLabel fontSize={"xs"} fontWeight={"semibold"}>
+              End Time
+            </FormLabel>
+            <Input
+              value={formData.event_endTime}
+              type="date"
+              size={"sm"}
+              onChange={handleChange}
+              name="event_endTime"
+            />
+          </FormControl>
+        </Flex>
 
         <Flex mt={2} justifyContent={"space-between"}>
           <Text as={"p"} fontSize={"sm"} fontWeight={"bold"}>

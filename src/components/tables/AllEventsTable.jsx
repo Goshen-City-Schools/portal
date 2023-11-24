@@ -3,10 +3,12 @@ import React from "react";
 import { MdDelete, MdEdit } from "react-icons/md";
 import ActionsPopUp from "../../widgets/ActionsPopUp";
 
+import { Badge } from "@chakra-ui/react";
+
 import Table from "../../widgets/Table.widget";
 import RowId from "./shared/RowId";
 
-export default function AllEventsTable() {
+export default function AllEventsTable({ events }) {
   const actionsMenu = [
     {
       name: "editEvent",
@@ -49,6 +51,15 @@ export default function AllEventsTable() {
     {
       Header: "Status",
       accessor: "eventStatus",
+      Cell: ({ value }) => (
+        <Badge
+          w={"max-content"}
+          colorScheme={value === "active" ? "green" : "red"}
+          mr="2"
+        >
+          {value.toUpperCase()}
+        </Badge>
+      ),
     },
     {
       Header: "Action",
@@ -57,21 +68,13 @@ export default function AllEventsTable() {
     },
   ];
 
-  const events = [
-    {
-      eventName: "Fidelity Bank",
-      eventDescription: "Goshen Group of Schools",
-      eventDate: "8783728378",
-      eventTime: "8783728378",
-      eventFrequency: "8783728378",
-      eventFrequency: "8783728378",
-      eventStatus: "inactive",
-    },
-  ];
-
   if (!events) return "No event set currently!";
 
   return (
-    <Table columns={columns} data={events} fullWidthColumns={"Description"} />
+    <Table
+      columns={columns}
+      data={events}
+      fullWidthColumns={"Event Description"}
+    />
   );
 }

@@ -2,15 +2,16 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import Table from "../../widgets/Table.widget";
-import { Flex, Tooltip, useToast } from "@chakra-ui/react";
-import IconComponent from "../Icon.component";
-import { MdDeleteOutline, MdLink } from "react-icons/md";
+import { Flex, useToast } from "@chakra-ui/react";
+import { MdDelete, MdEdit } from "react-icons/md";
 
-import { Text, Tag } from "@chakra-ui/react";
-import CustomCard from "../CustomTooltip";
+import { Text } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { useUser } from "../../app/contexts/UserContext";
 import { deleteStaff } from "../../api/staff.api";
+import RowId from "./shared/RowId";
+import ActionsPopUp from "../../widgets/ActionsPopUp";
+import { IoMdEye } from "react-icons/io";
 
 const AllStaffTable = ({ existingStaffData }) => {
   const toast = useToast();
@@ -23,21 +24,34 @@ const AllStaffTable = ({ existingStaffData }) => {
     setStaffData(existingStaffData);
   }, [existingStaffData]);
 
+  const actionsMenu = [
+    {
+      name: "viewStaffProfile",
+      label: "View Staff Profile",
+      action: "view",
+      icon: <IoMdEye />,
+    },
+    {
+      name: "editStaff",
+      label: "Edit Staff",
+      action: "edit",
+
+      icon: <MdEdit />,
+    },
+    {
+      name: "deleteStaff",
+      label: "Delete Staff",
+      action: "delete",
+
+      icon: <MdDelete />,
+    },
+  ];
+
   const columns = React.useMemo(() => [
     {
       Header: "SN",
       accessor: "id",
-      Cell: ({ row }) => (
-        <Text
-          as={"p"}
-          color={"neutral.700"}
-          textTransform={"uppercase"}
-          letterSpacing={0.5}
-          fontWeight={"semibold"}
-        >
-          {row.index + 1}
-        </Text>
-      ),
+      Cell: ({ row }) => <RowId row={row} />,
     },
     {
       Header: "Staff ID",
@@ -80,29 +94,12 @@ const AllStaffTable = ({ existingStaffData }) => {
       Header: "Action",
       accessor: "action",
       Cell: ({ row }) => (
-        <Flex gap={2}>
-          {user?.portalId !== row.original.portalId && ( // Check if the logged-in staff is not the one being deleted
-            <CustomCard>
-              <Tooltip label="Delete" hasArrow>
-                <IconComponent
-                  click={() => handleDeleteAction(row.original.portalId)}
-                  className="text-red-600 cursor-pointer hover:scale-110 transition duration-300"
-                >
-                  <MdDeleteOutline size={20} />
-                </IconComponent>
-              </Tooltip>
-            </CustomCard>
-          )}
-
-          <Tooltip label="Edit" hasArrow>
-            <IconComponent
-              className="text-green-700 cursor-pointer hover:scale-110 transition duration-300"
-              click={() => handleLink(row.original.portalId)}
-            >
-              <MdLink size={18} />
-            </IconComponent>
-          </Tooltip>
-        </Flex>
+        <ActionsPopUp
+          menu={actionsMenu}
+          row={row}
+          deleteAction={handleDeleteAction}
+          viewAction={handleLink}
+        />
       ),
     },
   ]);
@@ -161,7 +158,7 @@ const AllStaffTable = ({ existingStaffData }) => {
     <Table
       columns={columns}
       data={staffData ? staffData : []}
-      fullWidthColumns={["Roles", "Parent"]}
+      fullWidthColumns={["Full Name", "Parent"]}
     />
   );
 };

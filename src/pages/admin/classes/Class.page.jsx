@@ -18,6 +18,7 @@ import SubjectTable from "../../../components/tables/SubjectTable.component";
 import IconComponent from "../../../components/Icon.component";
 
 import { MdArrowBack } from "react-icons/md";
+import PageSectionHeader from "../../../components/PageSectionHeader";
 
 export default function ClassPage() {
   const [activeTab, setActiveTab] = useState(1);
