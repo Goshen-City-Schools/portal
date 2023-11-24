@@ -14,7 +14,7 @@ import DataViewSwitcher from "../../../widgets/DataViewSwitcher";
 import SearchWidget from "../../../widgets/Search.widget";
 
 import IconComponent from "../../../components/Icon.component";
-import AllStaffTable from "../../../components/tables/AllStaffTable.component";
+import AllStaffTable from "../../../components/tables/users/StaffTable.component";
 import StaffPreviewCard from "../../../components/PreviewCards/StaffPreviewCard";
 import GridViewComponent from "../../../widgets/GridViewComponent";
 
@@ -41,7 +41,7 @@ export default function AllStaffPage() {
         >
           All Staff
         </Text>
-        <Text as={"small"}>Home / Staff / All Staff</Text>
+        <Text as={"small"}>Home / Staff </Text>
       </Flex>
 
       <Flex

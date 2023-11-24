@@ -11,7 +11,7 @@ import subjectsData from "../../../data/subjects.data";
 
 import PageWrapper from "../../../components/PageWrapper";
 import ClassSummaryBox from "../../../components/ClassSummaryBox";
-import AllStudentsTable from "../../../components/tables/AllStudentsTable.component";
+import AllStudentsTable from "../../../components/tables/users/StudentsTable.component";
 import Timetable from "../../../components/tables/TimeTable.component";
 import ClassAttendance from "../../../components/tables/ClassAttendanceTable.component";
 import SubjectTable from "../../../components/tables/SubjectTable.component";

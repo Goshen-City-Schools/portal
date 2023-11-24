@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import Table from "../../widgets/Table.widget";
+import Table from "../../../widgets/Table.widget";
 
 import { Flex, Tooltip, useToast } from "@chakra-ui/react";
 import { MdDeleteOutline, MdModeEditOutline } from "react-icons/md";
-import IconComponent from "../Icon.component";
-import CustomCard from "../CustomTooltip";
+import IconComponent from "../../Icon.component";
+import CustomCard from "../../CustomTooltip";
 
-const AllParentsTable = () => {
+const ParentsTable = () => {
   const toast = useToast();
   const [studentsData, setStudentsData] = useState();
   const existingParentsData = JSON.parse(localStorage.getItem("studentsData"));
@@ -111,4 +111,4 @@ const AllParentsTable = () => {
   );
 };
 
-export default AllParentsTable;
+export default ParentsTable;

@@ -6,9 +6,8 @@ import { MdAdd, MdIcecream, MdUploadFile } from "react-icons/md";
 
 import SearchWidget from "../../../widgets/Search.widget";
 import IconComponent from "../../../components/Icon.component";
-import AllParentsTable from "../../../components/tables/AllParentsTable.component";
+import AllParentsTable from "../../../components/tables/users/ParentsTable.component";
 import { useLocalStorage } from "../../../hooks/useLocalStorage";
-// import AllParentTable from "../../../components/tables/AllStaffTable.component";
 
 export default function ParentPage() {
   const { getItem } = useLocalStorage("studentsData");

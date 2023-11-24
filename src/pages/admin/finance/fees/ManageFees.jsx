@@ -9,17 +9,17 @@ import SearchWidget from "../../../../widgets/Search.widget";
 import IconComponent from "../../../../components/Icon.component";
 
 import PageWrapper from "../../../../components/PageWrapper";
-import useStaffs from "../../../../hooks/useStaffs";
-import AllFeesTable from "../../../../components/tables/AllFeesTable";
 import { useModal } from "../../../../app/contexts/ModalContext";
 import AddNewFeeTypePortal from "../../../../portals/AddNewFeeType.portal";
 import { useState } from "react";
 import HorizontalScrollableTabs from "../../../../widgets/HorizontalScrollableTabs.widget";
+import TuitionFeeTable from "../../../../components/tables/fees/TuitionFee.table";
+import BoardingFeeTable from "../../../../components/tables/fees/BoardingFee.table";
+import BusFeeTable from "../../../../components/tables/fees/BusFee.table";
 
 export default function AllFeesPage() {
   const [activeTab, setActiveTab] = useState(1);
   const { openPortal } = useModal();
-  const { staffsData } = useStaffs();
 
   const handleTabClick = (tabId) => {
     if (tabId >= 1 && tabId <= tabs.length) {
@@ -31,14 +31,14 @@ export default function AllFeesPage() {
     {
       id: 1,
       label: `Tuition`,
-      component: "skn",
+      component: <TuitionFeeTable />,
     },
     {
       id: 2,
       label: `Boarding`,
-      component: "ksd",
+      component: <BoardingFeeTable />,
     },
-    { id: 3, label: "Bus", component: "ksd" },
+    { id: 3, label: "Bus", component: <BusFeeTable /> },
     // Add more tabs as needed
   ];
 
@@ -88,8 +88,8 @@ export default function AllFeesPage() {
         onTabClick={handleTabClick}
       />
 
-      <Box px={8} py={6} pb={10} bg={"white"} rounded={"lg"}>
-        <AllFeesTable existingStaffData={staffsData} />)
+      <Box py={6} px={4} bg={"white"} rounded={"md"}>
+        {tabs[activeTab - 1].component}
       </Box>
     </PageWrapper>
   );

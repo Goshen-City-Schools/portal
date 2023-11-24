@@ -3,19 +3,19 @@ import { MdDelete, MdEdit } from "react-icons/md";
 
 import { Flex, useToast, Text } from "@chakra-ui/react";
 
-import { deleteStudent } from "../../api/student.api";
+import { deleteStudent } from "../../../api/student.api";
 
-import { useUser } from "../../app/contexts/UserContext";
+import { useUser } from "../../../app/contexts/UserContext";
 
-import useStudents from "../../hooks/useStudents";
-import useClassDetails from "../../hooks/useClassDetails";
+import useStudents from "../../../hooks/useStudents";
+import useClassDetails from "../../../hooks/useClassDetails";
 
-import Table from "../../widgets/Table.widget";
+import Table from "../../../widgets/Table.widget";
 
-import ActionsPopUp from "../../widgets/ActionsPopUp";
+import ActionsPopUp from "../../../widgets/ActionsPopUp";
 import { IoMdEye } from "react-icons/io";
 
-const AllStudentsTable = () => {
+const StudentsTable = () => {
   const toast = useToast();
   const navigate = useNavigate();
   const { studentsData, setStudentsData } = useStudents();
@@ -202,4 +202,4 @@ const AllStudentsTable = () => {
   );
 };
 
-export default AllStudentsTable;
+export default StudentsTable;

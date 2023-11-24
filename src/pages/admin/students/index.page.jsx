@@ -17,7 +17,7 @@ import SearchWidget from "../../../widgets/Search.widget";
 
 import IconComponent from "../../../components/Icon.component";
 import PageSectionHeader from "../../../components/PageSectionHeader";
-import AllStudentsTable from "../../../components/tables/AllStudentsTable.component";
+import AllStudentsTable from "../../../components/tables/users/StudentsTable.component";
 import PageWrapper from "../../../components/PageWrapper";
 import StudentPreviewCard from "../../../components/PreviewCards/StudentPreviewCard";
 import DataViewSwitcher from "../../../widgets/DataViewSwitcher";

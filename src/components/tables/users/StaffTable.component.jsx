@@ -1,19 +1,19 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import Table from "../../widgets/Table.widget";
+import Table from "../../../widgets/Table.widget";
 import { Flex, useToast } from "@chakra-ui/react";
 import { MdDelete, MdEdit } from "react-icons/md";
 
 import { Text } from "@chakra-ui/react";
 import { useEffect } from "react";
-import { useUser } from "../../app/contexts/UserContext";
-import { deleteStaff } from "../../api/staff.api";
-import RowId from "./shared/RowId";
-import ActionsPopUp from "../../widgets/ActionsPopUp";
+import { useUser } from "../../../app/contexts/UserContext";
+import { deleteStaff } from "../../../api/staff.api";
+import RowId from "../shared/RowId";
+import ActionsPopUp from "../../../widgets/ActionsPopUp";
 import { IoMdEye } from "react-icons/io";
 
-const AllStaffTable = ({ existingStaffData }) => {
+const StaffTable = ({ existingStaffData }) => {
   const toast = useToast();
   const navigate = useNavigate();
   const { user } = useUser();
@@ -163,4 +163,4 @@ const AllStaffTable = ({ existingStaffData }) => {
   );
 };
 
-export default AllStaffTable;
+export default StaffTable;

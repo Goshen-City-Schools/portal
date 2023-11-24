@@ -44,7 +44,6 @@ import PrintReceiptScreen from "./screens/PrintReceipt.screen";
 import PrintInvoiceScreen from "./screens/PrintInvoice.screen";
 import LoginScreen from "./screens/Login.screen";
 import AllEventsPage from "./pages/admin/events";
-import AllFeesTable from "./components/tables/AllFeesTable";
 import FinancePage from "./pages/admin/finance/";
 
 const App = () => {
