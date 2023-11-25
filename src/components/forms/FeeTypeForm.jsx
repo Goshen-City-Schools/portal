@@ -3,6 +3,7 @@ import {
   FormControl,
   FormLabel,
   Button,
+  Flex,
   Input,
   useToast,
 } from "@chakra-ui/react";
@@ -72,8 +73,8 @@ export default function FeeForm() {
 
       // Clear the form
       setRequestData({
-        feeType: "",
         feeName: "",
+        accountType: "",
         paymentFrequency: "",
         studentType: "",
       });
@@ -123,17 +124,16 @@ export default function FeeForm() {
       {/* Select Account Type fee is for */}
       <FormControl>
         <FormLabel fontSize={"sm"} fontWeight={"bold"}>
-          Fee Type
+          Paid by
         </FormLabel>
         <CustomSelect
           name="accountType"
           value={requestData.accountType}
           onChange={handleFormChange}
         >
-          <option value="">-- Select Fee Type --</option>
-          <option value="tuition">Tuition</option>
-          <option value="boarding">Boarding</option>
-          <option value="bus">Bus</option>
+          <option value="">-- --</option>
+          <option value="staff">Staff</option>
+          <option value="student">Student</option>
         </CustomSelect>
       </FormControl>
 

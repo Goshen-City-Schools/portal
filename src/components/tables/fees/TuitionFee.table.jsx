@@ -1,17 +1,26 @@
-import React from "react";
-
-import { MdDelete, MdEdit } from "react-icons/md";
 import ActionsPopUp from "../../../widgets/ActionsPopUp";
-
 import Table from "../../../widgets/Table.widget";
-import RowId from "../shared/RowId";
-import { IoMdEye } from "react-icons/io";
+
 import useFees from "../../../hooks/Fees";
 
-export default function TuitionFeeTable() {
-  const fees = useFees("tuition");
+import RowId from "../shared/RowId";
+import SchoolClass from "../shared/SchoolClass";
+import PriceView from "../shared/PriceView";
 
-  console.log(fees);
+import { IoMdEye } from "react-icons/io";
+import { MdEdit } from "react-icons/md";
+
+import { Badge } from "@chakra-ui/react";
+
+import { Button, Flex } from "@chakra-ui/react";
+import { useModal } from "../../../app/contexts/ModalContext";
+import CreateTuitionFee from "../../../portals/fees/CreateTuitionFee";
+
+export default function TuitionFeeTable() {
+  const { fees } = useFees("tuition");
+
+  const { openPortal } = useModal();
+
   const actionsMenu = [
     {
       name: "editTuitionFee",
@@ -34,18 +43,26 @@ export default function TuitionFeeTable() {
     {
       Header: "Class",
       accessor: "classId",
+      Cell: ({ value }) => <SchoolClass value={value} />,
     },
     {
       Header: "New Student",
       accessor: "price.new",
+      Cell: ({ value }) => <PriceView value={value} />,
     },
     {
       Header: "Existing Student",
       accessor: "price.existing",
+      Cell: ({ value }) => <PriceView value={value} />,
     },
     {
       Header: "Status",
       accessor: "status",
+      Cell: ({ value }) => (
+        <Badge w={"max-content"} colorScheme={value ? "green" : "red"} mr="2">
+          {value ? "Active" : "Inactive"}
+        </Badge>
+      ),
     },
     {
       Header: "Action",
@@ -54,17 +71,24 @@ export default function TuitionFeeTable() {
     },
   ];
 
-  const bankAccounts = [
-    {
-      bankName: "Fidelity Bank",
-      accountName: "Goshen Group of Schools",
-      accountNumber: "8783728378",
-      Fees: [""],
-      bankAccountStatus: "inactive",
-    },
-  ];
+  if (!fees) return "No account set currently!";
 
-  if (!bankAccounts) return "No account set currently!";
+  return (
+    <>
+      <Flex w={"full"} justifyContent={"flex-end"} mb={4}>
+        <Button
+          size={"sm"}
+          colorScheme="blue"
+          variant={"outline"}
+          onClick={() => {
+            openPortal(<CreateTuitionFee />);
+          }}
+        >
+          Add Tuition Fee
+        </Button>
+      </Flex>
 
-  return <Table columns={columns} data={fees} fullWidthColumns={"Class"} />;
+      <Table columns={columns} data={fees} fullWidthColumns={"Class"} />
+    </>
+  );
 }

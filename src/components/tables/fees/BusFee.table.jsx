@@ -9,7 +9,7 @@ import { IoMdEye } from "react-icons/io";
 import useFees from "../../../hooks/Fees";
 
 export default function BusFeeTable() {
-  const fees = useFees("bus");
+  const { fees } = useFees("bus");
 
   console.log(fees);
   const actionsMenu = [

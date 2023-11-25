@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
-import axios from "../api/axios";
+import axios from "../../api/axios";
 
 const useClassDetails = (classId) => {
   const [classDetails, setClassDetails] = useState(null);

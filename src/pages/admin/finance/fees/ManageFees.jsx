@@ -54,7 +54,7 @@ export default function AllFeesPage() {
         >
           All Fees
         </Text>
-        <Text as={"small"}>Home / Staff / All Staff</Text>
+        <Text as={"small"}>Home / Staff</Text>
       </Flex>
 
       <Flex

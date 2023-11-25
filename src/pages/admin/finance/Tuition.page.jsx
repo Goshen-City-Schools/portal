@@ -2,12 +2,11 @@ import React from "react";
 import PageWrapper from "../../../components/PageWrapper";
 
 import { Flex, Text, Button, Box } from "@chakra-ui/react";
-import TransactionsTable from "../../../components/tables/TransactionsTable.component";
 import SearchWidget from "../../../widgets/Search.widget";
 import IconComponent from "../../../components/Icon.component";
 
-import { MdAdd, MdIcecream, MdUploadFile } from "react-icons/md";
-import StudentsTuitionFeeTable from "../../../components/tables/StudentsTuitionFeeTable";
+import { MdAdd, MdIcecream } from "react-icons/md";
+import TuitionFeeTable from "../../../components/tables/fees/TuitionFee.table";
 
 export default function TuitionPage() {
   return (
@@ -58,7 +57,8 @@ export default function TuitionPage() {
       {/* ------------ */}
 
       <Box p={4} bg={"white"} rounded={"md"}>
-        <StudentsTuitionFeeTable />
+        <Flex w={"full"} justifyContent={"flex-end"}></Flex>
+        <TuitionFeeTable />
       </Box>
     </PageWrapper>
   );

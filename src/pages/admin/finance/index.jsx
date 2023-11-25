@@ -8,6 +8,7 @@ import { MdArrowBack } from "react-icons/md";
 import PageWrapper from "../../../components/PageWrapper";
 import PageSectionHeader from "../../../components/PageSectionHeader";
 import IconComponent from "../../../components/Icon.component";
+import { useState } from "react";
 
 export default function FinancePage() {
   const [activeTab, setActiveTab] = useState(1);

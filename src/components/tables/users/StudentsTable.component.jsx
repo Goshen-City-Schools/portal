@@ -8,12 +8,12 @@ import { deleteStudent } from "../../../api/student.api";
 import { useUser } from "../../../app/contexts/UserContext";
 
 import useStudents from "../../../hooks/useStudents";
-import useClassDetails from "../../../hooks/useClassDetails";
 
 import Table from "../../../widgets/Table.widget";
 
 import ActionsPopUp from "../../../widgets/ActionsPopUp";
 import { IoMdEye } from "react-icons/io";
+import SchoolClass from "../shared/SchoolClass";
 
 const StudentsTable = () => {
   const toast = useToast();
@@ -105,15 +105,7 @@ const StudentsTable = () => {
       accessor: "schoolClass",
       width: "max-content",
       Cell: ({ value }) => {
-        const { classDetails, loading } = useClassDetails(value);
-
-        return (
-          <Flex gap={2}>
-            <Text as={"p"} color={"neutral.700"}>
-              {loading ? "Loading..." : classDetails?.name || ""}
-            </Text>
-          </Flex>
-        );
+        <SchoolClass value={value} />;
       },
     },
     {
