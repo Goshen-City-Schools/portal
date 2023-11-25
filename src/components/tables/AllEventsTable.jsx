@@ -7,6 +7,7 @@ import { Badge } from "@chakra-ui/react";
 
 import Table from "../../widgets/Table.widget";
 import RowId from "./shared/RowId";
+import StatusBadge from "./shared/StatusBadge";
 
 export default function AllEventsTable({ events }) {
   const actionsMenu = [
@@ -51,15 +52,7 @@ export default function AllEventsTable({ events }) {
     {
       Header: "Status",
       accessor: "eventStatus",
-      Cell: ({ value }) => (
-        <Badge
-          w={"max-content"}
-          colorScheme={value === "active" ? "green" : "red"}
-          mr="2"
-        >
-          {value.toUpperCase()}
-        </Badge>
-      ),
+      Cell: ({ value }) => <StatusBadge value={value} />,
     },
     {
       Header: "Action",

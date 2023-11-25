@@ -10,10 +10,11 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { useModal } from "../../app/contexts/ModalContext";
+import { useClasses } from "../../hooks/SchoolClasses";
+
 import CustomSelect from "../shared/Select.component";
-import useClasses from "../../hooks/useClasses";
+
 import { createSubClass } from "../../api/schoolClass.api";
-import { useNavigate } from "react-router-dom";
 
 export default function SchoolClassForm() {
   const toast = useToast();

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 
 // Custom Hooks
-import useClasses from "../../../hooks/useClasses";
+import { useClasses } from "../../../hooks/SchoolClasses";
 import useStudents from "../../../hooks/useStudents";
 
 import { useUser } from "../../../app/contexts/UserContext";

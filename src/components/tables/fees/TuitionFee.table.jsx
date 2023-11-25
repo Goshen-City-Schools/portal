@@ -58,11 +58,7 @@ export default function TuitionFeeTable() {
     {
       Header: "Status",
       accessor: "status",
-      Cell: ({ value }) => (
-        <Badge w={"max-content"} colorScheme={value ? "green" : "red"} mr="2">
-          {value ? "Active" : "Inactive"}
-        </Badge>
-      ),
+      Cell: ({ value }) => <StatusBadge value={value} />,
     },
     {
       Header: "Action",

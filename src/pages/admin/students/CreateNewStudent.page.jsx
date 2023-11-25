@@ -12,7 +12,7 @@ import allowedUserRoles from "../../../helpers/allowedUserRoles";
 import { registerStudent } from "../../../api/student.api";
 import { useUser } from "../../../app/contexts/UserContext";
 import StudentForm from "../../../components/forms/StudentForm";
-import useClasses from "../../../hooks/useClasses";
+import { useClasses } from "../../../hooks/SchoolClasses";
 
 export default function CreateNewStudent() {
   const { openPortal } = useModal();

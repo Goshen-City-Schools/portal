@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { Text, Flex, Box } from "@chakra-ui/react";
 
-import useClasses from "../../../hooks/useClasses";
+import { useClasses } from "../../../hooks/SchoolClasses";
 import useStudents from "../../../hooks/useStudents";
 
 import HorizontalScrollableTabs from "../../../widgets/HorizontalScrollableTabs.widget";

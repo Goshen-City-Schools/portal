@@ -36,7 +36,7 @@ export default function AllEventsPage() {
       eventTime: "8783728378",
       eventFrequency: "8783728378",
       eventFrequency: "8783728378",
-      eventStatus: "inactive",
+      eventStatus: false,
     },
   ];
 
@@ -48,7 +48,7 @@ export default function AllEventsPage() {
     <PageWrapper>
       <PageSectionHeader
         pageTitle={"All Events"}
-        pageCrumb={"Home / Events / All"}
+        pageCrumb={"Home / Events "}
       />
 
       <Flex

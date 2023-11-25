@@ -1,10 +1,10 @@
 import React from "react";
 
 import { Flex, Text } from "@chakra-ui/react";
-import useClassDetails from "../../../hooks/useClassDetails";
+import { useClassDetails } from "../../../hooks/SchoolClasses";
 
 export default function SchoolClass({ value }) {
-  const { classDetails, loading } = useClassDetails(value);
+  const { classDetails, loading } = { useClassDetails }(value);
 
   return (
     <Flex gap={2}>

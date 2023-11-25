@@ -1,7 +1,9 @@
 import { useState, useEffect, useMemo } from "react";
 import axios from "../api/axios";
 
-const useClassDetails = (classId) => {
+const {
+  useClassDetails,
+} = (classId) => {
   const [classDetails, setClassDetails] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -27,4 +29,4 @@ const useClassDetails = (classId) => {
   return { classDetails: memoizedClassDetails, loading };
 };
 
-export default useClassDetails;
+export default { useClassDetails };
