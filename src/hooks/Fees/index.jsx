@@ -1,6 +1,9 @@
 import { useState, useEffect, useMemo } from "react";
 import axios from "../../api/axios";
-// import axios from "axios";
+
+/* Description: Returns all Fees. 
+   If specific route is set, eg. /tuition, 
+   this returns tuition fee data */
 
 const useFees = (route = "") => {
   const [fees, setFees] = useState([]);

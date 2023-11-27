@@ -1,7 +1,8 @@
 import { useState, useEffect, useMemo } from "react";
 import axios from "../../api/axios";
 
-const useClassDetails = (classId) => {
+/* Description: returns full details of a given classID */
+function useClassDetails(classId) {
   const [classDetails, setClassDetails] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -25,9 +26,10 @@ const useClassDetails = (classId) => {
   const memoizedClassDetails = useMemo(() => classDetails, [classDetails]);
 
   return { classDetails: memoizedClassDetails, loading };
-};
+}
 
-const useClasses = () => {
+/* Description: this returns all classes in the school */
+function useClasses() {
   const [schoolClasses, setSchoolClasses] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -50,9 +52,10 @@ const useClasses = () => {
   const memoizedSchoolClasses = useMemo(() => schoolClasses, [schoolClasses]);
 
   return { schoolClasses: memoizedSchoolClasses, loading };
-};
+}
 
-const useStudentClassDetails = (classId, subclassId) => {
+/* Descrition: returns the full details and subClass details of a given student's class */
+function useStudentClassDetails(classId, subclassId) {
   const [classDetails, setClassDetails] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -90,6 +93,6 @@ const useStudentClassDetails = (classId, subclassId) => {
   }, [classDetails, subclassId]);
 
   return { classDetails: memoizedClassDetails, subclassDetails, loading };
-};
+}
 
 export { useClassDetails, useClasses, useStudentClassDetails };

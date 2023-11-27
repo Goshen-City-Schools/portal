@@ -34,8 +34,8 @@ export default function TuitionFeeForm() {
   const [successTimeout, setSuccessTimeout] = useState(null);
   const [redirectTimeout, setRedirectTimeout] = useState(null);
 
+  // Useeffect to cleanup timeouts when the component unmounts
   useEffect(() => {
-    // Cleanup timeouts when the component unmounts
     return () => {
       clearTimeout(successTimeout);
       clearTimeout(redirectTimeout);
