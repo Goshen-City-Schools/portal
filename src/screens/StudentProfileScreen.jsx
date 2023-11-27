@@ -38,7 +38,7 @@ import Avatar from "../components/Avatar.component";
 import IconComponent from "../components/Icon.component";
 import InfoBox from "../components/shared/InfoBox.component";
 import { GiCoronation } from "react-icons/gi";
-import useStudentClassDetails from "../hooks/SchoolClasses";
+import { useStudentClassDetails } from "../hooks/SchoolClasses";
 
 export default function StudentProfileScreen({ student }) {
   const { openPortal } = useModal();
