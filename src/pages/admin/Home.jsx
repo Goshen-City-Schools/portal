@@ -7,8 +7,7 @@ import ReactPortal from "../../widgets/ReactPortal";
 import ChartWidget from "../../widgets/Chart.widget";
 
 import { useModal } from "../../app/contexts/ModalContext";
-import useStaffs from "../../hooks/useStaffs";
-import useStudents from "../../hooks/useStudents";
+import { useStaffs, useStudents } from "../../hooks/";
 
 import { Text, Grid, GridItem, Box, Flex } from "@chakra-ui/react";
 

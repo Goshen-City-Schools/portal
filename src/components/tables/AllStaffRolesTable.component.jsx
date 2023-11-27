@@ -5,13 +5,12 @@ import schoolData from "../../data/school.data";
 
 import { useAuth } from "../../app/contexts/AuthContext";
 
-import useStaffs from "../../hooks/useStaffs";
+import { useStaffs } from "../../hooks";
 
 import Table from "../../widgets/Table.widget";
 
 import { Flex, useToast, Text, Tag } from "@chakra-ui/react";
-import RowId from "./shared/RowId";
-import TagInTable from "./shared/TagInTable";
+import { RowId, TagInTable } from "./shared";
 
 const AllStaffRolesTable = () => {
   const toast = useToast();

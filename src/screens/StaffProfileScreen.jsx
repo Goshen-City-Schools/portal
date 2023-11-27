@@ -36,7 +36,7 @@ import { useUser } from "../app/contexts/UserContext";
 import UpdateAvatarButton from "../components/Buttons/UpdateAvatarButton";
 import InfoBox from "../components/shared/InfoBox.component";
 import { useNavigate } from "react-router-dom";
-import useStaffs from "../hooks/useStaffs";
+import { useStaffs } from "../hooks";
 import { deleteStaff } from "../api/staff.api";
 
 const schoolClasses = schoolData.schoolClasses;

@@ -12,9 +12,8 @@ import { FaEllipsisH } from "react-icons/fa";
 import TuitionFeeForm from "../components/forms/TuitionFeeForm";
 import { useModal } from "../app/contexts/ModalContext";
 
-const ActionsPopUp = ({ menu, row, onClick, deleteAction, viewAction }) => {
+const ActionsPopUp = ({ menu }) => {
   const [isOpen, setIsOpen] = useState(false); // Add state for popover
-  const { openPortal } = useModal();
 
   const handleClose = () => {
     setIsOpen(false);
@@ -56,7 +55,7 @@ const ActionsPopUp = ({ menu, row, onClick, deleteAction, viewAction }) => {
               colorScheme="blue"
               variant={"outline"}
               onClick={() => {
-                onClick;
+                menuItem.onClick(); // Call the onClick function here
                 handleClose();
               }}
             >

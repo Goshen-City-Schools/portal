@@ -37,10 +37,11 @@ export default function TuitionFeeForm({ action, feeTypeId, existingData }) {
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     schoolClass: existingData?.classId || "",
-    newStudentPrice: Number(existingData?.price.new) || "",
-    existingStudentPrice: Number(existingData?.price.existing) || "",
+    newStudentPrice: existingData?.price.new || null,
+    existingStudentPrice: existingData?.price.existing || null,
     status: true,
   });
+
   const { classDetails } = useClassDetails(formData.schoolClass);
 
   const [successTimeout, setSuccessTimeout] = useState(null);
@@ -176,7 +177,7 @@ export default function TuitionFeeForm({ action, feeTypeId, existingData }) {
           disabled={action === "edit"} // Disable selection if in edit mode
         >
           {action == "edit" ? (
-            <option>{classDetails.name}</option>
+            <option>{classDetails?.name}</option>
           ) : (
             <>
               <option value="">-- Select Class --</option>{" "}

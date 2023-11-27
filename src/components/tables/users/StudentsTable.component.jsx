@@ -7,7 +7,7 @@ import { deleteStudent } from "../../../api/student.api";
 
 import { useUser } from "../../../app/contexts/UserContext";
 
-import useStudents from "../../../hooks/useStudents";
+import { useStudents } from "../../../hooks";
 
 import Table from "../../../widgets/Table.widget";
 

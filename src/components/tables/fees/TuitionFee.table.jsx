@@ -14,11 +14,16 @@ import { Button, Flex } from "@chakra-ui/react";
 import { useModal } from "../../../app/contexts/ModalContext";
 import CreateTuitionFee from "../../../portals/fees/CreateTuitionFee";
 import StatusBadge from "../shared/StatusBadge";
+import TuitionFeeForm from "../../forms/TuitionFeeForm";
 
 export default function TuitionFeeTable() {
   const { fees } = useFees("tuition");
 
   const { openPortal } = useModal();
+
+  const handleEditAction = async (id) => {
+    openPortal(<TuitionFeeForm action={"edit"} feeTypeId={id} />);
+  };
 
   const actionsMenu = (id) => {
     return [
@@ -27,6 +32,7 @@ export default function TuitionFeeTable() {
         label: "Edit Fee",
         icon: <MdEdit />,
         action: "edit",
+        onClick: () => handleEditAction(id),
       },
       {
         name: "disableTuitionFee",

@@ -8,7 +8,7 @@ import { MdAdd, MdIcecream, MdUploadFile } from "react-icons/md";
 
 import schoolData from "../../../data/school.data";
 
-import useStaffs from "../../../hooks/useStaffs";
+import { useStaffs } from "../../../hooks/";
 
 import DataViewSwitcher from "../../../widgets/DataViewSwitcher";
 import SearchWidget from "../../../widgets/Search.widget";

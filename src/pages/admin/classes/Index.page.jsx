@@ -14,8 +14,7 @@ import {
 
 import { useModal } from "../../../app/contexts/ModalContext";
 
-import useStudents from "../../../hooks/useStudents";
-import { useClasses } from "../../../hooks/SchoolClasses";
+import { useClasses, useStudents } from "../../../hooks/";
 
 import ReactPortal from "../../../widgets/ReactPortal";
 import SearchWidget from "../../../widgets/Search.widget";
