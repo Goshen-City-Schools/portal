@@ -14,7 +14,7 @@ import IconComponent from "../Icon.component";
 import { MdMailOutline, MdShare } from "react-icons/md";
 import { FaPhoneAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import useStudentClassDetails from "../../hooks/useStudentClassDetails";
+import useStudentClassDetails from "../../hooks/SchoolClasses";
 
 export default function StudentPreviewCard({ data }) {
   const { classDetails, subclassDetails } = useStudentClassDetails(
