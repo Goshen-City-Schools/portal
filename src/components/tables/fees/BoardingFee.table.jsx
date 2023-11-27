@@ -7,6 +7,7 @@ import Table from "../../../widgets/Table.widget";
 import RowId from "../shared/RowId";
 import { IoMdEye } from "react-icons/io";
 import useFees from "../../../hooks/Fees";
+import StatusBadge from "../shared/StatusBadge";
 
 export default function BoardingFeeTable() {
   const { fees } = useFees("boarding");
@@ -42,6 +43,7 @@ export default function BoardingFeeTable() {
     {
       Header: "Status",
       accessor: "status",
+      Cell: ({ value }) => <StatusBadge value={value} />,
     },
     {
       Header: "Action",

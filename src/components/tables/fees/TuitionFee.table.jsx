@@ -15,6 +15,7 @@ import { Badge } from "@chakra-ui/react";
 import { Button, Flex } from "@chakra-ui/react";
 import { useModal } from "../../../app/contexts/ModalContext";
 import CreateTuitionFee from "../../../portals/fees/CreateTuitionFee";
+import StatusBadge from "../shared/StatusBadge";
 
 export default function TuitionFeeTable() {
   const { fees } = useFees("tuition");
