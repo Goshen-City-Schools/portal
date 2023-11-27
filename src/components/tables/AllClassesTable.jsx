@@ -76,7 +76,7 @@ const AllClassesTable = ({ data, studentsData }) => {
     {
       Header: "Action",
       accessor: "action",
-      Cell: <ActionsPopUp menu={actionsMenu} />,
+      Cell: <ActionsPopUp menu={actionsMenu()} />,
     },
   ];
 

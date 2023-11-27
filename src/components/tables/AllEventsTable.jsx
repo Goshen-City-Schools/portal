@@ -3,8 +3,6 @@ import React from "react";
 import { MdDelete, MdEdit } from "react-icons/md";
 import ActionsPopUp from "../../widgets/ActionsPopUp";
 
-import { Badge } from "@chakra-ui/react";
-
 import Table from "../../widgets/Table.widget";
 import RowId from "./shared/RowId";
 import StatusBadge from "./shared/StatusBadge";
@@ -57,7 +55,7 @@ export default function AllEventsTable({ events }) {
     {
       Header: "Action",
       accessor: "action",
-      Cell: ({}) => <ActionsPopUp menu={actionsMenu} />,
+      Cell: ({}) => <ActionsPopUp menu={actionsMenu()} />,
     },
   ];
 

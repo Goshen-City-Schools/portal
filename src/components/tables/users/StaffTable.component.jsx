@@ -2,14 +2,15 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import Table from "../../../widgets/Table.widget";
-import { Flex, useToast } from "@chakra-ui/react";
+import { useToast } from "@chakra-ui/react";
 import { MdDelete, MdEdit } from "react-icons/md";
 
-import { Text } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { useUser } from "../../../app/contexts/UserContext";
 import { deleteStaff } from "../../../api/staff.api";
-import RowId from "../shared/RowId";
+
+import { RowId, FullName, UserId } from "../shared";
+
 import ActionsPopUp from "../../../widgets/ActionsPopUp";
 import { IoMdEye } from "react-icons/io";
 
@@ -23,86 +24,6 @@ const StaffTable = ({ existingStaffData }) => {
     // Your logic to handle staffData change
     setStaffData(existingStaffData);
   }, [existingStaffData]);
-
-  const actionsMenu = [
-    {
-      name: "viewStaffProfile",
-      label: "View Staff Profile",
-      action: "view",
-      icon: <IoMdEye />,
-    },
-    {
-      name: "editStaff",
-      label: "Edit Staff",
-      action: "edit",
-
-      icon: <MdEdit />,
-    },
-    {
-      name: "deleteStaff",
-      label: "Delete Staff",
-      action: "delete",
-
-      icon: <MdDelete />,
-    },
-  ];
-
-  const columns = React.useMemo(() => [
-    {
-      Header: "SN",
-      accessor: "id",
-      Cell: ({ row }) => <RowId row={row} />,
-    },
-    {
-      Header: "Staff ID",
-      accessor: "portalId",
-      Cell: ({ value }) => (
-        <Flex gap={2}>
-          <Text
-            as={"p"}
-            color={"neutral.700"}
-            letterSpacing={0.5}
-            textTransform={"uppercase"}
-          >
-            GSHN/STF/{value}
-          </Text>
-        </Flex>
-      ),
-    },
-
-    {
-      Header: "Full Name",
-      accessor: "firstName",
-      Cell: ({ row }) => (
-        <Flex gap={2}>
-          <Text as={"p"} textTransform={"capitalize"}>
-            {row.original.firstName} {row.original.lastName}
-          </Text>
-        </Flex>
-      ),
-    },
-    ,
-    {
-      Header: "Phone Number",
-      accessor: "phoneNumber",
-    },
-    {
-      Header: "Email",
-      accessor: "email",
-    },
-    {
-      Header: "Action",
-      accessor: "action",
-      Cell: ({ row }) => (
-        <ActionsPopUp
-          menu={actionsMenu}
-          row={row}
-          deleteAction={handleDeleteAction}
-          viewAction={handleLink}
-        />
-      ),
-    },
-  ]);
 
   const handleDeleteAction = async (staffId) => {
     if (user.portalId === staffId) {
@@ -150,9 +71,77 @@ const StaffTable = ({ existingStaffData }) => {
     }
   };
 
-  const handleLink = (staffId) => {
+  const handleViewProfile = (staffId) => {
     navigate(`/admin/staff/${staffId}`);
   };
+
+  const handleEditAction = (staffId) => {
+    return;
+  };
+
+  const actionsMenu = (id) => [
+    {
+      name: "viewStaffProfile",
+      label: "View Staff Profile",
+      action: "view",
+      icon: <IoMdEye />,
+      onClick: handleViewProfile(id),
+    },
+    {
+      name: "editStaff",
+      label: "Edit Staff",
+      action: "edit",
+      icon: <MdEdit />,
+      onClick: handleEditAction(id),
+    },
+    {
+      name: "deleteStaff",
+      label: "Delete Staff",
+      action: "delete",
+      icon: <MdDelete />,
+      onClick: handleDeleteAction(id),
+    },
+  ];
+
+  const columns = React.useMemo(() => [
+    {
+      Header: "SN",
+      accessor: "id",
+      Cell: ({ row }) => <RowId row={row} />,
+    },
+    {
+      Header: "Staff ID",
+      accessor: "portalId",
+      Cell: ({ value }) => <UserId row={row} value={value} />,
+    },
+
+    {
+      Header: "Full Name",
+      accessor: "firstName",
+      Cell: ({ row }) => <FullName row={row} />,
+    },
+    ,
+    {
+      Header: "Phone Number",
+      accessor: "phoneNumber",
+    },
+    {
+      Header: "Email",
+      accessor: "email",
+    },
+    {
+      Header: "Action",
+      accessor: "action",
+      Cell: ({ row }) => (
+        <ActionsPopUp
+          menu={actionsMenu()}
+          row={row}
+          deleteAction={handleDeleteAction}
+          viewAction={handleLink}
+        />
+      ),
+    },
+  ]);
 
   return (
     <Table

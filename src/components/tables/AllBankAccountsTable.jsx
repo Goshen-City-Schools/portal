@@ -49,7 +49,7 @@ export default function AllBankAccountsTable() {
     {
       Header: "Action",
       accessor: "action",
-      Cell: ({}) => <ActionsPopUp menu={actionsMenu} />,
+      Cell: ({}) => <ActionsPopUp menu={actionsMenu()} />,
     },
   ];
 

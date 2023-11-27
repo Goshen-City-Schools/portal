@@ -12,27 +12,57 @@ import {
 import CustomSelect from "../shared/Select.component";
 import { useModal } from "../../app/contexts/ModalContext";
 import { useNavigate } from "react-router-dom";
-import { useClasses } from "../../hooks/SchoolClasses";
+import { useClassDetails, useClasses } from "../../hooks/SchoolClasses";
 import { createFee } from "../../api/fees.api";
+import useFees from "../../hooks/Fees";
 
 // ... (your existing imports)
 
-export default function TuitionFeeForm() {
+export default function TuitionFeeForm({ action, feeTypeId, existingData }) {
   const toast = useToast();
   const { closePortal } = useModal();
   const { schoolClasses } = useClasses();
+  const { fees } = useFees("tuition");
   const navigate = useNavigate();
+
+  // Get classes that their fees has not been set.
+  const filteredSchoolClasses = schoolClasses.filter((schoolClass) => {
+    const classIdExistsInFees = fees?.some(
+      (fee) => fee.classId === schoolClass._id
+    );
+
+    return !classIdExistsInFees;
+  });
 
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
-    schoolClass: "",
-    newStudentPrice: "",
-    existingStudentPrice: "",
-    status: false,
+    schoolClass: existingData?.classId || "",
+    newStudentPrice: Number(existingData?.price.new) || "",
+    existingStudentPrice: Number(existingData?.price.existing) || "",
+    status: true,
   });
+  const { classDetails } = useClassDetails(formData.schoolClass);
 
   const [successTimeout, setSuccessTimeout] = useState(null);
   const [redirectTimeout, setRedirectTimeout] = useState(null);
+
+  useEffect(() => {
+    if (action === "edit" && feeTypeId) {
+      // Fetch existing data for the selected class and set it as the initial form data
+      const existingData = fees.find((fee) => fee._id === feeTypeId);
+
+      console.log(fees, existingData);
+
+      if (existingData) {
+        setFormData({
+          schoolClass: existingData?.classId,
+          newStudentPrice: existingData?.price.new.toString(),
+          existingStudentPrice: existingData?.price.existing.toString(),
+          status: existingData?.status,
+        });
+      }
+    }
+  }, [action, feeTypeId, fees]);
 
   // Useeffect to cleanup timeouts when the component unmounts
   useEffect(() => {
@@ -79,15 +109,18 @@ export default function TuitionFeeForm() {
 
     const tuitionFeeData = {
       classId: formData.schoolClass,
-      feeType: "tuition",
+      type: "tuition",
       price: {
         new: parseInt(formData.newStudentPrice, 10),
         existing: parseInt(formData.existingStudentPrice, 10),
       },
+      status: formData.status,
     };
 
+    console.log(formData.schoolClass);
+
     try {
-      const response = await createFee(tuitionFeeData);
+      const response = await createFee(tuitionFeeData.type, tuitionFeeData);
 
       setIsLoading(false);
 
@@ -138,15 +171,22 @@ export default function TuitionFeeForm() {
         </FormLabel>
         <CustomSelect
           name="schoolClass"
-          value={formData.schoolClass}
+          value={formData?.schoolClass}
           onChange={handleFormChange}
+          disabled={action === "edit"} // Disable selection if in edit mode
         >
-          <option value="">-- Select Class --</option>
-          {schoolClasses.map((schoolClass) => (
-            <option key={schoolClass.id} value={schoolClass.id}>
-              {schoolClass.name}
-            </option>
-          ))}
+          {action == "edit" ? (
+            <option>{classDetails.name}</option>
+          ) : (
+            <>
+              <option value="">-- Select Class --</option>{" "}
+              {filteredSchoolClasses.map((schoolClass) => (
+                <option key={schoolClass._id} value={schoolClass._id}>
+                  {schoolClass.name}{" "}
+                </option>
+              ))}
+            </>
+          )}
         </CustomSelect>
       </FormControl>
 
@@ -189,7 +229,11 @@ export default function TuitionFeeForm() {
         <Text as="p" fontSize="sm" fontWeight="bold">
           Fee Status
         </Text>
-        <Switch value={formData.status} onChange={handleFormChange} />
+        <Switch
+          name="status"
+          isChecked={formData.status}
+          onChange={handleFormChange}
+        />
       </Flex>
 
       {/* Submit request button */}
@@ -202,7 +246,7 @@ export default function TuitionFeeForm() {
         type="submit"
         isLoading={isLoading}
       >
-        Complete Fee Setup
+        {action === "edit" ? "Update Fee" : "Complete Fee Setup"}
       </Button>
     </form>
   );

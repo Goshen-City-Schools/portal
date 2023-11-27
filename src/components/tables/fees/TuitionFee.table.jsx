@@ -10,8 +10,6 @@ import PriceView from "../shared/PriceView";
 import { IoMdEye } from "react-icons/io";
 import { MdEdit } from "react-icons/md";
 
-import { Badge } from "@chakra-ui/react";
-
 import { Button, Flex } from "@chakra-ui/react";
 import { useModal } from "../../../app/contexts/ModalContext";
 import CreateTuitionFee from "../../../portals/fees/CreateTuitionFee";
@@ -22,18 +20,21 @@ export default function TuitionFeeTable() {
 
   const { openPortal } = useModal();
 
-  const actionsMenu = [
-    {
-      name: "editTuitionFee",
-      label: "Edit Fee",
-      icon: <MdEdit />,
-    },
-    {
-      name: "disableTuitionFee",
-      label: "Disable Fee",
-      icon: <IoMdEye />,
-    },
-  ];
+  const actionsMenu = (id) => {
+    return [
+      {
+        name: "editTuitionFee",
+        label: "Edit Fee",
+        icon: <MdEdit />,
+        action: "edit",
+      },
+      {
+        name: "disableTuitionFee",
+        label: "Disable Fee",
+        icon: <IoMdEye />,
+      },
+    ];
+  };
 
   const columns = [
     {
@@ -64,7 +65,9 @@ export default function TuitionFeeTable() {
     {
       Header: "Action",
       accessor: "action",
-      Cell: ({}) => <ActionsPopUp menu={actionsMenu} />,
+      Cell: ({ row }) => {
+        return <ActionsPopUp menu={actionsMenu(row.original._id)} row={row} />;
+      },
     },
   ];
 

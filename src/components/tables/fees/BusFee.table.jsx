@@ -14,7 +14,7 @@ export default function BusFeeTable() {
   const { fees } = useFees("bus");
 
   console.log(fees);
-  const actionsMenu = [
+  const actionsMenu = (id) => [
     {
       name: "editBusFee",
       label: "Edit Fee",
@@ -61,7 +61,7 @@ export default function BusFeeTable() {
     {
       Header: "Action",
       accessor: "action",
-      Cell: ({}) => <ActionsPopUp menu={actionsMenu} />,
+      Cell: ({ row }) => <ActionsPopUp menu={actionsMenu(row.original._id)} />,
     },
   ];
 

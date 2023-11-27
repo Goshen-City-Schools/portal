@@ -9,9 +9,12 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { FaEllipsisH } from "react-icons/fa";
+import TuitionFeeForm from "../components/forms/TuitionFeeForm";
+import { useModal } from "../app/contexts/ModalContext";
 
-const ActionsPopUp = ({ menu, row, deleteAction, viewAction }) => {
+const ActionsPopUp = ({ menu, row, onClick, deleteAction, viewAction }) => {
   const [isOpen, setIsOpen] = useState(false); // Add state for popover
+  const { openPortal } = useModal();
 
   const handleClose = () => {
     setIsOpen(false);
@@ -53,23 +56,8 @@ const ActionsPopUp = ({ menu, row, deleteAction, viewAction }) => {
               colorScheme="blue"
               variant={"outline"}
               onClick={() => {
-                if (menuItem.action === "delete") {
-                  menuItem.name
-                    .toLocaleLowerCase()
-                    .includes(
-                      "staff" || "student"
-                        ? deleteAction(row.original.portalId)
-                        : deleteAction(row.original._id)
-                    );
-                } else if (menuItem.action === "view") {
-                  menuItem.name
-                    .toLocaleLowerCase()
-                    .includes("staff" || "student")
-                    ? viewAction(row.original.portalId)
-                    : viewAction(row.original._id);
-                }
-
-                handleClose(); // Close the popover
+                onClick;
+                handleClose();
               }}
             >
               {menuItem.label}

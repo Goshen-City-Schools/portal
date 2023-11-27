@@ -1,7 +1,6 @@
 // useStaffs.js
 import { useEffect, useState, useMemo } from "react";
-import axios from "../api/axios";
-// import axios from "axios";
+import axios from "../../api/axios";
 
 const useStaffs = () => {
   const [staffsData, setStaffsData] = useState([]);

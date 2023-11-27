@@ -1,26 +1,102 @@
 import { useNavigate } from "react-router-dom";
-import { MdDelete, MdEdit } from "react-icons/md";
+import { MdInfo, MdReceipt, MdRememberMe } from "react-icons/md";
 
-import { Flex, useToast, Text } from "@chakra-ui/react";
+import { useToast } from "@chakra-ui/react";
 
 import { deleteStudent } from "../../../api/student.api";
 
 import { useUser } from "../../../app/contexts/UserContext";
-
 import useStudents from "../../../hooks/useStudents";
 
 import Table from "../../../widgets/Table.widget";
-
 import ActionsPopUp from "../../../widgets/ActionsPopUp";
-import { IoMdEye } from "react-icons/io";
 
-import { SchoolClass, RowId, FullName, UserId } from "../shared";
+import RowId from "../shared/RowId";
+import FullName from "../shared/FullName";
+import PriceView from "../shared/PriceView";
 
-const StudentsTable = () => {
+export default function StudentsFinanceTable() {
   const toast = useToast();
   const navigate = useNavigate();
   const { studentsData, setStudentsData } = useStudents();
   const { user } = useUser();
+
+  const actionsMenu = [
+    {
+      name: "generateInvoice",
+      label: "Generate Invoice",
+      action: "generateInvoice",
+      icon: <MdReceipt />,
+    },
+    {
+      name: "sendReminder",
+      label: "Send Reminder",
+      action: "sendReminder",
+
+      icon: <MdRememberMe />,
+    },
+    {
+      name: "contactGuardian",
+      label: "Contact Guardian",
+      action: "contact",
+
+      icon: <MdInfo />,
+    },
+  ];
+
+  const columns = [
+    {
+      Header: "SN",
+      accessor: "sn",
+      Cell: ({ row }) => <RowId row={row} />,
+    },
+    {
+      Header: "Full name",
+      accessor: "lastName",
+      Cell: ({ row }) => <FullName row={row} />,
+    },
+    {
+      Header: "Class",
+      accessor: "schoolClass",
+      width: "max-content",
+      Cell: ({ value }) => {
+        <SchoolClass value={value} />;
+      },
+    },
+    {
+      Header: "Total Payable",
+      accessor: "totalPayable",
+      Cell: ({ value }) => {
+        <PriceView color={"green"} value={value} />;
+      },
+    },
+    {
+      Header: "Total Paid",
+      accessor: "totalPaid",
+      Cell: ({ value }) => {
+        <PriceView color={"orange"} value={value} />;
+      },
+    },
+    {
+      Header: "Balance",
+      accessor: "allFeeBalance",
+      Cell: ({ value }) => {
+        <PriceView color={"red"} value={value} />;
+      },
+    },
+    {
+      Header: "Action",
+      accessor: "action",
+      Cell: ({ row }) => (
+        <ActionsPopUp
+          menu={actionsMenu()}
+          row={row}
+          deleteAction={handleDeleteAction}
+          viewAction={handleLink}
+        />
+      ),
+    },
+  ];
 
   const handleDeleteAction = async (studentId) => {
     if (user.portalId === studentId) {
@@ -68,95 +144,14 @@ const StudentsTable = () => {
     }
   };
 
-  const handleViewProfile = (studentId) => {
+  const handleLink = (studentId) => {
     navigate(`/admin/students/${studentId}`);
   };
 
   const handleEditAction = (studentId) => {
+    // Navigate to the edit student page
     navigate(`/admin/students/${studentId}`);
   };
-
-  const actionsMenu = (id) => [
-    {
-      name: "viewStudentProfile",
-      label: "View Student Profile",
-      action: "view",
-      icon: <IoMdEye />,
-      onClick: () => handleViewProfile(id),
-    },
-    {
-      name: "editStudent",
-      label: "Edit Student",
-      action: "edit",
-      icon: <MdEdit />,
-      onClick: () => handleEditAction(id),
-    },
-    {
-      name: "deleteStudent",
-      label: "Delete Student",
-      action: "delete",
-      icon: <MdDelete />,
-      onClick: () => handleDeleteAction(id),
-    },
-  ];
-
-  const columns = [
-    {
-      Header: "SN",
-      accessor: "sn",
-      Cell: ({ row }) => <RowId row={row} />,
-    },
-    {
-      Header: "Student ID",
-      accessor: "portalId",
-      Cell: ({ row, value }) => <UserId row={row} value={value} />,
-    },
-    {
-      Header: "Full name",
-      accessor: "lastName",
-      Cell: ({ row }) => <FullName row={row} />,
-    },
-
-    {
-      Header: "Gender",
-      accessor: "gender",
-      Cell: ({ value }) => (
-        <Flex gap={2}>
-          <Text as={"p"} textTransform={"capitalize"} color={"neutral.700"}>
-            {value}
-          </Text>
-        </Flex>
-      ),
-    },
-    {
-      Header: "Class",
-      accessor: "schoolClass",
-      width: "max-content",
-      Cell: ({ value }) => {
-        <SchoolClass value={value} />;
-      },
-    },
-    {
-      Header: "Guardian Tel.",
-      accessor: "guardianPhoneNumber",
-    },
-    {
-      Header: "Guardian Email",
-      accessor: "guardianEmail",
-    },
-    {
-      Header: "Action",
-      accessor: "action",
-      Cell: ({ row }) => (
-        <ActionsPopUp
-          menu={actionsMenu(row.original._id)}
-          row={row}
-          deleteAction={handleDeleteAction}
-          viewAction={handleViewProfile}
-        />
-      ),
-    },
-  ];
 
   return (
     <Table
@@ -165,6 +160,4 @@ const StudentsTable = () => {
       fullWidthColumns={["Full Name", "Parent"]}
     />
   );
-};
-
-export default StudentsTable;
+}

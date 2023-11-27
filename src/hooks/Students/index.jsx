@@ -1,6 +1,7 @@
 // useStudents.js
 import { useEffect, useState, useMemo } from "react";
 import axios from "../../api/axios";
+import { getSingleStudent } from "../../api/student.api";
 
 const useStudents = () => {
   const [studentsData, setStudentsData] = useState([]);

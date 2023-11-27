@@ -1,6 +1,6 @@
 import React from "react";
 
-import { MdDelete, MdEdit } from "react-icons/md";
+import { MdEdit } from "react-icons/md";
 import ActionsPopUp from "../../../widgets/ActionsPopUp";
 
 import Table from "../../../widgets/Table.widget";
@@ -8,21 +8,36 @@ import RowId from "../shared/RowId";
 import { IoMdEye } from "react-icons/io";
 import useFees from "../../../hooks/Fees";
 import StatusBadge from "../shared/StatusBadge";
+import TuitionFeeForm from "../../forms/TuitionFeeForm";
+import { useModal } from "../../../app/contexts/ModalContext";
 
 export default function BoardingFeeTable() {
   const { fees } = useFees("boarding");
+  const { openPortal } = useModal();
 
-  console.log(fees);
-  const actionsMenu = [
+  const handleEditAction = async (id) => {
+    openPortal(<TuitionFeeForm />);
+  };
+
+  const handleDisableFee = (id) => {
+    return;
+  };
+
+  const actionsMenu = (id) => [
     {
       name: "editBoardingFee",
       label: "Edit Fee",
       icon: <MdEdit />,
+      onClick: () => {
+        console.log("ds");
+        handleEditAction(id);
+      },
     },
     {
       name: "disableBoardingFee",
       label: "Disable Fee",
       icon: <IoMdEye />,
+      onClick: () => handleDisableFee(id),
     },
   ];
 
@@ -48,21 +63,11 @@ export default function BoardingFeeTable() {
     {
       Header: "Action",
       accessor: "action",
-      Cell: ({}) => <ActionsPopUp menu={actionsMenu} />,
+      Cell: ({ row }) => <ActionsPopUp menu={actionsMenu(row.original_id)} />,
     },
   ];
 
-  const bankAccounts = [
-    {
-      bankName: "Fidelity Bank",
-      accountName: "Goshen Group of Schools",
-      accountNumber: "8783728378",
-      Fees: [""],
-      bankAccountStatus: "inactive",
-    },
-  ];
-
-  if (!bankAccounts) return "No account set currently!";
+  if (!fees) return "No boarding fee set currently!";
 
   return <Table columns={columns} data={fees} fullWidthColumns={"Class"} />;
 }
