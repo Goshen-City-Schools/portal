@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Text } from "@chakra-ui/react";
-import TuitionFeeForm from "../../components/forms/TuitionFeeForm";
+import TuitionFeeForm from "../../components/forms/fees/TuitionFeeForm";
 
 export default function CreateTuitionFee() {
   return (

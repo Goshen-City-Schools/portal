@@ -9,12 +9,12 @@ import {
   Switch,
   Text,
 } from "@chakra-ui/react";
-import CustomSelect from "../shared/Select.component";
-import { useModal } from "../../app/contexts/ModalContext";
+import CustomSelect from "../../shared/Select.component";
+import { useModal } from "../../../app/contexts/ModalContext";
 import { useNavigate } from "react-router-dom";
-import { useClassDetails, useClasses } from "../../hooks/SchoolClasses";
-import { createFee } from "../../api/fees.api";
-import useFees from "../../hooks/Fees";
+import { useClassDetails, useClasses } from "../../../hooks/SchoolClasses";
+import { createFee } from "../../../api/fees.api";
+import useFees from "../../../hooks/Fees";
 
 // ... (your existing imports)
 
