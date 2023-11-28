@@ -6,7 +6,7 @@ import { useStudent } from "../../../hooks/Students";
 import PageWrapper from "../../../components/PageWrapper";
 import PageSectionHeader from "../../../components/PageSectionHeader";
 
-import ReactPortal from "../../../widgets/ReactPortal";
+import ReactPortal from "../../../widgets/React_portal";
 
 import StudentProfileScreen from "../../../screens/StudentProfileScreen";
 import ProfileNotFoundScreen from "../../../screens/ProfileNotFoundScreen";

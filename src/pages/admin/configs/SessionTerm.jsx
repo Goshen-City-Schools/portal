@@ -6,7 +6,7 @@ import { Flex, Box, Grid, GridItem, Text, Button } from "@chakra-ui/react";
 import IconComponent from "../../../components/Icon.component";
 import { FaEdit, FaPlus } from "react-icons/fa";
 import { useModal } from "../../../app/contexts/ModalContext";
-import ReactPortal from "../../../widgets/ReactPortal";
+import ReactPortal from "../../../widgets/React_portal";
 import AddNewTerm from "../../../portals/AddNewTerm";
 
 export default function SessionTermPage() {

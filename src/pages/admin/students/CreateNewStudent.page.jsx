@@ -4,7 +4,7 @@ import PageSectionHeader from "../../../components/PageSectionHeader";
 
 import { Box, Flex, useToast } from "@chakra-ui/react";
 import { useState } from "react";
-import ReactPortal from "../../../widgets/ReactPortal";
+import ReactPortal from "../../../widgets/React_portal";
 import { useModal } from "../../../app/contexts/ModalContext";
 import { useEffect } from "react";
 import AccountCreatedScreen from "../../../screens/AccountCreatedScreen";
@@ -12,7 +12,7 @@ import allowedUserRoles from "../../../helpers/allowedUserRoles";
 import { registerStudent } from "../../../api/student.api";
 import { useUser } from "../../../app/contexts/UserContext";
 import StudentForm from "../../../components/forms/StudentForm";
-import { useClasses } from "../../../hooks/SchoolClasses";
+import { useClasses } from "../../../hooks/";
 
 export default function CreateNewStudent() {
   const { openPortal } = useModal();

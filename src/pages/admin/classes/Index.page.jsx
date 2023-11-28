@@ -16,7 +16,7 @@ import { useModal } from "../../../app/contexts/ModalContext";
 
 import { useClasses, useStudents } from "../../../hooks/";
 
-import ReactPortal from "../../../widgets/ReactPortal";
+import ReactPortal from "../../../widgets/React_portal";
 import SearchWidget from "../../../widgets/Search.widget";
 
 import PageWrapper from "../../../components/PageWrapper";

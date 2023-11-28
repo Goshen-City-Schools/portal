@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import subjectsData from "../../data/subjects.data";
 
 import CalendarWidget from "../../widgets/Calendar";
-import ReactPortal from "../../widgets/ReactPortal";
+import ReactPortal from "../../widgets/React_portal";
 import ChartWidget from "../../widgets/Chart.widget";
 
 import { useModal } from "../../app/contexts/ModalContext";

@@ -12,7 +12,7 @@ import {
 import CustomSelect from "../../shared/Select.component";
 import { useModal } from "../../../app/contexts/ModalContext";
 import { useNavigate } from "react-router-dom";
-import { useClassDetails, useClasses } from "../../../hooks/SchoolClasses";
+import { useClassDetails, useClasses } from "../../../hooks/school_classes";
 import { createFee } from "../../../api/fees.api";
 import useFees from "../../../hooks/Fees";
 

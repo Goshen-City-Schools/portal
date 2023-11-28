@@ -6,7 +6,7 @@ import { Box, useToast } from "@chakra-ui/react";
 import { useState } from "react";
 import schoolData from "../../../data/school.data";
 import AccountCreatedScreen from "../../../screens/AccountCreatedScreen";
-import ReactPortal from "../../../widgets/ReactPortal";
+import ReactPortal from "../../../widgets/React_portal";
 import { useModal } from "../../../app/contexts/ModalContext";
 import allowedUserRoles from "../../../helpers/allowedUserRoles";
 import { useUser } from "../../../app/contexts/UserContext";

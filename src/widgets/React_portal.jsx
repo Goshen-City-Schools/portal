@@ -1,12 +1,11 @@
 // ReactPortal.js
 import React from "react";
-import { Portal, Box, Button, Text } from "@chakra-ui/react";
+import { Portal, Box, Button } from "@chakra-ui/react";
 import { useModal } from "../app/contexts/ModalContext";
-import { MdCancel, MdOutlineCancel } from "react-icons/md";
-// import { useModal } from "./ModalContext";
+import { MdOutlineCancel } from "react-icons/md";
 
 function ReactPortal({ width }) {
-  const { isOpen, closePortal, portalTitle, portalContent } = useModal();
+  const { isOpen, closePortal, portalContent } = useModal();
 
   if (!isOpen) return null;
 

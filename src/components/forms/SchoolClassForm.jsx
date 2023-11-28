@@ -10,11 +10,11 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { useModal } from "../../app/contexts/ModalContext";
-import { useClasses } from "../../hooks/SchoolClasses";
+import { useClasses } from "../../hooks/";
 
 import CustomSelect from "../shared/Select.component";
 
-import { createSubClass } from "../../api/schoolClass.api";
+import { createSubClass } from "../../api/school_class.api";
 
 export default function SchoolClassForm() {
   const toast = useToast();

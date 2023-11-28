@@ -1,6 +1,6 @@
 import React from "react";
 
-import ReactPortal from "../../../widgets/ReactPortal";
+import ReactPortal from "../../../widgets/React_portal";
 import HorizontalScrollableTabs from "../../../widgets/HorizontalScrollableTabs.widget";
 
 import { MdArrowBack } from "react-icons/md";

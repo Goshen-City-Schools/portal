@@ -6,7 +6,7 @@ import AdminHeader from "../components/Header/AdminHeader.component";
 import { Box } from "@chakra-ui/react";
 import ConfigurationSideBar from "../components/SideBar/ConfigurationSideBar";
 import { useState } from "react";
-import ReactPortal from "../widgets/ReactPortal";
+import ReactPortal from "../widgets/React_portal";
 import { useModal } from "../app/contexts/ModalContext";
 import { useNavigate } from "react-router-dom";
 import SearchUserForm from "../components/forms/SearchUserForm";

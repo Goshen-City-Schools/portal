@@ -4,7 +4,7 @@ import PageSectionHeader from "../../../components/PageSectionHeader";
 import StaffProfileScreen from "../../../screens/StaffProfileScreen";
 import { useParams } from "react-router-dom";
 import ProfileNotFoundScreen from "../../../screens/ProfileNotFoundScreen";
-import ReactPortal from "../../../widgets/ReactPortal";
+import ReactPortal from "../../../widgets/React_portal";
 import { useAuth } from "../../../app/contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { getSingleStaff, getStaffData } from "../../../api/staff.api";
