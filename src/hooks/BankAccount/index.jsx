@@ -1,1 +1,1 @@
-function getAllBankAcounts() {}
+const useBankAccounts = () => {};

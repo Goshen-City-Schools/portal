@@ -9,16 +9,28 @@ import { IoMdEye } from "react-icons/io";
 import useFees from "../../../hooks/Fees";
 import StatusBadge from "../shared/StatusBadge";
 import PriceView from "../shared/PriceView";
+import BusFeeForm from "../../forms/fees/BusFeeForm";
 
 export default function BusFeeTable() {
   const { fees } = useFees("bus");
 
-  console.log(fees);
+  const handleEditAction = async (id) => {
+    openPortal(<BusFeeForm feeTypeId={id} />);
+  };
+
+  const handleDisableFee = (id) => {
+    return;
+  };
+
   const actionsMenu = (id) => [
     {
       name: "editBusFee",
       label: "Edit Fee",
       icon: <MdEdit />,
+      onClick: () => {
+        console.log("ds");
+        handleEditAction(id);
+      },
     },
     {
       name: "disableBusFee",
