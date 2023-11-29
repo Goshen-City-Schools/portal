@@ -8,14 +8,12 @@ import {
   Textarea,
   Select,
   Text,
-  // Avatar,
 } from "@chakra-ui/react";
 
 import ngStates from "../data/nigeria_states.json";
 import Avatar from "../components/Avatar.component";
 import UpdateAvatarButton from "../components/Buttons/UpdateAvatarButton";
 import { useClassDetails, useClasses } from "../hooks";
-import { SchoolClass } from "../components/tables/shared";
 
 export function StudentPersonalDetailsUpdateForm({ action, studentData }) {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -167,7 +165,7 @@ export function StudentPersonalDetailsUpdateForm({ action, studentData }) {
             Student Type
           </FormLabel>
           <Select
-            disabled
+            disabled={action === "edit"}
             size={"sm"}
             name="studentType"
             value={formData.studentType}
@@ -187,14 +185,16 @@ export function StudentPersonalDetailsUpdateForm({ action, studentData }) {
 
           <Select
             name="schoolClass"
-            disabled
+            disabled={action === "edit"}
             size={"sm"}
             value={formData.schoolClass}
             onChange={handleInputChange}
           >
             <option value="">-- Select Class --</option>
             {schoolClasses.map((SchoolClass) => (
-              <option value={SchoolClass?._id}>{SchoolClass?.name} </option>
+              <option key={SchoolClass?._id} value={SchoolClass?._id}>
+                {SchoolClass?.name}{" "}
+              </option>
             ))}
           </Select>
         </FormControl>
@@ -206,14 +206,16 @@ export function StudentPersonalDetailsUpdateForm({ action, studentData }) {
           </FormLabel>
           <Select
             name="subClass"
-            disabled
+            disabled={action === "edit"}
             size={"sm"}
             value={formData.subClass}
             onChange={handleInputChange}
           >
             <option value="">-- Select Sub Class --</option>
             {classDetails?.subClasses?.map((subClass) => (
-              <option value={subClass?._id}>{subClass?.name} </option>
+              <option key={subClass?._id} value={subClass?._id}>
+                {subClass?.name}{" "}
+              </option>
             ))}
           </Select>
         </FormControl>
@@ -287,8 +289,8 @@ function StudentGuardianUpdateForm({ action, studentData }) {
   } = studentData;
 
   const [formData, setFormData] = useState({
-    firstName: firstName || "",
-    lastName: lastName || "",
+    firstName: guardianFirstName || "",
+    lastName: guardianLastName || "",
     otherName: otherName || "",
     gender: gender || "",
     dateOfBirth: dateOfBirth || "",
@@ -415,5 +417,7 @@ function StudentGuardianUpdateForm({ action, studentData }) {
 }
 
 export default function StudentUpdateScreen({ studentData }) {
-  return <StudentPersonalDetailsUpdateForm studentData={studentData} />;
+  return (
+    <StudentPersonalDetailsUpdateForm action="edit" studentData={studentData} />
+  );
 }

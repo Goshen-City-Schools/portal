@@ -70,7 +70,12 @@ const ThreeStepForm = ({ studentData }) => {
   const forms = [
     {
       title: "Personal Information",
-      component: <StudentPersonalDetailsUpdateForm studentData={studentData} />,
+      component: (
+        <StudentPersonalDetailsUpdateForm
+          action={"edit"}
+          studentData={studentData}
+        />
+      ),
       step: 1,
     },
     {
@@ -79,7 +84,7 @@ const ThreeStepForm = ({ studentData }) => {
       step: 2,
     },
     {
-      title: "Personal Information",
+      title: "Health Information",
       component: "d kmknk",
       step: 3,
     },
@@ -128,7 +133,7 @@ const ThreeStepForm = ({ studentData }) => {
                 whiteSpace={"pre-wrap"}
                 wordBreak={"break-all"}
               >
-                {title}
+                {currentStep === step ? <strong>{title}</strong> : title}
               </Text>
             </VStack>
           </React.Fragment>
