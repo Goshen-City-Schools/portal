@@ -12,7 +12,7 @@ export default function UserId({ row, value }) {
         letterSpacing={0.5}
         fontWeight={"semibold"}
       >
-        {row.original.accounttype == "staff"
+        {row.original.accountType == "staff"
           ? `GSHN/STF/${value}`
           : `GSHN/STU/${value}`}
       </Text>

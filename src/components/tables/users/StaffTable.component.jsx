@@ -85,21 +85,21 @@ const StaffTable = ({ existingStaffData }) => {
       label: "View Staff Profile",
       action: "view",
       icon: <IoMdEye />,
-      onClick: handleViewProfile(id),
+      onClick: () => handleViewProfile(id),
     },
     {
       name: "editStaff",
       label: "Edit Staff",
       action: "edit",
       icon: <MdEdit />,
-      onClick: handleEditAction(id),
+      onClick: () => handleEditAction(id),
     },
     {
       name: "deleteStaff",
       label: "Delete Staff",
       action: "delete",
       icon: <MdDelete />,
-      onClick: handleDeleteAction(id),
+      onClick: () => handleDeleteAction(id),
     },
   ];
 
@@ -112,7 +112,7 @@ const StaffTable = ({ existingStaffData }) => {
     {
       Header: "Staff ID",
       accessor: "portalId",
-      Cell: ({ value }) => <UserId row={row} value={value} />,
+      Cell: ({ value, row }) => <UserId row={row} value={value} />,
     },
 
     {
@@ -133,12 +133,7 @@ const StaffTable = ({ existingStaffData }) => {
       Header: "Action",
       accessor: "action",
       Cell: ({ row }) => (
-        <ActionsPopUp
-          menu={actionsMenu()}
-          row={row}
-          deleteAction={handleDeleteAction}
-          viewAction={handleLink}
-        />
+        <ActionsPopUp menu={actionsMenu(row.original.portalId)} row={row} />
       ),
     },
   ]);

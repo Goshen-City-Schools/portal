@@ -38,12 +38,19 @@ import Avatar from "../components/Avatar.component";
 import IconComponent from "../components/Icon.component";
 import InfoBox from "../components/shared/InfoBox.component";
 import { GiCoronation } from "react-icons/gi";
-import { useStudentClassDetails } from "../hooks/School_classes";
+import { useStudentClassDetails } from "../hooks";
+import { useNavigate } from "react-router-dom";
 
 export default function StudentProfileScreen({ student }) {
   const { openPortal } = useModal();
   const { user } = useUser();
   const [selectedFile, setSelectedFile] = useState(null);
+
+  const navigate = useNavigate();
+
+  const handleEditAction = (studentId) => {
+    navigate(`/admin/students/${studentId}/edit`);
+  };
 
   const {
     firstName,
@@ -337,7 +344,7 @@ export default function StudentProfileScreen({ student }) {
                 leftIcon={<MdEdit />}
                 size={"sm"}
                 colorScheme="blue"
-                onClick={() => openPortal()}
+                onClick={() => handleEditAction(student.portalId)}
               >
                 Edit Profile
               </Button>

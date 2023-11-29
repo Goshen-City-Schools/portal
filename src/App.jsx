@@ -45,6 +45,7 @@ import PrintInvoiceScreen from "./screens/PrintInvoice.screen";
 import LoginScreen from "./screens/Login.screen";
 import AllEventsPage from "./pages/admin/events";
 import FinancePage from "./pages/admin/finance/";
+import EditStudentPage from "./pages/admin/students/EditStudent";
 
 const App = () => {
   return (
@@ -67,7 +68,10 @@ const App = () => {
         <Route path="students">
           <Route index element={<StudentsPage />} />
           <Route path="new" element={<CreateNewStudent />} />
-          <Route path=":studentId" element={<StudentPage />} />
+          <Route path=":studentId">
+            <Route index element={<StudentPage />} />
+            <Route path="edit" element={<EditStudentPage />} />
+          </Route>
         </Route>
         <Route path="staff">
           <Route index element={<AllStaffPage />} />
@@ -75,6 +79,7 @@ const App = () => {
           <Route path="roles" element={<StaffRoles />} />
           <Route path=":staffId" element={<StaffPage />} />
         </Route>
+
         <Route path="parents" element={<ParentPage />} />
         <Route path="classes">
           <Route index element={<ClassesPage />} />

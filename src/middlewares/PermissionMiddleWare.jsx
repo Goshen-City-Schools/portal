@@ -49,6 +49,11 @@ const routes = [
     allowedAccountTypes: ["staff"],
   },
   {
+    path: "/admin/students/:studentId/edit",
+    allowedRoles: ["IT Personnel", "Bursar"],
+    allowedAccountTypes: ["staff"],
+  },
+  {
     path: "/admin/staff",
     allowedRoles: ["IT Personnel"],
     allowedAccountTypes: ["staff"],

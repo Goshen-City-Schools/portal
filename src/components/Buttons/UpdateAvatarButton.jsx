@@ -88,7 +88,7 @@ export default function UpdateAvatarButton({
 
   return (
     <>
-      <VStack pt={10}>
+      <VStack pt={4}>
         <Button
           onClick={handleClick}
           rightIcon={<MdPictureInPictureAlt />}

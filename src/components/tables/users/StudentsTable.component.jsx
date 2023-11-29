@@ -73,7 +73,7 @@ const StudentsTable = () => {
   };
 
   const handleEditAction = (studentId) => {
-    navigate(`/admin/students/${studentId}`);
+    navigate(`/admin/students/${studentId}/edit`);
   };
 
   const actionsMenu = (id) => [
@@ -149,7 +149,7 @@ const StudentsTable = () => {
       accessor: "action",
       Cell: ({ row }) => (
         <ActionsPopUp
-          menu={actionsMenu(row.original._id)}
+          menu={actionsMenu(row.original.portalId)}
           row={row}
           deleteAction={handleDeleteAction}
           viewAction={handleViewProfile}
