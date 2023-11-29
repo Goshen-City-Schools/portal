@@ -1,14 +1,5 @@
 import React, { useState } from "react";
-import {
-  Box,
-  Button,
-  Heading,
-  Text,
-  Flex,
-  Spacer,
-  VStack,
-} from "@chakra-ui/react";
-import EditStudentPage from "../pages/admin/students/EditStudent";
+import { Box, Button, Text, Flex, Spacer, VStack } from "@chakra-ui/react";
 import { StudentPersonalDetailsUpdateForm } from "../screens/StudentUpdateScreen";
 
 const Step1 = ({ onNext, formComponent }) => (
@@ -110,7 +101,7 @@ const ThreeStepForm = ({ studentData }) => {
     <VStack spacing={4} align="stretch">
       {/* Circular progress indicators with connecting lines */}
       <Flex align="center" mb={4}>
-        {forms.map(({ step, component, title }) => (
+        {forms.map(({ step, title }) => (
           <React.Fragment key={step}>
             {step !== 1 && <Box flex="1" h="2px" bgColor="gray.200" />}
             <VStack align="center">
