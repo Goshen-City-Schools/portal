@@ -1,22 +1,12 @@
 import { useState } from "react";
 
-import {
-  FormControl,
-  Input,
-  FormLabel,
-  Grid,
-  Textarea,
-  Select,
-  Text,
-} from "@chakra-ui/react";
+import { FormControl, Input, FormLabel, Grid, Select } from "@chakra-ui/react";
 
 import ngStates from "../data/nigeria_states.json";
-import Avatar from "../components/Avatar.component";
-import UpdateAvatarButton from "../components/Buttons/UpdateAvatarButton";
 import { useClassDetails, useClasses } from "../hooks";
+import { FormSelect, FormTextArea, AvatarUpload } from "../components/shared";
 
 export function StudentPersonalDetailsUpdateForm({ action, studentData }) {
-  const [selectedFile, setSelectedFile] = useState(null);
   const { schoolClasses } = useClasses();
 
   const {
@@ -27,7 +17,6 @@ export function StudentPersonalDetailsUpdateForm({ action, studentData }) {
     dateOfBirth,
     stateOfOrigin,
     LGA,
-    avatarImageURL,
     studentType,
     schoolClass,
     subClass,
@@ -37,8 +26,6 @@ export function StudentPersonalDetailsUpdateForm({ action, studentData }) {
   } = studentData;
 
   const { classDetails } = useClassDetails(schoolClass);
-
-  console.log(studentData, schoolClasses, classDetails);
 
   const [formData, setFormData] = useState({
     firstName: firstName || "",
@@ -68,246 +55,155 @@ export function StudentPersonalDetailsUpdateForm({ action, studentData }) {
 
   return (
     <form className="flex flex-col gap-8">
-      <Grid gap={2} placeItems={"center"}>
-        <Avatar
-          width={108}
-          height={108}
-          imageUrl={
-            selectedFile
-              ? URL.createObjectURL(selectedFile)
-              : avatarImageURL
-              ? avatarImageURL
-              : "/avatar.png"
-          }
+      {/* Avatar Upload, Active on Edit Mode */}
+      {action === "edit" && (
+        <AvatarUpload
+          formData={formData}
+          imgUrl={"avatarImageURL"}
+          thisUser={studentData}
+        />
+      )}
+
+      {/* Firstname & Lastname */}
+      <Grid gridTemplateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }} gap={4}>
+        <FormInput
+          name={"firstName"}
+          label={"First name"}
+          data={formData}
+          handleChange={handleInputChange}
         />
 
-        <UpdateAvatarButton
-          selectedFile={selectedFile}
-          theUser={studentData}
-          setSelectedFile={setSelectedFile}
+        <FormInput
+          name={"lastName"}
+          label={"Last name"}
+          data={formData}
+          handleChange={handleInputChange}
         />
       </Grid>
 
-      <Grid gridTemplateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }} gap={4}>
-        {/* First name */}
-        <FormControl>
-          <FormLabel fontSize={"sm"} fontWeight={"semibold"}>
-            First name
-          </FormLabel>
-          <Input
-            fontSize={"sm"}
-            name="firstName"
-            value={formData.firstName}
-            onChange={handleInputChange}
-          />
-        </FormControl>
-
-        {/* Surname */}
-        <FormControl>
-          <FormLabel fontSize={"sm"} fontWeight={"semibold"}>
-            Surname
-          </FormLabel>
-          <Input
-            fontSize={"sm"}
-            name="lastName"
-            value={formData.lastName}
-            onChange={handleInputChange}
-          />
-        </FormControl>
-      </Grid>
-
+      {/* Middle name, Gender & Date of Birth */}
       <Grid gridTemplateColumns={{ base: "1fr", md: "repeat(3, 1fr)" }} gap={4}>
-        {/* Middle name */}
-        <FormControl>
-          <FormLabel fontSize={"sm"} fontWeight={"semibold"}>
-            Middle name
-          </FormLabel>
-          <Input
-            fontSize={"sm"}
-            name="otherName"
-            value={formData.middleName}
-            onChange={handleInputChange}
-          />
-        </FormControl>
+        <FormInput
+          name={"middleName"}
+          label={"Middle name"}
+          data={formData}
+          handleChange={handleInputChange}
+        />
 
-        {/* Gender */}
-        <FormControl>
-          <FormLabel fontSize={"sm"} fontWeight={"semibold"}>
-            Gender
-          </FormLabel>
+        <FormInput
+          name={"gender"}
+          label={"Gender"}
+          data={formData}
+          handleChange={handleInputChange}
+        />
 
-          <Select
-            size={"sm"}
-            name="gender"
-            value={formData.gender}
-            onChange={handleInputChange}
-          >
-            <option value="">-- Select Gender --</option>
-            <option value="male">Male </option>
-            <option value="female">Female </option>
-          </Select>
-        </FormControl>
-
-        {/* Date of Birth */}
-        <FormControl>
-          <FormLabel fontSize={"sm"} fontWeight={"semibold"}>
-            Date of Birth
-          </FormLabel>
-          <Input
-            fontSize={"sm"}
-            name="dateOfBirth"
-            type="date"
-            value={formData.dateOfBirth}
-            onChange={handleInputChange}
-          />
-        </FormControl>
+        <FormInput
+          name={"dateOfBirth"}
+          type="date"
+          label={"Date of Birth"}
+          data={formData}
+          handleChange={handleInputChange}
+        />
       </Grid>
 
+      {/* Blood Group & Genotype */}
       <Grid gridTemplateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }} gap={4}>
-        {/* Blood Group*/}
-        <FormControl>
-          <FormLabel fontSize={"sm"} fontWeight={"semibold"}>
-            Blood Group
-          </FormLabel>
-          <Select
-            fontSize={"sm"}
-            name="bloodGroup"
-            value={formData.bloodGroup}
-            onChange={handleInputChange}
-          >
-            <option value="">A+</option>
-            <option value="">A-</option>
-            <option value="">O+</option>
-          </Select>
-        </FormControl>
+        <FormSelect
+          data={[
+            { name: "A+", value: "a+" },
+            { name: "A-", value: "a-" },
+            { name: "O+", value: "o+" },
+          ]}
+          label={"Blood Group"}
+          name={"bloodGroup"}
+          formData={formData}
+          data_item_name={"name"}
+          data_item_value={"value"}
+          handleChange={handleInputChange}
+        />
 
-        {/* Genotype */}
-        <FormControl>
-          <FormLabel fontSize={"sm"} fontWeight={"semibold"}>
-            Genotype
-          </FormLabel>
-          <Select name="genoType" value={formData.genoType}>
-            <option value="">AA</option>
-            <option value="">AS</option>
-            <option value="">SS</option>
-          </Select>
-        </FormControl>
+        <FormSelect
+          data={[
+            { name: "AA", value: "aa" },
+            { name: "AS", value: "as" },
+            { name: "ss", value: "ss" },
+          ]}
+          label={"Genotype"}
+          name={"genoType"}
+          formData={formData}
+          data_item_name={"name"}
+          data_item_value={"value"}
+          handleChange={handleInputChange}
+        />
       </Grid>
 
+      {/* Student Type, Class and Sub Class */}
       <Grid gridTemplateColumns={{ base: "1fr", md: "repeat(3, 1fr)" }} gap={4}>
-        {/* Middle name */}
-        <FormControl>
-          <FormLabel fontSize={"sm"} fontWeight={"semibold"}>
-            Student Type
-          </FormLabel>
-          <Select
-            disabled={action === "edit"}
-            size={"sm"}
-            name="studentType"
-            value={formData.studentType}
-            onChange={handleInputChange}
-          >
-            <option value="">-- Select Student Type --</option>
-            <option value="new">New </option>
-            <option value="existing">Existing </option>
-          </Select>
-        </FormControl>
+        <FormSelect
+          name={"studentType"}
+          label={"Student Type"}
+          data={[
+            { name: "New", value: "new" },
+            { name: "Existing", value: "existing" },
+          ]}
+          data_item_name={"name"}
+          data_item_value={"value"}
+          formData={formData}
+          action={action}
+          handleInputChange={handleInputChange}
+        />
 
-        {/* Gender */}
-        <FormControl>
-          <FormLabel fontSize={"sm"} fontWeight={"semibold"}>
-            Class
-          </FormLabel>
+        <FormSelect
+          name={"schoolClass"}
+          label={"Class"}
+          data={schoolClasses}
+          data_item_name={"name"}
+          data_item_value={"_id"}
+          formData={formData}
+          action={action}
+          handleChange={handleInputChange}
+        />
 
-          <Select
-            fontSize={"sm"}
-            name="schoolClass"
-            disabled={action === "edit"}
-            size={"sm"}
-            value={formData.schoolClass}
-            onChange={handleInputChange}
-          >
-            <option value="">-- Select Class --</option>
-            {schoolClasses.map((SchoolClass) => (
-              <option key={SchoolClass?._id} value={SchoolClass?._id}>
-                {SchoolClass?.name}{" "}
-              </option>
-            ))}
-          </Select>
-        </FormControl>
-
-        {/* Date of Birth */}
-        <FormControl>
-          <FormLabel fontSize={"sm"} fontWeight={"semibold"}>
-            Sub Class
-          </FormLabel>
-          <Select
-            fontSize={"sm"}
-            name="subClass"
-            disabled={action === "edit"}
-            size={"sm"}
-            value={formData.subClass}
-            onChange={handleInputChange}
-          >
-            <option value="">-- Select Sub Class --</option>
-            {classDetails?.subClasses?.map((subClass) => (
-              <option key={subClass?._id} value={subClass?._id}>
-                {subClass?.name}{" "}
-              </option>
-            ))}
-          </Select>
-        </FormControl>
+        <FormSelect
+          name={"subClass"}
+          label={"Sub Class"}
+          data={classDetails?.subClasses}
+          data_item_name={"name"}
+          data_item_value={"_id"}
+          formData={formData}
+          action={action}
+          handleChange={handleInputChange}
+        />
       </Grid>
 
-      <FormControl>
-        <FormLabel fontSize={"sm"} fontWeight={"semibold"}>
-          Contact Address
-        </FormLabel>
-        <Textarea name="contactAddress" height={30} />
-      </FormControl>
+      {/* Contact Address */}
+      <FormTextArea
+        name={"contactAddress"}
+        label={"Contact Address"}
+        formData={formData}
+      />
 
+      {/* State of Origin & LGA */}
       <Grid gridTemplateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }} gap={4}>
-        {/* State of Origin */}
-        <FormControl>
-          <FormLabel fontSize={"sm"} fontWeight={"semibold"}>
-            State of Origin
-          </FormLabel>
-          <Select
-            fontSize={"sm"}
-            name="stateOfOrigin"
-            value={formData.stateOfOrigin}
-            onChange={handleInputChange}
-          >
-            <option value="">-- Select State of Origin --</option>
+        <FormSelect
+          data={ngStates}
+          label={"State of Origin"}
+          name={"stateOfOrigin"}
+          formData={formData}
+          data_item_name={"state"}
+          data_item_value={"alias"}
+          handleChange={handleInputChange}
+        />
 
-            {ngStates.map((ngState) => (
-              <option key={ngState.alias} value={ngState.alias}>
-                {ngState.state}
-              </option>
-            ))}
-          </Select>
-        </FormControl>
-
-        {/* Local Government Area */}
-        <FormControl>
-          <FormLabel fontSize={"sm"} fontWeight={"semibold"}>
-            Local Government Area
-          </FormLabel>
-          <Select
-            fontSize={"sm"}
-            name="LGA"
-            value={formData.LGA}
-            onChange={handleInputChange}
-          >
-            <option value="">-- Local Government Area --</option>
-
-            {LGAs.map((lga) => (
-              <option key={lga} value={lga}>
-                {lga}
-              </option>
-            ))}
-          </Select>
-        </FormControl>
+        <FormSelect
+          data={LGAs}
+          label={"Local Government Area"}
+          name={"LGA"}
+          formData={formData}
+          data_item_name={"name"}
+          data_item_value={"alias"}
+          handleChange={handleInputChange}
+        />
       </Grid>
     </form>
   );
@@ -349,48 +245,39 @@ export function StudentGuardianUpdateForm({ action, guardianData }) {
 
   return (
     <form className="flex gap-8 flex-col">
+      {/* Title, Firstname, Lastname */}
       <Grid gridTemplateColumns={{ base: "1fr", md: "repeat(3, 1fr)" }} gap={4}>
-        {/* Title */}
-        <FormControl>
-          <FormLabel fontSize={"sm"} fontWeight={"semibold"}>
-            Title
-          </FormLabel>
+        <FormSelect
+          data={[
+            { name: "Mr.", value: "mr" },
+            { name: "Mrs.", value: "mrs" },
+            { name: "Miss", value: "miss" },
+            { name: "Dr.", value: "dr" },
+            { name: "Dr.", value: "dr" },
+            { name: "Engr.", value: "engr" },
+            { name: "Prof.", value: "prof" },
+          ]}
+          label={"Title"}
+          name={"title"}
+          formData={formData}
+          data_item_name={"name"}
+          data_item_value={"value"}
+          handleChange={handleInputChange}
+        />
 
-          <Select name="firstname" fontSize={"sm"}>
-            <option value="mr">Mr.</option>
-            <option value="mrs">Mrs.</option>
-            <option value="Miss">Miss</option>
-            <option value="dr">Dr.</option>
-            <option value="engr">Engr.</option>
-            <option value="prof">Prof.</option>
-          </Select>
-        </FormControl>
+        <FormInput
+          name={"firstName"}
+          label={"First name"}
+          data={formData}
+          handleChange={handleInputChange}
+        />
 
-        {/* Firstname */}
-        <FormControl>
-          <FormLabel fontSize={"sm"} fontWeight={"semibold"}>
-            First name
-          </FormLabel>
-          <Input
-            fontSize={"sm"}
-            name="firstName"
-            value={formData.firstName}
-            onChange={handleInputChange}
-          />
-        </FormControl>
-
-        {/* lastname */}
-        <FormControl>
-          <FormLabel fontSize={"sm"} fontWeight={"semibold"}>
-            Surname
-          </FormLabel>
-          <Input
-            fontSize={"sm"}
-            name="lastName"
-            value={formData.lastName}
-            onChange={handleInputChange}
-          />
-        </FormControl>
+        <FormInput
+          name={"lastName"}
+          label={"Surname"}
+          data={formData}
+          handleChange={handleInputChange}
+        />
       </Grid>
 
       <Grid gridTemplateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }} gap={4}>
@@ -426,8 +313,8 @@ export function StudentGuardianUpdateForm({ action, guardianData }) {
         </FormControl>
       </Grid>
 
+      {/*State of Residence & Phone Number */}
       <Grid gridTemplateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }} gap={4}>
-        {/* State of Residence */}
         <FormControl>
           <FormLabel fontSize={"sm"} fontWeight={"semibold"}>
             State of Residence
@@ -447,26 +334,21 @@ export function StudentGuardianUpdateForm({ action, guardianData }) {
           </Select>
         </FormControl>
 
-        {/* Phone Number */}
-        <FormControl>
-          <FormLabel fontSize={"sm"} fontWeight={"semibold"}>
-            Phone number
-          </FormLabel>
-          <Input
-            fontSize={"sm"}
-            name="phoneNumber"
-            value={formData.phoneNumber}
-          />
-        </FormControl>
+        <FormInput
+          type="tel"
+          name={"phoneNumber"}
+          label={"Tel. Number"}
+          data={formData}
+          handleChange={handleInputChange}
+        />
       </Grid>
 
-      {/* State of Residence */}
-      <FormControl>
-        <FormLabel fontSize={"sm"} fontWeight={"semibold"}>
-          Contact Address
-        </FormLabel>
-        <Textarea name="contactAddress" value={formData.contactAddress} />
-      </FormControl>
+      {/* Contact Address*/}
+      <FormTextArea
+        name={"contactAddress"}
+        label={"Contact Address"}
+        formData={formData}
+      />
 
       <Grid gridTemplateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }} gap={4}>
         {/* Email */}

@@ -1,27 +1,22 @@
-import React from "react";
-
-import {
-  Flex,
-  FormLabel,
-  Input,
-  Button,
-  FormControl,
-  Select,
-  Grid,
-  Textarea,
-  useToast,
-} from "@chakra-ui/react";
-import { MdUpload } from "react-icons/md";
-import UpdateAvatarButton from "../Buttons/UpdateAvatarButton";
-import Avatar from "../Avatar.component";
 import { useState } from "react";
+import { Flex, Grid, useToast } from "@chakra-ui/react";
 import { useModal } from "../../app/contexts/ModalContext";
 import ngStates from "../../data/nigeria_states.json";
+
+import {
+  FormInput,
+  FormSelect,
+  FormTextArea,
+  FormcContainer,
+  AvatarUpload,
+  FormButton,
+} from "../shared/";
+import { useUser } from "../../app/contexts/UserContext";
 
 export default function StaffForm({ action, staffData, schoolData }) {
   const [loading, setLoading] = useState(false);
   const toast = useToast();
-  const [selectedFile, setSelectedFile] = useState();
+  const { user } = useUser();
   const [formData, setFormData] = useState({
     firstName: staffData?.firstName || "",
     lastName: staffData?.lastName || "",
@@ -36,6 +31,7 @@ export default function StaffForm({ action, staffData, schoolData }) {
     contactAddress: staffData?.contactAddress || "",
     LGA: staffData?.LGA || "",
   });
+
   const { openPortal } = useModal();
 
   function handleChange(e) {
@@ -185,231 +181,122 @@ export default function StaffForm({ action, staffData, schoolData }) {
       ?.lgas || [];
 
   return (
-    <form
-      className="rounded-lg px-8 bg-white text-sm py-6 flex-col flex gap-x-6 gap-y-8"
-      onSubmit={handleFormSubmit}
-    >
+    <FormcContainer handleFormSubmit={handleFormSubmit}>
+      {/* Avatar Upload, Active on Edit Mode */}
       {action === "edit" && (
-        <Grid gap={2} placeItems={"center"}>
-          <Avatar
-            width={108}
-            height={108}
-            imageUrl={
-              selectedFile
-                ? URL.createObjectURL(selectedFile)
-                : formData.avatarImageURL
-                ? formData.avatarImageURL
-                : "/avatar.png"
-            }
-          />
-
-          <UpdateAvatarButton
-            selectedFile={selectedFile}
-            theUser={staffData}
-            setSelectedFile={setSelectedFile}
-          />
-        </Grid>
+        <AvatarUpload
+          formData={formData}
+          imgUrl={"avatarImageURL"}
+          thisUser={staffData}
+        />
       )}
 
+      {/* First name & Last name */}
       <Flex gap={6} direction={{ base: "column", md: "row" }}>
-        <FormControl id="firstName">
-          <FormLabel fontWeight={"bold"} fontSize={"sm"}>
-            First name
-          </FormLabel>
-          <Input
-            type="text"
-            name="firstName"
-            fontSize={"sm"}
-            value={formData.firstName}
-            placeholder={"First name"}
-            onChange={handleChange}
-          />
-        </FormControl>
-        <FormControl id="lastName">
-          <FormLabel fontWeight={"bold"} fontSize={"sm"}>
-            Surname
-          </FormLabel>
-          <Input
-            type="text"
-            name="lastName"
-            fontSize={"sm"}
-            value={formData.lastName}
-            placeholder={"Last name"}
-            onChange={handleChange}
-          />
-        </FormControl>
+        <FormInput
+          name={"firstName"}
+          label={"First name"}
+          data={formData}
+          handleChange={handleChange}
+        />
+
+        <FormInput
+          name={"lastName"}
+          label={"Surname"}
+          data={formData}
+          handleChange={handleChange}
+        />
       </Flex>
 
-      {/* Date of Birth & Gneder*/}
+      {/* Date of Birth & Gender*/}
       <Flex gap={6} direction={{ base: "column", md: "row" }}>
-        <FormControl id="time">
-          <FormLabel fontWeight={"bold"} fontSize={"sm"}>
-            Gender
-          </FormLabel>
-          <Select
-            name="gender"
-            fontSize={"sm"}
-            value={formData.gender}
-            onChange={handleChange}
-          >
-            <option value="">-- Select Staff Gender --</option>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-          </Select>
-        </FormControl>
-        <FormControl id="time">
-          <FormLabel fontWeight={"bold"} fontSize={"sm"}>
-            Date of Birth
-          </FormLabel>
-          <Input
-            type="date"
-            fontSize={"sm"}
-            name="dateOfBirth"
-            value={formData.dateOfBirth}
-            onChange={handleChange}
-          />
-        </FormControl>
+        <FormInput
+          name={"dateOfBirth"}
+          type="date"
+          label={"Date of Birth"}
+          data={formData}
+          handleChange={handleChange}
+        />
+
+        <FormInput
+          name={"gender"}
+          label={"Gender"}
+          data={formData}
+          handleChange={handleChange}
+        />
       </Flex>
 
+      {/* State of Origin & LGA */}
       <Grid gridTemplateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }} gap={4}>
-        {/* State of Origin */}
-        <FormControl>
-          <FormLabel fontSize={"sm"} fontWeight={"semibold"}>
-            State of Origin
-          </FormLabel>
-          <Select
-            fontSize={"sm"}
-            name="stateOfOrigin"
-            value={formData.stateOfOrigin}
-            onChange={handleChange}
-          >
-            <option value="">-- Select State of Origin --</option>
+        <FormSelect
+          data={ngStates}
+          label={"State of Origin"}
+          name={"stateOfOrigin"}
+          formData={formData}
+          data_item_name={"state"}
+          data_item_value={"alias"}
+          handleChange={handleChange}
+        />
 
-            {ngStates.map((ngState) => (
-              <option key={ngState.alias} value={ngState.alias}>
-                {ngState.state}
-              </option>
-            ))}
-          </Select>
-        </FormControl>
-
-        {/* Local Government Area */}
-        <FormControl>
-          <FormLabel fontSize={"sm"} fontWeight={"semibold"}>
-            Local Government Area
-          </FormLabel>
-          <Select
-            fontSize={"sm"}
-            name="LGA"
-            value={formData.LGA}
-            onChange={handleChange}
-          >
-            <option value="">-- Local Government Area --</option>
-
-            {LGAs.map((lga) => (
-              <option key={lga} value={lga}>
-                {lga}
-              </option>
-            ))}
-          </Select>
-        </FormControl>
+        <FormSelect
+          data={LGAs}
+          label={"Local Government Area"}
+          name={"LGA"}
+          formData={formData}
+          data_item_name={"name"}
+          data_item_value={"alias"}
+          handleChange={handleChange}
+        />
       </Grid>
 
+      {/* Staff Role & Email */}
       <Flex gap={6} direction={{ base: "column", md: "row" }}>
-        {/* Staff Role */}
-        <FormControl id="date">
-          <FormLabel fontWeight={"bold"} fontSize={"sm"}>
-            Staff Primary Role
-          </FormLabel>
-          <Select
-            name="primaryRole"
-            fontSize={"sm"}
-            value={formData.primaryRole}
-            onChange={handleChange}
-          >
-            <option value="">-- Select a Role --</option>
-            {schoolData.staffRoles.map((role, index) => (
-              <option key={index} value={role.name}>
-                {role.name}
-              </option>
-            ))}
-          </Select>
-        </FormControl>
-
-        {/* Email */}
-        <FormControl id="date">
-          <FormLabel fontWeight={"bold"} fontSize={"sm"}>
-            Email
-          </FormLabel>
-          <Input
-            type="email"
-            name="email"
-            fontSize={"sm"}
-            placeholder="Email"
-            value={formData.email}
-            onChange={handleChange}
-          />
-        </FormControl>
-      </Flex>
-
-      <FormControl>
-        <FormLabel fontSize={"sm"} fontWeight={"semibold"}>
-          Contact Address
-        </FormLabel>
-        <Textarea
-          resize={"none"}
-          height={16}
-          name="contactAddress"
-          placeholder="Place of Residence"
-          value={formData.contactAddress}
+        <FormSelect
+          data={schoolData.staffRoles}
+          label={"Staff Primary Role"}
+          name={"primaryRole"}
+          formData={formData}
+          data_item_name={"name"}
+          data_item_value={"name"}
+          handleChange={handleChange}
         />
-      </FormControl>
 
-      <Flex gap={6} direction={{ base: "column", md: "row" }}>
-        {/* Phone Number */}
-        <FormControl id="date">
-          <FormLabel fontWeight={"bold"} fontSize={"sm"}>
-            Tel. Number
-          </FormLabel>
-          <Input
-            type="phoneNumber"
-            name="phoneNumber"
-            placeholder="Tel. Number"
-            fontSize={"sm"}
-            value={formData.phoneNumber}
-            onChange={handleChange}
-          />
-        </FormControl>
-
-        {/* WHatsApp Number */}
-        <FormControl id="date">
-          <FormLabel fontWeight={"bold"} fontSize={"sm"}>
-            WhatsApp Number
-          </FormLabel>
-          <Input
-            type="whatsappNumber"
-            name="whatsappNumber"
-            placeholder="Whatsapp Number"
-            fontSize={"sm"}
-            value={formData.whatsappNumber}
-            onChange={handleChange}
-          />
-        </FormControl>
+        <FormInput
+          name={"email"}
+          label={"Email"}
+          data={formData}
+          type="email"
+          handleChange={handleChange}
+        />
       </Flex>
 
-      <Button
-        w={"max-content"}
-        id="upload"
-        leftIcon={<MdUpload />}
-        mt={4}
-        mx={"auto"}
-        colorScheme="blue"
-        type="submit"
-        size={"sm"}
-        isLoading={loading}
-      >
-        Create Staff Account
-      </Button>
-    </form>
+      <FormTextArea
+        name={"contactAddress"}
+        label={"Contact Address"}
+        formData={formData}
+      />
+
+      {/* Phone Number & Whatsapp Number */}
+
+      <Flex gap={6} direction={{ base: "column", md: "row" }}>
+        <FormInput
+          type="tel"
+          name={"phoneNumber"}
+          label={"Tel. Number"}
+          data={formData}
+          handleChange={handleChange}
+        />
+
+        <FormInput
+          type="tel"
+          name={"whatsappNumber"}
+          label={"Whatsapp Number"}
+          data={formData}
+          handleChange={handleChange}
+        />
+      </Flex>
+
+      <FormButton loading={loading} label={"Create Staff Account"} />
+    </FormcContainer>
   );
 }

@@ -1,354 +1,218 @@
-import {
-  FormControl,
-  FormLabel,
-  Select,
-  Input,
-  Flex,
-  Text,
-  Button,
-} from "@chakra-ui/react";
+import { useClassDetails, useClasses } from "../../hooks";
+import { FormButton } from "../shared";
 
-import { MdArrowForward, MdUpload } from "react-icons/md";
+const StudentForm = ({ studentData }) => {
+  const { schoolClasses } = useClasses();
 
-const FirstForm = ({
-  activeFormIndex,
-  formData,
-  handleChange,
-  handleNextForm,
-  loading,
-  availableSubclasses,
-  schoolData,
-}) => {
+  const {
+    firstName,
+    lastName,
+    otherName,
+    gender,
+    dateOfBirth,
+    stateOfOrigin,
+    LGA,
+    studentType,
+    schoolClass,
+    subClass,
+    bloodGroup,
+    genoType,
+    contactAddress,
+    guardians,
+  } = studentData;
+
+  //TODO: Optimize formData search for empty array
+  const [formData, setFormData] = useState({
+    firstName: firstName || "",
+    lastName: lastName || "",
+    otherName: otherName || "",
+    gender: gender || "",
+    dateOfBirth: dateOfBirth || "",
+    stateOfOrigin: stateOfOrigin || "",
+    studentType: studentType || "",
+    schoolClass: schoolClass || "",
+    subClass: subClass || "",
+    bloodGroup: bloodGroup || "",
+    genoType: genoType || "",
+    contactAddress: contactAddress || "",
+    guardians: guardians || "",
+    LGA: LGA || "",
+  });
+
+  const { classDetails } = useClassDetails(schoolClass);
+
+  function handleInputChange(e) {
+    const { name, value, checked, type } = e.target;
+    const newValue = type === "checkbox" ? checked : value;
+    setFormData((prevFormData) => ({ ...prevFormData, [name]: newValue }));
+  }
+
+  const LGAs =
+    ngStates.find((ngState) => ngState.alias === formData.stateOfOrigin)
+      ?.lgas || [];
+
   return (
-    <Flex direction={"column"} rowGap={6} columnGap={8} pb={6}>
-      <Flex gap={6} direction={{ base: "column", md: "row" }}>
-        <FormControl id="date">
-          <FormLabel fontWeight={"bold"} fontSize={"sm"}>
-            First name
-          </FormLabel>
-          <Input
-            type="text"
-            name="firstName"
-            fontSize={"sm"}
-            value={formData.firstName}
-            placeholder={"First name"}
-            onChange={handleChange}
-          />
-        </FormControl>
-        <FormControl id="date">
-          <FormLabel fontWeight={"bold"} fontSize={"sm"}>
-            Surname
-          </FormLabel>
-          <Input
-            type="text"
-            name="lastName"
-            fontSize={"sm"}
-            value={formData.lastName}
-            placeholder={"Last name"}
-            onChange={handleChange}
-          />
-        </FormControl>
-      </Flex>
+    <FormcContainer>
+      {/* Avatar Upload, Active on Edit Mode */}
+      {action === "edit" && (
+        <AvatarUpload
+          formData={formData}
+          imgUrl={"avatarImageURL"}
+          thisUser={studentData}
+        />
+      )}
+      {/* Firstname & Lastname */}
+      <Grid gridTemplateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }} gap={4}>
+        <FormInput
+          name={"firstName"}
+          label={"First name"}
+          data={formData}
+          handleChange={handleInputChange}
+        />
 
-      {/* Date of Birth & Gneder*/}
-      <Flex gap={6} direction={{ base: "column", md: "row" }}>
-        <FormControl id="time">
-          <FormLabel fontWeight={"bold"} fontSize={"sm"}>
-            Gender
-          </FormLabel>
-          <Select
-            py={1}
-            name="gender"
-            fontSize={"sm"}
-            value={formData.gender}
-            onChange={handleChange}
-          >
-            <option value="">-- Select Gender --</option>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-          </Select>
-        </FormControl>
-        <FormControl id="time">
-          <FormLabel fontWeight={"bold"} fontSize={"sm"}>
-            Date of Birth
-          </FormLabel>
-          <Input
-            type="date"
-            fontSize={"sm"}
-            name="dateOfBirth"
-            value={formData.dateOfBirth}
-            onChange={handleChange}
-          />
-        </FormControl>
-      </Flex>
+        <FormInput
+          name={"lastName"}
+          label={"Last name"}
+          data={formData}
+          handleChange={handleInputChange}
+        />
+      </Grid>
+      {/* Middle name, Gender & Date of Birth */}
+      <Grid gridTemplateColumns={{ base: "1fr", md: "repeat(3, 1fr)" }} gap={4}>
+        <FormInput
+          name={"middleName"}
+          label={"Middle name"}
+          data={formData}
+          handleChange={handleInputChange}
+        />
 
-      <Flex gap={6} direction={{ base: "column", md: "row" }}>
-        {/* Class */}
-        <FormControl id="class">
-          <FormLabel fontWeight={"bold"} fontSize={"sm"}>
-            Class
-          </FormLabel>
-          <Select
-            py={1}
-            name="class"
-            fontSize={"sm"}
-            onChange={handleChange}
-            value={formData.class}
-          >
-            <option value="">-- Select class --</option>
-            {schoolData?.map((schoolClass, index) => (
-              <option key={index} value={schoolClass._id}>
-                {schoolClass.name}
-              </option>
-            ))}
-          </Select>
-        </FormControl>
+        <FormInput
+          name={"gender"}
+          label={"Gender"}
+          data={formData}
+          handleChange={handleInputChange}
+        />
 
-        {/* Subclass */}
-        {availableSubclasses.length > 0 && (
-          <FormControl id="subclass">
-            <FormLabel fontWeight={"bold"} fontSize={"sm"}>
-              Subclass
-            </FormLabel>
-            <Select
-              py={1}
-              name="subclass"
-              fontSize={"sm"}
-              onChange={handleChange}
-              value={formData.subclass}
-            >
-              <option value="">-- Select subclass --</option>
-              {availableSubclasses?.map((subclass, index) => (
-                <option key={index} value={subclass._id}>
-                  {subclass.name}
-                </option>
-              ))}
-            </Select>
-          </FormControl>
-        )}
-      </Flex>
+        <FormInput
+          name={"dateOfBirth"}
+          type="date"
+          label={"Date of Birth"}
+          data={formData}
+          handleChange={handleInputChange}
+        />
+      </Grid>
+      {/* Blood Group & Genotype */}
+      <Grid gridTemplateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }} gap={4}>
+        <FormSelect
+          data={[
+            { name: "A+", value: "a+" },
+            { name: "A-", value: "a-" },
+            { name: "O+", value: "o+" },
+          ]}
+          label={"Blood Group"}
+          name={"bloodGroup"}
+          formData={formData}
+          data_item_name={"name"}
+          data_item_value={"value"}
+          handleChange={handleInputChange}
+        />
 
-      {/* Class */}
-      <FormControl id="date">
-        <FormLabel fontWeight={"bold"} fontSize={"sm"}>
-          Student Type
-        </FormLabel>
-        <Select
-          py={1}
-          name="studentType"
-          fontSize={"sm"}
-          onChange={handleChange}
-          value={formData.studentType}
-        >
-          <option value="">-- Select Student Type --</option>
-          <option value="new">New Student</option>
-          <option value="returning">Returning Student</option>
-        </Select>
-      </FormControl>
+        <FormSelect
+          data={[
+            { name: "AA", value: "aa" },
+            { name: "AS", value: "as" },
+            { name: "ss", value: "ss" },
+          ]}
+          label={"Genotype"}
+          name={"genoType"}
+          formData={formData}
+          data_item_name={"name"}
+          data_item_value={"value"}
+          handleChange={handleInputChange}
+        />
+      </Grid>
+      {/* Student Type, Class and Sub Class */}
+      <Grid gridTemplateColumns={{ base: "1fr", md: "repeat(3, 1fr)" }} gap={4}>
+        <FormSelect
+          name={"studentType"}
+          label={"Student Type"}
+          data={[
+            { name: "New", value: "new" },
+            { name: "Existing", value: "existing" },
+          ]}
+          data_item_name={"name"}
+          data_item_value={"value"}
+          formData={formData}
+          action={action}
+          handleChange={handleInputChange}
+        />
 
-      <Text
-        as="small"
-        textAlign={"center"}
-        letterSpacing={0.5}
-        color={"warning.900"}
-        fontWeight={"bold"}
-      >
-        Student ID is generated on successful account creation.
-      </Text>
+        <FormSelect
+          name={"schoolClass"}
+          label={"Class"}
+          data={schoolClasses}
+          data_item_name={"name"}
+          data_item_value={"_id"}
+          formData={formData}
+          action={action}
+          handleChange={handleInputChange}
+        />
 
-      <Button
-        w={"max-content"}
-        id="upload"
-        rightIcon={<MdArrowForward />}
-        mx={"auto"}
-        size={"sm"}
-        colorScheme="blue"
-        type="button"
-        onClick={() => handleNextForm(activeFormIndex)}
-        isLoading={loading}
-      >
-        Next
-      </Button>
-    </Flex>
+        <FormSelect
+          name={"subClass"}
+          label={"Sub Class"}
+          data={classDetails?.subClasses}
+          data_item_name={"name"}
+          data_item_value={"_id"}
+          formData={formData}
+          action={action}
+          handleChange={handleInputChange}
+        />
+      </Grid>
+      {/* Contact Address */}
+      <FormTextArea
+        name={"contactAddress"}
+        label={"Contact Address"}
+        formData={formData}
+      />
+      {/* State of Origin & LGA */}
+      <Grid gridTemplateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }} gap={4}>
+        <FormSelect
+          data={ngStates}
+          label={"State of Origin"}
+          name={"stateOfOrigin"}
+          formData={formData}
+          data_item_name={"state"}
+          data_item_value={"alias"}
+          handleChange={handleInputChange}
+        />
+
+        <FormSelect
+          data={LGAs}
+          label={"Local Government Area"}
+          name={"LGA"}
+          formData={formData}
+          data_item_name={"name"}
+          data_item_value={"alias"}
+          handleChange={handleInputChange}
+        />
+      </Grid>
+      // TODO: List all Guardians that a guardian can be select and reltionship
+      to the Guardian
+      <fieldset>
+        <FormSelect
+          data={LGAs}
+          label={"Local Government Area"}
+          name={"LGA"}
+          formData={formData}
+          data_item_name={"name"}
+          data_item_value={"alias"}
+          handleChange={handleInputChange}
+        />
+      </fieldset>
+      <FormButton label={"Create Student Account"} />
+    </FormcContainer>
   );
 };
 
-const SecondForm = ({ formData, handleChange, loading }) => {
-  return (
-    <Flex direction={"column"} rowGap={6} columnGap={8} pb={6}>
-      <Flex gap={6} direction={{ base: "column", md: "row" }}>
-        <FormControl id="date" w={"220px"}>
-          <FormLabel fontWeight={"bold"} fontSize={"sm"}>
-            Title
-          </FormLabel>
-          <Select
-            name="guardianTitle"
-            fontSize={"sm"}
-            onChange={handleChange}
-            value={formData.guardianTitle}
-          >
-            <option value="">-- Select Title --</option>
-            <option value="mr">Mr.</option>
-            <option value="mr">Mrs.</option>
-            <option value="mr">Miss.</option>
-            <option value="mr">Dr.</option>
-            <option value="mr">Prof.</option>
-            <option value="mr">Engr.</option>
-          </Select>
-        </FormControl>
-
-        <FormControl id="date">
-          <FormLabel fontWeight={"bold"} fontSize={"sm"}>
-            First name
-          </FormLabel>
-          <Input
-            type="text"
-            name="guardianFirstName"
-            fontSize={"sm"}
-            value={formData.guardianFirstName}
-            placeholder={"First name"}
-            onChange={handleChange}
-          />
-        </FormControl>
-      </Flex>{" "}
-      <Flex gap={6} direction={{ base: "column", md: "row" }}>
-        <FormControl id="date">
-          <FormLabel fontWeight={"bold"} fontSize={"sm"}>
-            Surname
-          </FormLabel>
-          <Input
-            type="text"
-            name="guardianLastName"
-            fontSize={"sm"}
-            value={formData.guardianLastName}
-            placeholder={"Last name"}
-            onChange={handleChange}
-          />
-        </FormControl>
-        <FormControl id="date">
-          <FormLabel fontWeight={"bold"} fontSize={"sm"}>
-            Relationship
-          </FormLabel>
-          <Select
-            name="relationshipToGuardian"
-            fontSize={"sm"}
-            onChange={handleChange}
-            value={formData.relationshipToGuardian}
-          >
-            <option value="">-- Select Relationship --</option>
-            <option value="father">Father</option>
-            <option value="mother">Mother</option>
-            <option value="brother">Brother</option>
-            <option value="sister">Sister</option>
-            <option value="aunt">Aunt</option>
-            <option value="Uncle">Uncle</option>
-            <option value="Others">Others</option>
-          </Select>
-        </FormControl>
-      </Flex>
-      <Flex gap={6} direction={{ base: "column", md: "row" }}>
-        <FormControl id="date" maxW={"40%"}>
-          <FormLabel fontWeight={"bold"} fontSize={"sm"}>
-            Whatsapp Number
-          </FormLabel>
-          <Input
-            type="tel"
-            name="guardianWhatsappNumber"
-            fontSize={"sm"}
-            value={formData.guardianWhatsappNumber}
-            placeholder={"Whatsapp Number"}
-            onChange={handleChange}
-          />
-        </FormControl>
-        <FormControl id="date">
-          <FormLabel fontWeight={"bold"} fontSize={"sm"}>
-            Tel. Number
-          </FormLabel>
-          <Input
-            type="tel"
-            name="guardianPhoneNumber"
-            fontSize={"sm"}
-            value={formData.guardianPhoneNumber}
-            placeholder={"Tel. Number"}
-            onChange={handleChange}
-          />
-        </FormControl>
-      </Flex>
-      <FormControl id="date">
-        <FormLabel fontWeight={"bold"} fontSize={"sm"}>
-          Email
-        </FormLabel>
-        <Input
-          type="email"
-          name="guardianEmail"
-          fontSize={"sm"}
-          value={formData.guardianEmail}
-          placeholder={"Email"}
-          onChange={handleChange}
-        />
-      </FormControl>
-      <Text
-        as="small"
-        textAlign={"center"}
-        letterSpacing={0.5}
-        color={"warning.900"}
-        fontWeight={"bold"}
-      >
-        An email will be sent with login details, on successful account
-        creation.
-      </Text>
-      <Button
-        w={"max-content"}
-        id="upload"
-        leftIcon={<MdUpload />}
-        size={"sm"}
-        mx={"auto"}
-        colorScheme="blue"
-        type="submit"
-        isLoading={loading}
-      >
-        Create Student Account
-      </Button>
-    </Flex>
-  );
-};
-
-export default function StudentForm({
-  activeFormIndex,
-  setActiveFormIndex,
-  handleChange,
-  handleNextForm,
-  loading,
-  formData,
-  availableSubclasses,
-  handleFormSubmit,
-  schoolData,
-}) {
-  return (
-    <form onSubmit={handleFormSubmit}>
-      {activeFormIndex === 1 && (
-        <FirstForm
-          formData={formData}
-          handleChange={handleChange}
-          handleNextForm={handleNextForm}
-          loading={loading}
-          schoolData={schoolData}
-          activeFormIndex={activeFormIndex}
-          setActiveFormIndex={setActiveFormIndex}
-          availableSubclasses={availableSubclasses}
-        />
-      )}
-
-      {activeFormIndex === 2 && (
-        <SecondForm
-          formData={formData}
-          handleChange={handleChange}
-          handleFormSubmit={handleFormSubmit}
-          loading={loading}
-          activeFormIndex={activeFormIndex}
-          setActiveFormIndex={setActiveFormIndex}
-        />
-      )}
-    </form>
-  );
-}
+export default StudentForm;
