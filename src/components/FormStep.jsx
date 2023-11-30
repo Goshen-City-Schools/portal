@@ -1,6 +1,17 @@
 import React, { useState } from "react";
 import { Box, Button, Text, Flex, Spacer, VStack } from "@chakra-ui/react";
-import { StudentPersonalDetailsUpdateForm } from "../screens/StudentUpdateScreen";
+import {
+  StudentGuardianUpdateForm,
+  StudentPersonalDetailsUpdateForm,
+} from "../screens/StudentUpdateScreen";
+
+const PrevButton = ({ onPrev }) => {
+  return (
+    <Button size={"sm"} variant={"outline"} colorScheme="blue" onClick={onPrev}>
+      Previous
+    </Button>
+  );
+};
 
 const Step1 = ({ onNext, formComponent }) => (
   <VStack align="start" spacing={4}>
@@ -11,7 +22,7 @@ const Step1 = ({ onNext, formComponent }) => (
   </VStack>
 );
 
-const Step2 = ({ onPrev, onNext, formComponent }) => (
+const Step2 = ({ onPrev, onFinish, formComponent }) => (
   <VStack align="start" spacing={4}>
     {formComponent}
     <Flex
@@ -21,36 +32,10 @@ const Step2 = ({ onPrev, onNext, formComponent }) => (
       alignItems={"center"}
       w={"full"}
     >
-      <Button
-        size={"sm"}
-        variant={"outline"}
-        colorScheme="blue"
-        onClick={onPrev}
-      >
-        Previous
-      </Button>
-      <Spacer />
-      <Button size={"sm"} colorScheme="blue" onClick={onNext}>
-        Next
-      </Button>
-    </Flex>
-  </VStack>
-);
+      <PrevButton onPrev={onPrev} />
 
-const Step3 = ({ onPrev, onFinish, formComponent }) => (
-  <VStack align="start" spacing={4}>
-    {formComponent}
-    <Flex gap={4} mt={4}>
-      <Button
-        size={"sm"}
-        variant={"outline"}
-        colorScheme="blue"
-        onClick={onPrev}
-      >
-        Previous
-      </Button>
       <Spacer />
-      <Button size={"sm"} colorScheme="green" onClick={onFinish}>
+      <Button size={"sm"} colorScheme="blue" onClick={onFinish}>
         Finish
       </Button>
     </Flex>
@@ -71,13 +56,8 @@ const ThreeStepForm = ({ studentData }) => {
     },
     {
       title: "Guardian Information",
-      component: "d ",
+      component: <StudentGuardianUpdateForm guardianData={studentData} />,
       step: 2,
-    },
-    {
-      title: "Health Information",
-      component: "d kmknk",
-      step: 3,
     },
   ];
   const [currentStep, setCurrentStep] = useState(1);
@@ -136,13 +116,6 @@ const ThreeStepForm = ({ studentData }) => {
       )}
       {currentStep === 2 && (
         <Step2
-          onPrev={handlePrev}
-          onNext={handleNext}
-          formComponent={currentForm.component}
-        />
-      )}
-      {currentStep === 3 && (
-        <Step3
           onPrev={handlePrev}
           onFinish={handleFinish}
           formComponent={currentForm.component}

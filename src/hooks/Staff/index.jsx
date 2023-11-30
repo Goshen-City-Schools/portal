@@ -27,4 +27,29 @@ const useStaffs = () => {
   return { staffsData: memoizedStaffs, loading, setStaffsData };
 };
 
-export default useStaffs;
+const useStaff = (staffId) => {
+  const [staffData, setStaffData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`/api/v1/staff/${staffId}`); // Update with your API endpoint
+        setStaffData(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching staffs:", error.message);
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  // Memoize the value to prevent unnecessary re-renders
+  const memoizedStaff = useMemo(() => staffData, [staffData]);
+
+  return { staffData: memoizedStaff, loading, setStaffData };
+};
+
+export { useStaffs, useStaff };

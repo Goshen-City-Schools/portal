@@ -21,8 +21,8 @@ export default function EditStudentPage() {
   return (
     <PageWrapper>
       <PageSectionHeader
-        pageTitle={`Editing ${firstName} Profile`}
-        pageCrumb={`Home / Students / ${firstName} / edit`}
+        pageTitle={`Student Profile Edit`}
+        pageCrumb={`Home / Students / ${firstName} `}
       />
 
       <Box
@@ -32,7 +32,7 @@ export default function EditStudentPage() {
         width={"full"}
         maxW={"2xl"}
         rounded={"lg"}
-        mt={8}
+        my={8}
         mx={"auto"}
       >
         <ThreeStepForm studentData={studentData} />

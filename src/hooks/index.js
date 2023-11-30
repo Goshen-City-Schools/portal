@@ -1,7 +1,7 @@
 import useFees from "./Fees";
 import { useClasses, useStudentClassDetails } from "./school_classes";
 import { useClassDetails } from "./school_classes";
-import useStaffs from "./Staff";
+import { useStaffs, useStaff } from "./Staff";
 import { useStudent, useStudents } from "./Students";
 
 export {
@@ -11,5 +11,6 @@ export {
   useClasses,
   useFees,
   useStaffs,
+  useStaff,
   useStudent,
 };
