@@ -20,13 +20,49 @@ This project is developed with a minimal setup to get React working in Vite with
 - [ ] Payment page
 - [ ] Home Page
 
-Student selects Invoice
-Sees the previous invoice generated, if any
-Click Generate nee invoice
-Select session, term, payment purpose and payment method.
+<br />
 
-For any new invoice generate, and 'I've made payment button have not been clicked, the button appears and the student clicks.
+## Registration
 
-It triggers a Modal component that the student uploads payment confirmation and submits.
+> ### Staff
 
-Admin gets notification to confirm transaction that reciept will be available on students portal for printing whilst the student is informed to check back to print reciept
+> - [x] Firstname
+> - [x] Surname
+> - [x] Date of Birth
+> - [x] Gender
+> - [x] State of Origin
+> - [x] Local Government Area
+> - [x] Primary Role
+> - [x] Email
+> - [x] Contact Address
+> - [x] Phone Number
+> - [x] WhatsApp Number
+
+
+> ### Student
+
+> - [x] Firstname
+> - [x] Surname
+> - [ ] Middle name
+> - [x] Date of Birth
+> - [x] Gender
+> - [x] State of Origin
+> - [x] Local Government Area
+> - [x] Student type
+> - [x] Contact Address
+
+> ### Guardian
+
+> - [x] Title
+> - [x] Firstname
+> - [x] Surname
+> - [ ] Occupation
+> - [x] Relationship to Student
+> - [x] State of Residence
+> - [x] Email
+> - [x] Phone Number
+> - [x] Contact Address
+> - [x] Email address
+> - [x] WhatsApp Number
+
+
