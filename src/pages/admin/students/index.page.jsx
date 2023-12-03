@@ -138,8 +138,8 @@ export default function StudentsPage() {
         )}
       </Flex>
 
-      <Box px={8} py={2} pb={10} bg={"white"} rounded={"lg"}>
-        <Flex alignItems={"center"} gap={4} my={4}>
+      <Box>
+        <Flex alignItems={"center"} gap={4} my={4} mb={8}>
           <HStack width={"full"}>
             <Text flexShrink={0} fontWeight={"bold"} as={"small"}>
               Filter by:

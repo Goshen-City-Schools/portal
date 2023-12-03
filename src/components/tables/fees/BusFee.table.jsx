@@ -28,7 +28,6 @@ export default function BusFeeTable() {
       label: "Edit Fee",
       icon: <MdEdit />,
       onClick: () => {
-        console.log("ds");
         handleEditAction(id);
       },
     },

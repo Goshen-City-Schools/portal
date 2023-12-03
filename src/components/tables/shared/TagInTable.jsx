@@ -6,6 +6,7 @@ export default function TagInTable({
   label,
   colorScheme,
   variant,
+  index,
   ...properties
 }) {
   return (

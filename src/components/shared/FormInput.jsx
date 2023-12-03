@@ -8,7 +8,8 @@ export default function FormInput({
   handleChange,
   type = "text",
   data,
-  placeholder = name,
+  placeholder = label,
+  ...params
 }) {
   return (
     <FormControl id={name}>
@@ -22,6 +23,7 @@ export default function FormInput({
         value={data[name]}
         placeholder={placeholder}
         onChange={handleChange}
+        {...params}
       />
     </FormControl>
   );

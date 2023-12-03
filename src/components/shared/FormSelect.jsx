@@ -29,7 +29,7 @@ export default function FormSelect({
 
         {action === "edit"
           ? children
-          : data.map((data_item) => (
+          : data?.map((data_item) => (
               <option
                 key={data_item[data_item_value]}
                 value={data_item[data_item_value]}

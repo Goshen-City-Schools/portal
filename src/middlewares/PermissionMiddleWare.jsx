@@ -79,6 +79,21 @@ const routes = [
     allowedAccountTypes: ["staff"],
   },
   {
+    path: "/admin/subjects",
+    allowedRoles: ["IT Personnel", "Class Teacher"],
+    allowedAccountTypes: ["staff"],
+  },
+  {
+    path: "/admin/subjects/new",
+    allowedRoles: ["IT Personnel", "Class Teacher"],
+    allowedAccountTypes: ["staff"],
+  },
+  {
+    path: "/admin/subjects/:subjectId/edit",
+    allowedRoles: ["IT Personnel", "Class Teacher"],
+    allowedAccountTypes: ["staff"],
+  },
+  {
     path: "/admin/classes",
     allowedRoles: ["IT Personnel", "Class Teacher"],
     allowedAccountTypes: ["staff"],

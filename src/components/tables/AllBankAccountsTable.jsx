@@ -7,7 +7,7 @@ import Table from "../../widgets/Table.widget";
 import RowId from "./shared/RowId";
 
 export default function AllBankAccountsTable() {
-  const actionsMenu = [
+  const actionsMenu = () => [
     {
       name: "editBankDetails",
       label: "Edit Details",

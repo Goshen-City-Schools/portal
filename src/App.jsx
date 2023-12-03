@@ -46,6 +46,9 @@ import LoginScreen from "./screens/Login.screen";
 import AllEventsPage from "./pages/admin/events";
 import FinancePage from "./pages/admin/finance/";
 import EditStudentPage from "./pages/admin/students/EditStudent";
+import SubjectsPage from "./pages/admin/subjects";
+import EditSubject from "./pages/admin/subjects/EditSubject";
+import NewSubjectPage from "./pages/admin/subjects/NewSubject";
 
 const App = () => {
   return (
@@ -65,6 +68,7 @@ const App = () => {
         <Route index element={<AdminHome />} />
         <Route path="home" element={<AdminHome />} />
         <Route path="profile" element={<MyProfilePage />} />
+
         <Route path="students">
           <Route index element={<StudentsPage />} />
           <Route path="new" element={<CreateNewStudent />} />
@@ -92,6 +96,12 @@ const App = () => {
           <Route path="upload" element={<UploadResultPage />} />
           <Route path="settings" element={<ResultSettingsPage />} />
           <Route path=":session/:term/:userId" element={<ResultSinglePage />} />
+        </Route>
+
+        <Route path="subjects">
+          <Route index element={<SubjectsPage />} />
+          <Route path="new" element={<NewSubjectPage />} />
+          <Route path=":subjectId/edit" element={<EditSubject />} />
         </Route>
 
         <Route path="events">

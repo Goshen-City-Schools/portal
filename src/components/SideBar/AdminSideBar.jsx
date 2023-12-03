@@ -11,6 +11,7 @@ import allowedUserRoles from "../../helpers/allowedUserRoles";
 import { Box, List, Flex, Text, VStack } from "@chakra-ui/react";
 
 import { TbFolderSearch } from "react-icons/tb";
+import { RiParentLine } from "react-icons/ri";
 import { PiChalkboardTeacherDuotone, PiDotsNine } from "react-icons/pi";
 import { FaChevronRight, FaTimes } from "react-icons/fa";
 import {
@@ -26,6 +27,7 @@ import {
   MdOutlineBroadcastOnPersonal,
   MdAccessible,
   MdSettings,
+  MdSubject,
 } from "react-icons/md";
 
 import { PiStudentDuotone } from "react-icons/pi";
@@ -177,6 +179,30 @@ export default function AdminSideBar({ sideBarView, handleClick }) {
                 Students
               </NavItemComponent>
             )}
+
+            {allowedUserRoles(user, ["IT Personnel", "Class Teacher"]) && (
+              <NavItemComponent
+                submenu={[
+                  {
+                    name: "Manage Parents",
+                    link: "/admin/parents",
+                    icon: <MdEditDocument size={12} />,
+                  },
+                  {
+                    link: "/admin/parents",
+                    name: "Add Parent",
+                    icon: <MdAdd size={14} />,
+                    roles: ["IT Personnel"],
+                    onClick: () => handleClick("createClass"),
+                  },
+                ]}
+              >
+                <IconComponent color={"warning.200"}>
+                  <RiParentLine size={18} />
+                </IconComponent>
+                Parents
+              </NavItemComponent>
+            )}
             {/* Staff Navigation */}
             {allowedUserRoles(user, ["IT Personnel"]) && (
               <NavItemComponent
@@ -208,6 +234,30 @@ export default function AdminSideBar({ sideBarView, handleClick }) {
                   <PiChalkboardTeacherDuotone size={18} />
                 </IconComponent>
                 Staff
+              </NavItemComponent>
+            )}
+
+            {allowedUserRoles(user, ["IT Personnel", "Class Teacher"]) && (
+              <NavItemComponent
+                submenu={[
+                  {
+                    name: "Manage Subjects",
+                    link: "/admin/subjects",
+                    icon: <MdEditDocument size={12} />,
+                  },
+                  {
+                    link: "/admin/subjects",
+                    name: "Add New Subject",
+                    icon: <MdAdd size={14} />,
+                    roles: ["IT Personnel"],
+                    onClick: () => handleClick("createSubject"),
+                  },
+                ]}
+              >
+                <IconComponent color={"warning.200"}>
+                  <MdSubject size={18} />
+                </IconComponent>
+                Subjects
               </NavItemComponent>
             )}
             {/* Classes Navigation */}

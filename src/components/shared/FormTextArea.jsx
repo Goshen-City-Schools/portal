@@ -4,7 +4,7 @@ export default function FormTextArea({
   name,
   label,
   formData,
-  placeholder = name,
+  placeholder = label,
 }) {
   return (
     <FormControl>
@@ -12,6 +12,7 @@ export default function FormTextArea({
         {label}
       </FormLabel>
       <Textarea
+        fontSize={"sm"}
         resize={"none"}
         height={16}
         name="contactAddress"

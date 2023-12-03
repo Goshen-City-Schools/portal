@@ -257,33 +257,11 @@ export default function CreateNewStudent() {
         maxW={"2xl"}
         shadow={"sm"}
         mx={"auto"}
-        px={8}
+        p={8}
         bg={"white"}
         rounded={"lg"}
         fontSize={"sm"}
       >
-        <Flex id="formTabIndex" mb={8} pt={2}>
-          {formTabs.map((formTab) => (
-            <Box
-              key={formTab.id}
-              p={2}
-              py={4}
-              px={4}
-              fontSize={"sm"}
-              fontWeight={"bold"}
-              borderBottom={"3px solid transparent"}
-              borderColor={
-                formTab.id === activeFormIndex ? "brand.900" : "gray.200"
-              }
-              color={formTab.id === activeFormIndex ? "brand.900" : "gray.600"}
-              cursor="pointer"
-              onClick={() => handleSetFormIndex(formTab.id)}
-            >
-              {formTab.name}
-            </Box>
-          ))}
-        </Flex>
-
         <StudentForm
           formData={formData}
           activeFormIndex={activeFormIndex}

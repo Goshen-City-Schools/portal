@@ -90,12 +90,13 @@ export default function AllStaffPage() {
         </Flex>
       </Flex>
 
-      <Box px={8} py={6} pb={10} bg={"white"} rounded={"lg"}>
+      <Box>
         <Flex
           alignItems={"center"}
           justifyContent={"space-between"}
           gap={4}
           my={4}
+          mb={4}
         >
           <HStack mb={4}>
             <Text flexShrink={0} fontWeight={"bold"} as={"small"}>

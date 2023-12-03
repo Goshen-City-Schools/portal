@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import SearchUserForm from "../components/forms/SearchUserForm";
 import CreateSubClassPortal from "../portals/CreateSubClass.portal";
 import CreateEventPortal from "../portals/CreateEvent.portal";
+import AddSubjectPortal from "../portals/AddSubject.portal";
 
 export default function AdminLayout() {
   const navigate = useNavigate();
@@ -45,6 +46,7 @@ export default function AdminLayout() {
       );
 
     if (type === "event") return openPortal(<CreateEventPortal />);
+    if (type === "createSubject") return openPortal(<AddSubjectPortal />);
 
     if (type === "createClass") return openPortal(<CreateSubClassPortal />);
   };

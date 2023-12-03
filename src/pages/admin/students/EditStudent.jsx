@@ -6,8 +6,7 @@ import { Box } from "@chakra-ui/react";
 
 import PageWrapper from "../../../components/PageWrapper";
 import PageSectionHeader from "../../../components/PageSectionHeader";
-import StudentUpdateScreen from "../../../screens/StudentUpdateScreen";
-import ThreeStepForm from "../../../components/FormStep";
+import StudentForm from "../../../components/forms/StudentForm";
 
 export default function EditStudentPage() {
   const studentId = useParams();
@@ -35,7 +34,7 @@ export default function EditStudentPage() {
         my={8}
         mx={"auto"}
       >
-        <ThreeStepForm studentData={studentData} />
+        <StudentForm action={"edit"} studentData={studentData} />
       </Box>
     </PageWrapper>
   );

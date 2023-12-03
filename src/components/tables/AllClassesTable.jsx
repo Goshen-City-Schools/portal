@@ -10,7 +10,7 @@ import { IoMdEye } from "react-icons/io";
 import { MdDelete, MdEdit } from "react-icons/md";
 
 const AllClassesTable = ({ data, studentsData }) => {
-  const actionsMenu = [
+  const actionsMenu = (id) => [
     {
       name: "viewClass",
       label: "View Class",

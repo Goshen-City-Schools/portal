@@ -181,7 +181,11 @@ export default function StaffForm({ action, staffData, schoolData }) {
       ?.lgas || [];
 
   return (
-    <FormcContainer handleFormSubmit={handleFormSubmit}>
+    <FormcContainer
+      handleFormSubmit={handleFormSubmit}
+      classesParams={"px-8 py-8"}
+      px={4}
+    >
       {/* Avatar Upload, Active on Edit Mode */}
       {action === "edit" && (
         <AvatarUpload

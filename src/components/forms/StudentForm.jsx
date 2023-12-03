@@ -1,9 +1,91 @@
-import { useClassDetails, useClasses } from "../../hooks";
-import { FormButton } from "../shared";
+import React, { useState } from "react";
 
-const StudentForm = ({ studentData }) => {
-  const { schoolClasses } = useClasses();
+import { VStack, Flex, Box, Text, Button, Spacer } from "@chakra-ui/react";
 
+import { GuardianFormControlller } from "./GuardianForm";
+import StudentDetailsForm from "./StudentDetailsForm";
+import StudentSubjectsTableForm from "./StudentSubjectsTableForm";
+import { useSubjects } from "../../hooks/Subjects";
+import { MdChevronLeft, MdChevronRight } from "react-icons/md";
+import { handleInputChange } from "../../helpers/handleInputChange";
+import { useCallback } from "react";
+
+const PrevButton = ({ onPrev }) => {
+  return (
+    <Button
+      leftIcon={<MdChevronLeft />}
+      size={"sm"}
+      variant={"outline"}
+      colorScheme="blue"
+      onClick={onPrev}
+    >
+      Previous
+    </Button>
+  );
+};
+
+const Step1 = ({ onNext, formComponent }) => (
+  <VStack align="start" spacing={4}>
+    {formComponent}
+    <Button
+      rightIcon={<MdChevronRight />}
+      mt={4}
+      mx={"auto"}
+      size={"sm"}
+      colorScheme="blue"
+      onClick={onNext}
+    >
+      Next
+    </Button>
+  </VStack>
+);
+
+const Step2 = ({ onPrev, onNext, formComponent }) => (
+  <VStack align="start" spacing={4}>
+    {formComponent}
+    <Flex
+      gap={4}
+      mt={4}
+      justifyContent={"center"}
+      alignItems={"center"}
+      w={"full"}
+    >
+      <PrevButton onPrev={onPrev} />
+
+      <Spacer />
+      <Button
+        rightIcon={<MdChevronRight />}
+        size={"sm"}
+        colorScheme="blue"
+        onClick={onNext}
+      >
+        Next
+      </Button>
+    </Flex>
+  </VStack>
+);
+
+const Step3 = ({ onPrev, onFinish, formComponent }) => (
+  <VStack align="start" spacing={4}>
+    {formComponent}
+    <Flex
+      gap={4}
+      mt={4}
+      justifyContent={"center"}
+      alignItems={"center"}
+      w={"full"}
+    >
+      <PrevButton onPrev={onPrev} />
+
+      <Spacer />
+      <Button size={"sm"} colorScheme="blue" onClick={onFinish}>
+        Finish
+      </Button>
+    </Flex>
+  </VStack>
+);
+
+export default function StudentForm({ action, studentData }) {
   const {
     firstName,
     lastName,
@@ -17,11 +99,11 @@ const StudentForm = ({ studentData }) => {
     subClass,
     bloodGroup,
     genoType,
+    guardian,
     contactAddress,
-    guardians,
-  } = studentData;
+    subjects,
+  } = studentData || {};
 
-  //TODO: Optimize formData search for empty array
   const [formData, setFormData] = useState({
     firstName: firstName || "",
     lastName: lastName || "",
@@ -34,185 +116,126 @@ const StudentForm = ({ studentData }) => {
     subClass: subClass || "",
     bloodGroup: bloodGroup || "",
     genoType: genoType || "",
+    guaurdianId: guardian?.id || "",
+    guardianRelationship: guardian?.relationship || "",
     contactAddress: contactAddress || "",
-    guardians: guardians || "",
     LGA: LGA || "",
+    subjects: subjects || "",
   });
 
-  const { classDetails } = useClassDetails(schoolClass);
+  const handleChange = useCallback((e) => {
+    handleInputChange(e, setFormData);
+  }, []);
 
-  function handleInputChange(e) {
-    const { name, value, checked, type } = e.target;
-    const newValue = type === "checkbox" ? checked : value;
-    setFormData((prevFormData) => ({ ...prevFormData, [name]: newValue }));
-  }
+  const { subjectsData } = useSubjects();
 
-  const LGAs =
-    ngStates.find((ngState) => ngState.alias === formData.stateOfOrigin)
-      ?.lgas || [];
+  const forms = [
+    {
+      title: "Student Details",
+      component: (
+        <StudentDetailsForm
+          action={action}
+          handleInputChange={handleChange}
+          formData={formData}
+          studentData={studentData}
+        />
+      ),
+      step: 1,
+    },
+    {
+      title: "Guardian Information",
+      component: (
+        <GuardianFormControlller
+          handleInputChange={handleChange}
+          formData={formData}
+        />
+      ),
+      step: 2,
+    },
+    {
+      title: "Class Subjects",
+      component: (
+        <StudentSubjectsTableForm
+          subjectsData={subjectsData}
+          setFormData={setFormData}
+          studentData={studentData}
+          formData={formData}
+          handleUserInputChange={handleChange}
+        />
+      ),
+      step: 3,
+    },
+  ];
+
+  const [currentStep, setCurrentStep] = useState(1);
+
+  const handleNext = () => {
+    setCurrentStep((prevStep) => prevStep + 1);
+  };
+
+  const handlePrev = () => {
+    setCurrentStep((prevStep) => prevStep - 1);
+  };
+
+  const handleFinish = () => {
+    alert("Form submitted successfully!");
+    // Add logic to handle form submission or navigation after the final step
+  };
+
+  const currentForm = forms.find((form) => form.step === currentStep);
 
   return (
-    <FormcContainer>
-      {/* Avatar Upload, Active on Edit Mode */}
-      {action === "edit" && (
-        <AvatarUpload
-          formData={formData}
-          imgUrl={"avatarImageURL"}
-          thisUser={studentData}
+    <VStack spacing={4} align="stretch">
+      {/* Circular progress indicators with connecting lines */}
+      <Flex align="center" mb={4}>
+        {forms.map(({ step, title }) => (
+          <React.Fragment key={step}>
+            {step !== 1 && <Box flex="1" h="2px" bgColor="gray.200" />}
+            <VStack align="center">
+              <Box
+                w="30px"
+                h="30px"
+                borderRadius="50%"
+                bgColor={currentStep === step ? "blue.500" : "gray.200"}
+                color={currentStep === step ? "white" : "black"}
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+                fontWeight="bold"
+                zIndex={1}
+              >
+                {step}
+              </Box>
+              <Text
+                fontSize="xs"
+                whiteSpace={"pre-wrap"}
+                wordBreak={"break-all"}
+              >
+                {currentStep === step ? <strong>{title}</strong> : title}
+              </Text>
+            </VStack>
+          </React.Fragment>
+        ))}
+      </Flex>
+
+      {/* Render the current step */}
+      {currentStep === 1 && (
+        <Step1 onNext={handleNext} formComponent={currentForm.component} />
+      )}
+      {currentStep === 2 && (
+        <Step2
+          onPrev={handlePrev}
+          onNext={handleNext}
+          formComponent={currentForm.component}
         />
       )}
-      {/* Firstname & Lastname */}
-      <Grid gridTemplateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }} gap={4}>
-        <FormInput
-          name={"firstName"}
-          label={"First name"}
-          data={formData}
-          handleChange={handleInputChange}
+      {currentStep === 3 && (
+        <Step3
+          onPrev={handlePrev}
+          onFinish={handleFinish}
+          formComponent={currentForm.component}
         />
-
-        <FormInput
-          name={"lastName"}
-          label={"Last name"}
-          data={formData}
-          handleChange={handleInputChange}
-        />
-      </Grid>
-      {/* Middle name, Gender & Date of Birth */}
-      <Grid gridTemplateColumns={{ base: "1fr", md: "repeat(3, 1fr)" }} gap={4}>
-        <FormInput
-          name={"middleName"}
-          label={"Middle name"}
-          data={formData}
-          handleChange={handleInputChange}
-        />
-
-        <FormInput
-          name={"gender"}
-          label={"Gender"}
-          data={formData}
-          handleChange={handleInputChange}
-        />
-
-        <FormInput
-          name={"dateOfBirth"}
-          type="date"
-          label={"Date of Birth"}
-          data={formData}
-          handleChange={handleInputChange}
-        />
-      </Grid>
-      {/* Blood Group & Genotype */}
-      <Grid gridTemplateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }} gap={4}>
-        <FormSelect
-          data={[
-            { name: "A+", value: "a+" },
-            { name: "A-", value: "a-" },
-            { name: "O+", value: "o+" },
-          ]}
-          label={"Blood Group"}
-          name={"bloodGroup"}
-          formData={formData}
-          data_item_name={"name"}
-          data_item_value={"value"}
-          handleChange={handleInputChange}
-        />
-
-        <FormSelect
-          data={[
-            { name: "AA", value: "aa" },
-            { name: "AS", value: "as" },
-            { name: "ss", value: "ss" },
-          ]}
-          label={"Genotype"}
-          name={"genoType"}
-          formData={formData}
-          data_item_name={"name"}
-          data_item_value={"value"}
-          handleChange={handleInputChange}
-        />
-      </Grid>
-      {/* Student Type, Class and Sub Class */}
-      <Grid gridTemplateColumns={{ base: "1fr", md: "repeat(3, 1fr)" }} gap={4}>
-        <FormSelect
-          name={"studentType"}
-          label={"Student Type"}
-          data={[
-            { name: "New", value: "new" },
-            { name: "Existing", value: "existing" },
-          ]}
-          data_item_name={"name"}
-          data_item_value={"value"}
-          formData={formData}
-          action={action}
-          handleChange={handleInputChange}
-        />
-
-        <FormSelect
-          name={"schoolClass"}
-          label={"Class"}
-          data={schoolClasses}
-          data_item_name={"name"}
-          data_item_value={"_id"}
-          formData={formData}
-          action={action}
-          handleChange={handleInputChange}
-        />
-
-        <FormSelect
-          name={"subClass"}
-          label={"Sub Class"}
-          data={classDetails?.subClasses}
-          data_item_name={"name"}
-          data_item_value={"_id"}
-          formData={formData}
-          action={action}
-          handleChange={handleInputChange}
-        />
-      </Grid>
-      {/* Contact Address */}
-      <FormTextArea
-        name={"contactAddress"}
-        label={"Contact Address"}
-        formData={formData}
-      />
-      {/* State of Origin & LGA */}
-      <Grid gridTemplateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }} gap={4}>
-        <FormSelect
-          data={ngStates}
-          label={"State of Origin"}
-          name={"stateOfOrigin"}
-          formData={formData}
-          data_item_name={"state"}
-          data_item_value={"alias"}
-          handleChange={handleInputChange}
-        />
-
-        <FormSelect
-          data={LGAs}
-          label={"Local Government Area"}
-          name={"LGA"}
-          formData={formData}
-          data_item_name={"name"}
-          data_item_value={"alias"}
-          handleChange={handleInputChange}
-        />
-      </Grid>
-      // TODO: List all Guardians that a guardian can be select and reltionship
-      to the Guardian
-      <fieldset>
-        <FormSelect
-          data={LGAs}
-          label={"Local Government Area"}
-          name={"LGA"}
-          formData={formData}
-          data_item_name={"name"}
-          data_item_value={"alias"}
-          handleChange={handleInputChange}
-        />
-      </fieldset>
-      <FormButton label={"Create Student Account"} />
-    </FormcContainer>
+      )}
+    </VStack>
   );
-};
-
-export default StudentForm;
+}

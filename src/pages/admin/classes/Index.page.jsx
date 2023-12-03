@@ -112,7 +112,6 @@ export const getNumberOfStudentsInClass = (studentsData, classId) => {
 };
 
 export default function ClassesPage() {
-  const toast = useToast();
   const { openPortal, closePortal } = useModal();
   const { studentsData } = useStudents();
   const navigate = useNavigate();
@@ -167,8 +166,8 @@ export default function ClassesPage() {
 
       {/*  */}
 
-      <Box px={8} py={2} pb={10} bg={"white"} rounded={"lg"}>
-        <Flex alignItems={"center"} gap={4} my={4} w={"full"}>
+      <Box>
+        <Flex alignItems={"center"} gap={4} my={4} w={"full"} mb={4}>
           <HStack width={"full"}>
             <Text flexShrink={0} fontWeight={"bold"} as={"small"}>
               Filter by:

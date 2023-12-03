@@ -57,7 +57,7 @@ const DataTable = ({ columns, data, fullWidthColumns, customPageSize }) => {
           ...customStyles,
         }}
       >
-        <Thead bg={"neutral.300"} whiteSpace={"nowrap"}>
+        <Thead bg={"white"} whiteSpace={"nowrap"}>
           {headerGroups.map((headerGroup, index) => (
             <Tr key={index} {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column, index) => (
@@ -132,7 +132,11 @@ const DataTable = ({ columns, data, fullWidthColumns, customPageSize }) => {
           })}
         </Tbody>
       </Table>
-      <Box mt={4} textAlign="center">
+      <Box
+        mt={4}
+        textAlign="center"
+        display={!canPreviousPage && !canNextPage && "none"}
+      >
         <Button
           size="sm"
           onClick={() => previousPage()}

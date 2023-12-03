@@ -1,65 +1,124 @@
+import { useNavigate } from "react-router-dom";
 import React from "react";
 import DataTable from "../../widgets/Table.widget";
-// import DataTable from "./DataTable"÷; // Assuming you have the DataTable component
+import { RowId, SchoolClass } from "./shared";
+import { useSubjects } from "../../hooks/Subjects";
+
+import { Flex, Tag, useToast } from "@chakra-ui/react";
+import ActionsPopUp from "../../widgets/ActionsPopUp";
+import { MdDelete, MdEdit } from "react-icons/md";
+import axios from "../../api/axios";
+import { useUser } from "../../app/contexts/UserContext";
 
 const SubjectTable = () => {
+  const navigate = useNavigate();
+  const toast = useToast();
+  const { subjectsData, setSubjectsData } = useSubjects();
+  const { setInfoIsUpdated } = useUser();
+
+  const handleEditAction = async (id) => {
+    return navigate(`/admin/subjects/${id}/edit`);
+  };
+
+  const handleDeleteAction = async (subjectId) => {
+    if (
+      window.confirm(`Are you sure to delete the subject with ID ${subjectId}?`)
+    ) {
+      try {
+        const response = await axios.delete(`/api/v1/subjects/${subjectId}`);
+
+        if (response.status === 200) {
+          // Success: Subject deleted
+          toast({
+            title: `Deleted subject with ID ${subjectId}`,
+            duration: 2000,
+            status: "warning",
+          });
+
+          // Update the local subjectsData state or refetch the data
+          setSubjectsData((prevSubjectsData) =>
+            prevSubjectsData.filter((subject) => subject._id !== subjectId)
+          );
+
+          // Optionally, you can trigger a data refetch if needed
+          // refetchData(); // Implement this function to refetch data from the server
+
+          setInfoIsUpdated(true);
+          return;
+        } else {
+          // Failure: Show an error toast
+          toast({
+            title: `Failed to delete subject with ID ${subjectId}`,
+            status: "error",
+          });
+        }
+      } catch (error) {
+        // Handle any unexpected errors
+        console.error("Error deleting subject:", error.message);
+        toast({
+          title: "An error occurred while deleting the subject.",
+          status: "error",
+        });
+      }
+    }
+  };
+
+  const actionsMenu = (id) => [
+    {
+      name: "editSubject",
+      label: "Edit Subject",
+      icon: <MdEdit />,
+      onClick: () => handleEditAction(id),
+    },
+    {
+      name: "deleteSubject",
+      label: "Delete Subject",
+      icon: <MdDelete />,
+      onClick: () => handleDeleteAction(id),
+    },
+  ];
+
   // Define the columns for the SubjectTable
   const columns = React.useMemo(
     () => [
       {
         Header: "S/N", // Serial Number
-        accessor: "serialNumber",
+        accessor: "sn",
+        Cell: ({ row }) => <RowId row={row} />,
       },
       {
-        Header: "Subject Name",
-        accessor: "subjectName",
+        Header: "Subject", // Serial Number
+        accessor: "name",
       },
       {
-        Header: "No. of Students",
-        accessor: "numberOfStudents",
-      },
-      {
-        Header: "Department",
-        accessor: "department",
-      },
-      {
-        Header: "Subject Teacher",
-        accessor: "subjectTeacher",
+        Header: "Classes",
+        accessor: "classes",
+        Cell: ({ value }) => (
+          <Flex gap={2} overflowX={"hidden"} wrap={"wrap"}>
+            {value?.map((id, index) => (
+              <Tag colorScheme="blue" size={"sm"}>
+                <SchoolClass value={id} />
+              </Tag>
+            ))}
+          </Flex>
+        ),
       },
       {
         Header: "Action",
         accessor: "action",
+        Cell: ({ row }) => (
+          <ActionsPopUp menu={actionsMenu(row.original._id)} />
+        ),
       },
     ],
     []
   );
 
-  // Define sample data for the SubjectTable
-  const data = React.useMemo(() => [
-    {
-      serialNumber: 1,
-      subjectName: "Mathematics",
-      numberOfStudents: 30,
-      department: "Science",
-      subjectTeacher: "John Doe",
-      action: "Edit/Delete",
-    },
-    {
-      serialNumber: 2,
-      subjectName: "History",
-      numberOfStudents: 25,
-      department: "Arts",
-      subjectTeacher: "Alice Smith",
-      action: "Edit/Delete",
-    },
-    // Add more data as needed
-  ]);
-
   return (
     <DataTable
       columns={columns}
-      data={data}
-      fullWidthColumns={["Subject Name"]}
+      data={subjectsData}
+      fullWidthColumns={["Classes"]}
     />
   );
 };
