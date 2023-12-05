@@ -4,40 +4,41 @@ import { Routes, Route } from "react-router-dom";
 import PermissionMiddleware from "./middlewares/PermissionMiddleWare";
 
 // Layouts
-import AdminLayout from "./layouts/AdminLayout";
-import StudentLayout from "./layouts/StudentLayout";
+import DashboardLayout from "./layouts/DashboardLayout";
 
 // Pages
-import Home from "./pages/Home";
-import GenerateInvoicePage from "./pages/payments/GenerateInvoice.page";
-import ReceiptsPage from "./pages/payments/Receipts.page";
-import AdminHome from "./pages/admin/Home";
-import StudentsPage from "./pages/admin/students/index.page";
-import AllStaffPage from "./pages/admin/staff/index.page";
-import ResultPage from "./pages/admin/results/Results.page";
-import ParentPage from "./pages/admin/parents";
-import TransactionHistory from "./pages/admin/finance/TransactionHistory.page";
-import TuitionPage from "./pages/admin/finance/Tuition.page";
-import SessionTermPage from "./pages/admin/configs/SessionTerm";
-import ResultsViewPage from "./pages/admin/results/ResultsViewPage";
-import ResultSinglePage from "./pages/admin/results/Result.page";
-import ResultSettingsPage from "./pages/admin/results/ResultSettings.page";
-import MyProfilePage from "./pages/admin/profile";
-import UploadResultPage from "./pages/admin/results/UploadResult.page";
-import NotFound from "./pages/admin/NotFound";
-import GeneralNotFound from "./pages/NotFound";
-import ClassesPage from "./pages/admin/classes/Index.page";
-import ClassPage from "./pages/admin/classes/Class.page";
-import CreateNewStaff from "./pages/admin/staff/CreateNewStaff.page";
-import CreateNewStudent from "./pages/admin/students/CreateNewStudent.page";
-import NewInvoicePage from "./pages/admin/finance/invoices/New";
-import { InvoicePage } from "./pages/admin/finance/invoices/invoice";
-import StudentPage from "./pages/admin/students/Student.page";
-import StaffPage from "./pages/admin/staff/Staff.page";
-import AccessRestricted from "./pages/AccessRestricted";
-import StaffRoles from "./pages/admin/staff/Roles";
-import NotificationsPage from "./pages/admin/notifications";
-import ManageFees from "./pages/admin/finance/fees/ManageFees";
+import {
+  Home,
+  GenerateInvoicePage,
+  ReceiptsPage,
+  AdminHome,
+  StudentsPage,
+  ResultPage,
+  StaffPage,
+  ParentPage,
+  TransactionHistory,
+  TuitionPage,
+  SessionTermPage,
+  AllStaffPage,
+  ResultsViewPage,
+  ResultSinglePage,
+  MyProfilePage,
+  UploadResultPage,
+  NotFound,
+  GeneralNotFound,
+  ClassesPage,
+  ClassPage,
+  CreateNewStaff,
+  CreateNewStudent,
+  NewInvoicePage,
+  InvoicePage,
+  StudentPage,
+  AccessRestricted,
+  StaffRoles,
+  NotificationsPage,
+  AllFeesPage,
+  ResultSettingsPage,
+} from "./pages/";
 
 // Screens
 import PrintReceiptScreen from "./screens/PrintReceipt.screen";
@@ -55,11 +56,12 @@ const App = () => {
     <Routes>
       <Route path="/auth" element={<LoginScreen />} />
 
+      {/* Admin */}
       <Route
         path="/admin"
         element={
           <PermissionMiddleware>
-            <AdminLayout />
+            <DashboardLayout />
           </PermissionMiddleware>
         }
       >
@@ -110,7 +112,7 @@ const App = () => {
 
         <Route path="finance">
           <Route index element={<FinancePage />} />
-          <Route path="fees" element={<ManageFees />} />
+          <Route path="fees" element={<AllFeesPage />} />
         </Route>
 
         <Route path="transactions">
@@ -142,11 +144,12 @@ const App = () => {
         <Route path="*" element={<NotFound />} />
       </Route>
 
+      {/* User */}
       <Route
         path="/"
         element={
           <PermissionMiddleware>
-            <StudentLayout />
+            <DashboardLayout />
           </PermissionMiddleware>
         }
       >

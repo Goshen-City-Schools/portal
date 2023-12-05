@@ -1,5 +1,3 @@
-import { useEffect } from "react";
-
 import { Text, Flex, Box, Button } from "@chakra-ui/react";
 
 import { MdAdd } from "react-icons/md";
@@ -10,13 +8,15 @@ import IconComponent from "../../../../components/Icon.component";
 
 import PageWrapper from "../../../../components/PageWrapper";
 import { useModal } from "../../../../app/contexts/ModalContext";
-// import AddNewFeeTypePortal from "../../../../portals/AddNewFeeType.portal";
 import { useState } from "react";
 import HorizontalScrollableTabs from "../../../../widgets/HorizontalScrollableTabs.widget";
-import TuitionFeeTable from "../../../../components/tables/fees/TuitionFee.table";
-import BoardingFeeTable from "../../../../components/tables/fees/BoardingFee.table";
-import BusFeeTable from "../../../../components/tables/fees/BusFee.table";
-import AddNewFeeTypePortal from "../../../../portals/Add_new_fee_type.portal";
+import {
+  TuitionFeeTable,
+  BoardingFeeTable,
+  BusFeeTable,
+} from "../../../../components/tables";
+
+import { AddNewFeeTypePortal } from "../../../../portals";
 
 export default function AllFeesPage() {
   const [activeTab, setActiveTab] = useState(1);

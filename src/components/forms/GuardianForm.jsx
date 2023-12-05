@@ -2,18 +2,18 @@ import { FormButton, FormInput, FormSelect, FormTextArea } from "../shared";
 import { Grid, Flex, Button, Text, Stack } from "@chakra-ui/react";
 
 import ngStates from "../../data/nigeria_states.json";
-import SelectWithSearch from "../shared/SelectSearch";
 import { MdAdd } from "react-icons/md";
 import { useModal } from "../../app/contexts/ModalContext";
 import { useEffect, useState } from "react";
 import DynamicSuggestionDropdown from "../shared/DynamicSuggestionDropdown";
 import AddGuardianPortal from "../../portals/AddGuardian.portal";
+import { useGuardians } from "../../hooks/Guardians";
 
 export function GuardianFormControlller({ formData, handleInputChange }) {
   const { openPortal } = useModal();
 
   // TODO: Set hook
-  const guardians = [];
+  const { guardiansData } = useGuardians;
 
   // TODO: Set hook
   const guardianData = {};
@@ -40,7 +40,7 @@ export function GuardianFormControlller({ formData, handleInputChange }) {
         <DynamicSuggestionDropdown
           label="Search to select Guardian"
           placeholder="Type Guardian name to search"
-          options={["Option 1", "Option 2", "Option 3"]}
+          options={guardiansData}
           onChange={(selectedValue) => {
             // Handle the selected value
             console.log("Selected Value:", selectedValue);

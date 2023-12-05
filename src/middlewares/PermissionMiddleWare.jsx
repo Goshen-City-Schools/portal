@@ -154,14 +154,8 @@ const PermissionMiddleware = ({ children }) => {
   const location = useLocation();
   const { user } = useUser();
 
-  if (
-    !user ||
-    user === "undefined" ||
-    !user.roles ||
-    user.roles.length === 0 ||
-    !user.accountType
-  ) {
-    // User is not logged in or has no roles or account type
+  if (!user || user === "undefined" || !user.accountType) {
+    // User is not logged in or has no account type
     return navigate("/auth");
   }
 
@@ -193,8 +187,17 @@ const PermissionMiddleware = ({ children }) => {
       return false;
     }
 
+    // Additional check for student account type
+    if (
+      user.accountType === "student" &&
+      !allowedAccountTypes.includes("student")
+    ) {
+      return false;
+    }
+
     return (
-      allowedRoles.some((role) => user?.roles.includes(role)) &&
+      (!user.roles ||
+        allowedRoles.some((role) => user?.roles.includes(role))) &&
       allowedAccountTypes.includes(user?.accountType)
     );
   }, [location.pathname, user]);
@@ -235,7 +238,10 @@ const PermissionMiddleware = ({ children }) => {
 
     if (currentRoute) {
       const isAllowed =
-        currentRoute.allowedRoles.some((role) => user.roles.includes(role)) &&
+        (!user.roles ||
+          currentRoute.allowedRoles.some((role) =>
+            user.roles.includes(role)
+          )) &&
         currentRoute.allowedAccountTypes.includes(user.accountType);
 
       if (!isAllowed) {
@@ -244,7 +250,7 @@ const PermissionMiddleware = ({ children }) => {
     }
   };
 
-  return isUserAllowed ? children : null;
+  return isUserAllowed ? children : "k";
 };
 
 export default PermissionMiddleware;

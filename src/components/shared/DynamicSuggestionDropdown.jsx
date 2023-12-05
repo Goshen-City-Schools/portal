@@ -82,11 +82,11 @@ const DynamicSuggestionDropdown = ({
           {filteredOptions.length > 0 ? (
             filteredOptions.map((option) => (
               <div
-                key={option}
+                key={option._id}
                 onClick={() => handleSelectOption(option)}
                 style={{ cursor: "pointer" }}
               >
-                {option}
+                {option.title} {option.firstName} {option.lastName}
               </div>
             ))
           ) : (

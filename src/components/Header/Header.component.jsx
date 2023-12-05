@@ -1,60 +1,187 @@
 import React from "react";
-import { Link } from "react-router-dom";
+
+import { useDispatch } from "react-redux";
 
 import { BsChevronDown } from "react-icons/bs";
-
-import Avatar from "../Avatar.component";
 import { CiBellOn } from "react-icons/ci";
+import { MdChevronRight, MdMenu } from "react-icons/md";
 
-import { Box } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  Button,
+  PopoverArrow,
+  PopoverCloseButton,
+  PopoverBody,
+  Text,
+  Grid,
+  Image,
+} from "@chakra-ui/react";
+
+import IconComponent from "../Icon.component";
+
+import { toggleSideMenu } from "../../app/redux/slices/menuSlice";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../app/contexts/AuthContext";
+import { Link } from "react-router-dom";
+import { useState } from "react";
 import { useUser } from "../../app/contexts/UserContext";
 
 export default function Header() {
   const { user } = useUser();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { logout } = useAuth();
+  const [newNotification, setNewNotification] = useState(2);
+
+  const isStaff = user.accountType === "staff";
+  const isStudent = user.accountType === "student";
+
+  const handleToggleSideMenu = () => {
+    dispatch(toggleSideMenu());
+  };
+
+  const handleLogout = () => {
+    // Dispatch the logout action when the "Logout" button is clicked
+    logout();
+    setTimeout(() => {
+      navigate("/auth");
+    }, 1000); // Adjust the delay as needed
+  };
+
   return (
     <Box
       bg={"white"}
       paddingX={6}
-      className="h-20 sticky top-0 left-0 z-40 shadow-md w-full flex items-center justify-between"
+      width={{ "base": "100%", "lg": "calc(100vw - 260px)" }}
+      left={{ "lg": "260px" }}
+      className="h-20 no-print fixed top-0 z-40 shadow-sm flex items-center justify-between"
     >
-      <h3 className="text-xl font-bold">Welcome back, {user.firstName}</h3>
+      <Flex alignItems={"center"} gap={4}>
+        <Grid placeItems={"center"} p={0.5} border={"1px solid"} rounded={"md"}>
+          <IconComponent click={handleToggleSideMenu}>
+            <MdMenu size={24} />
+          </IconComponent>
+        </Grid>
 
-      <div className="flex items-center gap-4 text-sm">
-        <div className="flex flex-col">
+        <Text as={"h3"} color={"brand.900"} className="text-md font-bold">
+          {isStaff && "Admin Dashboard"}
+          {isStudent && `Welcome back, ${user.firstName}`}
+        </Text>
+      </Flex>
+
+      <Flex className="items-center text-sm" gap={{ base: 3, md: 4 }}>
+        <Flex direction={"column"} display={{ "base": "none", "md": "flex" }}>
           <p className="font-bold first-letter:">2023/2024 session</p>
           <p>First Term</p>
-        </div>
+        </Flex>
 
-        <div className="absolute top-20 hidden">
-          <ul>
-            <li>
-              <Link>My Profile</Link>
-            </li>
-            <li>
-              <Link>Settings</Link>
-            </li>
-          </ul>
-        </div>
-
-        <div className="icon">
-          <CiBellOn size={28} />
-        </div>
-
-        <Link to="/dashboard/profile" className="flex gap-3 items-center">
-          <div className="h-12 w-12 rounded-full shadow-md overflow-hidden relative">
-            <img
-              src="/avatar.png"
-              alt="User avatar"
-              className="absolute object-cover w-full h-full"
-            />
+        <Link
+          to={isStaff ? "/admin/notifications" : "/notifications"}
+          onClick={() => setNewNotification(0)}
+        >
+          <div className="icon  mx-8 relative">
+            <CiBellOn size={28} />{" "}
+            {newNotification && newNotification > 0 ? (
+              <Text
+                bg={"gray.100"}
+                height={"max-content"}
+                h={4}
+                w={4}
+                display={"grid"}
+                placeItems={"center"}
+                rounded={"full"}
+                lineHeight={1}
+                position={"absolute"}
+                top={-1}
+                right={-1}
+                as={"small"}
+                fontWeight={"bold"}
+                color={"red"}
+              >
+                {newNotification}
+              </Text>
+            ) : (
+              ""
+            )}
           </div>
-          <div className="flex flex-col">
-            <p className="font-bold first-letter:">Nkechinyere Harrison</p>
-            <p>Student</p>
-          </div>
-          <BsChevronDown size={20} />.
         </Link>
-      </div>
+
+        <Popover>
+          <PopoverTrigger>
+            <Box className="flex gap-3 items-center" cursor="pointer">
+              <div className="h-10 w-10 rounded-full relative shadow-md overflow-hidden">
+                <Image
+                  src={
+                    user.avatarImageURL ? user.avatarImageURL : "/avatar.png"
+                  }
+                  height={10}
+                  width={10}
+                  alt="User avatar"
+                  loading="lazy"
+                  className="absolute object-cover w-full h-full"
+                />
+              </div>
+              <Flex direction={"column"} display={{ base: "none", md: "flex" }}>
+                <p className="font-bold first-letter:">
+                  {user.firstName} {user.lastName}
+                </p>
+                <Text as={"small"} fontSize={"xs"}>
+                  {user.accountType === "staff" && user.roles[0]}
+                  {user.accountType === "student" &&
+                    user.accountType.toLocaleUpperCase()}
+                </Text>
+              </Flex>
+              <BsChevronDown size={18} />
+            </Box>
+          </PopoverTrigger>
+          <PopoverContent>
+            <PopoverArrow />
+            <PopoverCloseButton />
+
+            <PopoverBody>
+              {user?.roles?.length > 1 && (
+                <Button
+                  size={"sm"}
+                  variant="ghost"
+                  w="100%"
+                  rightIcon={<MdChevronRight />}
+                  justifyContent="space-between"
+                  onClick={() =>
+                    navigate(isStaff ? "/admin/profile" : "/profile")
+                  }
+                >
+                  Switch Role
+                </Button>
+              )}
+
+              <Button
+                size={"sm"}
+                variant="ghost"
+                w="100%"
+                justifyContent="flex-start"
+                onClick={() =>
+                  navigate(isStaff ? "/admin/profile" : "/profile")
+                }
+              >
+                My Profile
+              </Button>
+              <Button
+                size={"sm"}
+                variant="ghost"
+                w="100%"
+                justifyContent="flex-start"
+                onClick={handleLogout}
+              >
+                Logout
+              </Button>
+            </PopoverBody>
+          </PopoverContent>
+        </Popover>
+      </Flex>
     </Box>
   );
 }

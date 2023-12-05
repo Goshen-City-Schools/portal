@@ -16,7 +16,7 @@ export default function AuthLayout({ children }) {
 
   if (
     user &&
-    user.userType == "Student" &&
+    user.userType == "student" &&
     location.pathname.includes("/admin")
   ) {
     return <LoadingScreen navigateToPath={"/auth"} />;
@@ -24,7 +24,7 @@ export default function AuthLayout({ children }) {
 
   if (
     user &&
-    user.userType == "Staff" &&
+    user.userType == "staff" &&
     !location.pathname.includes("/admin")
   ) {
     return <LoadingScreen navigateToPath={"/auth"} />;
