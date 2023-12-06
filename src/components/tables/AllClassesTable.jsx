@@ -1,9 +1,8 @@
 import React from "react";
 import Table from "../../widgets/Table.widget";
 
-import { Flex, Text, Tag, Button } from "@chakra-ui/react";
+import { Flex, Text, Tag } from "@chakra-ui/react";
 import { getNumberOfStudentsInClass } from "../../pages/admin/classes/Index.page";
-import { FaEllipsisH } from "react-icons/fa";
 import RowId from "./shared/RowId";
 import ActionsPopUp from "../../widgets/ActionsPopUp";
 import { IoMdEye } from "react-icons/io";
@@ -76,7 +75,7 @@ const AllClassesTable = ({ data, studentsData }) => {
     {
       Header: "Action",
       accessor: "action",
-      Cell: <ActionsPopUp menu={actionsMenu()} />,
+      Cell: ({ row }) => <ActionsPopUp menu={actionsMenu(row.original.id)} />,
     },
   ];
 

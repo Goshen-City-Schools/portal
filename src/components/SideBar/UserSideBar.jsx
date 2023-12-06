@@ -17,6 +17,11 @@ import {
   MdOutlineBroadcastOnPersonal,
   MdSubject,
   MdAssessment,
+  MdReceipt,
+  MdHistory,
+  MdClass,
+  MdAssignment,
+  MdTextFormat,
 } from "react-icons/md";
 
 import { PiStudentDuotone } from "react-icons/pi";
@@ -32,7 +37,7 @@ import { FaCalendarAlt } from "react-icons/fa";
 export const UserSideBarList = ({ handleToggleSideMenu }) => {
   return (
     <List className="memuList pl-1" w={"full"}>
-      <NavItemComponent onClick={handleToggleSideMenu} link={"/admin/home"}>
+      <NavItemComponent onClick={handleToggleSideMenu} link={"/home"}>
         <IconComponent color={"warning.200"}>
           <PiDotsNineBold size={18} />
         </IconComponent>
@@ -44,13 +49,13 @@ export const UserSideBarList = ({ handleToggleSideMenu }) => {
         submenu={[
           {
             name: "Transaction History",
-            link: "/admin/students",
-            icon: <MdEditDocument size={12} />,
+            link: "",
+            icon: <MdHistory size={12} />,
           },
           {
             name: "Generate Invoice",
-            link: "/admin/students/new",
-            icon: <MdAdd size={14} />,
+            link: "/new",
+            icon: <MdReceipt size={14} />,
           },
         ]}
       >
@@ -65,18 +70,18 @@ export const UserSideBarList = ({ handleToggleSideMenu }) => {
         submenu={[
           {
             name: "Assignments",
-            link: "/admin/students",
-            icon: <MdEditDocument size={12} />,
+            link: "",
+            icon: <MdAssignment size={12} />,
           },
           {
             name: "Tests",
-            link: "/admin/students/new",
-            icon: <MdAdd size={14} />,
+            link: "/new",
+            icon: <MdAssessment size={14} />,
           },
           {
             name: "Examinations",
-            link: "/admin/students/new",
-            icon: <MdAdd size={14} />,
+            link: "/new",
+            icon: <MdTextFormat size={14} />,
           },
         ]}
       >
@@ -91,7 +96,7 @@ export const UserSideBarList = ({ handleToggleSideMenu }) => {
         submenu={[
           {
             name: "Check My Result",
-            link: "/admin/students",
+            link: "/results",
             icon: <MdWhatsapp size={12} />,
           },
         ]}
@@ -107,7 +112,7 @@ export const UserSideBarList = ({ handleToggleSideMenu }) => {
         submenu={[
           {
             name: "View Events",
-            link: "/admin/events",
+            link: "/events",
             icon: <TbFolderSearch size={12} />,
           },
         ]}
@@ -123,12 +128,12 @@ export const UserSideBarList = ({ handleToggleSideMenu }) => {
         submenu={[
           {
             name: "Send Message",
-            link: "/admin/students",
+            link: "/chat",
             icon: <MdOutlineChat size={12} />,
           },
           {
             name: "Send Email",
-            link: "/staff?type=academic",
+            link: "/contacts",
             icon: <MdOutlineMail size={14} />,
           },
         ]}

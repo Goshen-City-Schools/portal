@@ -7,49 +7,79 @@ import PermissionMiddleware from "./middlewares/PermissionMiddleWare";
 import DashboardLayout from "./layouts/DashboardLayout";
 
 // Pages
-import {
-  Home,
-  GenerateInvoicePage,
-  ReceiptsPage,
-  AdminHome,
-  StudentsPage,
-  ResultPage,
-  StaffPage,
-  ParentPage,
-  TransactionHistory,
-  TuitionPage,
-  SessionTermPage,
-  AllStaffPage,
-  ResultsViewPage,
-  ResultSinglePage,
-  MyProfilePage,
-  UploadResultPage,
-  NotFound,
-  GeneralNotFound,
-  ClassesPage,
-  ClassPage,
-  CreateNewStaff,
-  CreateNewStudent,
-  NewInvoicePage,
-  InvoicePage,
-  StudentPage,
-  AccessRestricted,
-  StaffRoles,
-  NotificationsPage,
-  AllFeesPage,
-  ResultSettingsPage,
-} from "./pages/";
+// import {
+//   Home,
+//   GenerateInvoicePage,
+//   AdminHome,
+//   StudentsPage,
+//   ResultPage,
+//   StaffPage,
+//   ParentPage,
+//   TransactionHistory,
+//   TuitionPage,
+//   SessionTermPage,
+//   AllStaffPage,
+//   ResultsViewPage,
+//   ResultSinglePage,
+//   MyProfilePage,
+//   UploadResultPage,
+//   NotFound,
+//   GeneralNotFound,
+//   ClassesPage,
+//   ClassPage,
+//   CreateNewStaff,
+//   CreateNewStudent,
+//   NewInvoicePage,
+//   InvoicePage,
+//   StudentPage,
+//   AccessRestricted,
+//   StaffRoles,
+//   NotificationsPage,
+//   AllFeesPage,
+//   ResultSettingsPage,
+// } from "./pages/";
 
 // Screens
-import PrintReceiptScreen from "./screens/PrintReceipt.screen";
-import PrintInvoiceScreen from "./screens/PrintInvoice.screen";
-import LoginScreen from "./screens/Login.screen";
-import AllEventsPage from "./pages/admin/events";
-import FinancePage from "./pages/admin/finance/";
-import EditStudentPage from "./pages/admin/students/EditStudent";
-import SubjectsPage from "./pages/admin/subjects";
-import EditSubject from "./pages/admin/subjects/EditSubject";
-import NewSubjectPage from "./pages/admin/subjects/NewSubject";
+import { PrintInvoiceScreen, LoginScreen } from "./screens";
+
+// import AllEventsPage from "./pages/admin/events";
+// import FinancePage from "./pages/admin/finance/";
+// import EditStudentPage from "./pages/admin/students/EditStudent";
+// import SubjectsPage from "./pages/admin/subjects";
+// import EditSubjectPage from "./pages/admin/subjects/EditSubject.page";
+// import NewSubjectPage from "./pages/admin/subjects/NewSubject";
+
+// Admin Pages
+import {
+  AdminHome,
+  AdminProfilePage,
+  AllEventsPage,
+  AllFeesPage,
+  AllStaffPage,
+  ClassPage,
+  ClassResultsPage,
+  ClassesPage,
+  EditStudentPage,
+  EditSubjectPage,
+  FinancePage,
+  InvoicePage,
+  NewInvoicePage,
+  NewStaffPage,
+  NewStudentPage,
+  NewSubjectPage,
+  NotFoundPage,
+  NotificationsPage,
+  ParentPage,
+  ParentsPage,
+  StaffPage,
+  StaffRolesPage,
+  StudentPage,
+  StudentsPage,
+  SubjectsPage,
+  TransactionHistoryPage,
+} from "./pages/admin";
+
+import { Navigate } from "react-router-dom";
 
 const App = () => {
   return (
@@ -69,11 +99,11 @@ const App = () => {
 
         <Route index element={<AdminHome />} />
         <Route path="home" element={<AdminHome />} />
-        <Route path="profile" element={<MyProfilePage />} />
+        <Route path="profile" element={<AdminProfilePage />} />
 
         <Route path="students">
           <Route index element={<StudentsPage />} />
-          <Route path="new" element={<CreateNewStudent />} />
+          <Route path="new" element={<NewStudentPage />} />
           <Route path=":studentId">
             <Route index element={<StudentPage />} />
             <Route path="edit" element={<EditStudentPage />} />
@@ -81,19 +111,23 @@ const App = () => {
         </Route>
         <Route path="staff">
           <Route index element={<AllStaffPage />} />
-          <Route path="new" element={<CreateNewStaff />} />
-          <Route path="roles" element={<StaffRoles />} />
+          <Route path="new" element={<NewStaffPage />} />
+          <Route path="roles" element={<StaffRolesPage />} />
           <Route path=":staffId" element={<StaffPage />} />
         </Route>
 
-        <Route path="parents" element={<ParentPage />} />
+        <Route path="parents">
+          <Route index element={<ParentsPage />} />
+          <Route path=":parentId" element={<ParentPage />} />
+        </Route>
+
         <Route path="classes">
           <Route index element={<ClassesPage />} />
           <Route path=":schoolClass" element={<ClassPage />} />
         </Route>
 
         <Route path="results">
-          <Route index element={<ResultPage />} />
+          <Route index element={<ClassResultsPage />} />
           <Route path="view" element={<ResultsViewPage />} />
           <Route path="upload" element={<UploadResultPage />} />
           <Route path="settings" element={<ResultSettingsPage />} />
@@ -103,7 +137,7 @@ const App = () => {
         <Route path="subjects">
           <Route index element={<SubjectsPage />} />
           <Route path="new" element={<NewSubjectPage />} />
-          <Route path=":subjectId/edit" element={<EditSubject />} />
+          <Route path=":subjectId/edit" element={<EditSubjectPage />} />
         </Route>
 
         <Route path="events">
@@ -116,10 +150,10 @@ const App = () => {
         </Route>
 
         <Route path="transactions">
-          <Route index element={<TransactionHistory />} />
+          <Route index element={<TransactionHistoryPage />} />
 
           <Route path=":transactionID">
-            <Route index element={<TransactionHistory />} />
+            <Route index element={<TransactionHistoryPage />} />
             {/* <Route path="invoice" element={<InvoicesPage />} /> */}
           </Route>
         </Route>
@@ -128,20 +162,16 @@ const App = () => {
           <Route index element={<NotificationsPage />} />
         </Route>
 
-        <Route path="receipts" element={<TuitionPage />} />
-
         <Route path="invoices">
-          <Route index element={<TuitionPage />} />
+          <Route
+            index
+            element={<Navigate to={"/admin/transactions"} replace={true} />}
+          />
           <Route path="new" element={<NewInvoicePage />} />
           <Route path=":invoiceID" element={<InvoicePage />} />
         </Route>
 
-        <Route path="config">
-          <Route index element={<SessionTermPage />} />
-          <Route path="session-term" element={<SessionTermPage />} />
-        </Route>
-
-        <Route path="*" element={<NotFound />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Route>
 
       {/* User */}
@@ -156,20 +186,11 @@ const App = () => {
         {/* Home Route */}
         <Route index element={<Home />} />
 
-        {/* Fees Routes */}
-        <Route path="/fees">
-          {/* Invoices */}
-          <Route path="invoices">
-            <Route index element={<TuitionPage />} />
-            <Route path="new" element={<GenerateInvoicePage />} />
-            <Route path=":invoiceID" element={<PrintInvoiceScreen />} />
-          </Route>
-
-          {/* Receipts */}
-          <Route path="receipts">
-            <Route index element={<ReceiptsPage />} />
-            <Route path="new" element={<PrintReceiptScreen />} />
-          </Route>
+        {/* Invoices */}
+        <Route path="invoices">
+          <Route index element={<TuitionPage />} />
+          <Route path="new" element={<GenerateInvoicePage />} />
+          <Route path=":invoiceID" element={<PrintInvoiceScreen />} />
         </Route>
       </Route>
 

@@ -2,15 +2,13 @@ import React from "react";
 
 import { Box, Flex, Text, Button, Grid, VStack } from "@chakra-ui/react";
 import Avatar from "../components/Avatar.component";
-import { useUser } from "../app/contexts/UserContext";
 import dayjs from "dayjs";
-import { MdChangeCircle, MdDelete, MdShare } from "react-icons/md";
+import { MdChangeCircle, MdShare } from "react-icons/md";
 import UpdateAvatarButton from "../components/Buttons/UpdateAvatarButton";
 import { useState } from "react";
 
-export default function ProfileScreen() {
+export default function ProfileScreen({ user }) {
   const [selectedFile, setSelectedFile] = useState(null);
-  const { user } = useUser();
   return (
     <Box
       bg={"white"}

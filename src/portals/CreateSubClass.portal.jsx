@@ -4,19 +4,12 @@ import { Text, Box } from "@chakra-ui/react";
 import EventForm from "../components/forms/EventForm";
 import SchoolClassForm from "../components/forms/SchoolClassForm";
 import { useState } from "react";
+import PortalTitle from "./shared/PortalTitle";
 
 export default function CreateSubClassPortal() {
   return (
     <Box maxWidth="lg" width={{ "base": "full", "md": "sm" }}>
-      <Text
-        as={"h3"}
-        fontWeight={"bold"}
-        textAlign={"center"}
-        fontSize={"2xl"}
-        mb={"6"}
-      >
-        Add New Sub-class
-      </Text>
+      <PortalTitle title={"Add New Sub-class"} />
 
       <SchoolClassForm />
     </Box>

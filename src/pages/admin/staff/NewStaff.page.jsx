@@ -8,7 +8,7 @@ import ReactPortal from "../../../widgets/React_portal";
 
 import StaffForm from "../../../components/forms/StaffForm";
 
-export default function CreateNewStaff() {
+export default function NewStaffPage() {
   return (
     <PageWrapper>
       <ReactPortal />

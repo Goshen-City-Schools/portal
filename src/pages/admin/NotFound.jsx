@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-function NotFound() {
+export default function NotFoundPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -11,5 +11,3 @@ function NotFound() {
 
   return <div>Page Not Found. Redirecting to Home...</div>;
 }
-
-export default NotFound;

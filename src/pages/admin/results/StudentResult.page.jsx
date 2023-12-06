@@ -1,6 +1,6 @@
 import React from "react";
 import PageWrapper from "../../../components/PageWrapper";
-import ResultSheet, { ResultSheetPDF } from "../../../components/ResultSheet";
+import ResultSheet from "../../../components/ResultSheet";
 
 import { Flex, Button } from "@chakra-ui/react";
 import PageSectionHeader from "../../../components/PageSectionHeader";
@@ -8,14 +8,14 @@ import IconComponent from "../../../components/Icon.component";
 import { MdDownload, MdPrint } from "react-icons/md";
 import { useParams } from "react-router-dom";
 
-export default function ResultSinglePage() {
+export default function StudentResultPage() {
   const handlePrint = () => {
     window.print();
   };
 
   const { session, term, userId } = useParams();
 
-  // Replace this with your logic to fetch and display the result data
+  // TODO: Replace this with your logic to fetch and display the result data
   const resultData = {
     // Sample data for demonstration
     session,

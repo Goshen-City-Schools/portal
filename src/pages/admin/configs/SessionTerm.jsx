@@ -4,13 +4,10 @@ import PageSectionHeader from "../../../components/PageSectionHeader";
 
 import { Flex, Box, Grid, GridItem, Text, Button } from "@chakra-ui/react";
 import IconComponent from "../../../components/Icon.component";
-import { FaEdit, FaPlus } from "react-icons/fa";
-import { useModal } from "../../../app/contexts/ModalContext";
+import { FaEdit } from "react-icons/fa";
 import ReactPortal from "../../../widgets/React_portal";
-import AddNewTerm from "../../../portals/AddNewTerm";
 
 export default function SessionTermPage() {
-  const { openPortal } = useModal();
   return (
     <PageWrapper>
       <ReactPortal />
@@ -69,13 +66,6 @@ export default function SessionTermPage() {
           <Text as={"h3"} fontWeight={"bold"} fontSize={"md"}>
             All Terms
           </Text>
-
-          <Button onClick={() => openPortal(<AddNewTerm />)}>
-            <IconComponent>
-              <FaPlus />
-            </IconComponent>{" "}
-            New Term
-          </Button>
         </Flex>
       </Box>
     </PageWrapper>

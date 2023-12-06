@@ -8,7 +8,7 @@ import IconComponent from "../../../components/Icon.component";
 import { MdDownload, MdPrint } from "react-icons/md";
 import { useParams } from "react-router-dom";
 
-export default function ResultPage() {
+export default function ClassResultsPage() {
   const handlePrint = () => {
     window.print();
   };

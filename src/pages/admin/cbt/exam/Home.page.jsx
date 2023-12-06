@@ -6,8 +6,8 @@ import { Text, Flex, Box, Button } from "@chakra-ui/react";
 
 import { MdAdd, MdIcecream, MdUploadFile } from "react-icons/md";
 import IconComponent from "../../../../components/Icon.component";
-import SubjectTeacherCBTClassList from "../../../../components/tables/SubjectTeacherCBTClasslist";
-import SecondarySchoolClassTeacherCBTList from "../../../../components/tables/SecondarySchoolClassTeacherCBTClassList";
+
+import { SubjectTeacherCBTClasslist } from "../../../../components/tables";
 
 export default function ExamHomePage() {
   return (
@@ -66,9 +66,7 @@ export default function ExamHomePage() {
 
         <Text as="h2">All Exam Questions you've set appears here!</Text>
 
-        <SubjectTeacherCBTClassList />
-
-        <SecondarySchoolClassTeacherCBTList />
+        <SubjectTeacherCBTClasslist />
       </Box>
     </PageWrapper>
   );

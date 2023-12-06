@@ -4,6 +4,7 @@ import AllEventsTable from "./AllEventsTable";
 import AllStaffRolesTable from "./AllStaffRolesTable.component";
 import NewStudentsTable from "./NewStudentsTable.component";
 import SubjectTable from "./SubjectTable.component";
+import SubjectTeacherCBTClasslist from "./SubjectTeacherCBTClasslist";
 import TransactionsTable from "./TransactionsTable.component";
 import BoardingFeeTable from "./fees/BoardingFee.table";
 import BusFeeTable from "./fees/BusFee.table";
@@ -26,4 +27,5 @@ export {
   BoardingFeeTable,
   BusFeeTable,
   TuitionFeeTable,
+  SubjectTeacherCBTClasslist,
 };

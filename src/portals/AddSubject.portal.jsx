@@ -4,6 +4,7 @@ import SubjectForm from "../components/forms/SubjectForm";
 import { Stack, Text } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { useSubject } from "../hooks/Subjects";
+import PortalTitle from "./shared/PortalTitle";
 
 export default function AddSubjectPortal() {
   const { subjectId } = useParams();
@@ -14,9 +15,8 @@ export default function AddSubjectPortal() {
 
   return (
     <Stack w={"full"}>
-      <Text as={"h3"} fontSize={"2xl"} fontWeight={"bold"} textAlign={"center"}>
-        Add Subject
-      </Text>
+      <PortalTitle title={"Add Subject"} />
+
       <SubjectForm subjectData={subjectData} />
     </Stack>
   );

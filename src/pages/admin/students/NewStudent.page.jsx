@@ -12,9 +12,9 @@ import allowedUserRoles from "../../../helpers/allowedUserRoles";
 import { registerStudent } from "../../../api/student.api";
 import { useUser } from "../../../app/contexts/UserContext";
 import StudentForm from "../../../components/forms/StudentForm";
-import { useClasses } from "../../../hooks/";
+import { useClasses } from "../../../hooks";
 
-export default function CreateNewStudent() {
+export default function NewStudentPage() {
   const { openPortal } = useModal();
   const [activeFormIndex, setActiveFormIndex] = useState(1);
   const [availableSubclasses, setAvailableSubclasses] = useState([]);

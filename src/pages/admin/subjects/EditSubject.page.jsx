@@ -1,16 +1,13 @@
 import React from "react";
-import { useSubject, useSubjects } from "../../../hooks/Subjects";
+import { useSubject } from "../../../hooks/Subjects";
 import { useParams } from "react-router-dom";
-import { useClasses } from "../../../hooks";
 import PageWrapper from "../../../components/PageWrapper";
 import PageSectionHeader from "../../../components/PageSectionHeader";
 import SubjectForm from "../../../components/forms/SubjectForm";
 
 import { Box } from "@chakra-ui/react";
 
-export default function EditSubject() {
-  const { subjectsData } = useSubjects();
-  const { schoolClasses } = useClasses();
+export default function EditSubjectPage() {
   const { subjectId } = useParams();
   const { subjectData } = useSubject(subjectId);
 
