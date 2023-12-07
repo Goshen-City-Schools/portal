@@ -4,7 +4,7 @@ import PageSectionHeader from "../../../components/PageSectionHeader";
 import ProfileScreen from "../../../screens/ProfileScreen";
 import { useUser } from "../../../app/contexts/UserContext";
 
-export default function MyProfilePage() {
+export default function UserProfilePage() {
   const { user } = useUser();
   return (
     <PageWrapper>

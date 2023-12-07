@@ -51,7 +51,7 @@ export default function AllFeesPage() {
         >
           All Fees
         </Text>
-        <Text as={"small"}>Home / Staff</Text>
+        <Text as={"small"}>Home / Fees</Text>
       </Flex>
 
       <Flex
@@ -60,7 +60,7 @@ export default function AllFeesPage() {
         mt={8}
         mb={6}
       >
-        <SearchWidget height={10} text={"Search staff"} />
+        <SearchWidget height={10} text={"Search Fees"} />
 
         <Flex gap={4} fontSize={"sm"}>
           <Button bg={"brand.700"} size={"sm"} color={"neutral.100"}>

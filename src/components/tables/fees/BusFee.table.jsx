@@ -6,7 +6,7 @@ import ActionsPopUp from "../../../widgets/ActionsPopUp";
 import Table from "../../../widgets/Table.widget";
 import RowId from "../shared/RowId";
 import { IoMdEye } from "react-icons/io";
-import useFees from "../../../hooks/Fees";
+import { useFees } from "../../../hooks";
 import StatusBadge from "../shared/StatusBadge";
 import PriceView from "../shared/PriceView";
 import BusFeeForm from "../../forms/fees/BusFeeForm";

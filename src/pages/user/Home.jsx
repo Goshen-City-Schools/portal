@@ -3,7 +3,7 @@ import SessionTerm from "../../components/forms/SessionTerm.form";
 import PageWrapper from "../../components/PageWrapper";
 import PageSectionHeader from "../../components/PageSectionHeader";
 
-export default function Home() {
+export default function UserHome() {
   // const user = localStorage.getItem("user");
   return (
     <PageWrapper>

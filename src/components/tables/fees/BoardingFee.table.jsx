@@ -6,9 +6,8 @@ import ActionsPopUp from "../../../widgets/ActionsPopUp";
 import Table from "../../../widgets/Table.widget";
 import RowId from "../shared/RowId";
 import { IoMdEye } from "react-icons/io";
-import useFees from "../../../hooks/Fees";
+import { useFees } from "../../../hooks";
 import StatusBadge from "../shared/StatusBadge";
-// import TuitionFeeForm from "../../forms/TuitionFeeForm";
 import { useModal } from "../../../app/contexts/ModalContext";
 import BoardingFeeForm from "../../forms/fees/BoardingFeeForm";
 

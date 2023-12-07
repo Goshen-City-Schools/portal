@@ -6,85 +6,58 @@ import PermissionMiddleware from "./middlewares/PermissionMiddleWare";
 // Layouts
 import DashboardLayout from "./layouts/DashboardLayout";
 
-// Pages
-// import {
-//   Home,
-//   GenerateInvoicePage,
-//   AdminHome,
-//   StudentsPage,
-//   ResultPage,
-//   StaffPage,
-//   ParentPage,
-//   TransactionHistory,
-//   TuitionPage,
-//   SessionTermPage,
-//   AllStaffPage,
-//   ResultsViewPage,
-//   ResultSinglePage,
-//   MyProfilePage,
-//   UploadResultPage,
-//   NotFound,
-//   GeneralNotFound,
-//   ClassesPage,
-//   ClassPage,
-//   CreateNewStaff,
-//   CreateNewStudent,
-//   NewInvoicePage,
-//   InvoicePage,
-//   StudentPage,
-//   AccessRestricted,
-//   StaffRoles,
-//   NotificationsPage,
-//   AllFeesPage,
-//   ResultSettingsPage,
-// } from "./pages/";
-
-// Screens
-import { PrintInvoiceScreen, LoginScreen } from "./screens";
-
-// import AllEventsPage from "./pages/admin/events";
-// import FinancePage from "./pages/admin/finance/";
-// import EditStudentPage from "./pages/admin/students/EditStudent";
-// import SubjectsPage from "./pages/admin/subjects";
-// import EditSubjectPage from "./pages/admin/subjects/EditSubject.page";
-// import NewSubjectPage from "./pages/admin/subjects/NewSubject";
-
 // Admin Pages
 import {
+  //
   AdminHome,
   AdminProfilePage,
+  //
   AllEventsPage,
   AllFeesPage,
+  //
   AllStaffPage,
+  StaffPage,
+  NewStaffPage,
+  StaffRolesPage,
+  //
+  ClassesPage,
   ClassPage,
   ClassResultsPage,
-  ClassesPage,
+  //
+  StudentsPage,
   EditStudentPage,
+  NewStudentPage,
+  StudentPage,
+  //
+  ParentsPage,
+  ParentPage,
+  //
+  SubjectsPage,
   EditSubjectPage,
+  NewSubjectPage,
+  NotificationsPage,
+  //
   FinancePage,
   InvoicePage,
-  NewInvoicePage,
-  NewStaffPage,
-  NewStudentPage,
-  NewSubjectPage,
-  NotFoundPage,
-  NotificationsPage,
-  ParentPage,
-  ParentsPage,
-  StaffPage,
-  StaffRolesPage,
-  StudentPage,
-  StudentsPage,
-  SubjectsPage,
   TransactionHistoryPage,
+  NewInvoicePage,
+
+  //
+  NotFoundPage,
 } from "./pages/admin";
+
+// User pages
+import { FeesPage, TransactionsPage, UserHome } from "./pages/user";
+
+// Shared pages
+import { AccessRestricted, GeneralNotFound, LoginPage } from "./pages/shared";
 
 import { Navigate } from "react-router-dom";
 
 const App = () => {
   return (
     <Routes>
-      <Route path="/auth" element={<LoginScreen />} />
+      <Route path="/auth" element={<LoginPage />} />
 
       {/* Admin */}
       <Route
@@ -126,13 +99,13 @@ const App = () => {
           <Route path=":schoolClass" element={<ClassPage />} />
         </Route>
 
-        <Route path="results">
+        {/* <Route path="results">
           <Route index element={<ClassResultsPage />} />
           <Route path="view" element={<ResultsViewPage />} />
           <Route path="upload" element={<UploadResultPage />} />
           <Route path="settings" element={<ResultSettingsPage />} />
           <Route path=":session/:term/:userId" element={<ResultSinglePage />} />
-        </Route>
+        </Route> */}
 
         <Route path="subjects">
           <Route index element={<SubjectsPage />} />
@@ -184,13 +157,18 @@ const App = () => {
         }
       >
         {/* Home Route */}
-        <Route index element={<Home />} />
+        <Route index element={<UserHome />} />
 
-        {/* Invoices */}
-        <Route path="invoices">
-          <Route index element={<TuitionPage />} />
-          <Route path="new" element={<GenerateInvoicePage />} />
-          <Route path=":invoiceID" element={<PrintInvoiceScreen />} />
+        {/* Fees */}
+        <Route path="fees">
+          <Route index element={<FeesPage />} />
+          {/* <Route path=":feeTypeID" element={<FeesPage />} /> */}
+        </Route>
+
+        {/* Transactions */}
+        <Route path="transactions">
+          <Route index element={<TransactionsPage />} />
+          {/* <Route path=":feeTypeID" element={<FeesPage />} /> */}
         </Route>
       </Route>
 

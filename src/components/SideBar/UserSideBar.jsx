@@ -48,8 +48,18 @@ export const UserSideBarList = ({ handleToggleSideMenu }) => {
       <NavItemComponent
         submenu={[
           {
-            name: "Transaction History",
-            link: "",
+            name: "Tuition Fee",
+            link: "/fees/tuition",
+            icon: <MdHistory size={12} />,
+          },
+          {
+            name: "Bus Fee",
+            link: "/fees/bus",
+            icon: <MdHistory size={12} />,
+          },
+          {
+            name: "Hostel Fees",
+            link: "/fees/boarding",
             icon: <MdHistory size={12} />,
           },
           {
@@ -62,7 +72,7 @@ export const UserSideBarList = ({ handleToggleSideMenu }) => {
         <IconComponent color={"warning.200"}>
           <FaFileInvoiceDollar size={18} />
         </IconComponent>
-        Payments
+        Fees
       </NavItemComponent>
 
       {/* Transactions History */}

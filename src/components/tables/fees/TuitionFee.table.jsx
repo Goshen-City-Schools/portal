@@ -1,7 +1,7 @@
 import ActionsPopUp from "../../../widgets/ActionsPopUp";
 import Table from "../../../widgets/Table.widget";
 
-import useFees from "../../../hooks/Fees";
+import { useFees } from "../../../hooks";
 
 import RowId from "../shared/RowId";
 import SchoolClass from "../shared/SchoolClass";

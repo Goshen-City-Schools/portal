@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback } from "react";
 import { motion } from "framer-motion";
 import {
   Grid,
@@ -11,14 +11,14 @@ import {
   Input,
   FormHelperText,
   Button,
+  useToast,
 } from "@chakra-ui/react";
-import defaultConfigValues from "../data/defaultConfigValues";
-import determineUserType from "../helpers/determineUserType";
+import defaultConfigValues from "../../../data/defaultConfigValues";
+import determineUserType from "../../../helpers/determineUserType";
 
-import { useToast } from "@chakra-ui/react";
-import { useAuth } from "../app/contexts/AuthContext";
+import { useAuth } from "../../../app/contexts/AuthContext";
 
-export default function LoginScreen() {
+export default function LoginPage() {
   const toast = useToast();
   const { login, isLoading, setIsLoading } = useAuth();
 

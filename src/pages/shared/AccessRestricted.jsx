@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import PageWrapper from "../components/PageWrapper";
+import PageWrapper from "../../components/PageWrapper";
 import { useNavigate } from "react-router-dom";
 
 export default function AccessRestricted() {
