@@ -12,8 +12,10 @@ import {
   FormButton,
 } from "../shared/";
 import { useUser } from "../../app/contexts/UserContext";
+import allowedUserRoles from "../../helpers/allowedUserRoles";
+import axios from "../../api/axios";
 
-export default function StaffForm({ action, staffData, schoolData }) {
+export default function StaffForm({ action, staffData, staffRoles }) {
   const [loading, setLoading] = useState(false);
   const toast = useToast();
   const { user } = useUser();
@@ -57,6 +59,8 @@ export default function StaffForm({ action, staffData, schoolData }) {
       !formData.firstName ||
       !formData.lastName ||
       !formData.email ||
+      !formData.stateOfOrigin ||
+      !formData.LGA ||
       !formData.dateOfBirth ||
       !formData.phoneNumber ||
       !formData.whatsappNumber ||
@@ -78,6 +82,8 @@ export default function StaffForm({ action, staffData, schoolData }) {
       lastName: formData.lastName,
       dateOfBirth: formData.dateOfBirth,
       gender: formData.gender,
+      stateOfOrigin: formData.stateOfOrigin,
+      LGA: formData.LGA,
       accountType: "staff",
       phoneNumber: formData.phoneNumber,
       whatsappNumber: formData.whatsappNumber,
@@ -177,8 +183,9 @@ export default function StaffForm({ action, staffData, schoolData }) {
   }
 
   const LGAs =
-    ngStates.find((ngState) => ngState.alias === formData.stateOfOrigin)
-      ?.lgas || [];
+    ngStates
+      .find((ngState) => ngState.alias === formData.stateOfOrigin)
+      ?.lgas.map((lga) => ({ name: lga, value: lga })) || [];
 
   return (
     <FormcContainer
@@ -256,12 +263,12 @@ export default function StaffForm({ action, staffData, schoolData }) {
       {/* Staff Role & Email */}
       <Flex gap={6} direction={{ base: "column", md: "row" }}>
         <FormSelect
-          data={schoolData.staffRoles}
+          data={staffRoles}
           label={"Staff Primary Role"}
           name={"primaryRole"}
           formData={formData}
           data_item_name={"name"}
-          data_item_value={"name"}
+          data_item_value={"_id"}
           handleChange={handleChange}
         />
 
@@ -278,6 +285,7 @@ export default function StaffForm({ action, staffData, schoolData }) {
         name={"contactAddress"}
         label={"Contact Address"}
         formData={formData}
+        handleChange={handleChange}
       />
 
       {/* Phone Number & Whatsapp Number */}

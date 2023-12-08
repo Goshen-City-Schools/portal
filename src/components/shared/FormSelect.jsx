@@ -6,13 +6,34 @@ export default function FormSelect({
   label,
   name,
   formData,
-  data, // the data to map throup to display options
+  data,
   action,
-  data_item_name, // the option name displayed in the option
-  data_item_value, // the option value to be stored when selected
+  data_item_name,
+  data_item_value,
   handleChange,
-  children, // If data is not passed then allow for children to be manually typed in
+  children,
 }) {
+  const renderOptions = (options) => {
+    return options.map((option) => {
+      if (Array.isArray(option)) {
+        // If the option is an array, recursively render its items
+        const [groupLabel, groupOptions] = option;
+        return (
+          <optgroup key={groupLabel} label={groupLabel}>
+            {renderOptions(groupOptions)}
+          </optgroup>
+        );
+      } else {
+        // If the option is a simple object, render it
+        return (
+          <option key={option[data_item_value]} value={option[data_item_value]}>
+            {option[data_item_name]}
+          </option>
+        );
+      }
+    });
+  };
+
   return (
     <FormControl id={name}>
       <FormLabel fontSize={"sm"} fontWeight={"semibold"}>
@@ -27,16 +48,7 @@ export default function FormSelect({
       >
         <option value="">-- Select {label} --</option>
 
-        {action === "edit"
-          ? children
-          : data?.map((data_item) => (
-              <option
-                key={data_item[data_item_value]}
-                value={data_item[data_item_value]}
-              >
-                {data_item[data_item_name]}
-              </option>
-            ))}
+        {action === "edit" ? children : data && renderOptions(data)}
       </Select>
     </FormControl>
   );

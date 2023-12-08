@@ -8,7 +8,12 @@ import { useUser } from "../../../app/contexts/UserContext";
 
 import { Flex, Box, Button, HStack, Text, Select } from "@chakra-ui/react";
 
-import { MdAdd, MdIcecream, MdUploadFile } from "react-icons/md";
+import {
+  MdAdd,
+  MdIcecream,
+  MdImportExport,
+  MdUploadFile,
+} from "react-icons/md";
 
 import allowedUserRoles from "../../../helpers/allowedUserRoles";
 
@@ -102,37 +107,20 @@ export default function StudentsPage() {
           <Flex gap={4} fontSize={"sm"}>
             <Button
               size={"sm"}
-              bg={"neutral.100"}
-              border={"1px"}
-              borderColor={"brand.700"}
-            >
-              <IconComponent>
-                <MdIcecream />
-              </IconComponent>{" "}
-              Download
-            </Button>
-            <Button
-              as={"Flex"}
-              gap={2}
-              size={"sm"}
-              bg={"accent.700"}
-              color={"white"}
-            >
-              <IconComponent>
-                <MdUploadFile />
-              </IconComponent>{" "}
-              Bulk Upload Students
-            </Button>
-            <Button
-              bg={"brand.700"}
-              size={"sm"}
-              color={"neutral.100"}
+              colorScheme={"blue"}
+              variant={"outline"}
+              leftIcon={<MdImportExport />}
               onClick={() => navigate("/admin/students/new")}
             >
-              <IconComponent>
-                <MdAdd />
-              </IconComponent>
-              New Student
+              Import / Export
+            </Button>
+            <Button
+              size={"sm"}
+              colorScheme={"blue"}
+              leftIcon={<MdAdd />}
+              onClick={() => navigate("/admin/students/new")}
+            >
+              Enroll Student
             </Button>
           </Flex>
         )}

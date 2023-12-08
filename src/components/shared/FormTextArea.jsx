@@ -5,6 +5,7 @@ export default function FormTextArea({
   label,
   formData,
   placeholder = label,
+  handleChange,
 }) {
   return (
     <FormControl>
@@ -18,6 +19,7 @@ export default function FormTextArea({
         name="contactAddress"
         placeholder={placeholder}
         value={formData[name]}
+        onChangeCapture={handleChange}
       />
     </FormControl>
   );

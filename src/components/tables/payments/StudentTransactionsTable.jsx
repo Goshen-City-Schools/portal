@@ -29,7 +29,7 @@ export default function StudentTransactionsTable() {
       accessor: "status",
     },
     {
-      Header: "Date",
+      Header: "Date Generated",
       accessor: "feeTypes",
     },
     {

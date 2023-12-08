@@ -130,9 +130,9 @@ export default function Header() {
                   {user.firstName} {user.lastName}
                 </p>
                 <Text as={"small"} fontSize={"xs"}>
-                  {user.accountType === "staff" && user.roles[0]}
+                  {user.accountType === "staff" && user.roles[0].name}
                   {user.accountType === "student" &&
-                    user.accountType.toLocaleUpperCase()}
+                    user.accountType.toCapitalize()}
                 </Text>
               </Flex>
               <BsChevronDown size={18} />

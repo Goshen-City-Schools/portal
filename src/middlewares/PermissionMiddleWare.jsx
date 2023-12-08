@@ -145,6 +145,14 @@ const routes = [
     path: "/",
     allowedAccountTypes: ["student"],
   },
+  {
+    path: "/fees",
+    allowedAccountTypes: ["student"],
+  },
+  {
+    path: "/fees/tuition",
+    allowedAccountTypes: ["student"],
+  },
 
   // Add more routes here
 ];
@@ -171,43 +179,91 @@ const PermissionMiddleware = ({ children }) => {
       return false; // Route not found in the defined routes
     }
 
+    // If it's a staff member, allow access to all routes
+    if (user?.accountType === "staff") {
+      return true;
+    }
+
     const allowedRoles = currentRoute.allowedRoles;
     const allowedAccountTypes = currentRoute.allowedAccountTypes;
 
-    // Additional check to restrict student route for non-student users
-    if (currentRoute.path === "/" && user?.accountType !== "student") {
-      return false;
-    }
-
-    // Additional check to restrict staff route for non-staff users
-    if (
-      currentRoute.path.startsWith("/admin") &&
-      user?.accountType !== "staff"
-    ) {
-      return false;
-    }
-
-    // Additional check for student account type
-    if (
-      user.accountType === "student" &&
-      !allowedAccountTypes.includes("student")
-    ) {
-      return false;
-    }
-
-    return (
+    // Additional checks...
+    const isAllowed =
       (!user.roles ||
-        allowedRoles.some((role) => user?.roles.includes(role))) &&
-      allowedAccountTypes.includes(user?.accountType)
-    );
-  }, [location.pathname, user]);
+        allowedRoles.some((role) =>
+          user?.roles.some((userRole) => userRole.name === role)
+        )) &&
+      allowedAccountTypes.includes(user?.accountType);
+
+    if (!isAllowed) {
+      return false; // Return false if the current route is not allowed
+    }
+
+    // Check if the current route is a parent route, and if yes, check child routes
+    if (!currentRoute.path.endsWith("/") && location.pathname.endsWith("/")) {
+      const childRoute = routes.find(
+        (route) =>
+          route.path.startsWith(currentRoute.path) &&
+          route.path !== currentRoute.path
+      );
+
+      // If there is a child route, check its permissions
+      if (childRoute) {
+        const isChildAllowed =
+          (!user.roles ||
+            childRoute.allowedRoles.some((role) =>
+              user.roles.includes(role)
+            )) &&
+          childRoute.allowedAccountTypes.includes(user.accountType);
+
+        return isChildAllowed;
+      }
+    }
+
+    return true; // Allow access to the current route
+  }, [location.pathname, user?.accountType, user?.roles, routes]);
 
   useEffect(() => {
     // Redirect to /restricted-access if the route is not allowed
     if (!isUserAllowed) {
-      navigate("/restricted-access");
+      // Check if the current route is defined in the routes array
+      const currentRoute = routes.find((route) => {
+        const pathRegex = new RegExp(
+          `^${route.path.replace(/:[^/]+/g, "[^/]+")}$`
+        );
+        return pathRegex.test(location.pathname);
+      });
+
+      if (currentRoute) {
+        // Check if the user is a staff member with the proper role
+        const isStaffWithProperRole =
+          user.accountType === "staff" &&
+          user.roles.some((role) =>
+            currentRoute.allowedRoles.includes(role.name)
+          );
+
+        if (isStaffWithProperRole) {
+          // Allow staff with proper role to access the route
+          return;
+        }
+
+        // If the user is not allowed, redirect to /restricted-access
+        navigate("/restricted-access");
+      } else {
+        // If the route is not defined, handle accordingly (e.g., redirect to home)
+        navigate("/"); // Change this to the desired fallback route
+      }
+    } else if (user.accountType === "staff" && location.pathname === "/") {
+      // Additional check for staff account type to prevent automatic redirect to "/admin"
+      navigate("/admin/home");
     }
-  }, [isUserAllowed, navigate]);
+  }, [
+    isUserAllowed,
+    navigate,
+    user.accountType,
+    user.roles,
+    location.pathname,
+  ]);
 
   useEffect(() => {
     // Event listener for handling NavLink clicks
@@ -240,7 +296,7 @@ const PermissionMiddleware = ({ children }) => {
       const isAllowed =
         (!user.roles ||
           currentRoute.allowedRoles.some((role) =>
-            user.roles.includes(role)
+            user.roles.map((userRole) => userRole.name === role.name)
           )) &&
         currentRoute.allowedAccountTypes.includes(user.accountType);
 

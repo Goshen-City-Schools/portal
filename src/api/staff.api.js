@@ -34,8 +34,10 @@ export const registerStaff = async (staffData) => {
 
 export const getSingleStaff = async (portalId) => {
   try {
-    const response = await axios.get(`/api/v1/staff/${portalId}`);
-    return response.data;
+    const { data } = await axios.get(`/api/v1/staff/${portalId}`);
+    console.log(data);
+
+    return data;
   } catch (error) {
     console.error("Error fetching single staff:", error.message);
     return null; // Return a default value or handle the error appropriately

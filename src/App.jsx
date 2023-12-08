@@ -31,6 +31,7 @@ import {
   //
   ParentsPage,
   ParentPage,
+  NewParentPage,
   //
   SubjectsPage,
   EditSubjectPage,
@@ -91,6 +92,7 @@ const App = () => {
 
         <Route path="parents">
           <Route index element={<ParentsPage />} />
+          <Route path="new" element={<NewParentPage />} />
           <Route path=":parentId" element={<ParentPage />} />
         </Route>
 

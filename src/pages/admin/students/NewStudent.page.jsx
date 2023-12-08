@@ -24,8 +24,6 @@ export default function NewStudentPage() {
 
   const { schoolClasses } = useClasses();
 
-  console.log(schoolClasses);
-
   const { user } = useUser();
 
   const [formData, setFormData] = useState({
@@ -122,8 +120,6 @@ export default function NewStudentPage() {
           guardianWhatsappNumber: formData.guardianWhatsappNumber,
           guardianRelationshipToStudent: formData.relationshipToGuardian,
         };
-
-        console.log(studentData);
 
         const result = await registerStudent(studentData);
         console.log("Student registration successful:", result);

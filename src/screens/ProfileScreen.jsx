@@ -87,7 +87,7 @@ export default function ProfileScreen({ user }) {
                 <strong>{user.portalID}</strong>
               </Text>
               <Text as={"h3"}>
-                Staff Role:&nbsp;<strong>{user.roles[0]}</strong>
+                Staff Role:&nbsp;<strong>{user.roles[0].name}</strong>
               </Text>
               <Text>&nbsp;</Text>
             </VStack>

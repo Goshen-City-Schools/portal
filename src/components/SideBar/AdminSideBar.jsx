@@ -35,13 +35,17 @@ import {
   CreateEventPortal,
   CreateSubClassPortal,
 } from "../../portals";
+import { useModal } from "../../app/contexts/ModalContext";
 
 export const AdminSideBarList = ({ user, handleToggleSideMenu }) => {
+  const { openPortal } = useModal();
   const handleClick = (type) => {
     if (type === "event") return openPortal(<CreateEventPortal />);
     if (type === "createSubject") return openPortal(<AddSubjectPortal />);
     if (type === "createClass") return openPortal(<CreateSubClassPortal />);
   };
+
+  console.log(user);
 
   return (
     <List className="memuList pl-1" w={"full"}>
@@ -53,7 +57,12 @@ export const AdminSideBarList = ({ user, handleToggleSideMenu }) => {
       </NavItemComponent>
 
       {/* Students Navigation */}
-      {allowedUserRoles(user, ["IT Personnel", "School Teacher", "Bursar"]) && (
+      {allowedUserRoles(user, [
+        "495420506572736f6e6e656c",
+        "IT Personnel",
+        "School Teacher",
+        "Bursar",
+      ]) && (
         <NavItemComponent
           submenu={[
             {

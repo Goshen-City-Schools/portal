@@ -2,7 +2,12 @@ import React from "react";
 import PageWrapper from "../../../components/PageWrapper";
 
 import { Text, Flex, Box, Button } from "@chakra-ui/react";
-import { MdAdd, MdIcecream, MdUploadFile } from "react-icons/md";
+import {
+  MdAdd,
+  MdIcecream,
+  MdImportExport,
+  MdUploadFile,
+} from "react-icons/md";
 
 import SearchWidget from "../../../widgets/Search.widget";
 import IconComponent from "../../../components/Icon.component";
@@ -29,12 +34,25 @@ export default function ParentsPage() {
       >
         <SearchWidget height={10} text={"Search Parent"} />
 
-        <Button bg={"brand.700"} size={"sm"} color={"neutral.100"}>
-          <IconComponent>
-            <MdAdd />
-          </IconComponent>
-          New Guardian
-        </Button>
+        <Flex gap={4} fontSize={"sm"}>
+          <Button
+            size={"sm"}
+            colorScheme={"blue"}
+            variant={"outline"}
+            leftIcon={<MdImportExport />}
+            onClick={() => navigate("/admin/parents/new")}
+          >
+            Import / Export
+          </Button>
+          <Button
+            size={"sm"}
+            colorScheme={"blue"}
+            leftIcon={<MdAdd />}
+            onClick={() => navigate("/admin/parents/new")}
+          >
+            Add Guardian
+          </Button>
+        </Flex>
       </Flex>
 
       <Box p={4} bg={"white"} rounded={"md"}>

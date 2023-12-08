@@ -543,7 +543,7 @@ export default function StaffProfileScreen({
                       variant="solid"
                       colorScheme="blue"
                     >
-                      {role}
+                      {role.name}
                     </Tag>
                   ))
                 ) : (

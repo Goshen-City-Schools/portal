@@ -43,7 +43,6 @@ export function GuardianFormControlller({ formData, handleInputChange }) {
           options={guardiansData}
           onChange={(selectedValue) => {
             // Handle the selected value
-            console.log("Selected Value:", selectedValue);
           }}
         />
 

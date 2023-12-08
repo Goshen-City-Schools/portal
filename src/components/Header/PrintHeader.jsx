@@ -6,6 +6,7 @@ export default function PrintHeader() {
   return (
     <div className="invoice-header flex flex-col text-center items-center">
       <Flex justifyContent={"center"} alignItems={"center"}>
+        {/* Primary School Logo */}
         <div className="w-24 h-24 relative mx-auto">
           <img
             src="/Goshen-logo-trans.png"
@@ -16,6 +17,7 @@ export default function PrintHeader() {
             className="w-full h-full object-cover absolute"
           />
         </div>
+
         <Box>
           <h3 className="school-name text-xl font-bold">
             GOSHEN GROUP OF SCHOOLS
@@ -28,6 +30,8 @@ export default function PrintHeader() {
             thing
           </Text>
         </Box>
+
+        {/* Secondary School logo */}
       </Flex>
 
       <div className="flex flex-col text-center w-full">

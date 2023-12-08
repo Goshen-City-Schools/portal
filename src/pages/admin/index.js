@@ -26,6 +26,7 @@ import AllStaffPage from "./staff/index.page";
 import StaffPage from "./staff/Staff.page";
 import AdminHome from "./Home";
 import StudentPage from "./students/Student.page";
+import NewParentPage from "./parents/NewParent.page";
 
 export {
   ExamHomePage,
@@ -56,4 +57,5 @@ export {
   StaffPage,
   AdminHome,
   StudentPage,
+  NewParentPage,
 };

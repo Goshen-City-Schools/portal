@@ -1,11 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-import schoolData from "../../data/school.data";
-
 import { useAuth } from "../../app/contexts/AuthContext";
 
-import { useStaffs } from "../../hooks";
+import { useStaffRoles, useStaffs } from "../../hooks";
 
 import Table from "../../widgets/Table.widget";
 
@@ -16,10 +14,11 @@ const AllStaffRolesTable = () => {
   const toast = useToast();
   const navigate = useNavigate();
   const { user } = useAuth();
+  const { staffRolesData: staffRoles } = useStaffRoles();
 
   const { staffsData: staffData } = useStaffs();
 
-  console.log(staffData);
+  console.log(staffData, staffRoles);
 
   const columns = [
     {
@@ -53,8 +52,11 @@ const AllStaffRolesTable = () => {
       accessor: "staff",
       Cell: ({ row }) => (
         <Flex gap={2} overflowX={"hidden"} wrap={"wrap"}>
+          {console.log(row)}
           {staffData
-            .filter((staff) => staff.roles.includes(row.original.name))
+            .filter((staff) =>
+              staff.roles.map((role) => role.name === row.original.name)
+            )
             ?.map((staff, index) => (
               <TagInTable
                 label={staff.firstName}
@@ -106,7 +108,7 @@ const AllStaffRolesTable = () => {
   return (
     <Table
       columns={columns}
-      data={schoolData.staffRoles}
+      data={staffRoles}
       fullWidthColumns={["Priviledges", "Staff"]}
     />
   );

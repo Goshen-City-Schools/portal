@@ -1,4 +1,3 @@
-import { useClassDetails, useClasses } from "../../hooks";
 import { FormInput, FormSelect, FormcContainer, FormTextArea } from "../shared";
 
 import { Grid } from "@chakra-ui/react";
@@ -11,12 +10,10 @@ const StudentDetailsForm = ({
   formData,
   handleInputChange,
 }) => {
-  const { schoolClasses } = useClasses();
-  const { classDetails } = useClassDetails(studentData?.schoolClass);
-
   const LGAs =
-    ngStates.find((ngState) => ngState.alias === formData.stateOfOrigin)
-      ?.lgas || [];
+    ngStates
+      .find((ngState) => ngState.alias === formData.stateOfOrigin)
+      ?.lgas.map((lga) => ({ name: lga, value: lga })) || [];
 
   return (
     <FormcContainer>

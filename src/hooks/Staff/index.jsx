@@ -27,6 +27,31 @@ const useStaffs = () => {
   return { staffsData: memoizedStaffs, loading, setStaffsData };
 };
 
+const useStaffRoles = () => {
+  const [staffRolesData, setStaffRolesData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("/api/v1/staff/roles"); // Update with your API endpoint
+        setStaffRolesData(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching staff roles:", error.message);
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  // Memoize the value to prevent unnecessary re-renders
+  const memoizedStaffRoles = useMemo(() => staffRolesData, [staffRolesData]);
+
+  return { staffRolesData: memoizedStaffRoles, loading, setStaffRolesData };
+};
+
 const useStaff = (staffId) => {
   const [staffData, setStaffData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -52,4 +77,4 @@ const useStaff = (staffId) => {
   return { staffData: memoizedStaff, loading, setStaffData };
 };
 
-export { useStaffs, useStaff };
+export { useStaffs, useStaff, useStaffRoles };
