@@ -27,7 +27,6 @@ import {
 import { FaRegIdCard } from "react-icons/fa";
 
 import { useModal } from "../app/contexts/ModalContext";
-import schoolData from "../data/school.data";
 import Checklist from "../components/CheckList";
 import subjectsData from "../data/subjects.data";
 import dayjs from "dayjs";
@@ -36,11 +35,9 @@ import { useUser } from "../app/contexts/UserContext";
 import UpdateAvatarButton from "../components/Buttons/UpdateAvatarButton";
 import InfoBox from "../components/shared/InfoBox.component";
 import { useNavigate } from "react-router-dom";
-import { useStaffs } from "../hooks";
+import { useClasses, useStaffRoles, useStaffs } from "../hooks";
 import { deleteStaff } from "../api/staff.api";
-
-const schoolClasses = schoolData.schoolClasses;
-const staffRoles = schoolData.staffRoles;
+import axios from "../api/axios";
 
 export default function StaffProfileScreen({
   staff,
@@ -48,6 +45,8 @@ export default function StaffProfileScreen({
   staffId,
 }) {
   const { openPortal, closePortal } = useModal();
+  const { schoolClasses } = useClasses();
+  const { staffRolesData: staffRoles } = useStaffRoles();
   const toast = useToast();
   const [selectedFile, setSelectedFile] = useState(null);
   const navigate = useNavigate();
@@ -182,21 +181,28 @@ export default function StaffProfileScreen({
     closePortal();
   }
 
-  function handleAssignRoles(selectedRoles) {
+  function handleAssignRoles() {
     // Make changes to selected roles if needed
     setSelectedRoles(selectedRoles);
-    staff.roles = selectedRoles;
 
-    const updatedStaffData = existingStaffData.map((staff) => {
-      if (staff.portalId === staffId) {
-        // Update the roles for the specified staff member
-        staff.roles = selectedRoles;
-      }
-      return staff;
-    });
-
-    // Update local storage with the updated staff data
-    localStorage.setItem("staffData", JSON.stringify(updatedStaffData));
+    const updateData = {
+      ...staff,
+      roles: selectedRoles,
+    };
+    // Make a PUT request to update staff data
+    axios
+      .put(`/api/v1/staff/${staffId}`, updateData)
+      .then((response) => {
+        // Handle successful response
+        console.log("Staff data updated successfully:", response.data);
+        closePortal();
+      })
+      .catch((error) => {
+        // Handle error
+        console.error("Error updating staff data:", error);
+        // You might want to show an error message to the user
+      });
+    // Logic to update staff data
 
     closePortal();
   }

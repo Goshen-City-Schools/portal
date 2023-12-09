@@ -1,5 +1,4 @@
 import React from "react";
-
 import { FormControl, FormLabel, Input } from "@chakra-ui/react";
 
 export default function FormInput({
@@ -11,6 +10,8 @@ export default function FormInput({
   placeholder = label,
   ...params
 }) {
+  const hasValue = !!data[name];
+
   return (
     <FormControl id={name}>
       <FormLabel fontWeight={"bold"} fontSize={"sm"}>
@@ -23,6 +24,7 @@ export default function FormInput({
         value={data[name]}
         placeholder={placeholder}
         onChange={handleChange}
+        bg={hasValue ? "gray.100" : "white"} // Set the background color based on whether there's a value
         {...params}
       />
     </FormControl>

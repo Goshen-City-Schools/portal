@@ -1,13 +1,12 @@
 import React from "react";
 
 import { Box, Text, Flex } from "@chakra-ui/react";
+import PortalTitle from "../portals/shared/PortalTitle";
 
 export default function AccountCreatedScreen({ type, data, email }) {
   return (
     <Box w={"full"} maxW={"2xl"} textAlign={"center"}>
-      <Text as={"h2"} mb={6}>
-        Account Successfully Created!
-      </Text>
+      <PortalTitle title={"Account Successfully Created"} />
 
       <Flex
         mb={6}

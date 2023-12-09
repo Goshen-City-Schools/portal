@@ -123,11 +123,6 @@ export const AdminSideBarList = ({ user, handleToggleSideMenu }) => {
               link: "/admin/staff/new",
               icon: <MdAdd size={14} />,
             },
-            {
-              name: "Manage Roles",
-              link: "/admin/staff/roles",
-              icon: <MdAccessible size={14} />,
-            },
           ]}
         >
           <IconComponent color={"warning.200"}>

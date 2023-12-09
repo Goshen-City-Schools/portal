@@ -9,7 +9,7 @@ import { useEffect } from "react";
 import { useUser } from "../../../app/contexts/UserContext";
 import { deleteStaff } from "../../../api/staff.api";
 
-import { RowId, FullName, UserId } from "../shared";
+import { RowId, FullName, UserId, TagInTable } from "../shared";
 
 import ActionsPopUp from "../../../widgets/ActionsPopUp";
 import { IoMdEye } from "react-icons/io";
@@ -76,7 +76,7 @@ const StaffTable = ({ existingStaffData }) => {
   };
 
   const handleEditAction = (staffId) => {
-    return;
+    navigate(`/admin/staff/${staffId}/edit`);
   };
 
   const actionsMenu = (id) => [
@@ -120,7 +120,19 @@ const StaffTable = ({ existingStaffData }) => {
       accessor: "firstName",
       Cell: ({ row }) => <FullName row={row} />,
     },
-    ,
+    {
+      Header: "Staff Role",
+      accessor: "roles",
+      Cell: ({ value }) =>
+        value.map((role, index) => (
+          <TagInTable
+            label={role?.name}
+            colorScheme={"blue"}
+            variant={"outline"}
+            key={index}
+          />
+        )),
+    },
     {
       Header: "Phone Number",
       accessor: "phoneNumber",

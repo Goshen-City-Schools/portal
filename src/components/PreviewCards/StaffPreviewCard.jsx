@@ -105,7 +105,7 @@ export default function StaffPreviewCard({ data }) {
             letterSpacing={1}
             p={2}
           >
-            {data?.roles[0]}
+            {data?.roles[0].name}
           </Badge>
 
           <Stack

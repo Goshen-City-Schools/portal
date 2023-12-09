@@ -75,36 +75,6 @@ const AllStaffRolesTable = () => {
     },
   ];
 
-  const handleDeleteAction = (staffId) => {
-    if (user.id === staffId) {
-      // Prevent staff from deleting themselves
-      toast({
-        title: "You cannot delete yourself.",
-        status: "warning",
-      });
-    } else if (
-      window.confirm(`Are you sure to delete the staff with ID ${staffId}?`)
-    ) {
-      // Filter the staff member with the specified staffId and update the state
-      const newStaffData = staffData.filter((staff) => staff.id !== staffId);
-      setStaffData(newStaffData);
-
-      // Show a toast notification
-      toast({
-        title: `Deleted staff with ID ${staffId}`,
-        duration: 2000,
-        status: "warning",
-      });
-
-      // Update localStorage
-      localStorage.setItem("staffData", JSON.stringify(newStaffData));
-    }
-  };
-
-  const handleLink = (staffId) => {
-    navigate(`/admin/staff/${staffId}`);
-  };
-
   return (
     <Table
       columns={columns}

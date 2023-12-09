@@ -14,8 +14,11 @@ import {
 import { useUser } from "../../app/contexts/UserContext";
 import allowedUserRoles from "../../helpers/allowedUserRoles";
 import axios from "../../api/axios";
+import { useNavigate } from "react-router-dom";
+import AccountCreatedScreen from "../../screens/AccountCreatedScreen";
 
 export default function StaffForm({ action, staffData, staffRoles }) {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const toast = useToast();
   const { user } = useUser();
@@ -35,6 +38,8 @@ export default function StaffForm({ action, staffData, staffRoles }) {
   });
 
   const { openPortal } = useModal();
+
+  console.log(staffData, "jj");
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -123,18 +128,8 @@ export default function StaffForm({ action, staffData, staffRoles }) {
                 email={staffData.email}
               />
             );
-
-            setFormData({
-              firstName: "",
-              lastName: "",
-              primaryRole: "",
-              dateOfBirth: "",
-              gender: "",
-              email: "",
-              phoneNumber: "",
-              whatsappNumber: "",
-            });
-          }, 3000);
+          }, 1000);
+          navigate("/admin/staff");
 
           // Additional actions after successful registration
         } else {

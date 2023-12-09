@@ -20,8 +20,15 @@ const Checklist = ({
     selectedItems || []
   );
 
+  console.log(items);
+
   const handleCheckboxChange = (selectedValues, cmd) => {
-    setSelectedItemsState(selectedValues);
+    setSelectedItemsState((prevSelectedItems) => {
+      // Assuming you want to perform some logic based on cmd (add or remove)
+      // For simplicity, we'll use selectedValues directly
+      console.log(selectedItems, selectedValues);
+      return selectedValues;
+    });
   };
 
   return (
@@ -32,7 +39,7 @@ const Checklist = ({
       <CheckboxGroup value={selectedItemsState} onChange={handleCheckboxChange}>
         <Grid gridTemplateColumns="repeat(2, 1fr)" align="start" gap={2}>
           {items?.map((item) => (
-            <Checkbox key={item.name || item} value={item.name || item}>
+            <Checkbox key={item.name || item} value={item._id}>
               {typeof item === "object" ? item.name : item}
             </Checkbox>
           ))}

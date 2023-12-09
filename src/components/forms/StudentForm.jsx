@@ -9,6 +9,7 @@ import { useSubjects } from "../../hooks/Subjects";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import { handleInputChange } from "../../helpers/handleInputChange";
 import { useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 
 const PrevButton = ({ onPrev }) => {
   return (
@@ -103,6 +104,7 @@ export default function StudentForm({ action, studentData }) {
     contactAddress,
     subjects,
   } = studentData || {};
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     firstName: firstName || "",
@@ -179,6 +181,8 @@ export default function StudentForm({ action, studentData }) {
 
   const handleFinish = () => {
     alert("Form submitted successfully!");
+
+    navigate("/admin/students");
     // Add logic to handle form submission or navigation after the final step
   };
 

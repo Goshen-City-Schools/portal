@@ -45,6 +45,7 @@ import {
 
   //
   NotFoundPage,
+  EditStaffPage,
 } from "./pages/admin";
 
 // User pages
@@ -87,7 +88,10 @@ const App = () => {
           <Route index element={<AllStaffPage />} />
           <Route path="new" element={<NewStaffPage />} />
           <Route path="roles" element={<StaffRolesPage />} />
-          <Route path=":staffId" element={<StaffPage />} />
+          <Route path=":staffId">
+            <Route index element={<StaffPage />} />
+            <Route path="edit" element={<EditStaffPage />} />
+          </Route>
         </Route>
 
         <Route path="parents">

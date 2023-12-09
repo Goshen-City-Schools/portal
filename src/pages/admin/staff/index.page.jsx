@@ -6,9 +6,7 @@ import { Text, Flex, Box, Button, Select, HStack } from "@chakra-ui/react";
 
 import { MdAdd, MdImportExport } from "react-icons/md";
 
-import schoolData from "../../../data/school.data";
-
-import { useStaffs } from "../../../hooks/";
+import { useStaffRoles, useStaffs } from "../../../hooks/";
 
 import DataViewSwitcher from "../../../widgets/DataViewSwitcher";
 import SearchWidget from "../../../widgets/Search.widget";
@@ -19,8 +17,10 @@ import GridViewComponent from "../../../widgets/GridViewComponent";
 
 export default function AllStaffPage() {
   const navigate = useNavigate();
-
+  const { staffRolesData: staffRoles } = useStaffRoles();
   const { staffsData } = useStaffs();
+
+  console.log(staffsData);
 
   const [dataView, setDataView] = useState("grid");
   function handleDataView(e) {
@@ -86,7 +86,7 @@ export default function AllStaffPage() {
             </Text>
             <Select size={"sm"} minW={"sm"}>
               <option value="">-- Select Role --</option>
-              {schoolData.staffRoles?.map((role) => (
+              {staffRoles?.map((role) => (
                 <option key={role.id} value={role.name}>
                   {role.name}
                 </option>
