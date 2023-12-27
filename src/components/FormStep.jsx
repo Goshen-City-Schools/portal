@@ -7,7 +7,12 @@ import {
 
 const PrevButton = ({ onPrev }) => {
   return (
-    <Button size={"sm"} variant={"outline"} colorScheme="blue" onClick={onPrev}>
+    <Button
+      size={"sm"}
+      variant={"outline"}
+      colorScheme="facebook"
+      onClick={onPrev}
+    >
       Previous
     </Button>
   );
@@ -16,7 +21,13 @@ const PrevButton = ({ onPrev }) => {
 const Step1 = ({ onNext, formComponent }) => (
   <VStack align="start" spacing={4}>
     {formComponent}
-    <Button mt={4} mx={"auto"} size={"sm"} colorScheme="blue" onClick={onNext}>
+    <Button
+      mt={4}
+      mx={"auto"}
+      size={"sm"}
+      colorScheme="facebook"
+      onClick={onNext}
+    >
       Next
     </Button>
   </VStack>
@@ -35,7 +46,7 @@ const Step2 = ({ onPrev, onFinish, formComponent }) => (
       <PrevButton onPrev={onPrev} />
 
       <Spacer />
-      <Button size={"sm"} colorScheme="blue" onClick={onFinish}>
+      <Button size={"sm"} colorScheme="facebook" onClick={onFinish}>
         Finish
       </Button>
     </Flex>

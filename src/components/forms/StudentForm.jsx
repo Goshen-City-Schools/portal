@@ -17,7 +17,7 @@ const PrevButton = ({ onPrev }) => {
       leftIcon={<MdChevronLeft />}
       size={"sm"}
       variant={"outline"}
-      colorScheme="blue"
+      colorScheme="facebook"
       onClick={onPrev}
     >
       Previous
@@ -33,7 +33,7 @@ const Step1 = ({ onNext, formComponent }) => (
       mt={4}
       mx={"auto"}
       size={"sm"}
-      colorScheme="blue"
+      colorScheme="facebook"
       onClick={onNext}
     >
       Next
@@ -57,7 +57,7 @@ const Step2 = ({ onPrev, onNext, formComponent }) => (
       <Button
         rightIcon={<MdChevronRight />}
         size={"sm"}
-        colorScheme="blue"
+        colorScheme="facebook"
         onClick={onNext}
       >
         Next
@@ -79,7 +79,7 @@ const Step3 = ({ onPrev, onFinish, formComponent }) => (
       <PrevButton onPrev={onPrev} />
 
       <Spacer />
-      <Button size={"sm"} colorScheme="blue" onClick={onFinish}>
+      <Button size={"sm"} colorScheme="facebook" onClick={onFinish}>
         Finish
       </Button>
     </Flex>

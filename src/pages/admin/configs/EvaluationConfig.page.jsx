@@ -1,6 +1,4 @@
 import { useState } from "react";
-import { AllBankAccountsTable } from "../../../components/tables";
-import { PaymentMethods } from "../../../screens/config";
 import ConfigScreenLayout from "./shared/ConfigScreenLayout";
 import ResultsConfigScreen from "../../../screens/config/ResultsConfig.screen";
 import ExaminationsConfigScreen from "../../../screens/config/ExaminationsConfig.screen";
@@ -17,11 +15,16 @@ export default function EvaluationConfigPage() {
     },
     {
       id: 2,
-      label: `Examinations`,
-      component: <ExaminationsConfigScreen />,
+      label: `Promotion`,
+      component: <AssessmentTestsConfigScreen />,
     },
     {
       id: 3,
+      label: `Examination`,
+      component: <ExaminationsConfigScreen />,
+    },
+    {
+      id: 4,
       label: `Assessment Tests`,
       component: <AssessmentTestsConfigScreen />,
     },
@@ -37,7 +40,7 @@ export default function EvaluationConfigPage() {
       tabs={tabs}
       activeTab={activeTab}
       handleTabClick={handleTabClick}
-      title={"Academics"}
+      title={"Assessments"}
     />
   );
 }

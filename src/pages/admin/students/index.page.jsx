@@ -8,42 +8,27 @@ import { useUser } from "../../../app/contexts/UserContext";
 
 import { Flex, Box, Button, HStack, Text, Select } from "@chakra-ui/react";
 
-import {
-  MdAdd,
-  MdIcecream,
-  MdImportExport,
-  MdUploadFile,
-} from "react-icons/md";
+import { MdAdd, MdImportExport } from "react-icons/md";
 
 import allowedUserRoles from "../../../helpers/allowedUserRoles";
 
 import SearchWidget from "../../../widgets/Search.widget";
 
-import IconComponent from "../../../components/Icon.component";
 import PageSectionHeader from "../../../components/PageSectionHeader";
 import AllStudentsTable from "../../../components/tables/users/StudentsTable.component";
 import PageWrapper from "../../../components/PageWrapper";
-import StudentPreviewCard from "../../../components/PreviewCards/StudentPreviewCard";
-import DataViewSwitcher from "../../../widgets/DataViewSwitcher";
-import GridViewComponent from "../../../widgets/GridViewComponent";
 
 export default function StudentsPage() {
   const navigate = useNavigate();
   const [selectedSchoolClass, setSelectedSchoolClass] = useState("");
   const [selectedSubClass, setSelectedSubClass] = useState("");
-  const [dataView, setDataView] = useState("grid");
-  const [subClasses, setSubClasses] = useState("");
+
   const { studentsData } = useStudents();
   const [filteredStudentsData, setFilteredStudentsData] =
     useState(studentsData);
   const { user } = useUser();
 
   const { schoolClasses, loading } = useClasses(); // Use the new hook
-
-  function handleDataView(e) {
-    e.preventDefault;
-    setDataView(() => e);
-  }
 
   const memoizedFilteredStudentsData = useMemo(() => {
     if (!selectedSchoolClass || selectedSchoolClass === "all_students") {
@@ -86,13 +71,11 @@ export default function StudentsPage() {
     setSelectedSubClass("");
   };
 
-  const handleSubClassChange = (e) => setSelectedSubClass(e.target.value);
-
   return (
     <PageWrapper>
       <PageSectionHeader
         pageTitle={"All Students"}
-        pageCrumb={"Home / Students / All Students"}
+        pageCrumb={"Home / Students "}
       />
 
       <Flex
@@ -127,12 +110,18 @@ export default function StudentsPage() {
       </Flex>
 
       <Box>
-        <Flex alignItems={"center"} gap={4} my={4} mb={8}>
-          <HStack width={"full"}>
+        <Flex
+          alignItems={"center"}
+          gap={4}
+          my={4}
+          mb={8}
+          justifyContent={"space-between"}
+        >
+          <HStack minW={""}>
             <Text flexShrink={0} fontWeight={"bold"} as={"small"}>
               Filter by:
             </Text>
-            <Select size={"sm"} minW={"180px"} onChange={handleClassChange}>
+            <Select size={"sm"} minW={"200px"} onChange={handleClassChange}>
               <option value="">-- Select Class --</option>
               {schoolClasses?.map((schoolClass) => (
                 <option key={schoolClass._id} value={schoolClass._id}>
@@ -141,40 +130,10 @@ export default function StudentsPage() {
               ))}
               <option value="all_students">All</option>
             </Select>
-
-            {/* Subclass selection */}
-            {selectedSchoolClass && (
-              <Select
-                size={"sm"}
-                minW={"180px"}
-                onChange={handleSubClassChange}
-                value={selectedSubClass}
-              >
-                <option value="">-- Select Subclass --</option>
-                {subClasses.map((subClass, index) => (
-                  <option key={index} value={subClass._id}>
-                    {subClass.name}
-                  </option>
-                ))}
-              </Select>
-            )}
           </HStack>
-
-          <DataViewSwitcher
-            handleDataView={handleDataView}
-            dataView={dataView}
-          />
         </Flex>
         {filteredStudentsData?.length > 0 ? (
-          dataView === "grid" ? (
-            <GridViewComponent
-              Component={StudentPreviewCard}
-              dataEntity={"student"}
-              data={studentsData}
-            />
-          ) : (
-            <AllStudentsTable existingStudentsData={filteredStudentsData} />
-          )
+          <AllStudentsTable existingStudentsData={filteredStudentsData} />
         ) : (
           <Text as={"h2"} letterSpacing={0.5} color={"neutral.700"}>
             No students data yet!

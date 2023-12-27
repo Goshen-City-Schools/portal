@@ -6,7 +6,12 @@ export default function SessionTermConfigScreen() {
     term: "term1",
   };
   return (
-    <Stack spacing={4} p={2} divider={<StackDivider borderColor="gray.200" />}>
+    <Stack
+      spacing={4}
+      py={2}
+      px={4}
+      divider={<StackDivider borderColor="gray.200" />}
+    >
       {/* Session */}
       <Stack
         direction="row"
@@ -14,9 +19,16 @@ export default function SessionTermConfigScreen() {
         justifyContent={"space-between"}
         width={"full"}
       >
-        <Text>Session</Text>
+        <Text fontSize={"sm"} fontWeight={"bold"}>
+          Academic Year:
+        </Text>
 
-        <Select value={academicData.session}>
+        <Select
+          width={"max-content"}
+          size={"sm"}
+          fontSize={"sm"}
+          value={academicData.session}
+        >
           <option value="20232024">2023 - 2024</option>
           <option value="20242025">2024 - 2025</option>
         </Select>
@@ -29,9 +41,16 @@ export default function SessionTermConfigScreen() {
         justifyContent={"space-between"}
         width={"full"}
       >
-        <Text>Term</Text>
+        <Text fontSize={"sm"} fontWeight={"bold"}>
+          Academic Term:
+        </Text>
 
-        <Select value={academicData.term}>
+        <Select
+          value={academicData.term}
+          width={"max-content"}
+          size={"sm"}
+          fontSize={"sm"}
+        >
           <option value="term1">First Term</option>
           <option value="term2">Second Term</option>
           <option value="term3">Third Term</option>

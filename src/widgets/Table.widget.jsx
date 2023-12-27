@@ -151,7 +151,7 @@ const DataTable = ({ columns, data, fullWidthColumns, customPageSize }) => {
           </strong>{" "}
         </span>
         <Button
-          colorScheme="blue"
+          colorScheme="facebook"
           onClick={() => nextPage()}
           size="sm"
           disabled={!canNextPage}

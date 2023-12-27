@@ -1,7 +1,7 @@
 import React from "react";
-import PageWrapper from "../../../components/PageWrapper";
-import PageSectionHeader from "../../../components/PageSectionHeader";
-import SubjectForm from "../../../components/forms/SubjectForm";
+import PageWrapper from "../../../../components/PageWrapper";
+import PageSectionHeader from "../../../../components/PageSectionHeader";
+import SubjectForm from "../../../../components/forms/SubjectForm";
 
 import { Box } from "@chakra-ui/react";
 

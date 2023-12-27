@@ -13,7 +13,17 @@ export default function NewParentPage() {
         pageTitle={"New Parent Account"}
       />
 
-      <Box w={"full"} mt={8} maxW={"2xl"} shadow={"sm"} mx={"auto"}>
+      <Box
+        w={"full"}
+        mt={8}
+        maxW={"2xl"}
+        shadow={"sm"}
+        mx={"auto"}
+        bg={"white"}
+        px={8}
+        py={2}
+        rounded={"lg"}
+      >
         <GuardianForm guardianData={""} />
       </Box>
     </PageWrapper>

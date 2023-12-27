@@ -4,8 +4,10 @@ import { useNavigate } from "react-router-dom";
 import { Stack, Button } from "@chakra-ui/react";
 import { MdAdd } from "react-icons/md";
 import { AllClassesTable } from "../../components/tables";
+import { useClasses } from "../../hooks";
 
 export default function ClassConfigScreen() {
+  const { schoolClasses } = useClasses();
   const navigate = useNavigate();
   return (
     <Stack>
@@ -20,7 +22,7 @@ export default function ClassConfigScreen() {
         Add SubClass
       </Button>
 
-      <AllClassesTable />
+      <AllClassesTable data={schoolClasses} />
     </Stack>
   );
 }

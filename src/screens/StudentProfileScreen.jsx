@@ -343,7 +343,7 @@ export default function StudentProfileScreen({ student }) {
                 fontSize={"sm"}
                 leftIcon={<MdEdit />}
                 size={"sm"}
-                colorScheme="blue"
+                colorScheme="facebook"
                 onClick={() => handleEditAction(student.portalId)}
               >
                 Edit Profile
@@ -513,7 +513,7 @@ export default function StudentProfileScreen({ student }) {
               </Flex>
             </Box>
             <ButtonGroup justifyContent={"space-between"} mt={4}>
-              <Button size={"sm"} fontSize={"sm"} colorScheme="blue">
+              <Button size={"sm"} fontSize={"sm"} colorScheme="facebook">
                 Report Sheet
               </Button>
               <Button size={"sm"} fontSize={"sm"} colorScheme="green">
@@ -653,7 +653,7 @@ export default function StudentProfileScreen({ student }) {
                         width={"max-content"}
                         size={"xs"}
                         variant={"outline"}
-                        colorScheme="blue"
+                        colorScheme="facebook"
                         fontSize={"xs"}
                       >
                         Print Receipt
@@ -715,7 +715,7 @@ export default function StudentProfileScreen({ student }) {
                         width={"max-content"}
                         size={"xs"}
                         variant={"outline"}
-                        colorScheme="blue"
+                        colorScheme="facebook"
                         fontSize={"xs"}
                       >
                         Print Receipt

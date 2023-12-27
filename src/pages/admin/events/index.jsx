@@ -76,54 +76,8 @@ export default function AllEventsPage() {
         </Flex>
       </Flex>
 
-      <Box px={8} py={6} pb={10} bg={"white"} rounded={"lg"}>
-        <Flex
-          alignItems={"center"}
-          justifyContent={"space-between"}
-          gap={4}
-          my={4}
-        >
-          <HStack mb={4}>
-            <Text flexShrink={0} fontWeight={"bold"} as={"small"}>
-              Filter by:
-            </Text>
-            <Select size={"sm"} minW={"sm"}>
-              <option value="">-- Select Role --</option>
-              {schoolData.staffRoles?.map((role) => (
-                <option key={role.id} value={role.name}>
-                  {role.name}
-                </option>
-              ))}
-              <option value="all_staff">All</option>
-            </Select>
-          </HStack>
-
-          <DataViewSwitcher
-            dataView={dataView}
-            handleDataView={handleDataView}
-          />
-        </Flex>
-
-        {dataView === "grid" ? (
-          <Grid
-            gridTemplateColumns={{
-              "base": "1fr",
-              "sm": "repeat(2, 1fr)",
-              "md": "repeat(3, 1fr)",
-              "lg": "repeat(5, 1fr)",
-            }}
-            mt={"4"}
-            gap={4}
-          >
-            {/* TODO:  */}
-
-            {events.map((event) => (
-              <EventPreviewCard key={event.eventName} event={event} />
-            ))}
-          </Grid>
-        ) : (
-          <AllEventsTable events={events} />
-        )}
+      <Box py={6} pb={10}>
+        <AllEventsTable events={events} />
       </Box>
     </PageWrapper>
   );

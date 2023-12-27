@@ -1,19 +1,16 @@
 import React from "react";
 
-import { Flex, Text, Tag } from "@chakra-ui/react";
-import { getNumberOfStudentsInClass } from "../../pages/admin/classes/Index.page";
-import RowId from "./shared/RowId";
-import ActionsPopUp from "../../widgets/ActionsPopUp";
+import ActionsPopUp from "../../../widgets/ActionsPopUp";
 import { IoMdEye } from "react-icons/io";
-import { MdDelete, MdEdit } from "react-icons/md";
+import { MdEdit } from "react-icons/md";
 import { DataTable } from "../../../widgets";
-// import DataTable from "../../../widgets/Table.widget";
+import RowId from "../shared/RowId";
 
 const ClassResultTable = ({ data, studentsData }) => {
   const actionsMenu = (id) => [
     {
-      name: "viewClass",
-      label: "View Class",
+      name: "viewResultSheet",
+      label: "View Result Sheet",
       icon: <IoMdEye />,
       action: "view",
     },
@@ -32,14 +29,33 @@ const ClassResultTable = ({ data, studentsData }) => {
       Cell: ({ row }) => <RowId row={row} />,
     },
     {
-      Header: "Subject",
+      Header: "Student ID",
       accessor: "student",
     },
     {
-      Header: "Upload Status",
-      accessor: "status",
+      Header: "Full name",
+      accessor: "fullname",
     },
-
+    {
+      Header: "CA",
+      accessor: "caScore",
+    },
+    {
+      Header: "Exam",
+      accessor: "examScore",
+    },
+    {
+      Header: "Total",
+      accessor: "totalScore",
+    },
+    {
+      Header: "Grade",
+      accessor: "grade",
+    },
+    {
+      Header: "Remark",
+      accessor: "remark",
+    },
     {
       Header: "Action",
       accessor: "action",
@@ -52,7 +68,7 @@ const ClassResultTable = ({ data, studentsData }) => {
       <DataTable
         columns={columns}
         data={data ? data : []}
-        fullWidthColumns={["SubClasses"]}
+        fullWidthColumns={["Full name"]}
       />
     </div>
   );

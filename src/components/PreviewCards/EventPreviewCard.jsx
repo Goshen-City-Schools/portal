@@ -21,7 +21,7 @@ const EventPreviewCard = ({ event }) => {
           colorScheme={eventStatus === "active" ? "green" : "red"}
           mr="2"
         >
-          {eventStatus?.toLocaleUpperCase()}
+          {eventStatus}
         </Badge>
       </Stack>
 

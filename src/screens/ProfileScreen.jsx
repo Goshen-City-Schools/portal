@@ -112,7 +112,7 @@ export default function ProfileScreen({ user }) {
               Change Password
             </Button>
             <Button
-              colorScheme="blue"
+              colorScheme="facebook"
               leftIcon={<MdShare />}
               fontSize={"sm"}
               size={"sm"}

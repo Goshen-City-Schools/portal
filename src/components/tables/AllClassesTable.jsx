@@ -2,7 +2,7 @@ import React from "react";
 import Table from "../../widgets/Table.widget";
 
 import { Flex, Text, Tag } from "@chakra-ui/react";
-import { getNumberOfStudentsInClass } from "../../pages/admin/classes/Index.page";
+import { getNumberOfStudentsInClass } from "../../pages/admin/configs/classes/Index.page";
 import RowId from "./shared/RowId";
 import ActionsPopUp from "../../widgets/ActionsPopUp";
 import { IoMdEye } from "react-icons/io";

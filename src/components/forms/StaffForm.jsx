@@ -57,7 +57,7 @@ export default function StaffForm({ action, staffData, staffRoles }) {
   async function handleFormSubmit(e) {
     e.preventDefault();
     setLoading(true);
-
+    console.log(formData);
     if (
       !formData.firstName ||
       !formData.lastName ||

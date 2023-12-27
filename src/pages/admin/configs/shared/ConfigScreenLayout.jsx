@@ -19,8 +19,8 @@ export default function ConfigScreenLayout({
       <ReactPortal />
 
       <PageSectionHeader
-        pageTitle={`Configure ${title}`}
-        pageCrumb={"Home / Config"}
+        pageTitle={`${title} Configuration`}
+        pageCrumb={`Home / Config / ${title}`}
       />
 
       <Flex alignItems={"center"} gap={4}>

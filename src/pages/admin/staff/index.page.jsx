@@ -8,12 +8,9 @@ import { MdAdd, MdImportExport } from "react-icons/md";
 
 import { useStaffRoles, useStaffs } from "../../../hooks/";
 
-import DataViewSwitcher from "../../../widgets/DataViewSwitcher";
 import SearchWidget from "../../../widgets/Search.widget";
 
 import AllStaffTable from "../../../components/tables/users/StaffTable.component";
-import StaffPreviewCard from "../../../components/PreviewCards/StaffPreviewCard";
-import GridViewComponent from "../../../widgets/GridViewComponent";
 
 export default function AllStaffPage() {
   const navigate = useNavigate();
@@ -21,12 +18,6 @@ export default function AllStaffPage() {
   const { staffsData } = useStaffs();
 
   console.log(staffsData);
-
-  const [dataView, setDataView] = useState("grid");
-  function handleDataView(e) {
-    e.preventDefault;
-    setDataView(() => e);
-  }
 
   return (
     <PageWrapper>
@@ -36,9 +27,9 @@ export default function AllStaffPage() {
           mt={0}
           className=""
           fontSize={"2xl"}
-          fontWeighbt={"bold"}
+          fontWeight={"bold"}
         >
-          All Staff
+          Staff Configuration
         </Text>
         <Text as={"small"}>Home / Staff </Text>
       </Flex>
@@ -51,7 +42,7 @@ export default function AllStaffPage() {
       >
         <SearchWidget height={10} text={"Search staff"} />
 
-        <Flex gap={4} fontSize={"sm"}>
+        <Flex gap={4} fontSize={"sm"} m={4}>
           <Button
             size={"sm"}
             colorScheme={"blue"}
@@ -94,23 +85,10 @@ export default function AllStaffPage() {
               <option value="all_staff">All</option>
             </Select>
           </HStack>
-
-          <DataViewSwitcher
-            dataView={dataView}
-            handleDataView={handleDataView}
-          />
         </Flex>
 
         {staffsData && staffsData ? (
-          dataView === "grid" ? (
-            <GridViewComponent
-              Component={StaffPreviewCard}
-              dataEntity={"staff"}
-              data={staffsData}
-            />
-          ) : (
-            <AllStaffTable existingStaffData={staffsData} />
-          )
+          <AllStaffTable existingStaffData={staffsData} />
         ) : (
           <Text as={"h2"} letterSpacing={0.5} color={"neutral.700"}>
             No Staff data yet!

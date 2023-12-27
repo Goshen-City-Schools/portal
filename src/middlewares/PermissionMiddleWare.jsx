@@ -39,6 +39,36 @@ const routes = [
   },
 
   {
+    path: "/admin/results",
+    allowedRoles: ["IT Personnel", "Bursar"],
+    allowedAccountTypes: ["staff"],
+  },
+  {
+    path: "/admin/parents",
+    allowedRoles: ["IT Personnel", "Bursar"],
+    allowedAccountTypes: ["staff"],
+  },
+  {
+    path: "/admin/parents/new",
+    allowedRoles: ["IT Personnel", "Bursar"],
+    allowedAccountTypes: ["staff"],
+  },
+  {
+    path: "/admin/articles",
+    allowedRoles: ["IT Personnel", "Bursar"],
+    allowedAccountTypes: ["staff"],
+  },
+  {
+    path: "/admin/articles/new",
+    allowedRoles: ["IT Personnel", "Bursar"],
+    allowedAccountTypes: ["staff"],
+  },
+  {
+    path: "/admin/articles/:articleId",
+    allowedRoles: ["IT Personnel", "Bursar"],
+    allowedAccountTypes: ["staff"],
+  },
+  {
     path: "/admin/students",
     allowedRoles: ["IT Personnel", "Bursar"],
     allowedAccountTypes: ["staff"],
@@ -54,30 +84,32 @@ const routes = [
     allowedAccountTypes: ["staff"],
   },
   {
-    path: "/admin/staff",
+    path: "/admin/config",
     allowedRoles: ["IT Personnel"],
     allowedAccountTypes: ["staff"],
   },
   {
-    path: "/admin/staff/new",
+    path: "/admin/config/:id",
     allowedRoles: ["IT Personnel"],
     allowedAccountTypes: ["staff"],
   },
   {
-    path: "/admin/staff/roles",
+    path: "/admin/config/:id/:id/edit",
     allowedRoles: ["IT Personnel"],
     allowedAccountTypes: ["staff"],
   },
+  {
+    path: "/admin/config/:id/:id",
+    allowedRoles: ["IT Personnel"],
+    allowedAccountTypes: ["staff"],
+  },
+
   {
     path: "/admin/staff/:staffId",
-    allowedRoles: ["IT Personnel"],
+    allowedRoles: ["IT Personnel", "Bursar"],
     allowedAccountTypes: ["staff"],
   },
-  {
-    path: "/admin/staff/:staffId/edit",
-    allowedRoles: ["IT Personnel"],
-    allowedAccountTypes: ["staff"],
-  },
+
   {
     path: "/admin/transactions",
     allowedRoles: ["Bursar"],

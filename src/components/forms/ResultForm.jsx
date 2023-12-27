@@ -1,10 +1,14 @@
 import { useClassDetails, useClasses } from "../../hooks";
 import { useState } from "react";
-import { FormInput, FormcContainer } from "../shared";
+import { FormInput, FormSelect, FormcContainer } from "../shared";
 
-import { Text } from "@chakra-ui/react";
+import { Stack } from "@chakra-ui/react";
 
-export function NewClassSubjectResultSetupForm({ action, resultData }) {
+import { Text, Button } from "@chakra-ui/react";
+import { useSubjects } from "../../hooks/Subjects";
+import { MdChevronRight } from "react-icons/md";
+
+export default function ResultForm({ action, resultData }) {
   const [formData, setFormData] = useState({
     session: resultData?.session || "",
     term: resultData?.term || "",
@@ -31,150 +35,86 @@ export function NewClassSubjectResultSetupForm({ action, resultData }) {
 
   return (
     <form>
-      {/* Session */}
-      <FormSelect
-        data={[{ name: "2023 - 2024", value: "20232024" }]}
-        label={"Session"}
-        name={"session"}
-        formData={formData}
-        data_item_name={"name"}
-        data_item_value={"value"}
-        handleChange={handleInputChange}
-      />
+      <Stack gap={6} mb={8}>
+        {/* Session */}
+        <FormSelect
+          data={[{ name: "2023 - 2024", value: "20232024" }]}
+          label={"Session"}
+          name={"session"}
+          formData={formData}
+          data_item_name={"name"}
+          data_item_value={"value"}
+          handleChange={handleInputChange}
+        />
 
-      {/* Term */}
-      <FormSelect
-        data={[
-          { name: "First term", value: "term1" },
-          { name: "Second term", value: "term2" },
-          { name: "Third term", value: "term3" },
-        ]}
-        label={"Term"}
-        name={"term"}
-        formData={formData}
-        data_item_name={"name"}
-        data_item_value={"value"}
-        handleChange={handleInputChange}
-      />
+        {/* Term */}
+        <FormSelect
+          data={[
+            { name: "First term", value: "term1" },
+            { name: "Second term", value: "term2" },
+            { name: "Third term", value: "term3" },
+          ]}
+          label={"Term"}
+          name={"term"}
+          formData={formData}
+          data_item_name={"name"}
+          data_item_value={"value"}
+          handleChange={handleInputChange}
+        />
 
-      {/* Class */}
-      <FormSelect
-        data={schoolClasses}
-        label={"Class"}
-        name={"class"}
-        formData={formData}
-        data_item_name={"name"}
-        data_item_value={"_id"}
-        handleChange={handleInputChange}
-      />
+        {/* Class */}
+        <FormSelect
+          data={schoolClasses}
+          label={"Class"}
+          name={"class"}
+          formData={formData}
+          data_item_name={"name"}
+          data_item_value={"_id"}
+          handleChange={handleInputChange}
+        />
 
-      {/* SubClass */}
-      <FormSelect
-        name={"subClass"}
-        label={"Sub Class"}
-        data={classDetails?.subClasses}
-        data_item_name={"name"}
-        data_item_value={"_id"}
-        formData={formData}
-        handleChange={handleInputChange}
-      />
+        {/* SubClass */}
+        <FormSelect
+          name={"subClass"}
+          label={"Sub Class"}
+          data={classDetails?.subClasses}
+          data_item_name={"name"}
+          data_item_value={"_id"}
+          formData={formData}
+          handleChange={handleInputChange}
+        />
 
-      {/* Subject */}
-      <FormSelect
-        name={"subject"}
-        label={"Subject"}
-        data={subjectsData}
-        data_item_name={"name"}
-        data_item_value={"_id"}
-        formData={formData}
-        handleChange={handleInputChange}
-      />
+        {/* Subject */}
+        <FormSelect
+          name={"subject"}
+          label={"Subject"}
+          data={subjectsData}
+          data_item_name={"name"}
+          data_item_value={"_id"}
+          formData={formData}
+          handleChange={handleInputChange}
+        />
 
-      {/* Result format */}
-      <FormSelect
-        name={"resltFormat"}
-        label={"resultFormat"}
-        data={subjectsData}
-        data_item_name={"name"}
-        data_item_value={"_id"}
-        formData={formData}
-        handleChange={handleInputChange}
-      />
+        {/* Result format */}
+        <FormSelect
+          name={"resltFormat"}
+          label={"Result Format"}
+          data={subjectsData}
+          data_item_name={"name"}
+          data_item_value={"_id"}
+          formData={formData}
+          handleChange={handleInputChange}
+        />
+
+        <Button
+          ml={"auto"}
+          size={"sm"}
+          rightIcon={<MdChevronRight />}
+          colorScheme={"facebook"}
+        >
+          Proceed{" "}
+        </Button>
+      </Stack>
     </form>
-  );
-}
-
-export default function ResultForm() {
-  // update the subject results to the subjects data
-
-  //    already, every class have a set of subjects assigned, this classes are populated with a default value of zero for each column cell of the reslt data format.
-  const [formData, setFormData] = useState({
-    classSubjectResultId: "",
-    classSubjectResult: [],
-  });
-
-  const subjectsData = [];
-
-  function handleInputChange() {}
-
-  return (
-    // Use table than formContainer and make content editable or into Input component when the edit action is active.
-    <FormcContainer>
-      {/*  Student ___ subjectName subject result  */}
-      <FormSelect
-        data={subjectsData}
-        label={"Subject"}
-        name={"subject"}
-        formData={formData}
-        data_item_name={"name"}
-        data_item_value={"value"}
-        handleChange={handleInputChange}
-      />
-
-      <Text contentEditable></Text>
-
-      <FormInput
-        type="number"
-        name={"continousAssessment"}
-        label={"Continous Assessment"}
-        handleChange={handleInputChange}
-        data={formData}
-      />
-
-      <FormInput
-        type="number"
-        name={"examination"}
-        label={"Examination"}
-        handleChange={handleInputChange}
-        data={formData}
-      />
-
-      <FormInput
-        type="text"
-        name={"total"}
-        label={"Total"}
-        handleChange={handleInputChange}
-        data={formData}
-        disabled={true}
-      />
-
-      <FormInput
-        type="text"
-        name={"totalGrade"}
-        label={"Grade"}
-        handleChange={handleInputChange}
-        data={formData}
-        disabled={true}
-      />
-
-      <FormInput
-        type="text"
-        name={"totalRemark"}
-        label={"Remark"}
-        handleChange={handleInputChange}
-        data={formData}
-        disabled={true}
-      />
-    </FormcContainer>
   );
 }

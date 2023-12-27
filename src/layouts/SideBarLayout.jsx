@@ -19,6 +19,8 @@ import "./SideMenu.style.css";
 import { AdminSideBarList } from "../components/SideBar/AdminSideBar";
 import { UserSideBarList } from "../components/SideBar/UserSideBar";
 import allowedUserRoles from "../helpers/allowedUserRoles";
+import { GrHistory } from "react-icons/gr";
+import { TbHistory } from "react-icons/tb";
 
 export default function SideBarLayout() {
   const dispatch = useDispatch();
@@ -141,12 +143,30 @@ export default function SideBarLayout() {
         <h3>ACCOUNT</h3>
         <List className="memuList">
           {/*  */}
+
+          {user.accountType === "staff" &&
+            allowedUserRoles(user, ["IT Personnel", "Principal"]) && (
+              <NavItemComponent link={"/admin/config"}>
+                <IconComponent color={"warning.200"}>
+                  <MdOutlinePrecisionManufacturing size={18} />
+                </IconComponent>
+                <Flex
+                  w={"full"}
+                  alignItems={"center"}
+                  justifyContent={"space-between"}
+                  pr={4}
+                >
+                  Configuration <FaChevronRight />
+                </Flex>
+              </NavItemComponent>
+            )}
+
           <NavItemComponent
             link={user.accountType == "staff" ? "/admin/support" : "/support"}
             onClick={handleToggleSideMenu}
           >
             <IconComponent color={"warning.200"}>
-              <MdOutlineSupportAgent size={20} />
+              <MdOutlineSupportAgent size={18} />
             </IconComponent>
             Help & Support
           </NavItemComponent>
@@ -160,27 +180,10 @@ export default function SideBarLayout() {
             onClick={handleToggleSideMenu}
           >
             <IconComponent color={"warning.200"}>
-              <MdOutlinePrecisionManufacturing size={20} />
+              <TbHistory size={18} />
             </IconComponent>
             Login History
           </NavItemComponent>
-
-          {user.accountType === "staff" &&
-            allowedUserRoles(user, ["IT Personnel", "Principal"]) && (
-              <NavItemComponent link={"/admin/config"}>
-                <IconComponent color={"warning.200"}>
-                  <MdOutlinePrecisionManufacturing size={20} />
-                </IconComponent>
-                <Flex
-                  w={"full"}
-                  alignItems={"center"}
-                  justifyContent={"space-between"}
-                  pr={4}
-                >
-                  Configuration <FaChevronRight />
-                </Flex>
-              </NavItemComponent>
-            )}
         </List>
       </Box>
     </Box>

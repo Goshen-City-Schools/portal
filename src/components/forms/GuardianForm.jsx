@@ -32,7 +32,7 @@ export function GuardianFormControlller({ formData, handleInputChange }) {
         display={"flex"}
         onClick={handleClick}
         leftIcon={<MdAdd />}
-        colorScheme="blue"
+        colorScheme="facebook"
       >
         Add New Guardian
       </Button>
@@ -95,8 +95,16 @@ export default function GuardianForm({ guardianData, action }) {
     setFormData((prevFormData) => ({ ...prevFormData, [name]: newValue }));
   }
 
+  function handleFormSubmit(e) {
+    e.preventDefault();
+    console.log("Form Submitted!");
+  }
+
   return (
-    <form className="flex gap-8 flex-col px-2 py-4 mt-4">
+    <form
+      className="flex gap-8 flex-col px-2 py-4 mt-4"
+      onSubmit={handleFormSubmit}
+    >
       <FormSelect
         disabled={action == "studentEdit"}
         data={[
@@ -146,8 +154,6 @@ export default function GuardianForm({ guardianData, action }) {
         handleChange={handleInputChange}
       />
 
-      {/* Occupation & Relationship to Student */}
-      {/* <Grid gridTemplateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }} gap={4}> */}
       <FormSelect
         disabled={action == "studentEdit"}
         data={[
@@ -163,6 +169,28 @@ export default function GuardianForm({ guardianData, action }) {
         handleChange={handleInputChange}
       />
       {/* </Grid> */}
+
+      {/* State of Residence & Phone Number */}
+
+      <FormSelect
+        disabled={action == "studentEdit"}
+        data={ngStates}
+        label={"State of Residence"}
+        name={"stateOfResidence"}
+        formData={formData}
+        data_item_name={"state"}
+        data_item_value={"alias"}
+        handleChange={handleInputChange}
+      />
+
+      {/* Contact Address*/}
+      <FormTextArea
+        disabled={action == "studentEdit"}
+        name={"contactAddress"}
+        label={"Contact Address"}
+        formData={formData}
+        handleChange={handleInputChange}
+      />
 
       <FormInput
         action={"studentEdit"}
@@ -190,27 +218,6 @@ export default function GuardianForm({ guardianData, action }) {
           handleChange={handleInputChange}
         />
       </Grid>
-
-      {/* State of Residence & Phone Number */}
-
-      {/* Contact Address*/}
-      <FormTextArea
-        disabled={action == "studentEdit"}
-        name={"contactAddress"}
-        label={"Contact Address"}
-        formData={formData}
-      />
-
-      <FormSelect
-        disabled={action == "studentEdit"}
-        data={ngStates}
-        label={"State of Residence"}
-        name={"stateOfResidence"}
-        formData={formData}
-        data_item_name={"state"}
-        data_item_value={"alias"}
-        handleChange={handleInputChange}
-      />
 
       {/* Email & Whatsapp Number */}
 

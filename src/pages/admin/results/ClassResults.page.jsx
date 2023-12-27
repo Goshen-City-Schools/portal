@@ -2,71 +2,141 @@ import React from "react";
 import PageWrapper from "../../../components/PageWrapper";
 import ResultSheet, { ResultSheetPDF } from "../../../components/ResultSheet";
 
-import { Flex, Button } from "@chakra-ui/react";
+import { Flex, Button, FormControl, Select } from "@chakra-ui/react";
 import PageSectionHeader from "../../../components/PageSectionHeader";
 import IconComponent from "../../../components/Icon.component";
-import { MdDownload, MdPrint } from "react-icons/md";
+import { MdAdd, MdFilter, MdPrint, MdUpdate } from "react-icons/md";
 import { useParams } from "react-router-dom";
+import { SearchWidget } from "../../../widgets";
+import ClassResultTable from "../../../components/tables/results/ClassResultTable";
+import AddResultPortal from "../../../portals/shared/AddResult.portal";
+import { useModal } from "../../../app/contexts/ModalContext";
+import { useSubjects } from "../../../hooks/Subjects";
+import { useClasses } from "../../../hooks";
 
 export default function ClassResultsPage() {
   const handlePrint = () => {
     window.print();
   };
 
-  const { session, term, userId } = useParams();
+  const { subjectsData } = useSubjects();
+  const { schoolClasses } = useClasses();
 
-  // Replace this with your logic to fetch and display the result data
-  const resultData = {
-    // Sample data for demonstration
-    session,
-    term,
-    userId,
-    // Add more result-related data here
-  };
+  const { openPortal } = useModal();
 
-  const studentData = {
-    name: "John Doe",
-    rollNumber: "1234",
-    age: 11, // Replace with the actual total score
-    class: "JSS 2A", // Replace with the actual total score
-    remarks: "Excellent", // Replace with the actual remarks
-  };
+  const { session, term, classId, type } = useParams();
 
-  const subjectData = [
-    { name: "Mathematics", examScore: 49, testScore: 18, grade: "A" },
-    { name: "Science", examScore: 56, testScore: 21, grade: "A" },
-    { name: "History", examScore: 45, testScore: 17, grade: "B" },
-    { name: "English", examScore: 65, testScore: 29, grade: "A" },
-    // Add more subjects as needed
+  const resultsData = [
+    {
+      studentId: "",
+      session: "20232024",
+      term: "term1",
+      results: [
+        {
+          subject: "mathematics",
+          exam: 49,
+          test1: 15,
+          test2: "",
+        },
+        {
+          subject: "english",
+          exam: 49,
+          test1: 15,
+          test2: 0,
+        },
+        {
+          subject: "physics",
+          exam: 49,
+          test1: 15,
+          test2: 0,
+        },
+        {
+          subject: "chemistry",
+          exam: 49,
+          test1: 15,
+          test2: 0,
+        },
+      ],
+    },
+    {
+      studentId: "",
+      session: "20232024",
+      term: "term1",
+      results: [
+        {
+          subject: "mathematics",
+          exam: 49,
+          test1: 15,
+          test2: "",
+        },
+        {
+          subject: "english",
+          exam: 49,
+          test1: 15,
+          test2: 0,
+        },
+        {
+          subject: "physics",
+          exam: 49,
+          test1: 15,
+          test2: 0,
+        },
+        {
+          subject: "chemistry",
+          exam: 49,
+          test1: 15,
+          test2: 0,
+        },
+      ],
+    },
+    {
+      studentId: "",
+      session: "20232024",
+      term: "term1",
+      results: [
+        {
+          subject: "mathematics",
+          exam: 49,
+          test1: 15,
+          test2: "",
+        },
+        {
+          subject: "english",
+          exam: 49,
+          test1: 15,
+          test2: 0,
+        },
+        {
+          subject: "physics",
+          exam: 49,
+          test1: 15,
+          test2: 0,
+        },
+        {
+          subject: "chemistry",
+          exam: 49,
+          test1: 15,
+          test2: 0,
+        },
+      ],
+    },
   ];
+
+  // Create Results Data table specific for creating results
+
+  // Be able to view Exam Score, test score for all.
 
   return (
     <PageWrapper overflowX={"scroll"}>
-      <PageSectionHeader
-        pageTitle={"Results"}
-        pageCrumb={"Home / Results / View Result"}
-      />
+      <PageSectionHeader pageTitle={"Results"} pageCrumb={"Home / Results"} />
 
       <Flex
         gap={4}
         fontSize={"sm"}
         py={6}
         justifyContent={"flex-end"}
-        className="no-print"
+        classsubject="no-print"
       >
-        <Button
-          as={"Flex"}
-          gap={2}
-          size={"sm"}
-          bg={"accent.700"}
-          color={"white"}
-        >
-          <IconComponent>
-            <MdDownload />
-          </IconComponent>{" "}
-          Download Result Sheet
-        </Button>
-
         <Button
           bg={"brand.700"}
           size={"sm"}
@@ -76,11 +146,100 @@ export default function ClassResultsPage() {
           <IconComponent>
             <MdPrint />
           </IconComponent>
-          Print Result
+          Print Broadsheet
         </Button>
+
+        <Button leftIcon={<MdFilter />} mx={0} size={"sm"} fontSize={"sm"} />
       </Flex>
 
-      <ResultSheet studentData={studentData} subjectData={subjectData} />
+      {/*  */}
+      <Flex gap={4}>
+        {/* Session Select */}
+        <FormControl>
+          <Select size={"sm"}>
+            <option value={"20232024"}>-- Select Session --</option>
+            <option value={"20232024"}>2023 -2024</option>
+            <option value={"20232024"}>2023 -2024</option>
+          </Select>
+        </FormControl>
+
+        {/* Term Select */}
+        <FormControl>
+          <Select size={"sm"}>
+            <option value={"20232024"}>-- Select Term --</option>
+            <option value={"20232024"}>First term</option>
+            <option value={"20232024"}>Second term</option>
+            <option value={"20232024"}>Third term</option>
+          </Select>
+        </FormControl>
+
+        {/* Class Select */}
+        <FormControl>
+          <Select size={"sm"}>
+            <option value={""}>-- Select Class --</option>
+            {schoolClasses.map((schoolClass) => (
+              <option key={schoolClass.id} value={schoolClass.id}>
+                {schoolClass.name}
+              </option>
+            ))}
+          </Select>
+        </FormControl>
+
+        {/* Subject Select */}
+        <FormControl>
+          <Select size={"sm"}>
+            <option value={""}>-- Select Subject --</option>
+            {subjectsData.map((subject) => (
+              <option key={subject.id} value={subject.id}>
+                {subject.name}
+              </option>
+            ))}
+          </Select>
+        </FormControl>
+      </Flex>
+
+      {/* Search and More Widget */}
+      <Flex
+        justifyContent={"space-between"}
+        alignItems={"center"}
+        mt={8}
+        mb={6}
+      >
+        <SearchWidget height={10} text={"Search Student"} />
+
+        <Flex gap={4} fontSize={"sm"}>
+          <Button
+            variant={"outline"}
+            size={"sm"}
+            colorScheme="facebook"
+            onClick={() => {
+              openPortal(<CreateEventPortal />);
+            }}
+          >
+            <IconComponent>
+              <MdUpdate />
+            </IconComponent>
+            Update Result
+          </Button>
+
+          {/* Add New */}
+          <Button
+            size={"sm"}
+            colorScheme={"facebook"}
+            onClick={() => {
+              openPortal(<AddResultPortal />);
+            }}
+          >
+            <IconComponent>
+              <MdAdd />
+            </IconComponent>
+            New Result
+          </Button>
+        </Flex>
+      </Flex>
+
+      {/* Class Results Table */}
+      <ClassResultTable />
     </PageWrapper>
   );
 }

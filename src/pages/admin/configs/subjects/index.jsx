@@ -1,15 +1,15 @@
 import React from "react";
-import PageWrapper from "../../../components/PageWrapper";
-import PageSectionHeader from "../../../components/PageSectionHeader";
+import PageWrapper from "../../../../components/PageWrapper";
+import PageSectionHeader from "../../../../components/PageSectionHeader";
 
 import { Flex, Button, Box } from "@chakra-ui/react";
-import IconComponent from "../../../components/Icon.component";
+import IconComponent from "../../../../components/Icon.component";
 import { MdAdd } from "react-icons/md";
-import SearchWidget from "../../../widgets/Search.widget";
+import SearchWidget from "../../../../widgets/Search.widget";
 
-import allowedUserRoles from "../../../helpers/allowedUserRoles";
-import { useUser } from "../../../app/contexts/UserContext";
-import SubjectTable from "../../../components/tables/SubjectTable.component";
+import allowedUserRoles from "../../../../helpers/allowedUserRoles";
+import { useUser } from "../../../../app/contexts/UserContext";
+import SubjectTable from "../../../../components/tables/SubjectTable.component";
 import { useNavigate } from "react-router-dom";
 
 export default function SubjectsPage() {

@@ -2,22 +2,22 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { Flex, Box } from "@chakra-ui/react";
 
-import { useClasses, useStudents } from "../../../hooks";
+import { useClasses, useStudents } from "../../../../hooks";
 
-import HorizontalScrollableTabs from "../../../widgets/HorizontalScrollableTabs.widget";
+import HorizontalScrollableTabs from "../../../../widgets/HorizontalScrollableTabs.widget";
 
-import subjectsData from "../../../data/subjects.data";
+import subjectsData from "../../../../data/subjects.data";
 
-import PageWrapper from "../../../components/PageWrapper";
-import ClassSummaryBox from "../../../components/ClassSummaryBox";
-import AllStudentsTable from "../../../components/tables/users/StudentsTable.component";
-import Timetable from "../../../components/tables/TimeTable.component";
-import ClassAttendance from "../../../components/tables/ClassAttendanceTable.component";
-import SubjectTable from "../../../components/tables/SubjectTable.component";
-import IconComponent from "../../../components/Icon.component";
+import PageWrapper from "../../../../components/PageWrapper";
+import ClassSummaryBox from "../../../../components/ClassSummaryBox";
+import AllStudentsTable from "../../../../components/tables/users/StudentsTable.component";
+import Timetable from "../../../../components/tables/TimeTable.component";
+import ClassAttendance from "../../../../components/tables/ClassAttendanceTable.component";
+import SubjectTable from "../../../../components/tables/SubjectTable.component";
+import IconComponent from "../../../../components/Icon.component";
 
 import { MdArrowBack } from "react-icons/md";
-import PageSectionHeader from "../../../components/PageSectionHeader";
+import PageSectionHeader from "../../../../components/PageSectionHeader";
 
 export default function ClassPage() {
   const [activeTab, setActiveTab] = useState(1);

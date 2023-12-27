@@ -8,7 +8,7 @@ import RowId from "./shared/RowId";
 import StatusBadge from "./shared/StatusBadge";
 
 export default function AllEventsTable({ events }) {
-  const actionsMenu = [
+  const actionsMenu = (id) => [
     {
       name: "editEvent",
       label: "Edit Event",

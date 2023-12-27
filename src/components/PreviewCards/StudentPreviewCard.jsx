@@ -62,7 +62,7 @@ export default function StudentPreviewCard({ data }) {
             <Badge
               lineHeight={0.8}
               as={"small"}
-              colorScheme="blue"
+              colorScheme="facebook"
               fontWeight={"bold"}
               letterSpacing={1}
               p={2}

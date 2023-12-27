@@ -96,7 +96,7 @@ const SubjectTable = () => {
         Cell: ({ value }) => (
           <Flex gap={2} overflowX={"hidden"} wrap={"wrap"}>
             {value?.map((id, index) => (
-              <Tag colorScheme="blue" size={"sm"}>
+              <Tag colorScheme="facebook" size={"sm"}>
                 <SchoolClass value={id} />
               </Tag>
             ))}

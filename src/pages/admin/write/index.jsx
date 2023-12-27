@@ -2,14 +2,43 @@ import React from "react";
 import PageWrapper from "../../../components/PageWrapper";
 import PageSectionHeader from "../../../components/PageSectionHeader";
 
-import { Box } from "@chakra-ui/react";
+import { Grid, Box, Text } from "@chakra-ui/react";
 
-export default function WritePage() {
+export default function WriteDashboard() {
   return (
     <PageWrapper>
-      <PageSectionHeader pageCrumb={"Write"} pageTitle={"Home / Write"} />
+      <PageSectionHeader
+        pageTitle={"Write Dashboard"}
+        pageCrumb={"Home / Write"}
+      />
 
-      <Box>{/* Show Data stat of audience responding to writings */}</Box>
+      {/* All Announcments */}
+      <Box>
+        <Text as={"h2"} fontWeight={"bold"} my={2}>
+          Announcements
+        </Text>
+
+        <Grid></Grid>
+      </Box>
+
+      {/* Latest News & Gists */}
+      <Box>
+        <Text as={"h2"} fontWeight={"bold"} my={2}>
+          Latest News
+        </Text>
+        <Grid></Grid>
+      </Box>
+
+      {/* Upcoming Events */}
+      <Box>
+        <Text as={"h2"} fontWeight={"bold"} my={2}>
+          Upcoming Events
+        </Text>
+        <Grid></Grid>
+      </Box>
+
+      {/*  */}
+      <Grid></Grid>
     </PageWrapper>
   );
 }

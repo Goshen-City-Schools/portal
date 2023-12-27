@@ -132,9 +132,7 @@ const StudentsTable = () => {
       Header: "Class",
       accessor: "schoolClass",
       width: "max-content",
-      Cell: ({ value }) => {
-        <SchoolClass value={value} />;
-      },
+      Cell: ({ value }) => <SchoolClass value={value} />,
     },
     {
       Header: "Guardian Tel.",

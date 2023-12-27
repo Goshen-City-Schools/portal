@@ -1,9 +1,9 @@
 import React from "react";
-import { useSubject } from "../../../hooks/Subjects";
+import { useSubject } from "../../../../hooks/Subjects";
 import { useParams } from "react-router-dom";
-import PageWrapper from "../../../components/PageWrapper";
-import PageSectionHeader from "../../../components/PageSectionHeader";
-import SubjectForm from "../../../components/forms/SubjectForm";
+import PageWrapper from "../../../../components/PageWrapper";
+import PageSectionHeader from "../../../../components/PageSectionHeader";
+import SubjectForm from "../../../../components/forms/SubjectForm";
 
 import { Box } from "@chakra-ui/react";
 

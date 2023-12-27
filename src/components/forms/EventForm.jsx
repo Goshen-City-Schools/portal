@@ -24,8 +24,6 @@ export default function EventForm() {
     event_description: "",
     event_startDate: "",
     event_endDate: "",
-    event_startTime: "",
-    event_endTime: "",
     event_period: "",
     event_notification: "",
   });
@@ -45,7 +43,6 @@ export default function EventForm() {
       !formData.event_name ||
       !formData.event_description ||
       !formData.event_startDate ||
-      !formData.event_startTime ||
       !formData.event_notification
     ) {
       toast({
@@ -111,60 +108,31 @@ export default function EventForm() {
         </FormControl>
 
         {/* Event Date */}
-        <Flex alignItems={"center"} gap={4}>
-          <FormControl>
-            <FormLabel fontSize={"xs"} fontWeight={"semibold"}>
-              Start Date
-            </FormLabel>
-            <Input
-              value={formData.event_startDate}
-              type="date"
-              size={"sm"}
-              onChange={handleChange}
-              name="event_startDate"
-            />
-          </FormControl>
-          <FormControl>
-            <FormLabel fontSize={"xs"} fontWeight={"semibold"}>
-              End Date
-            </FormLabel>
-            <Input
-              value={formData.event_endDate}
-              type="date"
-              size={"sm"}
-              onChange={handleChange}
-              name="event_endDate"
-            />
-          </FormControl>
-        </Flex>
+        <FormControl>
+          <FormLabel fontSize={"xs"} fontWeight={"semibold"}>
+            Start Date & Time
+          </FormLabel>
+          <Input
+            value={formData.event_startDate}
+            type="datetime-local"
+            size={"sm"}
+            onChange={handleChange}
+            name="event_startDate"
+          />
+        </FormControl>
 
-        {/* Event Time */}
-        <Flex alignItems={"center"} gap={4} my={1}>
-          <FormControl>
-            <FormLabel fontSize={"xs"} fontWeight={"semibold"}>
-              Start Time
-            </FormLabel>
-            <Input
-              value={formData.event_startTime}
-              type="date"
-              size={"sm"}
-              onChange={handleChange}
-              name="event_startTime"
-            />
-          </FormControl>
-          <FormControl>
-            <FormLabel fontSize={"xs"} fontWeight={"semibold"}>
-              End Time
-            </FormLabel>
-            <Input
-              value={formData.event_endTime}
-              type="date"
-              size={"sm"}
-              onChange={handleChange}
-              name="event_endTime"
-            />
-          </FormControl>
-        </Flex>
+        <FormControl>
+          <FormLabel fontSize={"xs"} fontWeight={"semibold"}>
+            End Date & Time
+          </FormLabel>
+          <Input
+            value={formData.event_endDate}
+            type="datetime-local"
+            size={"sm"}
+            onChange={handleChange}
+            name="event_endDate"
+          />
+        </FormControl>
 
         <Flex mt={2} justifyContent={"space-between"}>
           <Text as={"p"} fontSize={"sm"} fontWeight={"bold"}>
@@ -218,10 +186,11 @@ export default function EventForm() {
           </CustomSelect>
         </FormControl>
         <Button
-          colorScheme={"green"}
+          colorScheme={"blue"}
           w={"max-content"}
           fontSize={"sm"}
           mx={"auto"}
+          size={"sm"}
           isLoading={isLoading}
           mt={2}
           type="submit"

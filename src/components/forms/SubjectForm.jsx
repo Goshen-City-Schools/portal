@@ -162,7 +162,7 @@ export default function SubjectForm({ subjectData, action }) {
         mt={4}
         mx={"auto"}
         fontSize={"sm"}
-        colorScheme="blue"
+        colorScheme="facebook"
       >
         {action === "edit" ? "Update Subject" : "Create Subject"}
       </Button>

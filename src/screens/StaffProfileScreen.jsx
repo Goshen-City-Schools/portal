@@ -141,7 +141,7 @@ export default function StaffProfileScreen({
           handleAssignItems={handleAssignRoles}
           title="Assign Roles to Teacher"
           buttonText="Assign Roles"
-          colorScheme="blue"
+          colorScheme="facebook"
         />
       );
     }
@@ -547,7 +547,7 @@ export default function StaffProfileScreen({
                       size="sm"
                       key={index}
                       variant="solid"
-                      colorScheme="blue"
+                      colorScheme="facebook"
                     >
                       {role.name}
                     </Tag>
@@ -563,7 +563,7 @@ export default function StaffProfileScreen({
                       size="sm"
                       fontSize="xs"
                       variant="outline"
-                      colorScheme="blue"
+                      colorScheme="facebook"
                       leftIcon={<MdAdd size={18} />}
                       onClick={() => handleAssignClick("roles")}
                     >

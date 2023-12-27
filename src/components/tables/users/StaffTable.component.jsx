@@ -76,7 +76,7 @@ const StaffTable = ({ existingStaffData }) => {
   };
 
   const handleEditAction = (staffId) => {
-    navigate(`/admin/staff/${staffId}/edit`);
+    navigate(`/admin/config/staff/${staffId}/edit`);
   };
 
   const actionsMenu = (id) => [

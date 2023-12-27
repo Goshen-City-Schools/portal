@@ -13,7 +13,7 @@ export default function FormButton({
       leftIcon={<MdUpload />}
       mt={4}
       mx={"auto"}
-      colorScheme="blue"
+      colorScheme="facebook"
       type={type}
       size={"sm"}
       isLoading={loading}

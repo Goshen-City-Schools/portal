@@ -12,23 +12,23 @@ import {
   HStack,
 } from "@chakra-ui/react";
 
-import { useModal } from "../../../app/contexts/ModalContext";
+import { useModal } from "../../../../app/contexts/ModalContext";
 
-import { useClasses, useStudents } from "../../../hooks/";
+import { useClasses, useStudents } from "../../../../hooks/";
 
-import ReactPortal from "../../../widgets/React_portal";
-import SearchWidget from "../../../widgets/Search.widget";
+import ReactPortal from "../../../../widgets/React_portal";
+import SearchWidget from "../../../../widgets/Search.widget";
 
-import PageWrapper from "../../../components/PageWrapper";
-import StatCardComponent from "../../../components/StatCard.component";
-import IconComponent from "../../../components/Icon.component";
+import PageWrapper from "../../../../components/PageWrapper";
+import StatCardComponent from "../../../../components/StatCard.component";
+import IconComponent from "../../../../components/Icon.component";
 
 import { MdAdd } from "react-icons/md";
-import CreateSubClassPortal from "../../../portals/CreateSubClass.portal";
-import AllClassesTable from "../../../components/tables/AllClassesTable";
-import CustomSelect from "../../../components/shared/Select.component";
-import DataViewSwitcher from "../../../widgets/DataViewSwitcher";
-import PageSectionHeader from "../../../components/PageSectionHeader";
+import CreateSubClassPortal from "../../../../portals/CreateSubClass.portal";
+import AllClassesTable from "../../../../components/tables/AllClassesTable";
+import CustomSelect from "../../../../components/shared/Select.component";
+import DataViewSwitcher from "../../../../widgets/DataViewSwitcher";
+import PageSectionHeader from "../../../../components/PageSectionHeader";
 
 const GridViewComponent = ({
   schoolClasses,

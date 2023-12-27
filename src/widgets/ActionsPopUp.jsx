@@ -52,7 +52,7 @@ const ActionsPopUp = ({ menu }) => {
               size={"sm"}
               py={0.2}
               leftIcon={menuItem.icon}
-              colorScheme="blue"
+              colorScheme="facebook"
               variant={"outline"}
               onClick={() => {
                 menuItem.onClick(); // Call the onClick function here

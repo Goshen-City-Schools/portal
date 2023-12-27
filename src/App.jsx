@@ -13,12 +13,9 @@ import {
   AdminProfilePage,
   //
   AllEventsPage,
-  AllFeesPage,
   //
   AllStaffPage,
-  // StaffPage,
   NewStaffPage,
-  StaffRolesPage,
   //
   ClassesPage,
   ClassPage,
@@ -51,7 +48,6 @@ import {
   AcademicsConfigPage,
   StaffRolesConfigPage,
   EvaluationConfigPage,
-  FeesConfigPage,
   StaffPage,
 } from "./pages/admin";
 
@@ -63,6 +59,7 @@ import { AccessRestricted, GeneralNotFound, LoginPage } from "./pages/shared";
 
 import { Navigate } from "react-router-dom";
 import PaymentsConfigPage from "./pages/admin/configs/PaymentsConfig.page";
+import WriteDashboard from "./pages/admin/write";
 
 const App = () => {
   return (
@@ -99,13 +96,12 @@ const App = () => {
           <Route path=":parentId" element={<ParentPage />} />
         </Route>
 
-        {/* <Route path="results">
+        <Route path="results">
           <Route index element={<ClassResultsPage />} />
-          <Route path="view" element={<ResultsViewPage />} />
-          <Route path="upload" element={<UploadResultPage />} />
-          <Route path="settings" element={<ResultSettingsPage />} />
-          <Route path=":session/:term/:userId" element={<ResultSinglePage />} />
-        </Route> */}
+          {/* <Route path="view" element={<ResultsViewPage />} /> */}
+          {/* <Route path="upload" element={<UploadResultPage />} /> */}
+          {/* <Route path=":session/:term/:portalId" element={<ResultSinglePage />} /> */}
+        </Route>
 
         {/* The Config Routes serves like the frontend backend for the Admin */}
         <Route path="config">
@@ -115,10 +111,18 @@ const App = () => {
           <Route path="staff">
             <Route index element={<AllStaffPage />} />
             <Route path="new" element={<NewStaffPage />} />
-            <Route path="roles" element={<StaffRolesPage />} />
+            <Route path="roles" element={<StaffRolesConfigPage />} />
             <Route path=":staffId">
               <Route index element={<StaffPage />} />
               <Route path="edit" element={<EditStaffPage />} />
+            </Route>
+          </Route>
+
+          {/* Staff Config */}
+          <Route path="classes">
+            <Route index element={<ClassesPage />} />
+            <Route path=":classId">
+              <Route index element={<ClassPage />} />
             </Route>
           </Route>
 
@@ -136,13 +140,16 @@ const App = () => {
           </Route>
         </Route>
 
+        {/* Single Staff Page */}
+        <Route path="staff/:staffId" element={<StaffPage />} />
+
         <Route path="events">
           <Route index element={<AllEventsPage />} />
         </Route>
 
         <Route path="finance">
           <Route index element={<FinancePage />} />
-          <Route path="fees" element={<AllFeesPage />} />
+          {/* <Route path="fees" element={<AllFeesPage />} /> */}
         </Route>
 
         <Route path="transactions">
@@ -163,6 +170,17 @@ const App = () => {
             index
             element={<Navigate to={"/admin/transactions"} replace={true} />}
           />
+          <Route path="new" element={<NewInvoicePage />} />
+          <Route path=":invoiceID" element={<InvoicePage />} />
+        </Route>
+
+        {/* Write */}
+        <Route path="write">
+          <Route index element={<WriteDashboard />} />
+        </Route>
+
+        <Route path="articles">
+          <Route index element={<Navigate to={"/write"} replace="true" />} />
           <Route path="new" element={<NewInvoicePage />} />
           <Route path=":invoiceID" element={<InvoicePage />} />
         </Route>

@@ -1,11 +1,19 @@
 import ReactPortal from "../../../widgets/React_portal";
-import { Box, Stack } from "@chakra-ui/react";
+import { Box, Grid, Link as ChakraLink, Text } from "@chakra-ui/react";
 
 import PageWrapper from "../../../components/PageWrapper";
 import PageSectionHeader from "../../../components/PageSectionHeader";
 import { Link } from "react-router-dom";
 
 export default function ConfigPage() {
+  const configLinks = [
+    { to: "/admin/config/academics", label: "Academic Data" },
+    { to: "/admin/config/staff", label: "Staff" },
+    { to: "/admin/config/payments", label: "Payments" },
+    { to: "/admin/config/evaluation", label: "Assessments" },
+    { to: "/admin/config/messaging", label: "Messaging" },
+  ];
+
   return (
     <PageWrapper>
       <ReactPortal />
@@ -15,35 +23,31 @@ export default function ConfigPage() {
         pageCrumb={"Home / Configure"}
       />
 
-      <Box>
-        <Grid
-          gridTemplateColumns="repeat(auto-fill, minmax(240px, 1fr))"
-          mt="4"
-          gap={4}
-          w="full"
-          overflowX="auto"
-        >
-          {" "}
-          <Stack>
-            <Link to={"/admin/config/academics"}>Academic Data</Link>
-          </Stack>
-          <Stack>
-            <Link to={"/admin/config/staff"}>Staff</Link>
-          </Stack>
-          <Stack>
-            <Link to={"/admin/config/fees"}>Payments</Link>
-          </Stack>
-          <Stack>
-            <Link to={"/admin/config/evaluation"}>Evualation</Link>
-          </Stack>
-          <Stack>
-            <Link to={"/admin/config/promotion"}>Promotion</Link>
-          </Stack>
-          <Stack>
-            <Link to={"/admin/config/messaging"}>Messaging</Link>
-          </Stack>
-        </Grid>
-      </Box>
+      <Grid
+        gridTemplateColumns="repeat(auto-fill, minmax(240px, 1fr))"
+        mt="4"
+        gap={4}
+        w="full"
+        overflowX="auto"
+      >
+        {configLinks.map((link, index) => (
+          <Box
+            key={index}
+            p="4"
+            bg="white"
+            borderRadius="md"
+            boxShadow="md"
+            transition="box-shadow 0.2s"
+            _hover={{ boxShadow: "lg" }}
+          >
+            <ChakraLink as={Link} to={link.to} textDecoration="none">
+              <Text fontSize="lg" fontWeight="bold" color="brand.700">
+                {link.label}
+              </Text>
+            </ChakraLink>
+          </Box>
+        ))}
+      </Grid>
     </PageWrapper>
   );
 }

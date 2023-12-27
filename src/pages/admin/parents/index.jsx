@@ -10,14 +10,14 @@ import {
 } from "react-icons/md";
 
 import SearchWidget from "../../../widgets/Search.widget";
-import IconComponent from "../../../components/Icon.component";
 import AllParentsTable from "../../../components/tables/users/ParentsTable.component";
 import { useLocalStorage } from "../../../hooks/useLocalStorage";
 import PageSectionHeader from "../../../components/PageSectionHeader";
+import { useNavigate } from "react-router-dom";
 
 export default function ParentsPage() {
   const { getItem } = useLocalStorage("studentsData");
-
+  const navigate = useNavigate();
   const existingParentsData = getItem();
   return (
     <PageWrapper>
