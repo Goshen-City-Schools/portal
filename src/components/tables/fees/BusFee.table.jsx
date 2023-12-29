@@ -75,5 +75,13 @@ export default function BusFeeTable({ feeType, session, term }) {
     },
   ];
 
+  if (!fees)
+    return (
+      <Grid textAlign={"center"}>
+        <Text as={"h2"}>
+          No bus fee set for ${term} in ${session} session
+        </Text>
+      </Grid>
+    );
   return <Table columns={columns} data={fees} fullWidthColumns={"Class"} />;
 }

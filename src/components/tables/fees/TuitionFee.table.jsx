@@ -119,5 +119,14 @@ export default function TuitionFeeTable({ session, term, feeType }) {
     },
   ];
 
+  if (!fees)
+    return (
+      <Grid textAlign={"center"}>
+        <Text as={"h2"}>
+          "No tuition fee set for ${term} in ${session} session"
+        </Text>
+      </Grid>
+    );
+
   return <Table columns={columns} data={fees} fullWidthColumns={"Class"} />;
 }

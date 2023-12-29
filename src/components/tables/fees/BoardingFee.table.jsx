@@ -3,6 +3,8 @@ import React from "react";
 import { MdDelete, MdEdit } from "react-icons/md";
 import ActionsPopUp from "../../../widgets/ActionsPopUp";
 
+import { Grid, Text } from "@chakra-ui/react";
+
 import Table from "../../../widgets/Table.widget";
 import RowId from "../shared/RowId";
 import { useFees } from "../../../hooks";
@@ -65,7 +67,14 @@ export default function BoardingFeeTable({ session, term, feeType }) {
     },
   ];
 
-  // if (!fees) return "No boarding fee set currently!";
+  if (!fees)
+    return (
+      <Grid textAlign={"center"}>
+        <Text as={"h2"}>
+          No boarding fee set for ${term} in ${session} session!
+        </Text>
+      </Grid>
+    );
 
   return <Table columns={columns} data={fees} fullWidthColumns={"Class"} />;
 }
