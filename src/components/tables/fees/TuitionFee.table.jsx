@@ -14,8 +14,8 @@ import { useModal } from "../../../app/contexts/ModalContext";
 import CreateTuitionFee from "../../../portals/fees/CreateTuitionFee";
 import StatusBadge from "../shared/StatusBadge";
 
-export default function TuitionFeeTable() {
-  const { fees, setFees } = useFees("tuition", "20232024", "term1");
+export default function TuitionFeeTable({ session, term, feeType }) {
+  const { fees, setFees } = useFees(feeType, session, term);
 
   const { openPortal } = useModal();
 

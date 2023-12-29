@@ -16,8 +16,6 @@ import { useClassDetails, useClasses } from "../../../hooks/school_classes";
 import { createFee } from "../../../api/fees.api";
 import { useFees } from "../../../hooks";
 
-// ... (your existing imports)
-
 export default function TuitionFeeForm({ action, feeTypeId, existingData }) {
   const toast = useToast();
   const { closePortal } = useModal();

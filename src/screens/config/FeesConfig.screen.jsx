@@ -116,9 +116,15 @@ export default function FeesConfigScreen() {
         </FormControl>
       </Flex>
 
-      {session && term && feeType === "tuition" && <TuitionFeeTable />}
-      {session && term && feeType === "bus" && <BusFeeTable />}
-      {session && term && feeType === "boarding" && <BoardingFeeTable />}
+      {session && term && feeType === "tuition" && (
+        <TuitionFeeTable session={session} term={term} feeType={feeType} />
+      )}
+      {session && term && feeType === "bus" && (
+        <BusFeeTable session={session} term={term} feeType={feeType} />
+      )}
+      {session && term && feeType === "boarding" && (
+        <BoardingFeeTable session={session} term={term} feeType={feeType} />
+      )}
     </Box>
   );
 }

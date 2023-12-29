@@ -25,8 +25,6 @@ export default function BoardingFeeForm({ action, feeTypeId, existingData }) {
   const { setInfoIsUpdated } = useUser();
   const navigate = useNavigate();
 
-  console.log(fees);
-
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     session: existingData?.session || "",

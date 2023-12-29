@@ -5,15 +5,14 @@ import ActionsPopUp from "../../../widgets/ActionsPopUp";
 
 import Table from "../../../widgets/Table.widget";
 import RowId from "../shared/RowId";
-import { IoMdEye } from "react-icons/io";
 import { useFees } from "../../../hooks";
 import StatusBadge from "../shared/StatusBadge";
 import PriceView from "../shared/PriceView";
 import BusFeeForm from "../../forms/fees/BusFeeForm";
 import { useModal } from "../../../app/contexts/ModalContext";
 
-export default function BusFeeTable() {
-  const { fees } = useFees("bus");
+export default function BusFeeTable({ feeType, session, term }) {
+  const { fees } = useFees(feeType, session, term);
   const { openPortal } = useModal();
 
   const handleEditAction = async (id) => {
@@ -33,8 +32,8 @@ export default function BusFeeTable() {
     },
     {
       name: "disableBusFee",
-      label: "Disable Fee",
-      icon: <IoMdEye />,
+      label: "Delete Fee",
+      icon: <MdDelete />,
     },
   ];
 
@@ -75,18 +74,6 @@ export default function BusFeeTable() {
       Cell: ({ row }) => <ActionsPopUp menu={actionsMenu(row.original._id)} />,
     },
   ];
-
-  const bankAccounts = [
-    {
-      bankName: "Fidelity Bank",
-      accountName: "Goshen Group of Schools",
-      accountNumber: "8783728378",
-      Fees: [""],
-      bankAccountStatus: "inactive",
-    },
-  ];
-
-  if (!bankAccounts) return "No account set currently!";
 
   return <Table columns={columns} data={fees} fullWidthColumns={"Class"} />;
 }

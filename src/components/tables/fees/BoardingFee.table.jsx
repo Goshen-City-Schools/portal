@@ -1,19 +1,18 @@
 import React from "react";
 
-import { MdEdit } from "react-icons/md";
+import { MdDelete, MdEdit } from "react-icons/md";
 import ActionsPopUp from "../../../widgets/ActionsPopUp";
 
 import Table from "../../../widgets/Table.widget";
 import RowId from "../shared/RowId";
-import { IoMdEye } from "react-icons/io";
 import { useFees } from "../../../hooks";
 import StatusBadge from "../shared/StatusBadge";
 import { useModal } from "../../../app/contexts/ModalContext";
 import BoardingFeeForm from "../../forms/fees/BoardingFeeForm";
 import PriceView from "../shared/PriceView";
 
-export default function BoardingFeeTable() {
-  const { fees } = useFees("boarding");
+export default function BoardingFeeTable({ session, term, feeType }) {
+  const { fees } = useFees(feeType, session, term);
   const { openPortal } = useModal();
 
   const handleEditAction = async (id) => {
@@ -34,7 +33,7 @@ export default function BoardingFeeTable() {
     {
       name: "disableBoardingFee",
       label: "Disable Fee",
-      icon: <IoMdEye />,
+      icon: <MdDelete />,
       onClick: () => handleDisableFee(id),
     },
   ];
@@ -66,7 +65,7 @@ export default function BoardingFeeTable() {
     },
   ];
 
-  if (!fees) return "No boarding fee set currently!";
+  // if (!fees) return "No boarding fee set currently!";
 
   return <Table columns={columns} data={fees} fullWidthColumns={"Class"} />;
 }
