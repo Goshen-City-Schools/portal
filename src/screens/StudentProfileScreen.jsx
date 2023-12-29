@@ -516,7 +516,7 @@ export default function StudentProfileScreen({ student }) {
               <Button size={"sm"} fontSize={"sm"} colorScheme="facebook">
                 Report Sheet
               </Button>
-              <Button size={"sm"} fontSize={"sm"} colorScheme="green">
+              <Button size={"sm"} fontSize={"sm"} colorScheme="facebook">
                 Class Attendance
               </Button>
             </ButtonGroup>
@@ -641,7 +641,7 @@ export default function StudentProfileScreen({ student }) {
                             size={"sm"}
                             placeItems={"center"}
                             px={2}
-                            colorScheme="green"
+                            colorScheme="facebook"
                             fontWeight={"bold"}
                           >
                             Paid
@@ -703,7 +703,7 @@ export default function StudentProfileScreen({ student }) {
                             size={"sm"}
                             placeItems={"center"}
                             px={2}
-                            colorScheme="green"
+                            colorScheme="facebook"
                             fontWeight={"bold"}
                           >
                             Paid

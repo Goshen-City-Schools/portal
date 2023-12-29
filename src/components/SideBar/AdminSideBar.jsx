@@ -16,16 +16,12 @@ import {
   MdWhatsapp,
   MdOutlineChat,
   MdHistory,
-  MdOutlineBroadcastOnPersonal,
   MdCreateNewFolder,
   MdEditNote,
 } from "react-icons/md";
-import { GrDocumentPerformance } from "react-icons/gr";
 
 import { PiStudentDuotone } from "react-icons/pi";
 import { LuCalendarDays, LuMessagesSquare } from "react-icons/lu";
-import { BiSpreadsheet } from "react-icons/bi";
-import { TbMessages } from "react-icons/tb";
 
 import IconComponent from "../Icon.component";
 import NavItemComponent from "../NavItem.component";
@@ -35,7 +31,6 @@ import {
   CreateSubClassPortal,
 } from "../../portals";
 import { useModal } from "../../app/contexts/ModalContext";
-import { FaChalkboardTeacher } from "react-icons/fa";
 import { GiProgression } from "react-icons/gi";
 
 export const AdminSideBarList = ({ user, handleToggleSideMenu }) => {
@@ -45,8 +40,6 @@ export const AdminSideBarList = ({ user, handleToggleSideMenu }) => {
     if (type === "createSubject") return openPortal(<AddSubjectPortal />);
     if (type === "createClass") return openPortal(<CreateSubClassPortal />);
   };
-
-  console.log(user);
 
   return (
     <List className="memuList pl-1" w={"full"}>

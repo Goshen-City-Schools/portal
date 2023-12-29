@@ -1,6 +1,7 @@
 // UserContext.js
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { getSingleStaff } from "../../api/staff.api";
+import axios from "../../api/axios";
 
 const UserContext = createContext();
 

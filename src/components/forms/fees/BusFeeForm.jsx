@@ -23,9 +23,11 @@ export default function BusFeeForm({ action, feeTypeId, existingData }) {
 
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
+    session: existingData?.session || "",
+    term: existingData?.term || "",
     destination: existingData?.destination || "",
     toPrice: existingData?.toPrice || null,
-    fromPrice: existingData?.fromPrice || null,
+    fromPrice: existingData?.price?.from || null,
     toFromPrice: existingData?.toFromPrice || null,
     status: true,
   });
@@ -33,7 +35,10 @@ export default function BusFeeForm({ action, feeTypeId, existingData }) {
   const [successTimeout, setSuccessTimeout] = useState(null);
   const [redirectTimeout, setRedirectTimeout] = useState(null);
 
+  console.log(fees);
+
   useEffect(() => {
+    console.log(feeTypeId);
     if (action === "edit" && feeTypeId) {
       // Fetch existing data for the selected class and set it as the initial form data
       const existingData = fees.find((fee) => fee._id === feeTypeId);
@@ -42,10 +47,12 @@ export default function BusFeeForm({ action, feeTypeId, existingData }) {
 
       if (existingData) {
         setFormData({
+          session: existingData?.session || "",
+          term: existingData?.term || "",
           destination: existingData?.destination || "",
-          toPrice: existingData?.toPrice || null,
-          fromPrice: existingData?.fromPrice || null,
-          toFromPrice: existingData?.toFromPrice || null,
+          toPrice: existingData?.price?.to || null,
+          fromPrice: existingData?.price?.from.toString() || null,
+          toFromPrice: existingData?.price?.toFrom || null,
           status: existingData?.status,
         });
       }
@@ -74,9 +81,26 @@ export default function BusFeeForm({ action, feeTypeId, existingData }) {
   async function handleFormSubmit(e) {
     e.preventDefault();
 
-    const { destination, toPrice, fromPrice, toFromPrice, status } = formData;
+    const {
+      session,
+      term,
+      destination,
+      toPrice,
+      fromPrice,
+      toFromPrice,
+      status,
+    } = formData;
 
-    if (!destination || !toPrice || !fromPrice || toFromPrice) {
+    console.log(formData);
+
+    if (
+      !session ||
+      !term ||
+      !destination ||
+      !toPrice ||
+      !fromPrice ||
+      !toFromPrice
+    ) {
       const toastId = toast({
         title: "All fields are required!",
         status: "error",
@@ -95,6 +119,8 @@ export default function BusFeeForm({ action, feeTypeId, existingData }) {
     setIsLoading(true);
 
     const busFeeData = {
+      session: session,
+      term: term,
       destination: destination,
       type: "bus",
       price: {
@@ -106,11 +132,13 @@ export default function BusFeeForm({ action, feeTypeId, existingData }) {
     };
 
     try {
-      const response = await createFee(busFeeData.type, busFeeData);
+      await createFee(busFeeData.type, busFeeData);
 
       setIsLoading(false);
 
       setFormData({
+        session: "",
+        term: "",
         destination: "",
         toPrice: "",
         fromPrice: "",
@@ -121,7 +149,7 @@ export default function BusFeeForm({ action, feeTypeId, existingData }) {
       closePortal();
 
       const successToastId = showToast({
-        title: `Bus Fee for ${destination} created successfully!`,
+        title: `${session} ${term} Bus Fee for ${destination} created successfully!`,
         status: "success",
         duration: 2000,
         position: "top-right",
@@ -130,7 +158,7 @@ export default function BusFeeForm({ action, feeTypeId, existingData }) {
       setSuccessTimeout(successToastId);
 
       const redirectTimeoutId = setTimeout(() => {
-        navigate("/admin/finance/fees");
+        navigate("/admin/config");
       }, 1000);
 
       setRedirectTimeout(redirectTimeoutId);
@@ -151,7 +179,44 @@ export default function BusFeeForm({ action, feeTypeId, existingData }) {
 
   return (
     <form onSubmit={handleFormSubmit} className="flex flex-col gap-6 px-2">
-      {/* Fee name */}
+      {/* Session and Term Select */}
+      <Flex gap={4}>
+        <FormControl>
+          <FormLabel fontSize="sm" fontWeight="bold">
+            Session
+          </FormLabel>
+          <CustomSelect
+            name="session"
+            value={formData?.session}
+            onChange={handleFormChange}
+            disabled={action === "edit"} // Disable selection if in edit mode
+          >
+            <option value="">-- Select Session --</option>
+            <option value="20222023">2022 - 2023</option>
+            <option value="20232024">2023 - 2024</option>
+            <option value="20242025">2024 - 2025</option>
+          </CustomSelect>
+        </FormControl>
+
+        <FormControl>
+          <FormLabel fontSize="sm" fontWeight="bold">
+            Term
+          </FormLabel>
+          <CustomSelect
+            name="term"
+            value={formData?.term}
+            onChange={handleFormChange}
+            disabled={action === "edit"} // Disable selection if in edit mode
+          >
+            <option value="">-- Select Term --</option>
+            <option value="term1">First Term</option>
+            <option value="term2">Second Term</option>
+            <option value="term3">Third Term</option>
+          </CustomSelect>
+        </FormControl>
+      </Flex>
+
+      {/* Destination */}
       <FormControl>
         <FormLabel fontSize="sm" fontWeight="bold">
           Destination
@@ -159,8 +224,7 @@ export default function BusFeeForm({ action, feeTypeId, existingData }) {
         <Input
           name="destination"
           fontSize="sm"
-          type="number"
-          pattern="[0-9]*"
+          type="text"
           autoComplete="off"
           onChange={handleFormChange}
           value={formData.destination}
@@ -168,13 +232,14 @@ export default function BusFeeForm({ action, feeTypeId, existingData }) {
         />
       </FormControl>
 
+      {/* Prices - from, to, from and to */}
       <fieldset>
         <FormControl>
           <FormLabel fontSize="sm" fontWeight="bold">
             Price
           </FormLabel>
 
-          <Flex>
+          <Flex gap={4}>
             <Input
               name="fromPrice"
               fontSize="sm"
@@ -183,7 +248,7 @@ export default function BusFeeForm({ action, feeTypeId, existingData }) {
               autoComplete="off"
               onChange={handleFormChange}
               value={formData.fromPrice}
-              placeholder="From Destination Fee"
+              placeholder="From Destination Price"
             />
 
             <Input
@@ -205,13 +270,13 @@ export default function BusFeeForm({ action, feeTypeId, existingData }) {
               pattern="[0-9]*"
               onChange={handleFormChange}
               value={formData.toFromPrice}
-              placeholder="To and Fro Destination Fee"
+              placeholder="To and Fro Price"
             />
           </Flex>
         </FormControl>
       </fieldset>
 
-      {/* Bus Fee Status */}
+      {/* Fee Status */}
       <Flex mt={2} justifyContent="space-between" alignItems="center">
         <Text as="p" fontSize="sm" fontWeight="bold">
           Fee Status
@@ -223,11 +288,11 @@ export default function BusFeeForm({ action, feeTypeId, existingData }) {
         />
       </Flex>
 
-      {/* Submit request button */}
+      {/* Submit Button */}
       <Button
         my={4}
         fontSize="sm"
-        colorScheme="green"
+        colorScheme="facebook"
         width="max-content"
         mx="auto"
         type="submit"

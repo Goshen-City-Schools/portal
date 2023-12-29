@@ -58,7 +58,7 @@ const columns = [
     accessor: "paidOn",
     Cell: ({ cell: { value } }) =>
       value ? (
-        <Badge colorScheme="green" variant="subtle">
+        <Badge colorScheme="facebook" variant="subtle">
           {value}
         </Badge>
       ) : (

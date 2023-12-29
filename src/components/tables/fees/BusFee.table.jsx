@@ -10,12 +10,14 @@ import { useFees } from "../../../hooks";
 import StatusBadge from "../shared/StatusBadge";
 import PriceView from "../shared/PriceView";
 import BusFeeForm from "../../forms/fees/BusFeeForm";
+import { useModal } from "../../../app/contexts/ModalContext";
 
 export default function BusFeeTable() {
   const { fees } = useFees("bus");
+  const { openPortal } = useModal();
 
   const handleEditAction = async (id) => {
-    openPortal(<BusFeeForm feeTypeId={id} />);
+    openPortal(<BusFeeForm feeTypeId={id} action={"edit"} />);
   };
 
   const handleDisableFee = (id) => {
@@ -27,9 +29,7 @@ export default function BusFeeTable() {
       name: "editBusFee",
       label: "Edit Fee",
       icon: <MdEdit />,
-      onClick: () => {
-        handleEditAction(id);
-      },
+      onClick: () => handleEditAction(id),
     },
     {
       name: "disableBusFee",

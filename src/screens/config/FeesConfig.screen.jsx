@@ -1,14 +1,7 @@
 import React from "react";
 import { useState } from "react";
 
-import {
-  Box,
-  Flex,
-  Button,
-  FormControl,
-  Select,
-  FormLabel,
-} from "@chakra-ui/react";
+import { Box, Flex, Button, FormControl, Select } from "@chakra-ui/react";
 import { useModal } from "../../app/contexts/ModalContext";
 import {
   CreateBoardingsFee,
@@ -20,57 +13,46 @@ import {
   BusFeeTable,
   TuitionFeeTable,
 } from "../../components/tables";
+import { MdAdd } from "react-icons/md";
 
 export default function FeesConfigScreen() {
-  const [feeView, setFeeView] = useState("tuition");
+  const [formData, setFormData] = useState({
+    session: "",
+    term: "",
+    feeType: "",
+  });
+
+  const { session, term, feeType } = formData;
 
   const { openPortal } = useModal();
 
-  const handleOptionChange = (e) => {
-    e.preventDefault();
-    setFeeView(e.target.value);
-  };
+  function handleOptionChange(e) {
+    const { name, value, checked, type } = e.target;
+    const newValue = type === "checkbox" ? checked : value;
+    setFormData((prevFormData) => ({ ...prevFormData, [name]: newValue }));
+  }
 
   return (
     <Box>
       <Flex
-        justifyContent={"space-between"}
+        justifyContent={"flex-end"}
         alignItems={"center"}
-        mb={8}
+        mb={4}
         w={"full"}
         gap={4}
       >
-        <FormControl
-          gap={2}
-          fontSize={"sm"}
-          flexDirection={"row"}
-          display={"flex"}
-          size={"sm"}
-          alignItems={"center"}
-          width={"full"}
-        >
-          <FormLabel flexShrink={0} fontSize={"sm"} fontWeight={"bold"}>
-            Fee Type:
-          </FormLabel>
-
-          <Select onChange={handleOptionChange} fontSize={"sm"} size={"sm"}>
-            <option value="tuition">Tuition</option>
-            <option value="bus">Bus</option>
-            <option value="boarding">Boarding</option>
-          </Select>
-        </FormControl>
-
         <Button
           flexShrink={0}
           size={"sm"}
           colorScheme="facebook"
           variant={"outline"}
           ml={"auto"}
+          leftIcon={<MdAdd />}
           onClick={() => {
             openPortal(
-              feeView == "tuition" ? (
+              feeType == "tuition" ? (
                 <CreateTuitionFee />
-              ) : feeView == "bus" ? (
+              ) : feeType == "bus" ? (
                 <CreateBusFee />
               ) : (
                 <CreateBoardingsFee />
@@ -78,17 +60,65 @@ export default function FeesConfigScreen() {
             );
           }}
         >
-          {feeView == "tuition"
-            ? "Add Tuition Fee"
-            : feeView == "bus"
-            ? "Add Bus Fee"
-            : "Add Boarding Fee"}
+          {feeType == "tuition"
+            ? "New Tuition Fee"
+            : feeType == "bus"
+            ? "New Bus Fee"
+            : "New Boarding Fee"}
         </Button>
       </Flex>
 
-      {feeView === "tuition" && <TuitionFeeTable />}
-      {feeView === "bus" && <BusFeeTable />}
-      {feeView === "boarding" && <BoardingFeeTable />}
+      <Flex gap={4} mb={8}>
+        {/* Session Select */}
+        <FormControl>
+          <Select
+            value={formData?.session}
+            size={"sm"}
+            name="session"
+            onChange={handleOptionChange}
+          >
+            <option value={""}>-- Select Session --</option>
+            <option value={"20222023"}>2022 - 2023</option>
+            <option value={"20232024"}>2023 - 2024</option>
+            <option value={"20242025"}>2024 - 2025</option>
+          </Select>
+        </FormControl>
+
+        {/* Term Select */}
+        <FormControl>
+          <Select
+            onChange={handleOptionChange}
+            name="term"
+            value={formData?.term}
+            size={"sm"}
+          >
+            <option value={""}>-- Select Term --</option>
+            <option value={"term1"}>First term</option>
+            <option value={"term2"}>Second term</option>
+            <option value={"term3"}>Third term</option>
+          </Select>
+        </FormControl>
+
+        {/* Fee type Select */}
+        <FormControl>
+          <Select
+            onChange={handleOptionChange}
+            value={formData?.feeType}
+            fontSize={"sm"}
+            size={"sm"}
+            name="feeType"
+          >
+            <option value="">-- Select Fee Type --</option>
+            <option value="tuition">Tuition Fee</option>
+            <option value="bus">Bus Fee</option>
+            <option value="boarding">Boarding Fee</option>
+          </Select>
+        </FormControl>
+      </Flex>
+
+      {session && term && feeType === "tuition" && <TuitionFeeTable />}
+      {session && term && feeType === "bus" && <BusFeeTable />}
+      {session && term && feeType === "boarding" && <BoardingFeeTable />}
     </Box>
   );
 }

@@ -106,7 +106,7 @@ export default function UpdateAvatarButton({
             rightIcon={<MdPictureInPictureAlt />}
             display={"flex"}
             w={"max-full"}
-            colorScheme="green"
+            colorScheme="facebook"
             size={"sm"}
             isLoading={isLoading}
           >

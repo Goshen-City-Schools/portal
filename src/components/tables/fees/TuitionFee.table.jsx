@@ -10,19 +10,60 @@ import PriceView from "../shared/PriceView";
 import { IoMdEye } from "react-icons/io";
 import { MdEdit } from "react-icons/md";
 
-import { Button, Flex } from "@chakra-ui/react";
 import { useModal } from "../../../app/contexts/ModalContext";
 import CreateTuitionFee from "../../../portals/fees/CreateTuitionFee";
 import StatusBadge from "../shared/StatusBadge";
-import TuitionFeeForm from "../../forms/fees/TuitionFeeForm";
 
 export default function TuitionFeeTable() {
-  const { fees } = useFees("tuition");
+  const { fees, setFees } = useFees("tuition", "20232024", "term1");
 
   const { openPortal } = useModal();
 
   const handleEditAction = async (id) => {
-    openPortal(<TuitionFeeForm action={"edit"} feeTypeId={id} />);
+    openPortal(<CreateTuitionFee action={"edit"} feeTypeId={id} />);
+  };
+
+  const handleDeleteAction = async (feeId) => {
+    if (
+      window.confirm(`Are you sure to delete the tuition fee with ID ${feeId}?`)
+    ) {
+      try {
+        const response = await axios.delete(`/api/v1/fees/tuition/${feeId}`);
+
+        if (response.status === 200) {
+          // Success: Subject deleted
+          toast({
+            title: `Deleted tution fee with ID ${feeId}`,
+            duration: 2000,
+            status: "warning",
+          });
+
+          // Update the local subjectsData state or refetch the data
+          setFees((prevFeesData) =>
+            prevFeesData.filter((subject) => subject._id !== feeId)
+          );
+
+          // Optionally, you can trigger a data refetch if needed
+          // refetchData(); // Implement this function to refetch data from the server
+
+          setInfoIsUpdated(true);
+          return;
+        } else {
+          // Failure: Show an error toast
+          toast({
+            title: `Failed to delete subject with ID ${feeId}`,
+            status: "error",
+          });
+        }
+      } catch (error) {
+        // Handle any unexpected errors
+        console.error("Error deleting subject:", error.message);
+        toast({
+          title: "An error occurred while deleting the subject.",
+          status: "error",
+        });
+      }
+    }
   };
 
   const actionsMenu = (id) => {
@@ -36,8 +77,9 @@ export default function TuitionFeeTable() {
       },
       {
         name: "disableTuitionFee",
-        label: "Disable Fee",
+        label: "Delete Fee",
         icon: <IoMdEye />,
+        onClick: () => handleDeleteAction(id),
       },
     ];
   };
@@ -76,8 +118,6 @@ export default function TuitionFeeTable() {
       },
     },
   ];
-
-  if (!fees) return "No account set currently!";
 
   return <Table columns={columns} data={fees} fullWidthColumns={"Class"} />;
 }

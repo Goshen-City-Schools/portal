@@ -16,16 +16,22 @@ import CustomSelect from "../../shared/Select.component";
 
 import { useModal } from "../../../app/contexts/ModalContext";
 import { useFees } from "../../../hooks";
+import { useUser } from "../../../app/contexts/UserContext";
 
 export default function BoardingFeeForm({ action, feeTypeId, existingData }) {
   const toast = useToast();
   const { closePortal } = useModal();
   const { fees } = useFees("boarding");
+  const { setInfoIsUpdated } = useUser();
   const navigate = useNavigate();
+
+  console.log(fees);
 
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
-    gender: existingData?.gender,
+    session: existingData?.session || "",
+    term: existingData?.term || "",
+    gender: existingData?.gender || "",
     price: existingData?.price || null,
     status: true,
   });
@@ -39,10 +45,11 @@ export default function BoardingFeeForm({ action, feeTypeId, existingData }) {
       const existingData = fees.find((fee) => fee._id === feeTypeId);
 
       // Logging data for debugging
-      console.log(fees, existingData);
 
       if (existingData) {
         setFormData({
+          session: existingData?.session,
+          term: existingData?.term,
           gender: existingData?.gender,
           price: existingData?.price,
           status: existingData?.status,
@@ -73,9 +80,9 @@ export default function BoardingFeeForm({ action, feeTypeId, existingData }) {
   async function handleFormSubmit(e) {
     e.preventDefault();
 
-    const { gender, price, status } = formData;
+    const { session, term, gender, price, status } = formData;
 
-    if (!gender || !price) {
+    if (!session || !term || !gender || !price) {
       const toastId = toast({
         title: "All fields are required!",
         status: "error",
@@ -94,6 +101,8 @@ export default function BoardingFeeForm({ action, feeTypeId, existingData }) {
     setIsLoading(true);
 
     const boardingFeeData = {
+      session: session,
+      term: term,
       gender: gender,
       type: "boarding",
       price: parseInt(price, 10),
@@ -101,11 +110,13 @@ export default function BoardingFeeForm({ action, feeTypeId, existingData }) {
     };
 
     try {
-      const response = await createFee(boardingFeeData.type, boardingFeeData);
+      await createFee(boardingFeeData.type, boardingFeeData);
 
       setIsLoading(false);
 
       setFormData({
+        session: "",
+        term: "",
         gender: "",
         price: "",
         status: false,
@@ -114,7 +125,7 @@ export default function BoardingFeeForm({ action, feeTypeId, existingData }) {
       closePortal();
 
       const successToastId = showToast({
-        title: `Boarding Fee for ${gender} students created successfully!`,
+        title: `${session} ${term} boarding Fee for ${gender} students created successfully!`,
         status: "success",
         duration: 2000,
         position: "top-right",
@@ -123,9 +134,10 @@ export default function BoardingFeeForm({ action, feeTypeId, existingData }) {
       setSuccessTimeout(successToastId);
 
       const redirectTimeoutId = setTimeout(() => {
-        navigate("/admin/finance/fees");
+        navigate("/admin/config");
       }, 1000);
 
+      setInfoIsUpdated(true);
       setRedirectTimeout(redirectTimeoutId);
     } catch (error) {
       console.error("Error creating boarding fee:", error.message);
@@ -144,7 +156,43 @@ export default function BoardingFeeForm({ action, feeTypeId, existingData }) {
 
   return (
     <form onSubmit={handleFormSubmit} className="flex flex-col gap-6 px-2">
-      {/* Fee name */}
+      {/* Session Select */}
+      <FormControl>
+        <FormLabel fontSize="sm" fontWeight="bold">
+          Session
+        </FormLabel>
+        <CustomSelect
+          name="session"
+          value={formData?.session}
+          onChange={handleFormChange}
+          disabled={action === "edit"} // Disable selection if in edit mode
+        >
+          <option value="">-- Select Session --</option>
+          <option value="20222023">2022 - 2023</option>
+          <option value="20232024">2023 - 2024</option>
+          <option value="20242025">2024 - 2025</option>
+        </CustomSelect>
+      </FormControl>
+
+      {/* Term Select */}
+      <FormControl>
+        <FormLabel fontSize="sm" fontWeight="bold">
+          Term
+        </FormLabel>
+        <CustomSelect
+          name="term"
+          value={formData?.term}
+          onChange={handleFormChange}
+          disabled={action === "edit"} // Disable selection if in edit mode
+        >
+          <option value="">-- Select Term --</option>
+          <option value="term1">First Term</option>
+          <option value="term2">Second Term</option>
+          <option value="term3">Third Term</option>
+        </CustomSelect>
+      </FormControl>
+
+      {/* Gender Select */}
       <FormControl>
         <FormLabel fontSize="sm" fontWeight="bold">
           Gender
@@ -155,12 +203,13 @@ export default function BoardingFeeForm({ action, feeTypeId, existingData }) {
           onChange={handleFormChange}
           disabled={action === "edit"} // Disable selection if in edit mode
         >
-          <option value={"male"}>Male</option>
-          <option value={"female"}>Female</option>
+          <option value="">-- Select Gender --</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
         </CustomSelect>
       </FormControl>
 
-      {/* Select Account Type fee is for */}
+      {/* Hostel Fee */}
       <FormControl>
         <FormLabel fontSize="sm" fontWeight="bold">
           Hostel Fee
@@ -177,7 +226,7 @@ export default function BoardingFeeForm({ action, feeTypeId, existingData }) {
         />
       </FormControl>
 
-      {/* Boarding Fee Status */}
+      {/* Fee Status */}
       <Flex mt={2} justifyContent="space-between" alignItems="center">
         <Text as="p" fontSize="sm" fontWeight="bold">
           Fee Status
@@ -189,11 +238,11 @@ export default function BoardingFeeForm({ action, feeTypeId, existingData }) {
         />
       </Flex>
 
-      {/* Submit request button */}
+      {/* Submit button */}
       <Button
         my={4}
         fontSize="sm"
-        colorScheme="green"
+        colorScheme="facebook"
         width="max-content"
         mx="auto"
         type="submit"

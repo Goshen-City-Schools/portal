@@ -10,13 +10,14 @@ import { useFees } from "../../../hooks";
 import StatusBadge from "../shared/StatusBadge";
 import { useModal } from "../../../app/contexts/ModalContext";
 import BoardingFeeForm from "../../forms/fees/BoardingFeeForm";
+import PriceView from "../shared/PriceView";
 
 export default function BoardingFeeTable() {
   const { fees } = useFees("boarding");
   const { openPortal } = useModal();
 
   const handleEditAction = async (id) => {
-    openPortal(<BoardingFeeForm feeTypeId={id} />);
+    openPortal(<BoardingFeeForm feeTypeId={id} action="edit" />);
   };
 
   const handleDisableFee = (id) => {
@@ -28,10 +29,7 @@ export default function BoardingFeeTable() {
       name: "editBoardingFee",
       label: "Edit Fee",
       icon: <MdEdit />,
-      onClick: () => {
-        console.log("ds");
-        handleEditAction(id);
-      },
+      onClick: () => handleEditAction(id),
     },
     {
       name: "disableBoardingFee",
@@ -54,6 +52,7 @@ export default function BoardingFeeTable() {
     {
       Header: "Amount",
       accessor: "price",
+      Cell: ({ value }) => <PriceView value={value} />,
     },
     {
       Header: "Status",
@@ -63,7 +62,7 @@ export default function BoardingFeeTable() {
     {
       Header: "Action",
       accessor: "action",
-      Cell: ({ row }) => <ActionsPopUp menu={actionsMenu(row.original_id)} />,
+      Cell: ({ row }) => <ActionsPopUp menu={actionsMenu(row.original._id)} />,
     },
   ];
 

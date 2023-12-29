@@ -1,22 +1,15 @@
 import React from "react";
 
-import { Text } from "@chakra-ui/react";
+import { Text, Stack } from "@chakra-ui/react";
 import TuitionFeeForm from "../../components/forms/fees/TuitionFeeForm";
+import PortalTitle from "../shared/PortalTitle";
 
-export default function CreateTuitionFee() {
+export default function CreateTuitionFee({ action, feeTypeId }) {
   return (
-    <>
-      <Text
-        as={"h3"}
-        fontWeight={"bold"}
-        fontSize={"2xl"}
-        mb={"8"}
-        textAlign={"center"}
-      >
-        Tuition Fee Setup
-      </Text>
+    <Stack w={"full"}>
+      <PortalTitle title={"Tuition Fee Setup"} />
 
-      <TuitionFeeForm />
-    </>
+      <TuitionFeeForm action={action} feeTypeId={feeTypeId} />
+    </Stack>
   );
 }
