@@ -1,16 +1,10 @@
 import { useState } from "react";
 
 import { Text, Flex, Button, useToast, Switch, Stack } from "@chakra-ui/react";
+import CustomSelect from "../shared/Select.component";
 
-import { useModal } from "../../app/contexts/ModalContext";
-
-export default function BankAccountForm({
-  action,
-  bankAccountId,
-  existingData,
-}) {
+export default function BankAccountForm({ action, existingData }) {
   const toast = useToast();
-  const { closePortal } = useModal();
 
   const [formData, setFormData] = useState({
     bankName: existingData.bankName || "",

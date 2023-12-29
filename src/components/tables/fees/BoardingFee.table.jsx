@@ -18,7 +18,8 @@ export default function BoardingFeeTable({ session, term, feeType }) {
   const { openPortal } = useModal();
 
   const handleEditAction = async (id) => {
-    openPortal(<BoardingFeeForm feeTypeId={id} action="edit" />);
+    const existingData = fees.find((fee) => fee._id === id);
+    openPortal(<BoardingFeeForm existingData={existingData} action="edit" />);
   };
 
   const handleDisableFee = (id) => {

@@ -20,7 +20,16 @@ export default function TuitionFeeTable({ session, term, feeType }) {
   const { openPortal } = useModal();
 
   const handleEditAction = async (id) => {
-    openPortal(<CreateTuitionFee action={"edit"} feeTypeId={id} />);
+    const existingData = fees.find((fee) => fee._id === id);
+    console.log(id, fees, existingData);
+
+    openPortal(
+      <CreateTuitionFee
+        action={"edit"}
+        fees={fees}
+        existingData={existingData}
+      />
+    );
   };
 
   const handleDeleteAction = async (feeId) => {

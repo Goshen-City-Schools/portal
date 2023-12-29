@@ -16,7 +16,9 @@ export default function BusFeeTable({ feeType, session, term }) {
   const { openPortal } = useModal();
 
   const handleEditAction = async (id) => {
-    openPortal(<BusFeeForm feeTypeId={id} action={"edit"} />);
+    const existingData = fees.find((fee) => fee._id === id);
+
+    openPortal(<BusFeeForm existingData={existingData} action={"edit"} />);
   };
 
   const handleDisableFee = (id) => {

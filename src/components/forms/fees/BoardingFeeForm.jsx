@@ -15,13 +15,11 @@ import { createFee } from "../../../api/fees.api";
 import CustomSelect from "../../shared/Select.component";
 
 import { useModal } from "../../../app/contexts/ModalContext";
-import { useFees } from "../../../hooks";
 import { useUser } from "../../../app/contexts/UserContext";
 
-export default function BoardingFeeForm({ action, feeTypeId, existingData }) {
+export default function BoardingFeeForm({ action, existingData }) {
   const toast = useToast();
   const { closePortal } = useModal();
-  const { fees } = useFees("boarding");
   const { setInfoIsUpdated } = useUser();
   const navigate = useNavigate();
 
@@ -36,25 +34,6 @@ export default function BoardingFeeForm({ action, feeTypeId, existingData }) {
 
   const [successTimeout, setSuccessTimeout] = useState(null);
   const [redirectTimeout, setRedirectTimeout] = useState(null);
-
-  useEffect(() => {
-    if (action === "edit" && feeTypeId) {
-      // Fetch existing data for the selected class and set it as the initial form data
-      const existingData = fees.find((fee) => fee._id === feeTypeId);
-
-      // Logging data for debugging
-
-      if (existingData) {
-        setFormData({
-          session: existingData?.session,
-          term: existingData?.term,
-          gender: existingData?.gender,
-          price: existingData?.price,
-          status: existingData?.status,
-        });
-      }
-    }
-  }, [action, feeTypeId, fees]);
 
   // Useeffect to cleanup timeouts when the component unmounts
   useEffect(() => {

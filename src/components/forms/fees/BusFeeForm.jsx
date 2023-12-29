@@ -13,12 +13,11 @@ import {
 import { createFee } from "../../../api/fees.api";
 
 import { useModal } from "../../../app/contexts/ModalContext";
-import { useFees } from "../../../hooks";
+import CustomSelect from "../../shared/Select.component";
 
-export default function BusFeeForm({ action, feeTypeId, existingData }) {
+export default function BusFeeForm({ action, existingData }) {
   const toast = useToast();
   const { closePortal } = useModal();
-  const { fees } = useFees("bus");
   const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState(false);
@@ -26,38 +25,14 @@ export default function BusFeeForm({ action, feeTypeId, existingData }) {
     session: existingData?.session || "",
     term: existingData?.term || "",
     destination: existingData?.destination || "",
-    toPrice: existingData?.toPrice || null,
+    toPrice: existingData?.price?.to || null,
     fromPrice: existingData?.price?.from || null,
-    toFromPrice: existingData?.toFromPrice || null,
+    toFromPrice: existingData?.price?.toFrom || null,
     status: true,
   });
 
   const [successTimeout, setSuccessTimeout] = useState(null);
   const [redirectTimeout, setRedirectTimeout] = useState(null);
-
-  console.log(fees);
-
-  useEffect(() => {
-    console.log(feeTypeId);
-    if (action === "edit" && feeTypeId) {
-      // Fetch existing data for the selected class and set it as the initial form data
-      const existingData = fees.find((fee) => fee._id === feeTypeId);
-
-      console.log(fees, existingData);
-
-      if (existingData) {
-        setFormData({
-          session: existingData?.session || "",
-          term: existingData?.term || "",
-          destination: existingData?.destination || "",
-          toPrice: existingData?.price?.to || null,
-          fromPrice: existingData?.price?.from.toString() || null,
-          toFromPrice: existingData?.price?.toFrom || null,
-          status: existingData?.status,
-        });
-      }
-    }
-  }, [action, feeTypeId, fees]);
 
   // Useeffect to cleanup timeouts when the component unmounts
   useEffect(() => {

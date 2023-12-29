@@ -9,8 +9,6 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { FaEllipsisH } from "react-icons/fa";
-import TuitionFeeForm from "../components/forms/fees/TuitionFeeForm";
-import { useModal } from "../app/contexts/ModalContext";
 
 const ActionsPopUp = ({ menu }) => {
   const [isOpen, setIsOpen] = useState(false); // Add state for popover

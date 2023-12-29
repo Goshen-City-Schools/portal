@@ -148,7 +148,7 @@ export default function LoginPage() {
 
         <GridItem
           display={"flex"}
-          padding={{ base: "6", md: "12" }}
+          padding={{ base: "6" }}
           height={"full"}
           justifyContent={"center"}
           flexDirection={"column"}
@@ -188,7 +188,9 @@ export default function LoginPage() {
 
           <form onSubmit={handleSubmit}>
             <FormControl mb={2}>
-              <FormLabel fontSize={"sm"}>Student / Staff ID</FormLabel>
+              <FormLabel fontWeight={"bold"} fontSize={"sm"}>
+                Student / Staff ID
+              </FormLabel>
               <Input
                 type="text"
                 name="userID"
@@ -200,7 +202,9 @@ export default function LoginPage() {
             </FormControl>
 
             <FormControl>
-              <FormLabel fontSize={"sm"}>Password</FormLabel>
+              <FormLabel fontWeight={"bold"} fontSize={"sm"}>
+                Password
+              </FormLabel>
               <Input
                 type="password"
                 name="password"
@@ -218,6 +222,12 @@ export default function LoginPage() {
             <Button
               mt={4}
               bg={"brand.900"}
+              border={"3px solid transparent"}
+              _hover={{
+                bg: "transparent",
+                borderColor: "brand.900",
+                color: "brand.900",
+              }}
               color={"white"}
               isLoading={isLoading}
               type="submit"

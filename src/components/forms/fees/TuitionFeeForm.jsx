@@ -14,23 +14,12 @@ import { useModal } from "../../../app/contexts/ModalContext";
 import { useNavigate } from "react-router-dom";
 import { useClassDetails, useClasses } from "../../../hooks/school_classes";
 import { createFee } from "../../../api/fees.api";
-import { useFees } from "../../../hooks";
 
-export default function TuitionFeeForm({ action, feeTypeId, existingData }) {
+export default function TuitionFeeForm({ fees, action, existingData }) {
   const toast = useToast();
   const { closePortal } = useModal();
   const { schoolClasses } = useClasses();
-  const { fees } = useFees("tuition");
   const navigate = useNavigate();
-
-  // Get classes that their fees has not been set.
-  const filteredSchoolClasses = schoolClasses.filter((schoolClass) => {
-    const classIdExistsInFees = fees?.some(
-      (fee) => fee.classId === schoolClass._id
-    );
-
-    return !classIdExistsInFees;
-  });
 
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -42,30 +31,39 @@ export default function TuitionFeeForm({ action, feeTypeId, existingData }) {
     status: true,
   });
 
+  // Get classes that their fees has not been set.
+  const filteredSchoolClasses = schoolClasses.filter((schoolClass) => {
+    const classIdExistsInFees = fees?.some(
+      (fee) => fee.classId === schoolClass._id
+    );
+
+    return !classIdExistsInFees;
+  });
+
   const { classDetails } = useClassDetails(formData.schoolClass);
 
   const [successTimeout, setSuccessTimeout] = useState(null);
   const [redirectTimeout, setRedirectTimeout] = useState(null);
 
-  useEffect(() => {
-    if (action === "edit" && feeTypeId) {
-      // Fetch existing data for the selected class and set it as the initial form data
-      const existingData = fees.find((fee) => fee._id === feeTypeId);
+  // useEffect(() => {
+  //   if (action === "edit" && feeTypeId) {
+  //     // Fetch existing data for the selected class and set it as the initial form data
+  //     const existingData = fees.find((fee) => fee._id === feeTypeId);
 
-      console.log(existingData);
+  //     console.log(fees, feeTypeId, existingData);
 
-      if (existingData) {
-        setFormData({
-          session: existingData?.session,
-          term: existingData?.term,
-          schoolClass: existingData?.classId,
-          newStudentPrice: existingData?.price.new.toString(),
-          existingStudentPrice: existingData?.price.existing.toString(),
-          status: existingData?.status,
-        });
-      }
-    }
-  }, [action, feeTypeId, fees]);
+  //     if (existingData) {
+  //       setFormData({
+  //         session: existingData?.session,
+  //         term: existingData?.term,
+  //         schoolClass: existingData?.classId,
+  //         newStudentPrice: existingData?.price.new.toString(),
+  //         existingStudentPrice: existingData?.price.existing.toString(),
+  //         status: existingData?.status,
+  //       });
+  //     }
+  //   }
+  // }, [action, feeTypeId, fees]);
 
   // Useeffect to cleanup timeouts when the component unmounts
   useEffect(() => {
@@ -95,7 +93,6 @@ export default function TuitionFeeForm({ action, feeTypeId, existingData }) {
       schoolClass,
       newStudentPrice,
       existingStudentPrice,
-      status,
     } = formData;
 
     if (
