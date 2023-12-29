@@ -2,9 +2,19 @@ import React, { useState } from "react";
 import { Box, Text, Stack, Switch, StackDivider } from "@chakra-ui/react";
 
 export default function PaymentMethodsConfigScreen() {
-  const [isPaymentEnabled, setIsPaymentEnabled] = useState(false);
+  const [paymentMethods, setPaymentMethods] = useState({
+    cashDeposit: false,
+    bankTransfer: false,
+    payWithCard: false,
+  });
+
+  const { cashDeposit, payWithCard, bankTransfer } = paymentMethods;
 
   const handleToggleSwitch = () => {
+    setPaymentMethods((prevFormData) => ({
+      ...prevFormData,
+      [name]: !prevFormData,
+    }));
     setIsPaymentEnabled((prev) => !prev);
   };
 
@@ -25,11 +35,28 @@ export default function PaymentMethodsConfigScreen() {
           justifyContent={"space-between"}
           width={"full"}
         >
-          <Text>Bank Deposit</Text>
+          <Text>Cash Deposit</Text>
           <Switch
             colorScheme="teal"
             size="md"
-            isChecked={isPaymentEnabled}
+            name="cashDeposit"
+            isChecked={cashDeposit}
+            onChange={handleToggleSwitch}
+          />
+        </Stack>
+
+        <Stack
+          direction="row"
+          align="center"
+          justifyContent={"space-between"}
+          width={"full"}
+        >
+          <Text>Pay in Bank / Transfer</Text>
+          <Switch
+            colorScheme="teal"
+            name="bankTransfer"
+            size="md"
+            isChecked={bankTransfer}
             onChange={handleToggleSwitch}
           />
         </Stack>
@@ -43,8 +70,9 @@ export default function PaymentMethodsConfigScreen() {
           <Text>Pay with Card</Text>
           <Switch
             colorScheme="teal"
+            name="payWithCarf"
             size="md"
-            isChecked={isPaymentEnabled}
+            isChecked={payWithCard}
             onChange={handleToggleSwitch}
           />
         </Stack>

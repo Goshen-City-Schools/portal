@@ -1,54 +1,77 @@
 import { useState } from "react";
 
-import { Text, Flex, Button, useToast, Switch, Stack } from "@chakra-ui/react";
+import {
+  Text,
+  Flex,
+  Button,
+  useToast,
+  Switch,
+  Stack,
+  FormControl,
+} from "@chakra-ui/react";
 import CustomSelect from "../shared/Select.component";
 
 export default function BankAccountForm({ action, existingData }) {
   const toast = useToast();
 
   const [formData, setFormData] = useState({
-    bankName: existingData.bankName || "",
-    accountName: existingData.accountName,
-    accountNumber: existingData.accountNumber || "",
-    fees: existingData.fees || [],
-    status: existingData.status || false,
+    bankName: existingData?.bankName || "",
+    accountName: existingData?.accountName,
+    accountNumber: existingData?.accountNumber || "",
+    fees: existingData?.fees || [],
+    status: existingData?.status || false,
   });
   const banks = [{ name: "Fidelity Bank", value: "fidelity_bank" }];
-
-  const [successTimeout, setSuccessTimeout] = useState(null);
-  const [redirectTimeout, setRedirectTimeout] = useState(null);
-
-  useEffect(() => {
-    if (action === "edit" && feeTypeId) {
-      // Fetch existing data for the selected class and set it as the initial form data
-      const existingData = fees.find((fee) => fee._id === feeTypeId);
-
-      console.log(fees, existingData);
-
-      if (existingData) {
-        setFormData({
-          bankName: existingData.bankName || "",
-          accountName: existingData.accountName,
-          accountNumber: existingData.accountNumber || "",
-          fees: existingData.fees || [],
-          status: existingData.status || false,
-        });
-      }
-    }
-  }, [action, feeTypeId, fees]);
-
-  // Useeffect to cleanup timeouts when the component unmounts
-  useEffect(() => {
-    return () => {
-      clearTimeout(successTimeout);
-      clearTimeout(redirectTimeout);
-    };
-  }, [successTimeout, redirectTimeout]);
 
   const showToast = (options) => {
     const toastId = toast(options);
     return toastId;
   };
+
+  function handleSubmitCreateEvent(e) {
+    e.preventDefault();
+
+    if (
+      !formData.event_name ||
+      !formData.event_description ||
+      !formData.event_startDate ||
+      !formData.event_notification
+    ) {
+      toast({
+        title: "All bank fields are required!",
+        position: "top-right",
+        status: "error",
+        duration: "1100",
+      });
+      return;
+    }
+
+    if (isPeriodicEvent) {
+      if (!formData.event_period) {
+        toast({
+          title: "All bank fields are required!",
+          position: "top-right",
+          status: "error",
+          duration: "1100",
+        });
+        return;
+      }
+    }
+
+    setIsLoading(true);
+
+    setTimeout(() => {
+      setIsLoading(false);
+
+      toast({
+        title: `${formData.event_name} event created successfully!`,
+        position: "top-right",
+        status: "success",
+        duration: "1200",
+      });
+      closePortal();
+    }, 1600);
+  }
 
   // Function Handle User Input Change
   function handleUserInputChange() {}
