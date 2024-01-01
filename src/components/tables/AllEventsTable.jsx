@@ -15,6 +15,11 @@ export default function AllEventsTable({ events }) {
       icon: <MdEdit />,
     },
     {
+      name: "editPost",
+      label: "Edit Post",
+      icon: <MdEdit />,
+    },
+    {
       name: "deleteEvent",
       label: "Delete Event",
       icon: <MdDelete />,

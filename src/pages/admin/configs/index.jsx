@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 
 export default function ConfigPage() {
   const configLinks = [
+    { to: "/admin/config/website", label: "Home Website" },
     { to: "/admin/config/academics", label: "Academic Data" },
     { to: "/admin/config/staff", label: "Staff" },
     { to: "/admin/config/payments", label: "Payments" },

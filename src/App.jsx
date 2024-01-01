@@ -60,6 +60,7 @@ import { AccessRestricted, GeneralNotFound, LoginPage } from "./pages/shared";
 import { Navigate } from "react-router-dom";
 import PaymentsConfigPage from "./pages/admin/configs/PaymentsConfig.page";
 import WriteDashboard from "./pages/admin/write";
+import WebsiteConfigPage from "./pages/admin/configs/WebsiteConfig.page";
 
 const App = () => {
   return (
@@ -127,6 +128,7 @@ const App = () => {
           </Route>
 
           {/* Config */}
+          <Route path="website" element={<WebsiteConfigPage />} />
           <Route path="academics" element={<AcademicsConfigPage />} />
           <Route path="payments" element={<PaymentsConfigPage />} />
           <Route path="evaluation" element={<EvaluationConfigPage />} />
@@ -143,6 +145,7 @@ const App = () => {
         {/* Single Staff Page */}
         <Route path="staff/:staffId" element={<StaffPage />} />
 
+        {/* Events routes */}
         <Route path="events">
           <Route index element={<AllEventsPage />} />
         </Route>

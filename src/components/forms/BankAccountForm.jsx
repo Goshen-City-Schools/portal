@@ -10,6 +10,7 @@ import {
   FormControl,
   FormLabel,
   Input,
+  Badge,
 } from "@chakra-ui/react";
 import CustomSelect from "../shared/Select.component";
 import { useFees } from "../../hooks";
@@ -138,7 +139,16 @@ export default function BankAccountForm({ action, existingData }) {
           </FormLabel>
 
           {feeArray?.map(({ feeName }, index) => (
-            <Text key={index}>{feeName}</Text>
+            <Badge
+              bg={"brand.100"}
+              textColor={"brand.900"}
+              px={3}
+              border={"1px"}
+              py={1}
+              key={index}
+            >
+              {feeName}
+            </Badge>
           ))}
         </FormControl>
 
