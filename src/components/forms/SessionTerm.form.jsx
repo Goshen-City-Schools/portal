@@ -1,10 +1,10 @@
 import React from 'react';
+import { useFees } from '../../hooks';
 
 export default function SessionTerm() {
-  // function handleSubmit(e) {
-  //   e.preventDefault();
-  //   navigate('/fees/invoices/1');
-  // }
+
+  
+  const fees = useFees()
   return (
     <div className="formContainer w-full  max-w-sm mx-auto">
       <h2 className="px-4  font-bold  text-center w-max mx-auto text-2xl mb-4 text-purple-800">

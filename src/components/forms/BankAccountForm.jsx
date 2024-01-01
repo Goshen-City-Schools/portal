@@ -8,11 +8,32 @@ import {
   Switch,
   Stack,
   FormControl,
+  FormLabel,
+  Input,
 } from "@chakra-ui/react";
 import CustomSelect from "../shared/Select.component";
+import { useFees } from "../../hooks";
 
 export default function BankAccountForm({ action, existingData }) {
   const toast = useToast();
+  const [isLoading, setIsLoading] = useState(false);
+
+  const { fees } = useFees();
+
+  // Define names for each fee type
+  const feeNames = {
+    boardingFees: "Boarding Fees",
+    busFees: "Bus Fees",
+    tuitionFees: "Tuition Fees",
+  };
+
+  // Use Object.entries to get key-value pairs and map to a new array
+  const feeArray = Object.entries(fees).map(([feeType]) => ({
+    feeType,
+    feeName: feeNames[feeType], // Use the predefined name for each fee type
+  }));
+
+  console.log(fees, feeArray);
 
   const [formData, setFormData] = useState({
     bankName: existingData?.bankName || "",
@@ -28,53 +49,12 @@ export default function BankAccountForm({ action, existingData }) {
     return toastId;
   };
 
-  function handleSubmitCreateEvent(e) {
-    e.preventDefault();
-
-    if (
-      !formData.event_name ||
-      !formData.event_description ||
-      !formData.event_startDate ||
-      !formData.event_notification
-    ) {
-      toast({
-        title: "All bank fields are required!",
-        position: "top-right",
-        status: "error",
-        duration: "1100",
-      });
-      return;
-    }
-
-    if (isPeriodicEvent) {
-      if (!formData.event_period) {
-        toast({
-          title: "All bank fields are required!",
-          position: "top-right",
-          status: "error",
-          duration: "1100",
-        });
-        return;
-      }
-    }
-
-    setIsLoading(true);
-
-    setTimeout(() => {
-      setIsLoading(false);
-
-      toast({
-        title: `${formData.event_name} event created successfully!`,
-        position: "top-right",
-        status: "success",
-        duration: "1200",
-      });
-      closePortal();
-    }, 1600);
-  }
-
   // Function Handle User Input Change
-  function handleUserInputChange() {}
+  function handleFormChange(e) {
+    const { name, value, checked, type } = e.target;
+    const newValue = type === "checkbox" ? checked : value;
+    setFormData((prevFormData) => ({ ...prevFormData, [name]: newValue }));
+  }
 
   // Handle Form Submit Function
   function handleFormSubmit(e) {
@@ -97,7 +77,7 @@ export default function BankAccountForm({ action, existingData }) {
 
           <CustomSelect
             name="bankName"
-            onChange={handleUserInputChange}
+            onChange={handleFormChange}
             value={formData.bankName}
           >
             <option value="">-- Select Bank --</option>
@@ -121,8 +101,8 @@ export default function BankAccountForm({ action, existingData }) {
           <Input
             type="text"
             size={"sm"}
-            name="name"
-            onChange={handleUserInputChange}
+            name="accountNumber"
+            onChange={handleFormChange}
             value={formData.accountNumber}
           />
         </FormControl>
@@ -140,8 +120,8 @@ export default function BankAccountForm({ action, existingData }) {
           <Input
             type="text"
             size={"sm"}
-            name="name"
-            onChange={handleUserInputChange}
+            name="accountName"
+            onChange={handleFormChange}
             value={formData.accountName}
           />
         </FormControl>
@@ -157,13 +137,9 @@ export default function BankAccountForm({ action, existingData }) {
             Fees
           </FormLabel>
 
-          <Input
-            type="text"
-            size={"sm"}
-            name="name"
-            onChange={handleUserInputChange}
-            value={formData.accountNumber}
-          />
+          {feeArray?.map(({ feeName }, index) => (
+            <Text key={index}>{feeName}</Text>
+          ))}
         </FormControl>
 
         {/* Bank Status */}
@@ -171,14 +147,11 @@ export default function BankAccountForm({ action, existingData }) {
           <Text as={"p"} fontSize={"sm"} fontWeight={"bold"}>
             Status
           </Text>
-          <Switch
-            value={formData.status}
-            onChange={() => handleUserInputChange}
-          />
+          <Switch value={formData.status} onChange={() => handleFormChange} />
         </Flex>
 
         <Button
-          colorScheme={"green"}
+          colorScheme={"facebook"}
           w={"max-content"}
           fontSize={"sm"}
           mx={"auto"}

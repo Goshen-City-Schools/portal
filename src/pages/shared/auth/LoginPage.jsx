@@ -12,10 +12,16 @@ import {
   FormHelperText,
   Button,
   useToast,
+  Link,
 } from "@chakra-ui/react";
 import defaultConfigValues from "../../../data/defaultConfigValues";
 import determineUserType from "../../../helpers/determineUserType";
 
+import {
+  MdArrowForward,
+  MdArrowRight,
+  MdOutlineChevronRight,
+} from "react-icons/md";
 import { useAuth } from "../../../app/contexts/AuthContext";
 
 export default function LoginPage() {
@@ -111,24 +117,41 @@ export default function LoginPage() {
             justifyContent={"center"}
             alignItems={"center"}
           >
-            <Box
-              position={"relative"}
-              height={"48"}
-              width={"48"}
-              overflow={"hidden"}
+            <Link
+              className="flex flex-col justify-center items-center no-underline !active:no-underline !hover:no-underline"
+              href="https://gshnsch.vercel.com"
+              _hover={{ textDecoration: "none" }}
             >
-              <img
-                src="/Goshen-logo-trans.png"
-                alt="Goshen group of Schools logo"
-                className="absolute object-contain w-full h-full"
-              />
-            </Box>
-            <Text as={"h3"} fontSize={"3xl"} fontWeight={"bold"}>
-              GOSHEN GROUP OF SCHOOLS
-            </Text>
-            <Text as={"p"} fontSize={"sm"}>
-              Wisdom, the principal thing
-            </Text>{" "}
+              <Box
+                position={"relative"}
+                height={"48"}
+                width={"48"}
+                overflow={"hidden"}
+              >
+                <img
+                  src="/Goshen-logo-trans.png"
+                  alt="Goshen group of Schools logo"
+                  className="absolute object-contain w-full h-full"
+                />
+              </Box>
+              <Text
+                as={"h3"}
+                fontSize={"3xl"}
+                fontWeight={"bold"}
+                color={"brand.100"}
+              >
+                GOSHEN GROUP OF SCHOOLS
+              </Text>
+              <Text
+                as={"p"}
+                fontSize={"sm"}
+                fontWeight={"bolder"}
+                className="tracking-wider"
+                color={"accent.100"}
+              >
+                CRE . NUR . BASIC . SEC
+              </Text>
+            </Link>
           </Flex>
 
           <Box
@@ -152,7 +175,7 @@ export default function LoginPage() {
           height={"full"}
           justifyContent={"center"}
           flexDirection={"column"}
-          w={{ base: "100%", md: "80%" }}
+          w={{ base: "100%", md: "82%" }}
           marginX={"auto"}
         >
           <Box
@@ -169,26 +192,32 @@ export default function LoginPage() {
               className="absolute object-contain w-full h-full"
             />
           </Box>
+
           <Flex
             direction={"column"}
             alignItems={{ base: "center", md: "start" }}
             marginBottom={12}
           >
             <Text
+              color={"brand.900"}
               as={"h3"}
               fontSize={{ base: "2xl", md: "4xl" }}
-              fontWeight={"bold"}
+              fontWeight={"bolder"}
             >
               Welcome back
             </Text>
-            <Text as={"small"} fontSize={"md"}>
+            <Text color={"brand.900"} as={"small"} fontSize={"md"}>
               Fill in your details below to login
             </Text>
           </Flex>
 
           <form onSubmit={handleSubmit}>
             <FormControl mb={2}>
-              <FormLabel fontWeight={"bold"} fontSize={"sm"}>
+              <FormLabel
+                fontWeight={"bold"}
+                color={"accent.700"}
+                fontSize={"sm"}
+              >
                 Student / Staff ID
               </FormLabel>
               <Input
@@ -198,11 +227,17 @@ export default function LoginPage() {
                 value={userID}
                 onChange={handleInputChange}
                 placeholder="Enter your ID number"
+                border={"1px"}
+                borderColor={"brand.900"}
               />
             </FormControl>
 
             <FormControl>
-              <FormLabel fontWeight={"bold"} fontSize={"sm"}>
+              <FormLabel
+                color={"accent.700"}
+                fontWeight={"bold"}
+                fontSize={"sm"}
+              >
                 Password
               </FormLabel>
               <Input
@@ -212,6 +247,8 @@ export default function LoginPage() {
                 height={"56px"}
                 placeholder="Enter password"
                 onChange={handleInputChange}
+                border={"1px"}
+                borderColor={"brand.900"}
               />
             </FormControl>
 
@@ -233,10 +270,35 @@ export default function LoginPage() {
               type="submit"
               py={"6"}
               height={"48px"}
+              className="flex items-center gap-4"
             >
-              Login
+              Login <MdArrowForward />
             </Button>
           </form>
+
+          <div className="flex mt-4 gap-4 justify-between">
+            <Link
+              className="mt-4"
+              href={"https://gshnsch.vercel.com"}
+              color={"accent.800"}
+              fontSize={"sm"}
+              textDecoration={"underline"}
+              textUnderlineOffset={4}
+              fontWeight={"600"}
+            >
+              Visit Website
+            </Link>
+            <Link
+              href={"https://gshnsch.vercel.com"}
+              color={"accent.800"}
+              fontSize={"sm"}
+              textDecoration={"underline"}
+              textUnderlineOffset={4}
+              fontWeight={"600"}
+            >
+              Reset Password
+            </Link>
+          </div>
         </GridItem>
       </Grid>
     </motion.div>

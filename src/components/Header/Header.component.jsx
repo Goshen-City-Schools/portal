@@ -131,8 +131,7 @@ export default function Header() {
                 </p>
                 <Text as={"small"} fontSize={"xs"}>
                   {user.accountType === "staff" && user.roles[0].name}
-                  {user.accountType === "student" &&
-                    user.accountType.toCapitalize()}
+                  {user.accountType === "student" && user.accountType}
                 </Text>
               </Flex>
               <BsChevronDown size={18} />

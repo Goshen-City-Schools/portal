@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   FormControl,
   FormLabel,
@@ -30,17 +30,6 @@ export default function BusFeeForm({ action, existingData }) {
     toFromPrice: existingData?.price?.toFrom || null,
     status: true,
   });
-
-  const [successTimeout, setSuccessTimeout] = useState(null);
-  const [redirectTimeout, setRedirectTimeout] = useState(null);
-
-  // Useeffect to cleanup timeouts when the component unmounts
-  useEffect(() => {
-    return () => {
-      clearTimeout(successTimeout);
-      clearTimeout(redirectTimeout);
-    };
-  }, [successTimeout, redirectTimeout]);
 
   const showToast = (options) => {
     const toastId = toast(options);

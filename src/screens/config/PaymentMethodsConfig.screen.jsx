@@ -10,12 +10,11 @@ export default function PaymentMethodsConfigScreen() {
 
   const { cashDeposit, payWithCard, bankTransfer } = paymentMethods;
 
-  const handleToggleSwitch = () => {
+  const handleToggleSwitch = (name) => {
     setPaymentMethods((prevFormData) => ({
       ...prevFormData,
-      [name]: !prevFormData,
+      [name]: !prevFormData[name], // Fix: Use [name] to access the correct property
     }));
-    setIsPaymentEnabled((prev) => !prev);
   };
 
   return (
@@ -37,11 +36,11 @@ export default function PaymentMethodsConfigScreen() {
         >
           <Text>Cash Deposit</Text>
           <Switch
-            colorScheme="teal"
+            colorScheme="facebook"
             size="md"
             name="cashDeposit"
             isChecked={cashDeposit}
-            onChange={handleToggleSwitch}
+            onChange={() => handleToggleSwitch("cashDeposit")}
           />
         </Stack>
 
@@ -53,11 +52,11 @@ export default function PaymentMethodsConfigScreen() {
         >
           <Text>Pay in Bank / Transfer</Text>
           <Switch
-            colorScheme="teal"
+            colorScheme="facebook"
             name="bankTransfer"
             size="md"
             isChecked={bankTransfer}
-            onChange={handleToggleSwitch}
+            onChange={() => handleToggleSwitch("bankTransfer")}
           />
         </Stack>
 
@@ -69,11 +68,11 @@ export default function PaymentMethodsConfigScreen() {
         >
           <Text>Pay with Card</Text>
           <Switch
-            colorScheme="teal"
-            name="payWithCarf"
+            colorScheme="facebook"
+            name="payWithCard"
             size="md"
             isChecked={payWithCard}
-            onChange={handleToggleSwitch}
+            onChange={() => handleToggleSwitch("payWithCard")}
           />
         </Stack>
       </Stack>
