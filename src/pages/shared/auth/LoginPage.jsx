@@ -17,11 +17,7 @@ import {
 import defaultConfigValues from "../../../data/defaultConfigValues";
 import determineUserType from "../../../helpers/determineUserType";
 
-import {
-  MdArrowForward,
-  MdArrowRight,
-  MdOutlineChevronRight,
-} from "react-icons/md";
+import { MdArrowForward } from "react-icons/md";
 import { useAuth } from "../../../app/contexts/AuthContext";
 
 export default function LoginPage() {
@@ -289,7 +285,7 @@ export default function LoginPage() {
               Visit Website
             </Link>
             <Link
-              href={"https://gshnsch.vercel.com"}
+              href={"/password-reset"}
               color={"accent.800"}
               fontSize={"sm"}
               textDecoration={"underline"}

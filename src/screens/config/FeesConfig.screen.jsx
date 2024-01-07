@@ -14,6 +14,7 @@ import {
   TuitionFeeTable,
 } from "../../components/tables";
 import { MdAdd } from "react-icons/md";
+import { Suspense } from "react";
 
 export default function FeesConfigScreen() {
   const [formData, setFormData] = useState({
@@ -116,15 +117,17 @@ export default function FeesConfigScreen() {
         </FormControl>
       </Flex>
 
-      {session && term && feeType === "tuition" && (
-        <TuitionFeeTable session={session} term={term} feeType={feeType} />
-      )}
-      {session && term && feeType === "bus" && (
-        <BusFeeTable session={session} term={term} feeType={feeType} />
-      )}
-      {session && term && feeType === "boarding" && (
-        <BoardingFeeTable session={session} term={term} feeType={feeType} />
-      )}
+      <Suspense fallback={"Loading..."}>
+        {session && term && feeType === "tuition" && (
+          <TuitionFeeTable session={session} term={term} feeType={feeType} />
+        )}
+        {session && term && feeType === "bus" && (
+          <BusFeeTable session={session} term={term} feeType={feeType} />
+        )}
+        {session && term && feeType === "boarding" && (
+          <BoardingFeeTable session={session} term={term} feeType={feeType} />
+        )}
+      </Suspense>
     </Box>
   );
 }
