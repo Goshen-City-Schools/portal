@@ -13,9 +13,9 @@ export default function SubjectsConfigScreen() {
         mb={4}
         ml={"auto"}
         size={"sm"}
-        colorScheme={"blue"}
+        colorScheme={"facebook"}
         leftIcon={<MdAdd />}
-        onClick={() => navigate("/admin/students/new")}
+        onClick={() => navigate("/admin/config/subjects/new")}
       >
         Add Subject
       </Button>

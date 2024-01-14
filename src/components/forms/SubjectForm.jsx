@@ -68,7 +68,7 @@ export default function SubjectForm({ subjectData, action }) {
         });
 
         setInfoIsUpdated(true);
-        navigate("/admin/subjects");
+        navigate("/admin/config/academics");
         return;
         // Clear the form or perform any other necessary actions
       } else {

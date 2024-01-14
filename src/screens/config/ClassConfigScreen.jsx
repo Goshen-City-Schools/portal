@@ -5,19 +5,22 @@ import { Stack, Button } from "@chakra-ui/react";
 import { MdAdd } from "react-icons/md";
 import { AllClassesTable } from "../../components/tables";
 import { useClasses } from "../../hooks";
+import { useModal } from "../../app/contexts/ModalContext";
+import { CreateSubClassPortal } from "../../portals";
 
 export default function ClassConfigScreen() {
   const { schoolClasses } = useClasses();
   const navigate = useNavigate();
+  const { openPortal } = useModal();
   return (
     <Stack>
       <Button
         mb={4}
         ml={"auto"}
         size={"sm"}
-        colorScheme={"blue"}
+        colorScheme={"facebook"}
         leftIcon={<MdAdd />}
-        onClick={() => navigate("/admin/students/new")}
+        onClick={() => openPortal(<CreateSubClassPortal />)}
       >
         Add SubClass
       </Button>

@@ -9,6 +9,8 @@ import DynamicSuggestionDropdown from "../shared/DynamicSuggestionDropdown";
 import AddGuardianPortal from "../../portals/AddGuardian.portal";
 import { useGuardians } from "../../hooks/Guardians";
 
+// TODO: Get and display appropriate error response.
+
 export function GuardianFormControlller({ formData, handleInputChange }) {
   const { openPortal } = useModal();
 
@@ -143,17 +145,7 @@ export default function GuardianForm({ guardianData, action }) {
         />
       </Grid>
 
-      <FormSelect
-        disabled={action == "studentEdit"}
-        data={[{ name: "Mr.", value: "mr" }]}
-        label={"Occupation"}
-        name={"occupation"}
-        formData={formData}
-        data_item_name={"name"}
-        data_item_value={"value"}
-        handleChange={handleInputChange}
-      />
-
+      {/* Relationship Status */}
       <FormSelect
         disabled={action == "studentEdit"}
         data={[
@@ -168,6 +160,24 @@ export default function GuardianForm({ guardianData, action }) {
         data_item_value={"value"}
         handleChange={handleInputChange}
       />
+
+      {/* Occupation */}
+      <FormSelect
+        disabled={action == "studentEdit"}
+        data={[
+          { name: "Business Owner", value: "business" },
+          { name: "Civil Servant", value: "civil" },
+          { name: "Office Worker", value: "worker" },
+          { name: "Farmer", value: "farmer" },
+        ]}
+        label={"Occupation"}
+        name={"occupation"}
+        formData={formData}
+        data_item_name={"name"}
+        data_item_value={"value"}
+        handleChange={handleInputChange}
+      />
+
       {/* </Grid> */}
 
       {/* State of Residence & Phone Number */}

@@ -17,7 +17,7 @@ const SubjectTable = () => {
   const { setInfoIsUpdated } = useUser();
 
   const handleEditAction = async (id) => {
-    return navigate(`/admin/subjects/${id}/edit`);
+    return navigate(`/admin/config/subjects/${id}/edit`);
   };
 
   const handleDeleteAction = async (subjectId) => {

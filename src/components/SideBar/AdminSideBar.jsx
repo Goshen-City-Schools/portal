@@ -60,7 +60,7 @@ export const AdminSideBarList = ({ user, handleToggleSideMenu }) => {
               icon: <MdEditDocument size={12} />,
             },
             {
-              link: "/admin/parents",
+              link: "/admin/parents/new",
               name: "Add Parent",
               icon: <MdAdd size={14} />,
               roles: ["IT Personnel"],

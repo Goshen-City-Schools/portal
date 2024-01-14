@@ -1,5 +1,6 @@
 import React from "react";
 import ConfigScreenLayout from "./shared/ConfigScreenLayout";
+import { useState } from "react";
 
 export default function WebsiteConfigPage() {
   const [activeTab, setActiveTab] = useState(1);
@@ -8,12 +9,12 @@ export default function WebsiteConfigPage() {
     {
       id: 1,
       label: `Pages`,
-      component: <ResultsConfigScreen />,
+      component: "<ResultsConfigScreen />",
     },
     {
       id: 2,
       label: `Contents`,
-      component: <AssessmentTestsConfigScreen />,
+      component: "<AssessmentTestsConfigScreen />",
     },
   ];
 

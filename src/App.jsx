@@ -119,7 +119,7 @@ const App = () => {
             </Route>
           </Route>
 
-          {/* Staff Config */}
+          {/* Class Config */}
           <Route path="classes">
             <Route index element={<ClassesPage />} />
             <Route path=":classId">

@@ -146,7 +146,7 @@ export default function SchoolClassForm() {
         </FormControl>
 
         <Button
-          colorScheme={"green"}
+          colorScheme={"facebook"}
           w={"max-content"}
           fontSize={"sm"}
           mx={"auto"}

@@ -34,8 +34,6 @@ export default function BankAccountForm({ action, existingData }) {
     feeName: feeNames[feeType], // Use the predefined name for each fee type
   }));
 
-  console.log(fees, feeArray);
-
   const [formData, setFormData] = useState({
     bankName: existingData?.bankName || "",
     accountName: existingData?.accountName,

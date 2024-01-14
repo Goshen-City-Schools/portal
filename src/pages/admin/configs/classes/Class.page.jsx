@@ -6,8 +6,6 @@ import { useClasses, useStudents } from "../../../../hooks";
 
 import HorizontalScrollableTabs from "../../../../widgets/HorizontalScrollableTabs.widget";
 
-import subjectsData from "../../../../data/subjects.data";
-
 import PageWrapper from "../../../../components/PageWrapper";
 import ClassSummaryBox from "../../../../components/ClassSummaryBox";
 import AllStudentsTable from "../../../../components/tables/users/StudentsTable.component";
@@ -18,23 +16,26 @@ import IconComponent from "../../../../components/Icon.component";
 
 import { MdArrowBack } from "react-icons/md";
 import PageSectionHeader from "../../../../components/PageSectionHeader";
+import { useSubjects } from "../../../../hooks/Subjects";
 
 export default function ClassPage() {
   const [activeTab, setActiveTab] = useState(1);
-  const { schoolClass } = useParams();
+  const { classId } = useParams();
   const { studentsData } = useStudents();
-
+  const { subjectsData } = useSubjects();
   const { schoolClasses } = useClasses();
 
+  console.log(schoolClasses, classId);
+
   const schoolClassData = schoolClasses.find(
-    (singleSchoolClass) => singleSchoolClass.value === schoolClass
+    (singleSchoolClass) => singleSchoolClass?._id === classId
   );
 
   const classData = (classValue) =>
     schoolClasses.find((schoolCl) => schoolCl.value === classValue)?.name;
 
   const filteredStudents = studentsData.filter(
-    (student) => student.schoolClass === classData(schoolClass)
+    (student) => student.schoolClass === classData(classId)
   );
 
   const tabs = [

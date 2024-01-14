@@ -41,7 +41,7 @@ export default function SubjectsPage() {
               bg={"brand.700"}
               size={"sm"}
               color={"neutral.100"}
-              onClick={() => navigate("/admin/subjects/new")}
+              onClick={() => navigate("/admin/config/subjects/new")}
             >
               <IconComponent>
                 <MdAdd />

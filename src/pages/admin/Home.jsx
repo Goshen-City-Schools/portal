@@ -68,7 +68,7 @@ export default function AdminHome() {
               imgSrc={"teacher.png"}
               text={"Total Staff:"}
               number={staffData?.length}
-              onClick={() => navigate("/admin/staff")}
+              onClick={() => navigate("/admin/config/staff")}
               maxW={"300px"}
             />
             <StatCardComponent
@@ -77,6 +77,11 @@ export default function AdminHome() {
               imgSrc={"book.png"}
               text={"Total Subjects:"}
               number={subjectsData.length}
+              onClick={() =>
+                navigate(
+                  "/admin/config/academics"
+                )
+              }
               maxW={"300px"}
             />
           </Flex>
