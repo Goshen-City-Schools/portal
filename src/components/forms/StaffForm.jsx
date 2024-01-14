@@ -26,7 +26,7 @@ export default function StaffForm({ action, staffData, staffRoles }) {
     firstName: staffData?.firstName || "",
     lastName: staffData?.lastName || "",
     avatarImageURL: staffData?.avatarImageURL || "",
-    email: staffData?.phoneNumber || "",
+    email: staffData?.email || "",
     phoneNumber: staffData?.phoneNumber || "",
     whatsappNumber: staffData?.whatsappNumber || "",
     primaryRole: staffData?.primaryRole || "",
@@ -55,124 +55,119 @@ export default function StaffForm({ action, staffData, staffRoles }) {
   }
 
   async function handleFormSubmit(e) {
-    e.preventDefault();
-    setLoading(true);
-    console.log(formData);
-    if (
-      !formData.firstName ||
-      !formData.lastName ||
-      !formData.email ||
-      !formData.stateOfOrigin ||
-      !formData.LGA ||
-      !formData.dateOfBirth ||
-      !formData.phoneNumber ||
-      !formData.whatsappNumber ||
-      !formData.primaryRole ||
-      !formData.gender
-    ) {
-      toast({
-        status: "error",
-        position: "top-right",
-        title: "All Staff details is required!",
-        duration: 3000,
-      });
-      setLoading(false);
-      return;
-    }
+    try {
+      e.preventDefault();
+      setLoading(true);
 
-    const staffData = {
-      firstName: formData.firstName,
-      lastName: formData.lastName,
-      dateOfBirth: formData.dateOfBirth,
-      gender: formData.gender,
-      stateOfOrigin: formData.stateOfOrigin,
-      LGA: formData.LGA,
-      accountType: "staff",
-      phoneNumber: formData.phoneNumber,
-      whatsappNumber: formData.whatsappNumber,
-      email: formData.email,
-      primaryRole: formData.primaryRole,
-    };
+      // Validate form data
+      const requiredFields = [
+        "firstName",
+        "lastName",
+        "email",
+        "stateOfOrigin",
+        "LGA",
+        "dateOfBirth",
+        "phoneNumber",
+        "whatsappNumber",
+        "primaryRole",
+        "gender",
+      ];
 
-    // Simulating Backend Actions
-    if (allowedUserRoles(user, ["IT Personnel"])) {
-      try {
-        // Make an API request to register the staff
-        const response = await axios.post(
-          "/api/v1/auth/register",
-          JSON.stringify(staffData),
-          {
-            headers: { "Content-Type": "application/json" },
-          }
-        );
+      if (!requiredFields.every((field) => formData[field])) {
+        throw new Error("All staff details are required!");
+      }
 
-        console.log(response);
+      const newStaffData = {
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        dateOfBirth: formData.dateOfBirth,
+        gender: formData.gender,
+        stateOfOrigin: formData.stateOfOrigin,
+        LGA: formData.LGA,
+        accountType: "staff",
+        phoneNumber: formData.phoneNumber,
+        whatsappNumber: formData.whatsappNumber,
+        email: formData.email,
+        primaryRole: formData.primaryRole,
+      };
 
-        // Check the response status and handle accordingly
+      // Simulate Backend Actions
+      if (allowedUserRoles(user, ["IT Personnel"])) {
+        const apiUrl =
+          action === "edit"
+            ? `/api/v1/staff/${staffData?.portalId}`
+            : "/api/v1/auth/register";
+
+        // Make an API request
+        const response = await axios({
+          method: action === "edit" ? "put" : "post",
+          url: apiUrl,
+          data: newStaffData,
+          headers: { "Content-Type": "application/json" },
+        });
+
         if (response.status === 201) {
           setLoading(false);
           toast({
             status: "success",
             position: "top-right",
-            title: "Account Successfully Created!",
+            title:
+              action === "edit"
+                ? "Account Successfully Updated!"
+                : "Account Successfully Created!",
             duration: 2000,
           });
 
-          setTimeout(() => {
-            openPortal(
-              <AccountCreatedScreen
-                type={"staff"}
-                data={response.data.user}
-                email={staffData.email}
-              />
-            );
-          }, 1000);
-          navigate("/admin/staff");
+          if (!action) {
+            setTimeout(() => {
+              openPortal(
+                <AccountCreatedScreen
+                  type={"staff"}
+                  data={response.data.user}
+                  email={staffData.email}
+                />
+              );
+            }, 1000);
+          }
 
-          // Additional actions after successful registration
+          return navigate("/admin/config/staff");
         } else {
+          throw new Error("Update/Registration failed!");
+        }
+      } else {
+        // Simulate data from Backend API
+        setTimeout(() => {
           setLoading(false);
           toast({
             status: "error",
             position: "top-right",
-            title: "Registration failed!",
+            title: "No access!",
             duration: 2000,
           });
-        }
-      } catch (error) {
-        console.error("Registration failed:", error.message);
-        setLoading(false);
-        toast({
-          status: "error",
-          position: "top-right",
-          title: "Registration failed!",
-          duration: 2000,
-        });
+        }, 2000);
       }
-    } else {
-      // Simulate data from Backend API
-      setTimeout(() => {
-        setLoading(false);
-        toast({
-          status: "error",
-          position: "top-right",
-          title: "no-access!",
-          duration: 2000,
-        });
-      }, 2000);
-    }
 
-    // Clears form data
-    setFormData({
-      firstName: "",
-      lastName: "",
-      primaryRole: "",
-      dateOfBirth: "",
-      gender: "",
-      email: "",
-      phoneNumber: "",
-      whatsappNumber: "",
-    });
+      // Clears form data
+      setFormData({
+        firstName: "",
+        lastName: "",
+        primaryRole: "",
+        dateOfBirth: "",
+        gender: "",
+        email: "",
+        phoneNumber: "",
+        whatsappNumber: "",
+      });
+    } catch (error) {
+      console.error("Error:", error.message);
+      setLoading(false);
+      toast({
+        status: "error",
+        position: "top-right",
+        title: error.message,
+        duration: 2000,
+      });
+    }
   }
 
   const LGAs =

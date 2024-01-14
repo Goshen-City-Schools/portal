@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { useStaff } from "../../../hooks";
+import { useStaff, useStaffRoles } from "../../../hooks";
 
 import { Box } from "@chakra-ui/react";
 
@@ -13,6 +13,7 @@ export default function EditStaffPage() {
 
   const { staffData } = useStaff(staffId);
 
+  const { staffRolesData } = useStaffRoles();
   const { firstName } = staffData;
 
   return (
@@ -32,7 +33,11 @@ export default function EditStaffPage() {
         my={8}
         mx={"auto"}
       >
-        <StaffForm action={"edit"} staffData={staffData} />
+        <StaffForm
+          action={"edit"}
+          staffData={staffData}
+          staffRoles={staffRolesData}
+        />
       </Box>
     </PageWrapper>
   );
