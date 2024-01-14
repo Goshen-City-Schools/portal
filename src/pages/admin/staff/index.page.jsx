@@ -11,13 +11,38 @@ import { useStaffRoles, useStaffs } from "../../../hooks/";
 import SearchWidget from "../../../widgets/Search.widget";
 
 import AllStaffTable from "../../../components/tables/users/StaffTable.component";
+import { useEffect } from "react";
 
 export default function AllStaffPage() {
   const navigate = useNavigate();
   const { staffRolesData: staffRoles } = useStaffRoles();
-  const { staffsData } = useStaffs();
+  const { staffsData, a } = useStaffs();
+  const [filteredStaffData, setFilteredStaffData] = useState([]);
+  const [selectedRole, setSelectedRole] = useState("");
 
-  console.log(staffsData);
+  useEffect(() => {
+    // Check if a role is selected
+    if (selectedRole) {
+      // Filter the staffsData based on the selectedRole
+      const filteredData = staffsData.filter(
+        (staff) => staff.primaryRole === selectedRole
+      );
+
+      // Update the filteredStaffData state
+      setFilteredStaffData(filteredData);
+    } else {
+      // If no role is selected, show all staff
+      setFilteredStaffData(staffsData);
+    }
+  }, [selectedRole, staffsData]);
+
+  function handleChange(e) {
+    const { value } = e.target;
+
+    setSelectedRole(value);
+
+    console.log(selectedRole);
+  }
 
   return (
     <PageWrapper>
@@ -75,20 +100,20 @@ export default function AllStaffPage() {
             <Text flexShrink={0} fontWeight={"bold"} as={"small"}>
               Filter by:
             </Text>
-            <Select size={"sm"} minW={"sm"}>
+            <Select size={"sm"} minW={"sm"} onChange={handleChange}>
               <option value="">-- Select Role --</option>
               {staffRoles?.map((role) => (
-                <option key={role.id} value={role.name}>
+                <option key={role.id} value={role._id}>
                   {role.name}
                 </option>
               ))}
-              <option value="all_staff">All</option>
+              <option value="">All</option>
             </Select>
           </HStack>
         </Flex>
 
         {staffsData && staffsData ? (
-          <AllStaffTable existingStaffData={staffsData} />
+          <AllStaffTable existingStaffData={filteredStaffData} />
         ) : (
           <Text as={"h2"} letterSpacing={0.5} color={"neutral.700"}>
             No Staff data yet!

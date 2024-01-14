@@ -106,7 +106,9 @@ export default function StaffForm({ action, staffData, staffRoles }) {
           headers: { "Content-Type": "application/json" },
         });
 
-        if (response.status === 201) {
+        console.log(response.status);
+
+        if (response.status === 201 || response.status === 200) {
           setLoading(false);
           toast({
             status: "success",
