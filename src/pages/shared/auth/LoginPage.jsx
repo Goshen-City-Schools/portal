@@ -275,7 +275,7 @@ export default function LoginPage() {
           <div className="flex mt-4 gap-4 justify-between">
             <Link
               className="mt-4"
-              href={"https://gshnsch.vercel.com"}
+              href={"https://gshnsch.vercel.app"}
               color={"accent.800"}
               fontSize={"sm"}
               textDecoration={"underline"}
