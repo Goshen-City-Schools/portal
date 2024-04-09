@@ -108,12 +108,12 @@ const StudentsTable = () => {
     },
     {
       Header: "Student ID",
-      accessor: "portalId",
+      accessor: "studentId",
       Cell: ({ row, value }) => <UserId row={row} value={value} />,
     },
     {
       Header: "Full name",
-      accessor: "lastName",
+      accessor: "first_name",
       Cell: ({ row }) => <FullName row={row} />,
     },
 
@@ -134,14 +134,7 @@ const StudentsTable = () => {
       width: "max-content",
       Cell: ({ value }) => <SchoolClass value={value} />,
     },
-    {
-      Header: "Guardian Tel.",
-      accessor: "guardianPhoneNumber",
-    },
-    {
-      Header: "Guardian Email",
-      accessor: "guardianEmail",
-    },
+
     {
       Header: "Action",
       accessor: "action",
