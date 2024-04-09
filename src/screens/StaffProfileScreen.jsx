@@ -53,8 +53,7 @@ export default function StaffProfileScreen({
   const { staffsData, setStaffsData } = useStaffs();
 
   const {
-    firstName,
-    lastName,
+    name,
     gender,
     dateOfBirth,
     email,
@@ -66,7 +65,7 @@ export default function StaffProfileScreen({
     portalId,
   } = staff;
   const { user } = useUser();
-  const fullname = `${firstName} ${lastName}`;
+
   const [selectedClasses, setSelectedClasses] = useState(staff?.classes || []);
   const [selectedRoles, setSelectedRoles] = useState(staff?.roles || []);
   const [selectedSubjects, setSelectedSubjects] = useState(
@@ -310,7 +309,7 @@ export default function StaffProfileScreen({
                   icon={<MdPersonOutline size={20} />}
                   label={"Full name"}
                 >
-                  {fullname}
+                  {name}
                 </InfoBox>
 
                 <InfoBox icon={<MdPersonOutline size={20} />} label={"Gender"}>
