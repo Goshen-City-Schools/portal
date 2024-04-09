@@ -111,7 +111,7 @@ const StaffTable = ({ existingStaffData }) => {
     },
     {
       Header: "Staff ID",
-      accessor: "staffId",
+      accessor: "username",
       Cell: ({ value, row }) => (
         <UserId row={row} type={"staff"} value={value} />
       ),
