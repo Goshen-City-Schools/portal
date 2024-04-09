@@ -112,12 +112,14 @@ const StaffTable = ({ existingStaffData }) => {
     {
       Header: "Staff ID",
       accessor: "staffId",
-      Cell: ({ value, row }) => <UserId row={row} value={value} />,
+      Cell: ({ value, row }) => (
+        <UserId row={row} type={"staff"} value={value} />
+      ),
     },
 
     {
       Header: "Full Name",
-      accessor: "firstName",
+      accessor: "first_name",
       Cell: ({ row }) => <FullName row={row} />,
     },
 
@@ -133,7 +135,7 @@ const StaffTable = ({ existingStaffData }) => {
       Header: "Action",
       accessor: "action",
       Cell: ({ row }) => (
-        <ActionsPopUp menu={actionsMenu(row.original.portalId)} row={row} />
+        <ActionsPopUp menu={actionsMenu(row.original.staffId)} row={row} />
       ),
     },
   ]);
@@ -142,7 +144,7 @@ const StaffTable = ({ existingStaffData }) => {
     <Table
       columns={columns}
       data={staffData ? staffData : []}
-      fullWidthColumns={["Full Name", "Parent"]}
+      fullWidthColumns={["Full Name", "Email"]}
     />
   );
 };
