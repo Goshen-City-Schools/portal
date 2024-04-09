@@ -12,7 +12,7 @@ export default function UserId({ row, value, type }) {
         letterSpacing={0.5}
         fontWeight={"semibold"}
       >
-        {type == "staff" ? `GSHN/STF/${value}` : `GSHN/STU/${value}`}
+        {type == "staff" ? value : `GSHN/STU/${value}`}
       </Text>
     </Flex>
   );
