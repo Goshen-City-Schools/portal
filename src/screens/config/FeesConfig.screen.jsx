@@ -16,11 +16,13 @@ import {
 import { MdAdd } from "react-icons/md";
 import { Suspense } from "react";
 
+// The recent update made here is that the current session and term is preselected and a fee type selected as defaults that the data value for this selected parameters is populated in their table.
+
 export default function FeesConfigScreen() {
   const [formData, setFormData] = useState({
-    session: "",
-    term: "",
-    feeType: "",
+    session: "20232024",
+    term: "term1",
+    feeType: "tuition",
   });
 
   const { session, term, feeType } = formData;
@@ -80,7 +82,9 @@ export default function FeesConfigScreen() {
           >
             <option value={""}>-- Select Session --</option>
             <option value={"20222023"}>2022 - 2023</option>
-            <option value={"20232024"}>2023 - 2024</option>
+            <option selected value={"20232024"}>
+              2023 - 2024
+            </option>
             <option value={"20242025"}>2024 - 2025</option>
           </Select>
         </FormControl>
@@ -94,7 +98,9 @@ export default function FeesConfigScreen() {
             size={"sm"}
           >
             <option value={""}>-- Select Term --</option>
-            <option value={"term1"}>First term</option>
+            <option selected value={"term1"}>
+              First term
+            </option>
             <option value={"term2"}>Second term</option>
             <option value={"term3"}>Third term</option>
           </Select>
@@ -110,7 +116,9 @@ export default function FeesConfigScreen() {
             name="feeType"
           >
             <option value="">-- Select Fee Type --</option>
-            <option value="tuition">Tuition Fee</option>
+            <option selected value="tuition">
+              Tuition Fee
+            </option>
             <option value="bus">Bus Fee</option>
             <option value="boarding">Boarding Fee</option>
           </Select>

@@ -111,7 +111,7 @@ const StaffTable = ({ existingStaffData }) => {
     },
     {
       Header: "Staff ID",
-      accessor: "portalId",
+      accessor: "staffId",
       Cell: ({ value, row }) => <UserId row={row} value={value} />,
     },
 
@@ -120,22 +120,10 @@ const StaffTable = ({ existingStaffData }) => {
       accessor: "firstName",
       Cell: ({ row }) => <FullName row={row} />,
     },
-    {
-      Header: "Staff Role",
-      accessor: "roles",
-      Cell: ({ value }) =>
-        value.map((role, index) => (
-          <TagInTable
-            label={role?.name}
-            colorScheme={"blue"}
-            variant={"outline"}
-            key={index}
-          />
-        )),
-    },
+
     {
       Header: "Phone Number",
-      accessor: "phoneNumber",
+      accessor: "telNumber",
     },
     {
       Header: "Email",
