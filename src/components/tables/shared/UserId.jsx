@@ -2,7 +2,7 @@ import React from "react";
 
 import { Flex, Text } from "@chakra-ui/react";
 
-export default function UserId({ value, type }) {
+export default function UserId({ row, value, type }) {
   return (
     <Flex gap={2}>
       <Text
@@ -12,7 +12,7 @@ export default function UserId({ value, type }) {
         letterSpacing={0.5}
         fontWeight={"semibold"}
       >
-        {type == "staff" ? value : `GSHN/STU/${value}`}
+        {type == "staff" ? `${value}` : `GSHN/STU/${value}`}
       </Text>
     </Flex>
   );
