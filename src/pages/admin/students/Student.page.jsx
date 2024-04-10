@@ -30,8 +30,8 @@ export default function StudentPage() {
     <PageWrapper>
       <ReactPortal />
       <PageSectionHeader
-        pageTitle={`Student Profile - ${student?.firstName}`}
-        pageCrumb={`Home / Students / ${student?.firstName}`}
+        pageTitle={`Student Profile - ${student?.first_name}`}
+        pageCrumb={`Home / Students / ${student?.first_name}`}
       />
 
       <StudentProfileScreen student={student} />

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import Table from "../../../widgets/Table.widget";
-import { useToast } from "@chakra-ui/react";
+import { useToast, Text } from "@chakra-ui/react";
 import { MdDelete, MdEdit } from "react-icons/md";
 
 import { useEffect } from "react";
