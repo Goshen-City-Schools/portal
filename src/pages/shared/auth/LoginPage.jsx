@@ -13,6 +13,8 @@ import {
   Button,
   useToast,
   Link,
+  TabList,
+  Tab,
 } from "@chakra-ui/react";
 import defaultConfigValues from "../../../data/defaultConfigValues";
 import determineUserType from "../../../helpers/determineUserType";
@@ -206,6 +208,14 @@ export default function LoginPage() {
               Fill in your details below to login
             </Text>
           </Flex>
+
+          {/* Use ChakraUI Tabs and it's TAB Contexts */}
+          {/* 
+          <TabList>
+            <Tab>Staff</Tab>
+            <Tab>Student</Tab>
+            <Tab>Parent</Tab>
+          </TabList> */}
 
           <form onSubmit={handleSubmit}>
             <FormControl mb={2}>

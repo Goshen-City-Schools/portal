@@ -2,7 +2,7 @@ import React from "react";
 
 import { Flex, Text } from "@chakra-ui/react";
 
-export default function UserId({ row, value, type }) {
+export default function UserId({ value, type }) {
   return (
     <Flex gap={2}>
       <Text
