@@ -53,19 +53,18 @@ export default function StudentProfileScreen({ student }) {
   };
 
   const {
-    firstName,
-    lastName,
+    first_name,
+    last_name,
     gender,
     guardianEmail,
     guardianPhoneNumber,
     schoolClass,
     subClass,
     dateOfBirth,
-    studentType,
-    portalId,
+    studentId,
   } = student;
 
-  const fullname = `${firstName} ${lastName}`;
+  const fullname = `${first_name} ${last_name}`;
 
   const { classDetails, subclassDetails } = useStudentClassDetails(
     schoolClass,
@@ -193,22 +192,6 @@ export default function StudentProfileScreen({ student }) {
                         fontFamily={"monospace"}
                       >
                         {dayjs(dateOfBirth).format("MMM d, YYYY")}
-                      </Text>{" "}
-                    </Box>
-                  </Flex>
-                </Box>
-                <Box>
-                  <Flex gap={4}>
-                    <IconComponent>
-                      <MdPersonOutline size={20} />
-                    </IconComponent>
-
-                    <Box>
-                      <Text as={"h3"} fontSize={"sm"} fontWeight={"semibold"}>
-                        Student Type
-                      </Text>
-                      <Text as={"p"} textTransform={"capitalize"}>
-                        {studentType} Student
                       </Text>{" "}
                     </Box>
                   </Flex>
@@ -463,7 +446,7 @@ export default function StudentProfileScreen({ student }) {
                     letterSpacing={1}
                     fontFamily={"monospace"}
                   >
-                    GSHN/STU/{portalId}
+                    GSHN/STU/{studentId}
                   </Text>{" "}
                 </Box>
               </Flex>
