@@ -8,7 +8,7 @@ export default function UserId({ row, value, type }) {
       <Text
         as={"p"}
         color={"neutral.700"}
-        textTransform={"uppercase"}
+        textTransform={"lowercase"}
         letterSpacing={0.5}
         fontWeight={"semibold"}
       >
