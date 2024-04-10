@@ -38,7 +38,7 @@ export default function StaffPage() {
   }
 
   // Check if the student being viewed is the logged-in user
-  if (user && staffId === user.portalid) {
+  if (user && staffId === user.username) {
     // Navigate to the "My Profile" screen
     return navigate("/admin/profile");
   }
@@ -54,7 +54,7 @@ export default function StaffPage() {
       <StaffProfileScreen
         existingStaffData={existingStaffData}
         staff={staff}
-        staffId={staff.portalId}
+        staffId={staff.username}
       />
     </PageWrapper>
   );

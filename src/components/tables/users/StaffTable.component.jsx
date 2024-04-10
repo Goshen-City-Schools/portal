@@ -26,7 +26,7 @@ const StaffTable = ({ existingStaffData }) => {
   }, [existingStaffData]);
 
   const handleDeleteAction = async (staffId) => {
-    if (user.portalId === staffId) {
+    if (user.username === staffId) {
       // Prevent staff from deleting themselves
       return toast({
         title: "You cannot delete yourself.",
@@ -119,10 +119,18 @@ const StaffTable = ({ existingStaffData }) => {
 
     {
       Header: "Full Name",
-      accessor: "first_name",
-      Cell: ({ row }) => <FullName row={row} />,
+      accessor: "name",
+      Cell: ({ row }) => (
+        <Text as={"p"} textTransform={"capitalize"}>
+          {row.original.name}
+        </Text>
+      ),
     },
 
+    {
+      Header: "Gender",
+      accessor: "gender",
+    },
     {
       Header: "Phone Number",
       accessor: "telNumber",
@@ -135,7 +143,7 @@ const StaffTable = ({ existingStaffData }) => {
       Header: "Action",
       accessor: "action",
       Cell: ({ row }) => (
-        <ActionsPopUp menu={actionsMenu(row.original.staffId)} row={row} />
+        <ActionsPopUp menu={actionsMenu(row.original.username)} row={row} />
       ),
     },
   ]);
