@@ -21,7 +21,6 @@ import PageWrapper from "../../../components/PageWrapper";
 export default function StudentsPage() {
   const navigate = useNavigate();
   const [selectedSchoolClass, setSelectedSchoolClass] = useState("");
-  const [selectedSubClass, setSelectedSubClass] = useState("");
 
   const { studentsData } = useStudents();
   const [filteredStudentsData, setFilteredStudentsData] =
@@ -35,18 +34,10 @@ export default function StudentsPage() {
       return studentsData;
     }
 
-    if (selectedSubClass) {
-      return studentsData?.filter(
-        (student) =>
-          student.schoolClass === selectedSchoolClass &&
-          student.subclass === selectedSubClass
-      );
-    }
-
     return studentsData.filter(
-      (student) => student.schoolClass === selectedSchoolClass
+      (student) => student.studentClass === selectedSchoolClass
     );
-  }, [studentsData, selectedSchoolClass, selectedSubClass]);
+  }, [studentsData, selectedSchoolClass]);
 
   useEffect(() => {
     setFilteredStudentsData(memoizedFilteredStudentsData);
@@ -54,21 +45,9 @@ export default function StudentsPage() {
 
   const handleClassChange = (e) => {
     const selectedClass = e.target.value;
-    setSelectedSchoolClass(selectedClass);
+    setSelectedSchoolClass(() => selectedClass);
 
-    // Find the selected school class object
-    const selectedClassObject = schoolClasses.find(
-      (schoolClass) => schoolClass._id === selectedClass
-    );
-
-    // Update the list of subclasses based on the selected school class
-    const subclasses = selectedClassObject
-      ? selectedClassObject.subClasses
-      : [];
-    setSubClasses(subclasses);
-
-    // Reset the selected subclass when the school class changes
-    setSelectedSubClass("");
+    console.log(selectedClass, selectedSchoolClass);
   };
 
   return (
@@ -124,8 +103,9 @@ export default function StudentsPage() {
             <Select size={"sm"} minW={"200px"} onChange={handleClassChange}>
               <option value="">-- Select Class --</option>
               {schoolClasses?.map((schoolClass) => (
-                <option key={schoolClass._id} value={schoolClass._id}>
-                  {schoolClass.name}
+                <option key={schoolClass.id} value={schoolClass.id}>
+                  {schoolClass.schoolClass.name}&nbsp;
+                  <span className="capitalize">{schoolClass.name}</span>
                 </option>
               ))}
               <option value="all_students">All</option>
