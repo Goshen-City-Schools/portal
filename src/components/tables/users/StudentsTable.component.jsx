@@ -140,7 +140,7 @@ const StudentsTable = () => {
       accessor: "action",
       Cell: ({ row }) => (
         <ActionsPopUp
-          menu={actionsMenu(row.original.portalId)}
+          menu={actionsMenu(row.original.studentId)}
           row={row}
           deleteAction={handleDeleteAction}
           viewAction={handleViewProfile}
