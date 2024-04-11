@@ -7,8 +7,6 @@ import { deleteStudent } from "../../../api/student.api";
 
 import { useUser } from "../../../app/contexts/UserContext";
 
-import { useStudents } from "../../../hooks";
-
 import Table from "../../../widgets/Table.widget";
 
 import ActionsPopUp from "../../../widgets/ActionsPopUp";
@@ -16,10 +14,9 @@ import { IoMdEye } from "react-icons/io";
 
 import { SchoolClass, RowId, FullName, UserId } from "../shared";
 
-const StudentsTable = () => {
+const StudentsTable = ({ studentsData }) => {
   const toast = useToast();
   const navigate = useNavigate();
-  const { studentsData, setStudentsData } = useStudents();
   const { user } = useUser();
 
   const handleDeleteAction = async (studentId) => {
@@ -154,7 +151,7 @@ const StudentsTable = () => {
   return (
     <Table
       columns={columns}
-      data={studentsData}
+      data={studentsData || []}
       fullWidthColumns={["Full Name", "Parent"]}
     />
   );
