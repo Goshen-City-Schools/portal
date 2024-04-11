@@ -18,12 +18,6 @@ const StaffTable = ({ existingStaffData }) => {
   const toast = useToast();
   const navigate = useNavigate();
   const { user } = useUser();
-  const [staffData, setStaffData] = useState(existingStaffData);
-
-  useEffect(() => {
-    // Your logic to handle staffData change
-    setStaffData(existingStaffData);
-  }, [existingStaffData]);
 
   const handleDeleteAction = async (staffId) => {
     if (user.username === staffId) {
@@ -116,7 +110,6 @@ const StaffTable = ({ existingStaffData }) => {
         <UserId row={row} type={"staff"} value={value} />
       ),
     },
-
     {
       Header: "Full Name",
       accessor: "name",
@@ -126,10 +119,18 @@ const StaffTable = ({ existingStaffData }) => {
         </Text>
       ),
     },
-
     {
       Header: "Gender",
       accessor: "gender",
+    },
+    {
+      Header: "Role",
+      accessor: "roles",
+      Cell: ({ row, value }) => (
+        <Text as={"p"} textTransform={"capitalize"}>
+          {value?.name}
+        </Text>
+      ),
     },
     {
       Header: "Phone Number",
@@ -139,6 +140,7 @@ const StaffTable = ({ existingStaffData }) => {
       Header: "Email",
       accessor: "email",
     },
+
     {
       Header: "Action",
       accessor: "action",
@@ -151,7 +153,7 @@ const StaffTable = ({ existingStaffData }) => {
   return (
     <Table
       columns={columns}
-      data={staffData ? staffData : []}
+      data={existingStaffData ? existingStaffData : []}
       fullWidthColumns={["Full Name", "Email"]}
     />
   );
