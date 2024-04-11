@@ -122,6 +122,11 @@ const StaffTable = ({ existingStaffData }) => {
     {
       Header: "Gender",
       accessor: "gender",
+      Cell: ({ row }) => (
+        <Text as={"p"} textTransform={"capitalize"}>
+          {row.original.name}
+        </Text>
+      ),
     },
     {
       Header: "Role",
