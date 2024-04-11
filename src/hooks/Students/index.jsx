@@ -3,14 +3,19 @@ import { useEffect, useState, useMemo } from "react";
 import axios from "../../api/axios";
 import { getSingleStudent } from "../../api/student.api";
 
-const useStudents = () => {
+const useStudents = (classQuery) => {
   const [studentsData, setStudentsData] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("/api/v1/students"); // Update with your API endpoint
+        setLoading(true);
+        let url = "/api/v1/students";
+        if (classQuery) {
+          url += `?class=${classQuery}`;
+        }
+        const response = await axios.get(url);
         setStudentsData(response.data);
         setLoading(false);
       } catch (error) {
@@ -20,11 +25,15 @@ const useStudents = () => {
     };
 
     fetchData();
-  }, []);
+  }, [classQuery]);
 
-  const memoizedStudents = useMemo(() => studentsData, [studentsData]);
+  // Memoize the returned object
+  const memoizedValue = useMemo(
+    () => ({ studentsData, loading }),
+    [studentsData, loading]
+  );
 
-  return { studentsData: memoizedStudents, loading, setStudentsData };
+  return memoizedValue;
 };
 
 const useStudent = ({ studentId }) => {

@@ -101,7 +101,7 @@ export default function TuitionFeeTable({ session, term, feeType }) {
     },
     {
       Header: "Class",
-      accessor: "classId",
+      accessor: "schoolClass",
       Cell: ({ value }) => <SchoolClass value={value} />,
     },
     {

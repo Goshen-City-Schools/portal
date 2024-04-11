@@ -1,64 +1,34 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-// Custom Hooks
-import { useClasses, useStudents } from "../../../hooks";
-
-import { useUser } from "../../../app/contexts/UserContext";
-
 import { Flex, Box, Button, HStack, Text, Select } from "@chakra-ui/react";
-
 import { MdAdd, MdImportExport } from "react-icons/md";
-
-import allowedUserRoles from "../../../helpers/allowedUserRoles";
-
 import SearchWidget from "../../../widgets/Search.widget";
-
 import PageSectionHeader from "../../../components/PageSectionHeader";
 import AllStudentsTable from "../../../components/tables/users/StudentsTable.component";
 import PageWrapper from "../../../components/PageWrapper";
+import allowedUserRoles from "../../../helpers/allowedUserRoles";
+import { useClasses, useStudents } from "../../../hooks";
+import { useUser } from "../../../app/contexts/UserContext";
 
 export default function StudentsPage() {
   const navigate = useNavigate();
   const [selectedSchoolClass, setSelectedSchoolClass] = useState("");
-
-  const { studentsData } = useStudents();
-  const [filteredStudentsData, setFilteredStudentsData] =
-    useState(studentsData);
   const { user } = useUser();
+  const { schoolClasses } = useClasses();
 
-  const { schoolClasses, loading } = useClasses(); // Use the new hook
-
-  const memoizedFilteredStudentsData = useMemo(() => {
-    if (!selectedSchoolClass || selectedSchoolClass === "all_students") {
-      return studentsData;
-    }
-
-    return studentsData.filter(
-      (student) => Number(student.studentClass) == selectedSchoolClass
-    );
-  }, [studentsData, selectedSchoolClass]);
-
-  useEffect(() => {
-    setFilteredStudentsData(memoizedFilteredStudentsData);
-  }, [memoizedFilteredStudentsData, filteredStudentsData]);
+  // Use the useStudents hook with selectedSchoolClass as parameter
+  const { studentsData, loading } = useStudents(selectedSchoolClass);
 
   const handleClassChange = (e) => {
-    const selectedClass = e.target.value;
-    setSelectedSchoolClass((prevSelectedClass) => {
-      console.log(selectedClass);
-      return selectedClass;
-    });
+    setSelectedSchoolClass(e.target.value);
   };
 
-  console.log(filteredStudentsData);
   return (
     <PageWrapper>
       <PageSectionHeader
         pageTitle={"All Students"}
         pageCrumb={"Home / Students "}
       />
-
       <Flex
         justifyContent={"space-between"}
         alignItems={"center"}
@@ -66,7 +36,6 @@ export default function StudentsPage() {
         mb={6}
       >
         <SearchWidget height={10} text={"Search Students"} />
-
         {allowedUserRoles(user, ["IT Personnel"]) && (
           <Flex gap={4} fontSize={"sm"}>
             <Button
@@ -89,7 +58,6 @@ export default function StudentsPage() {
           </Flex>
         )}
       </Flex>
-
       <Box>
         <Flex
           alignItems={"center"}
@@ -102,7 +70,12 @@ export default function StudentsPage() {
             <Text flexShrink={0} fontWeight={"bold"} as={"small"}>
               Filter by:
             </Text>
-            <Select size={"sm"} minW={"200px"} onChange={handleClassChange}>
+            <Select
+              size={"sm"}
+              minW={"200px"}
+              onChange={handleClassChange}
+              value={selectedSchoolClass}
+            >
               <option value="">-- Select Class --</option>
               {schoolClasses?.map((schoolClass) => (
                 <option key={schoolClass.id} value={schoolClass.id}>
@@ -114,12 +87,21 @@ export default function StudentsPage() {
             </Select>
           </HStack>
         </Flex>
-        {memoizedFilteredStudentsData && filteredStudentsData.length > 0 ? (
-          <AllStudentsTable existingStudentsData={filteredStudentsData} />
+        {loading ? (
+          <Text>Loading...</Text>
         ) : (
-          <Text as={"h2"} letterSpacing={0.5} color={"neutral.700"}>
-            No students data yet!
-          </Text>
+          <>
+            {studentsData && studentsData.length > 0 ? (
+              <AllStudentsTable
+                key={selectedSchoolClass}
+                studentsData={studentsData}
+              />
+            ) : (
+              <Text as={"h2"} letterSpacing={0.5} color={"neutral.700"}>
+                No students data yet!
+              </Text>
+            )}
+          </>
         )}
       </Box>
     </PageWrapper>
