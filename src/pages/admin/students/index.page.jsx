@@ -35,21 +35,23 @@ export default function StudentsPage() {
     }
 
     return studentsData.filter(
-      (student) => student.studentClass === selectedSchoolClass
+      (student) => Number(student.studentClass) == selectedSchoolClass
     );
   }, [studentsData, selectedSchoolClass]);
 
   useEffect(() => {
     setFilteredStudentsData(memoizedFilteredStudentsData);
-  }, [memoizedFilteredStudentsData]);
+  }, [memoizedFilteredStudentsData, filteredStudentsData]);
 
   const handleClassChange = (e) => {
     const selectedClass = e.target.value;
-    setSelectedSchoolClass(() => selectedClass);
-
-    console.log(selectedClass, selectedSchoolClass);
+    setSelectedSchoolClass((prevSelectedClass) => {
+      console.log(selectedClass);
+      return selectedClass;
+    });
   };
 
+  console.log(filteredStudentsData);
   return (
     <PageWrapper>
       <PageSectionHeader
@@ -112,7 +114,7 @@ export default function StudentsPage() {
             </Select>
           </HStack>
         </Flex>
-        {filteredStudentsData?.length > 0 ? (
+        {memoizedFilteredStudentsData && filteredStudentsData.length > 0 ? (
           <AllStudentsTable existingStudentsData={filteredStudentsData} />
         ) : (
           <Text as={"h2"} letterSpacing={0.5} color={"neutral.700"}>
