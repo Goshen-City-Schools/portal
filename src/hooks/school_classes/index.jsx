@@ -4,7 +4,7 @@ import axios from "../../api/axios";
 /* Description: returns full details of a given classID */
 
 function useClassDetails(classId) {
-  const [classDetails, setClassDetails] = useState(null);
+  const [classDetails, setClassDetails] = useState(classId);
   const [loading, setLoading] = useState(true);
   const isMounted = useRef(true);
 
