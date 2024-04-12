@@ -1,8 +1,5 @@
 const allowedUserRoles = (user, roles) => {
-  return (
-    user?.accountType === "staff" &&
-    roles.some((role) => user?.roles[0]?.name === role)
-  );
+  return user?.accountType === "staff" && user.roles?.name === roles;
 };
 
 export default allowedUserRoles;
