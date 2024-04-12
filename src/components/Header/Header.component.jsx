@@ -144,21 +144,6 @@ export default function Header() {
             <PopoverCloseButton />
 
             <PopoverBody>
-              {user?.roles?.length > 1 && (
-                <Button
-                  size={"sm"}
-                  variant="ghost"
-                  w="100%"
-                  rightIcon={<MdChevronRight />}
-                  justifyContent="space-between"
-                  onClick={() =>
-                    navigate(isStaff ? "/admin/profile" : "/profile")
-                  }
-                >
-                  Switch Role
-                </Button>
-              )}
-
               <Button
                 size={"sm"}
                 variant="ghost"

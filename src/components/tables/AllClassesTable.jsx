@@ -48,6 +48,19 @@ const AllClassesTable = ({ data, studentsData }) => {
     {
       Header: "Classes",
       accessor: "name",
+      Cell: ({ value }) => (
+        <Flex gap={2} wrap={"wrap"} flexShrink={1}>
+          <Tag
+            colorScheme={value?.color}
+            color={"neutral.700"}
+            fontWeight={"bold"}
+            textTransform={"capitalize"}
+            size={"sm"}
+          >
+            {value}
+          </Tag>
+        </Flex>
+      ),
     },
     {
       Header: "SubClasses",

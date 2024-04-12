@@ -57,12 +57,12 @@ export default function StaffProfileScreen({
     gender,
     dateOfBirth,
     email,
-    phoneNumber,
+    telNumber,
     roles,
     subjects,
-    whatsappNumber,
+    whatsApp,
     classes,
-    portalId,
+    username,
   } = staff;
   const { user } = useUser();
 
@@ -354,14 +354,14 @@ export default function StaffProfileScreen({
                 </InfoBox>
 
                 <InfoBox icon={<MdPhone size={20} />} label={"Phone Number"}>
-                  {phoneNumber}
+                  {telNumber}
                 </InfoBox>
 
                 <InfoBox
                   icon={<MdWhatsapp size={20} />}
                   label={"WhatsApp Number"}
                 >
-                  {whatsappNumber}
+                  {whatsApp}
                 </InfoBox>
               </Grid>
             </GridItem>
@@ -490,7 +490,7 @@ export default function StaffProfileScreen({
             <Box w="full">
               <Flex justifyContent="space-between" w="full" alignItems="center">
                 <Text as="h3" mb={1} fontWeight="semibold">
-                  Staff ID
+                  Username
                 </Text>
               </Flex>
 
@@ -500,7 +500,7 @@ export default function StaffProfileScreen({
                 letterSpacing={0.8}
                 textTransform={"uppercase"}
               >
-                {`GSHN/STF/${portalId}`}
+                {username}
               </Text>
             </Box>
           </Flex>
