@@ -127,7 +127,9 @@ export default function Header() {
               </div>
               <Flex direction={"column"} display={{ base: "none", md: "flex" }}>
                 <p className="font-bold first-letter:">
-                  {user.first_name} {user.last_name}
+                  {user.accountType === "student"
+                    ? `${user.first_name} ${user.last_name}`
+                    : user.name}
                 </p>
                 <Text as={"small"} fontSize={"xs"}>
                   {user.accountType === "staff" && user.roles?.name}

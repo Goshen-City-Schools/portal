@@ -6,7 +6,7 @@ const routes = [
   {
     path: "/admin",
     allowedRoles: [
-      "IT Personnel",
+      "IT personnel",
       "Class Teacher",
       "Subject Teacher",
       "School Teacherx",
@@ -227,9 +227,7 @@ const PermissionMiddleware = ({ children }) => {
     // Additional checks...
     const isAllowed =
       (!user.roles ||
-        allowedRoles.some((role) =>
-          user?.roles.some((userRole) => userRole.name === role)
-        )) &&
+        allowedRoles.some((role) => user?.roles?.name === role)) &&
       allowedAccountTypes.includes(user?.accountType);
 
     if (!isAllowed) {
