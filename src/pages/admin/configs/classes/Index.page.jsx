@@ -2,15 +2,7 @@ import { useState } from "react";
 
 import { useNavigate } from "react-router-dom";
 
-import {
-  Text,
-  Flex,
-  Button,
-  Grid,
-  Box,
-  useToast,
-  HStack,
-} from "@chakra-ui/react";
+import { Text, Flex, Button, Grid, Box, HStack } from "@chakra-ui/react";
 
 import { useModal } from "../../../../app/contexts/ModalContext";
 

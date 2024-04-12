@@ -41,20 +41,20 @@ export const AuthProvider = ({ children }) => {
         }
       );
 
-      console.log(response.data[0]);
+      const user = await response.data;
 
-      if (!response.data[0]) {
+      if (!user) {
         console.error("Login failed:", response.data.message);
         setIsLoading(false);
         return;
       }
 
-      setUser(response.data[0]);
+      setUser(user);
       setIsLoading(false);
       dispatch({ type: "LOGIN" });
 
       // Redirect to appropriate route based on user type
-      navigateBasedOnUserType(response.data[0]);
+      navigateBasedOnUserType(user);
     } catch (error) {
       console.error("Login failed:", error.message);
     }
