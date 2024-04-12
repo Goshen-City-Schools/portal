@@ -26,6 +26,7 @@ import { MdArrowForward } from "react-icons/md";
 import { useAuth } from "../../../app/contexts/AuthContext";
 import StudentLoginForm from "../../../components/forms/auth/StudentLoginForm";
 import StaffLoginForm from "../../../components/forms/auth/StaffLoginForm";
+import ParentLoginForm from "../../../components/forms/auth/ParentLoginForm";
 
 export default function LoginPage() {
   const toast = useToast();
@@ -235,72 +236,7 @@ export default function LoginPage() {
 
               {/* Parent Login */}
               <TabPanel>
-                <form onSubmit={handleSubmit}>
-                  <FormControl mb={2}>
-                    <FormLabel
-                      fontWeight={"bold"}
-                      color={"accent.700"}
-                      fontSize={"sm"}
-                    >
-                      Email address
-                    </FormLabel>
-                    <Input
-                      type="text"
-                      name="userID"
-                      height={"56px"}
-                      value={userID}
-                      onChange={handleInputChange}
-                      placeholder="Enter your ID number"
-                      border={"1px"}
-                      borderColor={"brand.900"}
-                    />
-                  </FormControl>
-
-                  <FormControl>
-                    <FormLabel
-                      color={"accent.700"}
-                      fontWeight={"bold"}
-                      fontSize={"sm"}
-                    >
-                      Password
-                    </FormLabel>
-                    <Input
-                      type="password"
-                      name="password"
-                      value={password}
-                      height={"56px"}
-                      placeholder="Enter password"
-                      onChange={handleInputChange}
-                      border={"1px"}
-                      borderColor={"brand.900"}
-                    />
-                  </FormControl>
-
-                  <FormControl>
-                    <FormHelperText color={"error.700"}>
-                      {loginError}
-                    </FormHelperText>
-                  </FormControl>
-
-                  <Button
-                    mt={4}
-                    bg={"brand.900"}
-                    border={"3px solid transparent"}
-                    _hover={{
-                      bg: "transparent",
-                      borderColor: "brand.900",
-                      color: "brand.900",
-                    }}
-                    color={"white"}
-                    isLoading={isLoading}
-                    type="submit"
-                    py={"6"}
-                    height={"48px"}
-                    className="flex items-center gap-4"
-                  >
-                    Login <MdArrowForward />
-                  </Button>
-                </form>
+                <ParentLoginForm />
               </TabPanel>
             </TabPanels>
           </Tabs>
