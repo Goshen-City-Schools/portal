@@ -13,14 +13,19 @@ import {
   Button,
   useToast,
   Link,
+  Tabs,
   TabList,
+  TabPanels,
   Tab,
+  TabPanel,
 } from "@chakra-ui/react";
 import defaultConfigValues from "../../../data/defaultConfigValues";
 import determineUserType from "../../../helpers/determineUserType";
 
 import { MdArrowForward } from "react-icons/md";
 import { useAuth } from "../../../app/contexts/AuthContext";
+import StudentLoginForm from "../../../components/forms/auth/StudentLoginForm";
+import StaffLoginForm from "../../../components/forms/auth/StaffLoginForm";
 
 export default function LoginPage() {
   const toast = useToast();
@@ -194,7 +199,7 @@ export default function LoginPage() {
           <Flex
             direction={"column"}
             alignItems={{ base: "center", md: "start" }}
-            marginBottom={12}
+            marginBottom={8}
           >
             <Text
               color={"brand.900"}
@@ -210,77 +215,95 @@ export default function LoginPage() {
           </Flex>
 
           {/* Use ChakraUI Tabs and it's TAB Contexts */}
-          {/* 
-          <TabList>
-            <Tab>Staff</Tab>
-            <Tab>Student</Tab>
-            <Tab>Parent</Tab>
-          </TabList> */}
+          <Tabs px={0}>
+            <TabList className="mx-4 mb-2">
+              <Tab>Student</Tab>
+              <Tab>Staff</Tab>
+              <Tab>Parent</Tab>
+            </TabList>
 
-          <form onSubmit={handleSubmit}>
-            <FormControl mb={2}>
-              <FormLabel
-                fontWeight={"bold"}
-                color={"accent.700"}
-                fontSize={"sm"}
-              >
-                Student / Staff ID
-              </FormLabel>
-              <Input
-                type="text"
-                name="userID"
-                height={"56px"}
-                value={userID}
-                onChange={handleInputChange}
-                placeholder="Enter your ID number"
-                border={"1px"}
-                borderColor={"brand.900"}
-              />
-            </FormControl>
+            <TabPanels className="px-0" p={0}>
+              {/* Student Login */}
+              <TabPanel className="px-0">
+                <StudentLoginForm />
+              </TabPanel>
 
-            <FormControl>
-              <FormLabel
-                color={"accent.700"}
-                fontWeight={"bold"}
-                fontSize={"sm"}
-              >
-                Password
-              </FormLabel>
-              <Input
-                type="password"
-                name="password"
-                value={password}
-                height={"56px"}
-                placeholder="Enter password"
-                onChange={handleInputChange}
-                border={"1px"}
-                borderColor={"brand.900"}
-              />
-            </FormControl>
+              {/* Staff Form */}
+              <TabPanel>
+                <StaffLoginForm />
+              </TabPanel>
 
-            <FormControl>
-              <FormHelperText color={"error.700"}>{loginError}</FormHelperText>
-            </FormControl>
+              {/* Parent Login */}
+              <TabPanel>
+                <form onSubmit={handleSubmit}>
+                  <FormControl mb={2}>
+                    <FormLabel
+                      fontWeight={"bold"}
+                      color={"accent.700"}
+                      fontSize={"sm"}
+                    >
+                      Email address
+                    </FormLabel>
+                    <Input
+                      type="text"
+                      name="userID"
+                      height={"56px"}
+                      value={userID}
+                      onChange={handleInputChange}
+                      placeholder="Enter your ID number"
+                      border={"1px"}
+                      borderColor={"brand.900"}
+                    />
+                  </FormControl>
 
-            <Button
-              mt={4}
-              bg={"brand.900"}
-              border={"3px solid transparent"}
-              _hover={{
-                bg: "transparent",
-                borderColor: "brand.900",
-                color: "brand.900",
-              }}
-              color={"white"}
-              isLoading={isLoading}
-              type="submit"
-              py={"6"}
-              height={"48px"}
-              className="flex items-center gap-4"
-            >
-              Login <MdArrowForward />
-            </Button>
-          </form>
+                  <FormControl>
+                    <FormLabel
+                      color={"accent.700"}
+                      fontWeight={"bold"}
+                      fontSize={"sm"}
+                    >
+                      Password
+                    </FormLabel>
+                    <Input
+                      type="password"
+                      name="password"
+                      value={password}
+                      height={"56px"}
+                      placeholder="Enter password"
+                      onChange={handleInputChange}
+                      border={"1px"}
+                      borderColor={"brand.900"}
+                    />
+                  </FormControl>
+
+                  <FormControl>
+                    <FormHelperText color={"error.700"}>
+                      {loginError}
+                    </FormHelperText>
+                  </FormControl>
+
+                  <Button
+                    mt={4}
+                    bg={"brand.900"}
+                    border={"3px solid transparent"}
+                    _hover={{
+                      bg: "transparent",
+                      borderColor: "brand.900",
+                      color: "brand.900",
+                    }}
+                    color={"white"}
+                    isLoading={isLoading}
+                    type="submit"
+                    py={"6"}
+                    height={"48px"}
+                    className="flex items-center gap-4"
+                  >
+                    Login <MdArrowForward />
+                  </Button>
+                </form>
+              </TabPanel>
+            </TabPanels>
+          </Tabs>
 
           <div className="flex mt-4 gap-4 justify-between">
             <Link

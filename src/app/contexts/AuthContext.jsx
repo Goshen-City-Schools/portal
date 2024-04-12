@@ -41,18 +41,20 @@ export const AuthProvider = ({ children }) => {
         }
       );
 
-      if (!response.data.success) {
+      console.log(response.data[0]);
+
+      if (!response.data[0]) {
         console.error("Login failed:", response.data.message);
         setIsLoading(false);
         return;
       }
 
-      setUser(response.data.user);
+      setUser(response.data[0]);
       setIsLoading(false);
       dispatch({ type: "LOGIN" });
 
       // Redirect to appropriate route based on user type
-      navigateBasedOnUserType(response.data.user);
+      navigateBasedOnUserType(response.data[0]);
     } catch (error) {
       console.error("Login failed:", error.message);
     }

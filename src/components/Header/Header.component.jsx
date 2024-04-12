@@ -69,7 +69,7 @@ export default function Header() {
 
         <Text as={"h3"} color={"brand.900"} className="text-md font-bold">
           {isStaff && "Admin Dashboard"}
-          {isStudent && `Welcome back, ${user.firstName}`}
+          {isStudent && `Welcome back, ${user.first_name}`}
         </Text>
       </Flex>
 
@@ -127,11 +127,13 @@ export default function Header() {
               </div>
               <Flex direction={"column"} display={{ base: "none", md: "flex" }}>
                 <p className="font-bold first-letter:">
-                  {user.firstName} {user.lastName}
+                  {user.first_name} {user.last_name}
                 </p>
                 <Text as={"small"} fontSize={"xs"}>
-                  {user.accountType === "staff" && user.roles[0].name}
-                  {user.accountType === "student" && user.accountType}
+                  {user.accountType === "staff" && user.roles?.name}
+                  {user.accountType === "student" && (
+                    <Text className="capitalize">{user.accountType}</Text>
+                  )}
                 </Text>
               </Flex>
               <BsChevronDown size={18} />
