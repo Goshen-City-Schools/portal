@@ -48,24 +48,14 @@ export const UserSideBarList = ({ handleToggleSideMenu }) => {
       <NavItemComponent
         submenu={[
           {
-            name: "Tuition Fee",
-            link: "/fees/tuition",
-            icon: <MdHistory size={12} />,
-          },
-          {
-            name: "Bus Fee",
-            link: "/fees/bus",
-            icon: <MdHistory size={12} />,
-          },
-          {
-            name: "Hostel Fees",
-            link: "/fees/boarding",
-            icon: <MdHistory size={12} />,
-          },
-          {
             name: "Generate Invoice",
             link: "/new",
             icon: <MdReceipt size={14} />,
+          },
+          {
+            name: "View payments",
+            link: "/fees",
+            icon: <MdHistory size={12} />,
           },
         ]}
       >
@@ -109,19 +99,34 @@ export const UserSideBarList = ({ handleToggleSideMenu }) => {
             link: "/results",
             icon: <MdWhatsapp size={12} />,
           },
+          {
+            name: "Get Scratch Card",
+            link: "/results",
+            icon: <MdWhatsapp size={12} />,
+          },
         ]}
       >
         <IconComponent color={"warning.200"}>
           <BsFillFileEarmarkSpreadsheetFill size={18} />
         </IconComponent>
-        Results
+        My Results
       </NavItemComponent>
 
       {/* Events */}
       <NavItemComponent
         submenu={[
           {
-            name: "View Events",
+            name: "Academics Calendar",
+            link: "/events",
+            icon: <TbFolderSearch size={12} />,
+          },
+          {
+            name: "Timetable",
+            link: "/events",
+            icon: <TbFolderSearch size={12} />,
+          },
+          {
+            name: "Upcoming Events",
             link: "/events",
             icon: <TbFolderSearch size={12} />,
           },
@@ -137,12 +142,12 @@ export const UserSideBarList = ({ handleToggleSideMenu }) => {
       <NavItemComponent
         submenu={[
           {
-            name: "Send Message",
+            name: "Support",
             link: "/chat",
             icon: <MdOutlineChat size={12} />,
           },
           {
-            name: "Send Email",
+            name: "IT Admin",
             link: "/contacts",
             icon: <MdOutlineMail size={14} />,
           },
@@ -151,7 +156,7 @@ export const UserSideBarList = ({ handleToggleSideMenu }) => {
         <IconComponent color={"warning.200"}>
           <SiGooglechat size={18} />
         </IconComponent>
-        Communication
+        Chat
       </NavItemComponent>
     </List>
   );

@@ -276,7 +276,7 @@ const PermissionMiddleware = ({ children }) => {
         const isStaffWithProperRole =
           user.accountType === "staff" &&
           user.roles.some((role) =>
-            currentRoute.allowedRoles.includes(role.name)
+            currentRoute.allowedRoles.includes(role.name.toLowerCase())
           );
 
         if (isStaffWithProperRole) {
