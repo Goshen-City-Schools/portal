@@ -61,7 +61,9 @@ export default function ProfileScreen({ user }) {
               <Text as={"h3"}>
                 Name:&nbsp;
                 <strong>
-                  {user.firstName} {user.lastName}
+                  {user.accountType === "staff"
+                    ? user.name
+                    : `${user.first_name} ${user.last_ame}`}
                 </strong>
               </Text>
 
@@ -82,11 +84,11 @@ export default function ProfileScreen({ user }) {
               w={{ base: "full" }}
             >
               <Text as={"h3"}>
-                PortalID: &nbsp;
+                Username: &nbsp;
                 <strong>{user?.username || user.studentId}</strong>
               </Text>
               <Text as={"h3"}>
-                Staff Role:&nbsp;<strong>{user.roles[0].name}</strong>
+                Staff Role:&nbsp;<strong>{user.roles?.name}</strong>
               </Text>
               <Text>&nbsp;</Text>
             </VStack>
