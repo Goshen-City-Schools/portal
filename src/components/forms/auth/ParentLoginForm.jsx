@@ -4,10 +4,10 @@ import useStaffLogin from "../../../logic/StaffLoginRequest";
 import { FormControl, FormLabel, Input, Button } from "@chakra-ui/react";
 import { MdArrowForward } from "react-icons/md";
 
-const StaffLoginForm = () => {
+const ParentLoginForm = () => {
   const { login, isLoading, setIsLoading } = useAuth();
   const staffLogin = useStaffLogin(login, isLoading, setIsLoading);
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleLogin = async () => {
@@ -16,17 +16,17 @@ const StaffLoginForm = () => {
 
   return (
     <>
-      {/* Username */}
+      {/* Email */}
       <FormControl mb={4}>
         <FormLabel fontWeight={"bold"} color={"accent.700"} fontSize={"sm"}>
-          Username
+          Email
         </FormLabel>
         <Input
           type="text"
-          name="username"
+          name="email"
           height={"56px"}
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           placeholder="Username"
           border={"1px"}
           borderColor={"brand.900"}
@@ -76,4 +76,4 @@ const StaffLoginForm = () => {
   );
 };
 
-export default StaffLoginForm;
+export default ParentLoginForm;
