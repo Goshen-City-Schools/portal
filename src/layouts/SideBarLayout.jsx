@@ -145,7 +145,10 @@ export default function SideBarLayout() {
           {/*  */}
 
           {user.accountType === "staff" &&
-            allowedUserRoles(user, ["IT Personnel", "Principal"]) && (
+            allowedUserRoles(user, [
+              "8ecb5ec0-f6b0-41f5-ab88-eb2c6e7e0a28",
+              "Principal",
+            ]) && (
               <NavItemComponent link={"/admin/config"}>
                 <IconComponent color={"warning.200"}>
                   <MdOutlinePrecisionManufacturing size={18} />
