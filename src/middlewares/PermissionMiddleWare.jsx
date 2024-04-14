@@ -1,27 +1,28 @@
 import { useMemo, useEffect } from "react";
 import { useUser } from "../app/contexts/UserContext";
 import { useNavigate, useLocation } from "react-router-dom";
+import roles from "../constants/roles";
+
+const { ROLES, allowedRoles } = roles;
 
 const routes = [
   {
     path: "/admin",
     allowedRoles: [
-      "IT personnel",
-      "Class Teacher",
-      "Subject Teacher",
-      "School Teacherx",
-      "Bursar",
+      ROLES.IT_PERSONNEL,
+      ROLES.CLASS_TEACHER,
+      ROLES.SUBJECT_TEACHER,
+      ROLES.BURSAR,
     ],
     allowedAccountTypes: ["staff"],
   },
   {
     path: "/admin/home",
     allowedRoles: [
-      "IT Personnel",
-      "Class Teacher",
-      "Subject Teacher",
-      "School Teacher",
-      "Bursar",
+      ROLES.IT_PERSONNEL,
+      ROLES.CLASS_TEACHER,
+      ROLES.SUBJECT_TEACHER,
+      ROLES.BURSAR,
     ],
     allowedAccountTypes: ["staff"],
   },
@@ -29,120 +30,119 @@ const routes = [
   {
     path: "/admin/profile",
     allowedRoles: [
-      "IT Personnel",
-      "Class Teacher",
-      "Subject Teacher",
-      "School Teacher",
-      "Bursar",
+      ROLES.IT_PERSONNEL,
+      ROLES.CLASS_TEACHER,
+      ROLES.SUBJECT_TEACHER,
+      ROLES.BURSAR,
     ],
     allowedAccountTypes: ["staff"],
   },
 
   {
     path: "/admin/results",
-    allowedRoles: ["IT Personnel", "Bursar"],
+    allowedRoles: [ROLES.IT_PERSONNEL, ROLES.BURSAR],
     allowedAccountTypes: ["staff"],
   },
   {
     path: "/admin/parents",
-    allowedRoles: ["IT Personnel", "Bursar"],
+    allowedRoles: [ROLES.IT_PERSONNEL, ROLES.BURSAR],
     allowedAccountTypes: ["staff"],
   },
   {
     path: "/admin/parents/new",
-    allowedRoles: ["IT Personnel", "Bursar"],
+    allowedRoles: [ROLES.IT_PERSONNEL, ROLES.BURSAR],
     allowedAccountTypes: ["staff"],
   },
   {
     path: "/admin/articles",
-    allowedRoles: ["IT Personnel", "Bursar"],
+    allowedRoles: [ROLES.IT_PERSONNEL, ROLES.BURSAR],
     allowedAccountTypes: ["staff"],
   },
   {
     path: "/admin/articles/new",
-    allowedRoles: ["IT Personnel", "Bursar"],
+    allowedRoles: [ROLES.IT_PERSONNEL, ROLES.BURSAR],
     allowedAccountTypes: ["staff"],
   },
   {
     path: "/admin/articles/:articleId",
-    allowedRoles: ["IT Personnel", "Bursar"],
+    allowedRoles: [ROLES.IT_PERSONNEL, ROLES.BURSAR],
     allowedAccountTypes: ["staff"],
   },
   {
     path: "/admin/students",
-    allowedRoles: ["IT Personnel", "Bursar"],
+    allowedRoles: [ROLES.IT_PERSONNEL, ROLES.BURSAR],
     allowedAccountTypes: ["staff"],
   },
   {
     path: "/admin/students/:studentId",
-    allowedRoles: ["IT Personnel", "Bursar"],
+    allowedRoles: [ROLES.IT_PERSONNEL, ROLES.BURSAR],
     allowedAccountTypes: ["staff"],
   },
   {
     path: "/admin/students/:studentId/edit",
-    allowedRoles: ["IT Personnel", "Bursar"],
+    allowedRoles: [ROLES.IT_PERSONNEL, ROLES.BURSAR],
     allowedAccountTypes: ["staff"],
   },
   {
     path: "/admin/config",
-    allowedRoles: ["IT Personnel"],
+    allowedRoles: [ROLES.IT_PERSONNEL],
     allowedAccountTypes: ["staff"],
   },
   {
     path: "/admin/config/:id",
-    allowedRoles: ["IT Personnel"],
+    allowedRoles: [ROLES.IT_PERSONNEL],
     allowedAccountTypes: ["staff"],
   },
   {
     path: "/admin/config/:id/:id/edit",
-    allowedRoles: ["IT Personnel"],
+    allowedRoles: [ROLES.IT_PERSONNEL],
     allowedAccountTypes: ["staff"],
   },
   {
     path: "/admin/config/:id/:id",
-    allowedRoles: ["IT Personnel"],
+    allowedRoles: [ROLES.IT_PERSONNEL],
     allowedAccountTypes: ["staff"],
   },
 
   {
     path: "/admin/staff/:staffId",
-    allowedRoles: ["IT Personnel", "Bursar"],
+    allowedRoles: [ROLES.IT_PERSONNEL, ROLES.BURSAR],
     allowedAccountTypes: ["staff"],
   },
 
   {
     path: "/admin/transactions",
-    allowedRoles: ["Bursar"],
+    allowedRoles: [ROLES.BURSAR],
     allowedAccountTypes: ["staff"],
   },
   {
     path: "/admin/subjects",
-    allowedRoles: ["IT Personnel", "Class Teacher"],
+    allowedRoles: [ROLES.IT_PERSONNEL, ROLES.CLASS_TEACHER],
     allowedAccountTypes: ["staff"],
   },
   {
     path: "/admin/subjects/new",
-    allowedRoles: ["IT Personnel", "Class Teacher"],
+    allowedRoles: [ROLES.IT_PERSONNEL, ROLES.CLASS_TEACHER],
     allowedAccountTypes: ["staff"],
   },
   {
     path: "/admin/subjects/:subjectId/edit",
-    allowedRoles: ["IT Personnel", "Class Teacher"],
+    allowedRoles: [ROLES.IT_PERSONNEL, ROLES.CLASS_TEACHER],
     allowedAccountTypes: ["staff"],
   },
   {
     path: "/admin/classes",
-    allowedRoles: ["IT Personnel", "Class Teacher"],
+    allowedRoles: [ROLES.IT_PERSONNEL, ROLES.CLASS_TEACHER],
     allowedAccountTypes: ["staff"],
   },
   {
     path: "/admin/classes/:classId",
-    allowedRoles: ["IT Personnel"],
+    allowedRoles: [ROLES.IT_PERSONNEL],
     allowedAccountTypes: ["staff"],
   },
   {
     path: "/admin/notifications",
-    allowedRoles: ["IT Personnel"],
+    allowedRoles: [ROLES.IT_PERSONNEL],
     allowedAccountTypes: ["staff"],
   },
 
@@ -150,31 +150,31 @@ const routes = [
 
   {
     path: "/admin/finance",
-    allowedRoles: ["Bursar", "Principal"],
+    allowedRoles: [ROLES.BURSAR, ROLES.PRINCIPAL],
     allowedAccountTypes: ["staff"],
   },
   {
     path: "/admin/finance/fees",
-    allowedRoles: ["Bursar", "Principal"],
+    allowedRoles: [ROLES.BURSAR, ROLES.PRINCIPAL],
     allowedAccountTypes: ["staff"],
   },
   {
     path: "/admin/finance/fees/settings",
-    allowedRoles: ["Bursar", "Principal"],
+    allowedRoles: [ROLES.BURSAR, ROLES.PRINCIPAL],
     allowedAccountTypes: ["staff"],
   },
 
   // Results
   {
     path: "/admin/results",
-    allowedRoles: ["IT Personnel", "Principal"],
+    allowedRoles: [ROLES.IT_PERSONNEL, ROLES.PRINCIPAL],
     allowedAccountTypes: ["staff"],
   },
 
   // Events
   {
     path: "/admin/events",
-    allowedRoles: ["IT Personnel", "Principal"],
+    allowedRoles: [ROLES.IT_PERSONNEL, ROLES.PRINCIPAL],
     allowedAccountTypes: ["staff"],
   },
 
@@ -233,7 +233,7 @@ const PermissionMiddleware = ({ children }) => {
 
       if (currentRoute && currentRoute.allowedRoles) {
         const hasProperRole = currentRoute.allowedRoles.some(
-          (role) => user?.roles?.name.toLowerCase() === role.toLowerCase()
+          (role) => user?.roles?.id === role.toLowerCase()
         );
 
         if (!hasProperRole) {

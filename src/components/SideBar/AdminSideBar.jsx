@@ -1,6 +1,7 @@
 import React from "react";
 
 import allowedUserRoles from "../../helpers/allowedUserRoles";
+import roles from "../../constants/roles";
 
 import { List } from "@chakra-ui/react";
 
@@ -34,6 +35,8 @@ import { useModal } from "../../app/contexts/ModalContext";
 import { GiProgression } from "react-icons/gi";
 
 export const AdminSideBarList = ({ user, handleToggleSideMenu }) => {
+  const { ROLES, allowedRoles } = roles;
+
   const { openPortal } = useModal();
   const handleClick = (type) => {
     if (type === "event") return openPortal(<CreateEventPortal />);
@@ -51,10 +54,7 @@ export const AdminSideBarList = ({ user, handleToggleSideMenu }) => {
       </NavItemComponent>
 
       {/* Parents Navigation */}
-      {allowedUserRoles(user, [
-        "8ecb5ec0-f6b0-41f5-ab88-eb2c6e7e0a28",
-        "Class Teacher",
-      ]) && (
+      {allowedUserRoles(user, [ROLES.IT_PERSONNEL, ROLES.CLASS_TEACHER]) && (
         <NavItemComponent
           submenu={[
             {
@@ -66,7 +66,7 @@ export const AdminSideBarList = ({ user, handleToggleSideMenu }) => {
               link: "/admin/parents/new",
               name: "Add Parent",
               icon: <MdAdd size={14} />,
-              roles: ["8ecb5ec0-f6b0-41f5-ab88-eb2c6e7e0a28"],
+              roles: [ROLES.IT_PERSONNEL],
             },
           ]}
         >
@@ -79,11 +79,10 @@ export const AdminSideBarList = ({ user, handleToggleSideMenu }) => {
 
       {/* Students Navigation */}
       {allowedUserRoles(user, [
-        "495420506572736f6e6e656c",
-        "8ecb5ec0-f6b0-41f5-ab88-eb2c6e7e0a28",
-        "School Teacher",
-        "Class Teacher",
-        "d2d6815b-fdae-4507-9b4a-68cc0eeab56a",
+        ROLES.IT_PERSONNEL,
+        ROLES.SUBJECT_TEACHER,
+        ROLES.CLASS_TEACHER,
+        ROLES.BURSAR,
       ]) && (
         <NavItemComponent
           submenu={[
@@ -96,13 +95,13 @@ export const AdminSideBarList = ({ user, handleToggleSideMenu }) => {
               name: "Enroll Student",
               link: "/admin/students/new",
               icon: <MdAdd size={14} />,
-              roles: ["8ecb5ec0-f6b0-41f5-ab88-eb2c6e7e0a28"],
+              roles: [ROLES.IT_PERSONNEL],
             },
             {
               name: "Manage Promotion",
               link: "/admin/students/new",
               icon: <MdAdd size={14} />,
-              roles: ["8ecb5ec0-f6b0-41f5-ab88-eb2c6e7e0a28"],
+              roles: [ROLES.IT_PERSONNEL],
             },
           ]}
         >
@@ -115,9 +114,9 @@ export const AdminSideBarList = ({ user, handleToggleSideMenu }) => {
 
       {/* Performance */}
       {allowedUserRoles(user, [
-        "8ecb5ec0-f6b0-41f5-ab88-eb2c6e7e0a28",
-        "Subject Teacher",
-        "Class Teacher",
+        ROLES.IT_PERSONNEL,
+        ROLES.SUBJECT_TEACHER,
+        ROLES.CLASS_TEACHER,
       ]) && (
         <NavItemComponent
           submenu={[
@@ -135,7 +134,7 @@ export const AdminSideBarList = ({ user, handleToggleSideMenu }) => {
               name: "View Broadsheet",
               link: "/admin/results",
               icon: <MdWhatsapp size={12} />,
-              roles: ["8ecb5ec0-f6b0-41f5-ab88-eb2c6e7e0a28"],
+              roles: [ROLES.IT_PERSONNEL],
             },
           ]}
         >
@@ -148,9 +147,9 @@ export const AdminSideBarList = ({ user, handleToggleSideMenu }) => {
 
       {/* Finance */}
       {allowedUserRoles(user, [
-        "8ecb5ec0-f6b0-41f5-ab88-eb2c6e7e0a28",
-        "Principal",
-        "d2d6815b-fdae-4507-9b4a-68cc0eeab56a",
+        ROLES.IT_PERSONNEL,
+        ROLES.PRINCIPAL,
+        ROLES.BURSAR,
       ]) && (
         <NavItemComponent
           submenu={[
@@ -179,7 +178,7 @@ export const AdminSideBarList = ({ user, handleToggleSideMenu }) => {
       )}
 
       {/* e-Library */}
-      {allowedUserRoles(user, ["Class Teacher", "Subject Teacher"]) && (
+      {allowedUserRoles(user, [ROLES.CLASS_TEACHER, ROLES.SUBJECT_TEACHER]) && (
         <NavItemComponent
           submenu={[
             {
@@ -218,14 +217,14 @@ export const AdminSideBarList = ({ user, handleToggleSideMenu }) => {
             name: "Create event",
             link: "/admin/events",
             icon: <MdCreateNewFolder size={12} />,
-            roles: ["8ecb5ec0-f6b0-41f5-ab88-eb2c6e7e0a28"],
+            roles: [ROLES.IT_PERSONNEL],
             onClick: () => handleClick("event"),
           },
           {
             name: "Send Invite",
             link: "/admin/events",
             icon: <MdOutlineMail size={14} />,
-            roles: ["8ecb5ec0-f6b0-41f5-ab88-eb2c6e7e0a28"],
+            roles: [ROLES.IT_PERSONNEL],
             onClick: () => alert("feature updates..."),
           },
         ]}
@@ -237,7 +236,7 @@ export const AdminSideBarList = ({ user, handleToggleSideMenu }) => {
       </NavItemComponent>
 
       {/* Communication
-      {allowedUserRoles(user, ["8ecb5ec0-f6b0-41f5-ab88-eb2c6e7e0a28", "Principal"]) && (
+      {allowedUserRoles(user, [ROLES.IT_PERSONNEL, ROLES.PRINCIPAL]) && (
         <NavItemComponent
           submenu={[
             {
@@ -271,9 +270,9 @@ export const AdminSideBarList = ({ user, handleToggleSideMenu }) => {
 
       {/* Write */}
       {allowedUserRoles(user, [
-        "Principal",
-        "8ecb5ec0-f6b0-41f5-ab88-eb2c6e7e0a28",
-        "d2d6815b-fdae-4507-9b4a-68cc0eeab56a",
+        ROLES.PRINCIPAL,
+        ROLES.IT_PERSONNEL,
+        ROLES.BURSAR,
       ]) && (
         <NavItemComponent link={"/admin/messages"}>
           <IconComponent color={"warning.200"}>
@@ -285,9 +284,9 @@ export const AdminSideBarList = ({ user, handleToggleSideMenu }) => {
 
       {/* Media Uploads */}
       {allowedUserRoles(user, [
-        "Principal",
-        "8ecb5ec0-f6b0-41f5-ab88-eb2c6e7e0a28",
-        "d2d6815b-fdae-4507-9b4a-68cc0eeab56a",
+        ROLES.PRINCIPAL,
+        ROLES.IT_PERSONNEL,
+        ROLES.BURSAR,
       ]) && (
         <NavItemComponent
           submenu={[
