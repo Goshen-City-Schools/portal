@@ -131,7 +131,7 @@ export default function Header() {
                     ? `${user.first_name} ${user.last_name}`
                     : user.name}
                 </p>
-                <Text as={"small"} fontSize={"xs"}>
+                <Text as={"small"} fontSize={"xs"} className="capitalize">
                   {user.accountType === "staff" && user.roles?.name}
                   {user.accountType === "student" && (
                     <Text className="capitalize">{user.accountType}</Text>
