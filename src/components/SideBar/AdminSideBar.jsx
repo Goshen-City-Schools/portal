@@ -83,7 +83,7 @@ export const AdminSideBarList = ({ user, handleToggleSideMenu }) => {
         "8ecb5ec0-f6b0-41f5-ab88-eb2c6e7e0a28",
         "School Teacher",
         "Class Teacher",
-        "Bursar",
+        "d2d6815b-fdae-4507-9b4a-68cc0eeab56a",
       ]) && (
         <NavItemComponent
           submenu={[
@@ -150,7 +150,7 @@ export const AdminSideBarList = ({ user, handleToggleSideMenu }) => {
       {allowedUserRoles(user, [
         "8ecb5ec0-f6b0-41f5-ab88-eb2c6e7e0a28",
         "Principal",
-        "Bursar",
+        "d2d6815b-fdae-4507-9b4a-68cc0eeab56a",
       ]) && (
         <NavItemComponent
           submenu={[
@@ -273,7 +273,7 @@ export const AdminSideBarList = ({ user, handleToggleSideMenu }) => {
       {allowedUserRoles(user, [
         "Principal",
         "8ecb5ec0-f6b0-41f5-ab88-eb2c6e7e0a28",
-        "Bursar",
+        "d2d6815b-fdae-4507-9b4a-68cc0eeab56a",
       ]) && (
         <NavItemComponent link={"/admin/messages"}>
           <IconComponent color={"warning.200"}>
@@ -287,7 +287,7 @@ export const AdminSideBarList = ({ user, handleToggleSideMenu }) => {
       {allowedUserRoles(user, [
         "Principal",
         "8ecb5ec0-f6b0-41f5-ab88-eb2c6e7e0a28",
-        "Bursar",
+        "d2d6815b-fdae-4507-9b4a-68cc0eeab56a",
       ]) && (
         <NavItemComponent
           submenu={[
