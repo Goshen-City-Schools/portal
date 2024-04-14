@@ -51,7 +51,10 @@ export const AdminSideBarList = ({ user, handleToggleSideMenu }) => {
       </NavItemComponent>
 
       {/* Parents Navigation */}
-      {allowedUserRoles(user, ["IT Personnel", "Class Teacher"]) && (
+      {allowedUserRoles(user, [
+        "8ecb5ec0-f6b0-41f5-ab88-eb2c6e7e0a28",
+        "Class Teacher",
+      ]) && (
         <NavItemComponent
           submenu={[
             {
@@ -63,7 +66,7 @@ export const AdminSideBarList = ({ user, handleToggleSideMenu }) => {
               link: "/admin/parents/new",
               name: "Add Parent",
               icon: <MdAdd size={14} />,
-              roles: ["IT Personnel"],
+              roles: ["8ecb5ec0-f6b0-41f5-ab88-eb2c6e7e0a28"],
             },
           ]}
         >
@@ -77,7 +80,7 @@ export const AdminSideBarList = ({ user, handleToggleSideMenu }) => {
       {/* Students Navigation */}
       {allowedUserRoles(user, [
         "495420506572736f6e6e656c",
-        "IT Personnel",
+        "8ecb5ec0-f6b0-41f5-ab88-eb2c6e7e0a28",
         "School Teacher",
         "Class Teacher",
         "Bursar",
@@ -93,13 +96,13 @@ export const AdminSideBarList = ({ user, handleToggleSideMenu }) => {
               name: "Enroll Student",
               link: "/admin/students/new",
               icon: <MdAdd size={14} />,
-              roles: ["IT Personnel"],
+              roles: ["8ecb5ec0-f6b0-41f5-ab88-eb2c6e7e0a28"],
             },
             {
               name: "Manage Promotion",
               link: "/admin/students/new",
               icon: <MdAdd size={14} />,
-              roles: ["IT Personnel"],
+              roles: ["8ecb5ec0-f6b0-41f5-ab88-eb2c6e7e0a28"],
             },
           ]}
         >
@@ -112,7 +115,7 @@ export const AdminSideBarList = ({ user, handleToggleSideMenu }) => {
 
       {/* Performance */}
       {allowedUserRoles(user, [
-        "IT Personnel",
+        "8ecb5ec0-f6b0-41f5-ab88-eb2c6e7e0a28",
         "Subject Teacher",
         "Class Teacher",
       ]) && (
@@ -132,7 +135,7 @@ export const AdminSideBarList = ({ user, handleToggleSideMenu }) => {
               name: "View Broadsheet",
               link: "/admin/results",
               icon: <MdWhatsapp size={12} />,
-              roles: ["IT Personnel"],
+              roles: ["8ecb5ec0-f6b0-41f5-ab88-eb2c6e7e0a28"],
             },
           ]}
         >
@@ -144,7 +147,11 @@ export const AdminSideBarList = ({ user, handleToggleSideMenu }) => {
       )}
 
       {/* Finance */}
-      {allowedUserRoles(user, ["IT Personnel", "Principal", "Bursar"]) && (
+      {allowedUserRoles(user, [
+        "8ecb5ec0-f6b0-41f5-ab88-eb2c6e7e0a28",
+        "Principal",
+        "Bursar",
+      ]) && (
         <NavItemComponent
           submenu={[
             {
@@ -211,14 +218,14 @@ export const AdminSideBarList = ({ user, handleToggleSideMenu }) => {
             name: "Create event",
             link: "/admin/events",
             icon: <MdCreateNewFolder size={12} />,
-            roles: ["IT Personnel"],
+            roles: ["8ecb5ec0-f6b0-41f5-ab88-eb2c6e7e0a28"],
             onClick: () => handleClick("event"),
           },
           {
             name: "Send Invite",
             link: "/admin/events",
             icon: <MdOutlineMail size={14} />,
-            roles: ["IT Personnel"],
+            roles: ["8ecb5ec0-f6b0-41f5-ab88-eb2c6e7e0a28"],
             onClick: () => alert("feature updates..."),
           },
         ]}
@@ -230,7 +237,7 @@ export const AdminSideBarList = ({ user, handleToggleSideMenu }) => {
       </NavItemComponent>
 
       {/* Communication
-      {allowedUserRoles(user, ["IT Personnel", "Principal"]) && (
+      {allowedUserRoles(user, ["8ecb5ec0-f6b0-41f5-ab88-eb2c6e7e0a28", "Principal"]) && (
         <NavItemComponent
           submenu={[
             {
@@ -263,7 +270,11 @@ export const AdminSideBarList = ({ user, handleToggleSideMenu }) => {
       )} */}
 
       {/* Write */}
-      {allowedUserRoles(user, ["Principal", "IT Personnel", "Bursar"]) && (
+      {allowedUserRoles(user, [
+        "Principal",
+        "8ecb5ec0-f6b0-41f5-ab88-eb2c6e7e0a28",
+        "Bursar",
+      ]) && (
         <NavItemComponent link={"/admin/messages"}>
           <IconComponent color={"warning.200"}>
             <LuMessagesSquare size={18} />
@@ -273,7 +284,11 @@ export const AdminSideBarList = ({ user, handleToggleSideMenu }) => {
       )}
 
       {/* Media Uploads */}
-      {allowedUserRoles(user, ["Principal", "IT Personnel", "Bursar"]) && (
+      {allowedUserRoles(user, [
+        "Principal",
+        "8ecb5ec0-f6b0-41f5-ab88-eb2c6e7e0a28",
+        "Bursar",
+      ]) && (
         <NavItemComponent
           submenu={[
             {

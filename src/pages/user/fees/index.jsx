@@ -11,14 +11,14 @@ import PageWrapper from "../../../components/PageWrapper";
 import PageSectionHeader from "../../../components/PageSectionHeader";
 import formatCurrency from "../../../helpers/formatCurrency";
 import { useUser } from "../../../app/contexts/UserContext";
-import { useStudentFee } from "../../../hooks/";
+import { useFees, useStudentFee } from "../../../hooks/";
 
 export default function FeesPage() {
   const { feeType } = useSearchParams;
   const { user: student } = useUser();
 
   if (!feeType) {
-    return <Navigate to={"/"} replace={true} />;
+    // return <Navigate to={"/"} replace={true} />;
   }
 
   const { fees: feesData } = useFees(feeType);

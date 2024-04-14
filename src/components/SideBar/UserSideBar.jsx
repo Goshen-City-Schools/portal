@@ -49,12 +49,12 @@ export const UserSideBarList = ({ handleToggleSideMenu }) => {
         submenu={[
           {
             name: "Generate Invoice",
-            link: "/new",
+            link: "/fees",
             icon: <MdReceipt size={14} />,
           },
           {
             name: "View payments",
-            link: "/fees",
+            link: "/transactions",
             icon: <MdHistory size={12} />,
           },
         ]}
