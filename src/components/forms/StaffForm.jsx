@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Flex, Grid, useToast } from "@chakra-ui/react";
+import { Flex, Grid, useToast, Divider } from "@chakra-ui/react";
 import { useModal } from "../../app/contexts/ModalContext";
 import ngStates from "../../data/nigeria_states.json";
 
@@ -23,8 +23,8 @@ export default function StaffForm({ action, staffData, staffRoles }) {
   const toast = useToast();
   const { user } = useUser();
   const [formData, setFormData] = useState({
-    firstName: staffData?.firstName || "",
-    lastName: staffData?.lastName || "",
+    name: staffData?.name || "",
+    username: staffData?.username || "",
     avatarImageURL: staffData?.avatarImageURL || "",
     email: staffData?.email || "",
     phoneNumber: staffData?.phoneNumber || "",
@@ -61,7 +61,7 @@ export default function StaffForm({ action, staffData, staffRoles }) {
 
       // Validate form data
       const requiredFields = [
-        "firstName",
+        "name",
         "lastName",
         "email",
         "stateOfOrigin",
@@ -78,7 +78,7 @@ export default function StaffForm({ action, staffData, staffRoles }) {
       }
 
       const newStaffData = {
-        firstName: formData.firstName,
+        name: formData.name,
         lastName: formData.lastName,
         dateOfBirth: formData.dateOfBirth,
         gender: formData.gender,
@@ -95,7 +95,7 @@ export default function StaffForm({ action, staffData, staffRoles }) {
       if (allowedUserRoles(user, ["IT Personnel"])) {
         const apiUrl =
           action === "edit"
-            ? `/api/v1/staff/${staffData?.portalId}`
+            ? `/api/v1/staff/${staffData?.username}`
             : "/api/v1/auth/register";
 
         // Make an API request
@@ -151,7 +151,7 @@ export default function StaffForm({ action, staffData, staffRoles }) {
 
       // Clears form data
       setFormData({
-        firstName: "",
+        name: "",
         lastName: "",
         primaryRole: "",
         dateOfBirth: "",
@@ -192,19 +192,32 @@ export default function StaffForm({ action, staffData, staffRoles }) {
         />
       )}
 
-      {/* First name & Last name */}
+      {/* Name */}
+
+      <FormInput
+        name={"name"}
+        label={"Full Name (Surname first)"}
+        data={formData}
+        handleChange={handleChange}
+      />
+
+      {/* Username and Staff Role */}
       <Flex gap={6} direction={{ base: "column", md: "row" }}>
         <FormInput
-          name={"firstName"}
-          label={"First name"}
+          name={"username"}
+          label={"Username"}
           data={formData}
+          type="username"
+          disabled
           handleChange={handleChange}
         />
-
-        <FormInput
-          name={"lastName"}
-          label={"Surname"}
-          data={formData}
+        <FormSelect
+          data={staffRoles}
+          label={"Staff Role"}
+          name={"roles"}
+          formData={formData}
+          data_item_name={"name"}
+          data_item_value={"_id"}
           handleChange={handleChange}
         />
       </Flex>
@@ -222,10 +235,39 @@ export default function StaffForm({ action, staffData, staffRoles }) {
         <FormInput
           name={"gender"}
           label={"Gender"}
+          disabled
           data={formData}
           handleChange={handleChange}
         />
       </Flex>
+
+      {/* Phone Number & Email */}
+
+      <Flex gap={6} direction={{ base: "column", md: "row" }}>
+        <FormInput
+          type="tel"
+          name={"phoneNumber"}
+          label={"Phone Number"}
+          data={formData}
+          handleChange={handleChange}
+        />
+
+        <FormInput
+          type="email"
+          name={"email"}
+          label={"Email address"}
+          data={formData}
+          handleChange={handleChange}
+        />
+      </Flex>
+
+      {/* Contact address */}
+      <FormTextArea
+        name={"contactAddress"}
+        label={"Contact Address"}
+        formData={formData}
+        handleChange={handleChange}
+      />
 
       {/* State of Origin & LGA */}
       <Grid gridTemplateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }} gap={4}>
@@ -250,53 +292,7 @@ export default function StaffForm({ action, staffData, staffRoles }) {
         />
       </Grid>
 
-      {/* Staff Role & Email */}
-      <Flex gap={6} direction={{ base: "column", md: "row" }}>
-        <FormSelect
-          data={staffRoles}
-          label={"Staff Primary Role"}
-          name={"primaryRole"}
-          formData={formData}
-          data_item_name={"name"}
-          data_item_value={"_id"}
-          handleChange={handleChange}
-        />
-
-        <FormInput
-          name={"email"}
-          label={"Email"}
-          data={formData}
-          type="email"
-          handleChange={handleChange}
-        />
-      </Flex>
-
-      <FormTextArea
-        name={"contactAddress"}
-        label={"Contact Address"}
-        formData={formData}
-        handleChange={handleChange}
-      />
-
-      {/* Phone Number & Whatsapp Number */}
-
-      <Flex gap={6} direction={{ base: "column", md: "row" }}>
-        <FormInput
-          type="tel"
-          name={"phoneNumber"}
-          label={"Tel. Number"}
-          data={formData}
-          handleChange={handleChange}
-        />
-
-        <FormInput
-          type="tel"
-          name={"whatsappNumber"}
-          label={"Whatsapp Number"}
-          data={formData}
-          handleChange={handleChange}
-        />
-      </Flex>
+      <Divider />
 
       <FormButton
         loading={loading}

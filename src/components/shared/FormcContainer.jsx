@@ -5,7 +5,7 @@ export default function FormcContainer({
 }) {
   return (
     <form
-      className={`rounded-lg  bg-white text-sm w-full flex-col flex gap-x-6 gap-y-8 ${classesParams}`}
+      className={`rounded-lg  bg-white text-sm w-full flex-col flex gap-x-6 gap-y-6 ${classesParams}`}
       onSubmit={handleFormSubmit}
     >
       {children}
