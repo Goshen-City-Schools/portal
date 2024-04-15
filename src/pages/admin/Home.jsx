@@ -1,7 +1,5 @@
 import { useNavigate } from "react-router-dom";
 
-import subjectsData from "../../data/subjects.data";
-
 import CalendarWidget from "../../widgets/Calendar";
 import ReactPortal from "../../widgets/React_portal";
 import ChartWidget from "../../widgets/Chart.widget";
@@ -24,11 +22,14 @@ import CustomSelect from "../../components/shared/Select.component";
 import PageSectionHeader from "../../components/PageSectionHeader";
 import PageWrapper from "../../components/PageWrapper";
 import IconComponent from "../../components/Icon.component";
+import { useSubjects } from "../../hooks/Subjects";
 
 export default function AdminHome() {
   const { openPortal } = useModal();
   const { staffsData: staffData } = useStaffs();
   const { studentsData } = useStudents();
+  const { subjectsData } = useSubjects();
+
   const navigate = useNavigate();
 
   return (
@@ -77,11 +78,7 @@ export default function AdminHome() {
               imgSrc={"book.png"}
               text={"Total Subjects:"}
               number={subjectsData.length}
-              onClick={() =>
-                navigate(
-                  "/admin/config/academics"
-                )
-              }
+              onClick={() => navigate("/admin/config/academics")}
               maxW={"300px"}
             />
           </Flex>

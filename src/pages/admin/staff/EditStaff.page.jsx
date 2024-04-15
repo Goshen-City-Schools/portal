@@ -14,13 +14,13 @@ export default function EditStaffPage() {
   const { staffData } = useStaff(staffId);
 
   const { staffRolesData } = useStaffRoles();
-  const { firstName } = staffData;
+  const { name } = staffData;
 
   return (
     <PageWrapper>
       <PageSectionHeader
         pageTitle={`Staff Profile Edit`}
-        pageCrumb={`Home / Staff / ${firstName} `}
+        pageCrumb={`Home / Staff / ${name} `}
       />
 
       <Box
