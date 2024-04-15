@@ -15,13 +15,13 @@ export default function EditStudentPage() {
 
   if (!studentData) return;
 
-  const { firstName } = studentData;
+  const { first_name } = studentData;
 
   return (
     <PageWrapper>
       <PageSectionHeader
         pageTitle={`Student Profile Edit`}
-        pageCrumb={`Home / Students / ${firstName} `}
+        pageCrumb={`Home / Students / ${first_name} `}
       />
 
       <Box

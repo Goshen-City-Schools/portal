@@ -14,7 +14,7 @@ export default function FormInput({
 
   return (
     <FormControl id={name}>
-      <FormLabel fontWeight={"bold"} fontSize={"sm"}>
+      <FormLabel fontWeight={"bold"} fontSize={"xs"}>
         {label}
       </FormLabel>
       <Input

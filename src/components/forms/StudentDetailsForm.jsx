@@ -29,14 +29,14 @@ const StudentDetailsForm = ({
       {/* Firstname & Lastname */}
       <Grid gridTemplateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }} gap={4}>
         <FormInput
-          name={"firstName"}
+          name={"first_name"}
           label={"First name"}
           data={formData}
           handleChange={handleInputChange}
         />
 
         <FormInput
-          name={"lastName"}
+          name={"last_name"}
           label={"Last name"}
           data={formData}
           handleChange={handleInputChange}

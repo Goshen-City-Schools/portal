@@ -88,9 +88,9 @@ const Step3 = ({ onPrev, onFinish, formComponent }) => (
 
 export default function StudentForm({ action, studentData }) {
   const {
-    firstName,
-    lastName,
-    otherName,
+    first_name,
+    last_name,
+    other_name,
     gender,
     dateOfBirth,
     stateOfOrigin,
@@ -107,9 +107,9 @@ export default function StudentForm({ action, studentData }) {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    firstName: firstName || "",
-    lastName: lastName || "",
-    otherName: otherName || "",
+    first_name: first_name || "",
+    last_name: last_name || "",
+    other_name: other_name || "",
     gender: gender || "",
     dateOfBirth: dateOfBirth || "",
     stateOfOrigin: stateOfOrigin || "",
