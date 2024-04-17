@@ -8,7 +8,7 @@ export default function PageSectionHeader({ pageTitle, pageCrumb }) {
       justifyContent={"space-between"}
       alignItems={"center"}
       mb={2}
-      className="no-print"
+      className="no-print capitalize"
     >
       <Text as={"h2"} mt={0} className="" fontSize={"2xl"} fontWeight={"bold"}>
         {pageTitle}

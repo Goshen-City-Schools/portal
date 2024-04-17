@@ -52,7 +52,7 @@ const DataTable = ({ columns, data, fullWidthColumns, customPageSize }) => {
       {/* Add this to enable horizontal scrolling on small screens */}
       <Table
         {...getTableProps()}
-        className="custom-table"
+        className="custom-table text-sm"
         sx={{
           ...customStyles,
         }}
@@ -97,9 +97,11 @@ const DataTable = ({ columns, data, fullWidthColumns, customPageSize }) => {
           {page.map((row, index) => {
             prepareRow(row);
             return (
-              <Tr key={index} {...row.getRowProps()}>
+              <Tr key={index} {...row.getRowProps()} pt={0} pb={0}>
                 {row.cells.map((cell, index) => (
                   <Td
+                    pt={2}
+                    pb={2}
                     key={index}
                     {...cell.getCellProps()}
                     width={

@@ -130,7 +130,11 @@ const StudentsTable = ({ studentsData }) => {
       accessor: "studentClass",
       width: "max-content",
       Cell: ({ value }) => {
-        return <SchoolClass value={value} />;
+        return (
+          <Text as={"p"} color={"neutral.700"} className="capitalize">
+            {value.schoolClass.name} {value.name}
+          </Text>
+        );
       },
     },
 

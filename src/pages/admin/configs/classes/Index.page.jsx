@@ -97,7 +97,7 @@ export const getNumberOfStudentsInClass = (studentsData, classId) => {
 
   // Filter students based on the provided classId
   const studentsInClass = studentsData.filter(
-    (student) => student.schoolClass === classId
+    (student) => student.studentClass == classId
   );
 
   return studentsInClass.length;
@@ -107,6 +107,8 @@ export default function ClassesPage() {
   const { openPortal, closePortal } = useModal();
   const { studentsData } = useStudents();
   const navigate = useNavigate();
+
+  console.log(studentsData);
 
   const { schoolClasses } = useClasses();
 
