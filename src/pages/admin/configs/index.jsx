@@ -7,12 +7,12 @@ import { Link } from "react-router-dom";
 
 export default function ConfigPage() {
   const configLinks = [
-    { to: "/admin/config/website", label: "Home Website" },
-    { to: "/admin/config/academics", label: "Academic Data" },
+    { to: "/admin/config/classes", label: "Classes" },
+    { to: "/admin/config/academics", label: "Subjects" },
     { to: "/admin/config/staff", label: "Staff" },
-    { to: "/admin/config/payments", label: "Payments" },
-    { to: "/admin/config/evaluation", label: "Assessments" },
-    { to: "/admin/config/messaging", label: "Messaging" },
+    { to: "/admin/config/payments", label: "Results" },
+    { to: "/admin/config/evaluation", label: "Academics" },
+    { to: "/admin/config/messaging", label: "Finance" },
   ];
 
   return (

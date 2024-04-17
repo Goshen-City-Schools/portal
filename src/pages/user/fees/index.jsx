@@ -1,5 +1,4 @@
 import React from "react";
-import { Navigate } from "react-router-dom";
 import { useSearchParams } from "react-router-dom";
 
 import { Flex, Button, Box } from "@chakra-ui/react";
@@ -9,7 +8,6 @@ import { MdAdd, MdInventory } from "react-icons/md";
 import IconComponent from "../../../components/Icon.component";
 import PageWrapper from "../../../components/PageWrapper";
 import PageSectionHeader from "../../../components/PageSectionHeader";
-import formatCurrency from "../../../helpers/formatCurrency";
 import { useUser } from "../../../app/contexts/UserContext";
 import { useFees, useStudentFee } from "../../../hooks/";
 
@@ -17,18 +15,9 @@ export default function FeesPage() {
   const { feeType } = useSearchParams;
   const { user: student } = useUser();
 
-  if (!feeType) {
-    // return <Navigate to={"/"} replace={true} />;
-  }
-
   const { fees: feesData } = useFees(feeType);
 
   //   TODO: Set useStudentFee hook
-  const { studentFeeData } = useStudentFee(feeType, student._id, feesData?._id);
-
-  const { feeBalance, feeAmount, totalPaidAmount } = studentFeeData;
-
-  console.log(feesData), feeBalance, feeAmount;
 
   return (
     <PageWrapper>
@@ -74,28 +63,7 @@ export default function FeesPage() {
         px={8}
         py={4}
         fontWeight={"bold"}
-      >
-        {/* Student Profile Picture */}
-
-        {/* Fee Amount */}
-        <Flex color={"blue"}>
-          <Text>Amount Due:</Text>
-          <Text>{formatCurrency(feeAmount)}</Text>
-        </Flex>
-
-        {/* Outstanding Balance */}
-
-        <Flex color={"green"}>
-          <Text>Paid:</Text>
-          <Text>{formatCurrency(totalPaidAmount)}</Text>
-        </Flex>
-        {/* Total Payable */}
-
-        <Flex color={"red"} fontWeight={"bold"}>
-          <Text>Pending:</Text>
-          <Text>{formatCurrency(feeBalance)}</Text>
-        </Flex>
-      </Box>
+      ></Box>
     </PageWrapper>
   );
 }

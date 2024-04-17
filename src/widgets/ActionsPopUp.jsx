@@ -24,7 +24,7 @@ const ActionsPopUp = ({ menu }) => {
           ml={0}
           pr={1}
           size={"sm"}
-          py={0.2}
+          py={0}
           leftIcon={<FaEllipsisH />}
           onClick={() => setIsOpen(!isOpen)} // Toggle popover on button click
         ></Button>

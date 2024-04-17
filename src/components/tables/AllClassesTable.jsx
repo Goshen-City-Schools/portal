@@ -35,8 +35,8 @@ const AllClassesTable = ({ data, studentsData }) => {
     },
   ];
 
-  const numberOfStudentsInClass = (className) => {
-    return getNumberOfStudentsInClass(studentsData, className);
+  const numberOfStudentsInClass = (classId) => {
+    return getNumberOfStudentsInClass(studentsData, classId);
   };
 
   const columns = [
@@ -48,7 +48,7 @@ const AllClassesTable = ({ data, studentsData }) => {
     {
       Header: "Classes",
       accessor: "name",
-      Cell: ({ value }) => (
+      Cell: ({ value, row }) => (
         <Flex gap={2} wrap={"wrap"} flexShrink={1}>
           <Tag
             colorScheme={value?.color}
@@ -57,49 +57,60 @@ const AllClassesTable = ({ data, studentsData }) => {
             textTransform={"capitalize"}
             size={"sm"}
           >
-            {value}
+            {row.original.schoolClass.name} {value}
           </Tag>
         </Flex>
       ),
     },
+
     {
-      Header: "SubClasses",
-      accessor: "subClasses",
-      Cell: ({ cell }) => (
-        <Flex gap={2} wrap={"wrap"} flexShrink={1}>
-          {cell.value?.map((subclass, index) => (
-            <Tag
-              colorScheme={subclass.color}
-              color={"neutral.700"}
-              fontWeight={"bold"}
-              textTransform={"capitalize"}
-              size={"sm"}
-            >
-              {subclass.name}
-            </Tag>
-          ))}
-        </Flex>
-      ),
-    },
-    {
-      Header: "Students",
-      accessor: "value",
-      Cell: ({ row }) => (
+      Header: "Class Teacher",
+      accessor: "classTeacher",
+      Cell: ({ value }) => (
         <Text
           as={"p"}
           fontSize={"sm"}
-          textAlign={"center"}
           color={"neutral.700"}
           fontWeight={"bold"}
         >
-          {numberOfStudentsInClass(row?.original._id)}
+          {numberOfStudentsInClass(value)}
+        </Text>
+      ),
+    },
+    {
+      Header: "Subjects",
+      accessor: "subjects",
+      Cell: ({ value }) => (
+        <Text
+          as={"p"}
+          fontSize={"sm"}
+          color={"neutral.700"}
+          textAlign={"center"}
+          fontWeight={"bold"}
+        >
+          {value}
+        </Text>
+      ),
+    },
+    {
+      Header: "No. of Students",
+      accessor: "id",
+      Cell: ({ value }) => (
+        <Text
+          as={"p"}
+          fontSize={"sm"}
+          color={"neutral.700"}
+          textAlign={"center"}
+          fontWeight={"bold"}
+        >
+          {numberOfStudentsInClass(value)}
         </Text>
       ),
     },
     {
       Header: "Action",
       accessor: "action",
-      Cell: ({ row }) => <ActionsPopUp menu={actionsMenu(row.original._id)} />,
+      Cell: ({ row }) => <ActionsPopUp menu={actionsMenu(row.original.id)} />,
     },
   ];
 
@@ -108,7 +119,7 @@ const AllClassesTable = ({ data, studentsData }) => {
       <Table
         columns={columns}
         data={data ? data : []}
-        fullWidthColumns={["SubClasses"]}
+        fullWidthColumns={["Classes"]}
       />
     </div>
   );

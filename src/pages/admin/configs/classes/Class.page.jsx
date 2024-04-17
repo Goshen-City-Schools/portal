@@ -25,24 +25,21 @@ export default function ClassPage() {
   const { subjectsData } = useSubjects();
   const { schoolClasses } = useClasses();
 
-  console.log(schoolClasses, classId);
-
   const schoolClassData = schoolClasses.find(
-    (singleSchoolClass) => singleSchoolClass?._id === classId
+    (singleSchoolClass) => singleSchoolClass.id === Number(classId)
   );
-
-  const classData = (classValue) =>
-    schoolClasses.find((schoolCl) => schoolCl.value === classValue)?.name;
 
   const filteredStudents = studentsData.filter(
-    (student) => student.schoolClass === classData(classId)
+    (student) => student.studentClass.id === Number(classId)
   );
+
+  console.log(studentsData, filteredStudents);
 
   const tabs = [
     {
       id: 1,
       label: `Students (${filteredStudents.length})`,
-      component: <AllStudentsTable existingStudentsData={filteredStudents} />,
+      component: <AllStudentsTable studentsData={filteredStudents} />,
     },
     {
       id: 2,
@@ -63,18 +60,21 @@ export default function ClassPage() {
   return (
     <PageWrapper>
       <PageSectionHeader
-        pageTitle={`${schoolClassData?.name} Class`}
-        pageCrumb={`Home / Classes / ${schoolClassData?.name}`}
+        pageTitle={`${schoolClassData?.schoolClass.name} ${schoolClassData?.name} Class`}
+        pageCrumb={`Home / Classes / ${schoolClassData?.schoolClass.name}  ${schoolClassData?.name}`}
       />
 
       <ClassSummaryBox
         totalStudents={filteredStudents.length}
         maleStudents={
-          filteredStudents.filter((student) => student.gender === "male").length
+          filteredStudents.filter(
+            (student) => student.gender.toLowerCase() === "male"
+          ).length
         }
         femaleStudents={
-          filteredStudents.filter((student) => student.gender === "female")
-            .length
+          filteredStudents.filter(
+            (student) => student.gender.toLowerCase() === "female"
+          ).length
         }
         classTeacher={"Nwa Oriaku"}
       />
