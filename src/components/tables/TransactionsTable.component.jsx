@@ -1,19 +1,6 @@
 import React from "react";
-import {
-  Box,
-  Badge,
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-  Button,
-  PopoverArrow,
-  PopoverBody,
-  PopoverCloseButton,
-  List,
-  ListItem,
-} from "@chakra-ui/react";
+import { Box, Badge } from "@chakra-ui/react";
 import DataTable from "../../widgets/Table.widget";
-// import DataTable from "./DataTable"; // Assuming you have a DataTable component
 
 const columns = [
   {

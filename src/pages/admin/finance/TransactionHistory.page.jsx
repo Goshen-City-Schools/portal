@@ -7,7 +7,6 @@ import SearchWidget from "../../../widgets/Search.widget";
 import IconComponent from "../../../components/Icon.component";
 
 import { MdAdd, MdIcecream } from "react-icons/md";
-import { Navigate } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 export default function TransactionHistoryPage() {

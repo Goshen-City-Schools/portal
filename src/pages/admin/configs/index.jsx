@@ -12,7 +12,8 @@ export default function ConfigPage() {
     { to: "/admin/config/staff", label: "Staff" },
     { to: "/admin/config/payments", label: "Results" },
     { to: "/admin/config/evaluation", label: "Academics" },
-    { to: "/admin/config/messaging", label: "Finance" },
+    { to: "/admin/config/finance", label: "Finance" },
+    { to: "/admin/config/finance", label: "Promotion" },
   ];
 
   return (

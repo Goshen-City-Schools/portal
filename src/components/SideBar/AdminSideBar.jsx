@@ -154,17 +154,22 @@ export const AdminSideBarList = ({ user, handleToggleSideMenu }) => {
         <NavItemComponent
           submenu={[
             {
-              name: "Fees Report",
+              name: "Fees",
               link: "/admin/finance/fees",
               icon: <MdHistory color={"white"} size={12} />,
             },
             {
-              name: "All Invoices",
+              name: "Transactions",
+              link: "/admin/finance/transactions",
+              icon: <MdHistory color={"white"} size={12} />,
+            },
+            {
+              name: "Expenses",
               link: "/admin/transactions",
               icon: <MdHistory color={"white"} size={12} />,
             },
             {
-              name: "Query Transacttion",
+              name: "Income",
               link: "/admin/transactions",
               icon: <MdHistory color={"white"} size={12} />,
             },

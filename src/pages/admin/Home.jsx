@@ -75,7 +75,25 @@ export default function AdminHome() {
             <StatCardComponent
               imagePadding={2}
               color={"#FFF2DB"}
-              imgSrc={"book.png"}
+              imgSrc={"parents.png"}
+              text={"Total Parents:"}
+              number={subjectsData.length}
+              onClick={() => navigate("/admin/config/academics")}
+              maxW={"300px"}
+            />
+            <StatCardComponent
+              imagePadding={2}
+              color={"#FFF2DB"}
+              imgSrc={"parents.png"}
+              text={"Total Classes:"}
+              number={subjectsData.length}
+              onClick={() => navigate("/admin/config/academics")}
+              maxW={"300px"}
+            />
+            <StatCardComponent
+              imagePadding={2}
+              color={"#FFF2DB"}
+              imgSrc={"parents.png"}
               text={"Total Subjects:"}
               number={subjectsData.length}
               onClick={() => navigate("/admin/config/academics")}

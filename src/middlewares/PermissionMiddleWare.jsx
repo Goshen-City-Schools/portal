@@ -154,8 +154,13 @@ const routes = [
     allowedAccountTypes: ["staff"],
   },
   {
+    path: "/admin/finance/transactions",
+    allowedRoles: [ROLES.BURSAR, ROLES.IT_PERSONNEL, ROLES.PRINCIPAL],
+    allowedAccountTypes: ["staff"],
+  },
+  {
     path: "/admin/finance/fees",
-    allowedRoles: [ROLES.BURSAR, ROLES.PRINCIPAL],
+    allowedRoles: [ROLES.BURSAR, ROLES.IT_PERSONNEL, ROLES.PRINCIPAL],
     allowedAccountTypes: ["staff"],
   },
   {
