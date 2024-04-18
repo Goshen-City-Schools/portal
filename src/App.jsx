@@ -152,15 +152,15 @@ const App = () => {
 
         <Route path="finance">
           <Route index element={<FinancePage />} />
-          {/* <Route path="fees" element={<AllFeesPage />} /> */}
-        </Route>
+          <Route path="fees" element={<FeesPage />} />
 
-        <Route path="transactions">
-          <Route index element={<TransactionHistoryPage />} />
-
-          <Route path=":transactionID">
+          <Route path="transactions">
             <Route index element={<TransactionHistoryPage />} />
-            {/* <Route path="invoice" element={<InvoicesPage />} /> */}
+
+            <Route path=":transactionID">
+              <Route index element={<TransactionHistoryPage />} />
+              {/* <Route path="invoice" element={<InvoicesPage />} /> */}
+            </Route>
           </Route>
         </Route>
 

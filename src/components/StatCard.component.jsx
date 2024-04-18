@@ -20,7 +20,6 @@ export default function StatCardComponent({
       border={"1px solid transparent"}
       px={6}
       py={4}
-      maxW={maxW}
       flexShrink={0}
       shadow={"sm"}
       rounded={"md"}
@@ -28,6 +27,7 @@ export default function StatCardComponent({
       animation={"ease-in-out"}
       transitionDuration={".3s"}
       onClick={onClick}
+      className="md:max-w-xs"
     >
       <Box
         p={imagePadding && imagePadding}
