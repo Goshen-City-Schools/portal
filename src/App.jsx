@@ -61,6 +61,7 @@ import { Navigate } from "react-router-dom";
 import PaymentsConfigPage from "./pages/admin/configs/PaymentsConfig.page";
 import WriteDashboard from "./pages/admin/write";
 import WebsiteConfigPage from "./pages/admin/configs/WebsiteConfig.page";
+import FeespPage from "./pages/admin/finance/fees";
 
 const App = () => {
   return (
@@ -152,7 +153,7 @@ const App = () => {
 
         <Route path="finance">
           <Route index element={<FinancePage />} />
-          <Route path="fees" element={<FeesPage />} />
+          <Route path="fees" element={<FeespPage />} />
 
           <Route path="transactions">
             <Route index element={<TransactionHistoryPage />} />

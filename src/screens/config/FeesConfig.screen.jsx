@@ -72,57 +72,67 @@ export default function FeesConfigScreen() {
       </Flex>
 
       <Flex gap={4} mb={8}>
+        {/* Fee type Select */}
+        <Flex flexDirection={"column"} w={"full"} gap={2}>
+          <p className="text-sm font-bold">Fee Type:</p>
+          <FormControl>
+            <Select
+              onChange={handleOptionChange}
+              value={formData?.feeType}
+              fontSize={"sm"}
+              size={"sm"}
+              name="feeType"
+            >
+              <option value="">-- Select Fee Type --</option>
+              <option selected value="tuition">
+                Tuition Fee
+              </option>
+              <option value="bus">Bus Fee</option>
+              <option value="boarding">Boarding Fee</option>
+            </Select>
+          </FormControl>
+        </Flex>
+
         {/* Session Select */}
-        <FormControl>
-          <Select
-            value={formData?.session}
-            size={"sm"}
-            name="session"
-            onChange={handleOptionChange}
-          >
-            <option value={""}>-- Select Session --</option>
-            <option value={"20222023"}>2022 - 2023</option>
-            <option selected value={"20232024"}>
-              2023 - 2024
-            </option>
-            <option value={"20242025"}>2024 - 2025</option>
-          </Select>
-        </FormControl>
+        <Flex flexDirection={"column"} w={"full"} gap={2}>
+          <p className="text-sm font-bold">Session:</p>
+          <FormControl>
+            <Select
+              value={formData?.session}
+              size={"sm"}
+              name="session"
+              onChange={handleOptionChange}
+            >
+              <option value={""}>-- Select Session --</option>
+              <option value={"20222023"}>2022 - 2023</option>
+              <option selected value={"20232024"}>
+                2023 - 2024
+              </option>
+              <option value={"20242025"}>2024 - 2025</option>
+            </Select>
+          </FormControl>
+        </Flex>
 
         {/* Term Select */}
-        <FormControl>
-          <Select
-            onChange={handleOptionChange}
-            name="term"
-            value={formData?.term}
-            size={"sm"}
-          >
-            <option value={""}>-- Select Term --</option>
-            <option selected value={"term1"}>
-              First term
-            </option>
-            <option value={"term2"}>Second term</option>
-            <option value={"term3"}>Third term</option>
-          </Select>
-        </FormControl>
 
-        {/* Fee type Select */}
-        <FormControl>
-          <Select
-            onChange={handleOptionChange}
-            value={formData?.feeType}
-            fontSize={"sm"}
-            size={"sm"}
-            name="feeType"
-          >
-            <option value="">-- Select Fee Type --</option>
-            <option selected value="tuition">
-              Tuition Fee
-            </option>
-            <option value="bus">Bus Fee</option>
-            <option value="boarding">Boarding Fee</option>
-          </Select>
-        </FormControl>
+        <Flex flexDirection={"column"} w={"full"} gap={2}>
+          <p className="text-sm font-bold">Term:</p>
+          <FormControl>
+            <Select
+              onChange={handleOptionChange}
+              name="term"
+              value={formData?.term}
+              size={"sm"}
+            >
+              <option value={""}>-- Select Term --</option>
+              <option selected value={"term1"}>
+                First term
+              </option>
+              <option value={"term2"}>Second term</option>
+              <option value={"term3"}>Third term</option>
+            </Select>
+          </FormControl>
+        </Flex>
       </Flex>
 
       <Suspense fallback={"Loading..."}>
