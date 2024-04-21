@@ -17,7 +17,7 @@ export default function GenerateInvoiceForm({ action, invoiceData }) {
   //   TODO: handleInputChange Function
 
   if (user?.accountType === "student") {
-    studentId = user.portalId;
+    studentId = user.studentId;
   } else studentId = "";
 
   const [formData, setFormData] = useState({

@@ -196,6 +196,14 @@ const routes = [
     path: "/transactions",
     allowedAccountTypes: ["student"],
   },
+  {
+    path: "/invoices",
+    allowedAccountTypes: ["student"],
+  },
+  {
+    path: "/invoices/:invoiceId",
+    allowedAccountTypes: ["student"],
+  },
 
   // Add more routes here
 ];

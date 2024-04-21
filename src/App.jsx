@@ -62,6 +62,7 @@ import PaymentsConfigPage from "./pages/admin/configs/PaymentsConfig.page";
 import WriteDashboard from "./pages/admin/write";
 import WebsiteConfigPage from "./pages/admin/configs/WebsiteConfig.page";
 import FeespPage from "./pages/admin/finance/fees";
+import UserInvoicePage from "./pages/user/payments/invoices/invoice";
 
 const App = () => {
   return (
@@ -208,6 +209,12 @@ const App = () => {
         <Route path="fees">
           <Route index element={<FeesPage />} />
           {/* <Route path=":feeTypeID" element={<FeesPage />} /> */}
+        </Route>
+
+        {/* Invoices */}
+        <Route path="invoices">
+          <Route index element={<UserInvoicePage />} />
+          <Route path=":invoiceId" element={<UserInvoicePage />} />
         </Route>
 
         {/* Transactions */}
