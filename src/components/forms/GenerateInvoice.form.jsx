@@ -2,8 +2,14 @@ import React from "react";
 import { useFees } from "../../hooks";
 import { Input } from "@chakra-ui/react";
 import { FormButton } from "../shared";
+import { useNavigate } from "react-router-dom";
 
 export default function GenerateInvoice() {
+  const navigate = useNavigate();
+  const formSubmit = (e) => {
+    e.preventDefault();
+    navigate("/invoices");
+  };
   const fees = useFees();
   return (
     <div className="formContainer w-full  max-w-sm mx-auto ">
@@ -13,7 +19,7 @@ export default function GenerateInvoice() {
 
       <form
         className="px-6 py-6 shadow-md w-full  h-max rounded-sm bg-white"
-        // onSubmit={handleSubmit}
+        onSubmit={formSubmit}
       >
         <div className="inputContainer">
           <label htmlFor="session">Session:</label>
