@@ -4,7 +4,7 @@ import { Text, Flex, Box } from "@chakra-ui/react";
 
 export default function PrintHeader() {
   return (
-    <div className="invoice-header flex flex-col text-center items-center">
+    <div className="invoice-header mb-4 flex flex-col text-center items-center">
       <Flex justifyContent={"center"} alignItems={"center"}>
         {/* Primary School Logo */}
         <div className="w-24 h-24 relative mx-auto">

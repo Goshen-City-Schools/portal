@@ -55,16 +55,6 @@ export default function GenerateInvoice() {
           <Input />
         </div>
 
-        {/*  */}
-        <div className="inputContainer">
-          <label htmlFor="session">Pay by:</label>
-          <select name="" id="">
-            <option value="">Cash payment</option>
-            <option value="">Bank TRANSFER</option>
-            <option value="">Bank DEPOSIT</option>
-          </select>
-        </div>
-
         <div className="flex w-full flex-col gap-3 justify-around mt-4 text-sm ">
           <FormButton label={"Generate Invoice"} />
         </div>
