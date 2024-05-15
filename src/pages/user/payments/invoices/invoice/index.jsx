@@ -3,9 +3,23 @@ import PageWrapper from "../../../../../components/PageWrapper";
 import PrintHeader from "../../../../../components/Header/PrintHeader";
 import PageSectionHeader from "../../../../../components/PageSectionHeader";
 
-import { Flex, Stack, Text, List, ButtonGroup, Button } from "@chakra-ui/react";
+// react-to-print
+import { useReactToPrint } from "react-to-print";
+
+import { Flex, Button } from "@chakra-ui/react";
+
+import { ComponentToPrint } from "../../../../../components/atoms/ComponentToPrint";
+import { useRef } from "react";
+import { MdAdd, MdImportExport, MdPayment, MdPrint } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
 export default function UserInvoicePage() {
+  const componentRef = useRef();
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
+  const navigate = useNavigate();
+
   return (
     // Add print option
     <PageWrapper>
@@ -14,53 +28,27 @@ export default function UserInvoicePage() {
         pageCrumb={`Home / Invoices / New`}
       />
 
-      <PrintHeader />
+      <Flex gap={4} fontSize={"sm"} className="w-full justify-end mb-8">
+        <Button
+          size={"sm"}
+          colorScheme={"blue"}
+          variant={"outline"}
+          leftIcon={<MdPrint />}
+          onClick={handlePrint}
+        >
+          Print
+        </Button>
+        <Button
+          size={"sm"}
+          colorScheme={"blue"}
+          leftIcon={<MdPayment />}
+          onClick={() => navigate("/admin/parents/new")}
+        >
+          Pay online
+        </Button>
+      </Flex>
 
-      <Stack className="invoiceBody">
-        <Stack>
-          <Stack>
-            <Text as={"h3"}>Transaction Reference No.</Text>
-            <Text as={"h3"}>2134-2321-2322</Text>
-          </Stack>
-          <Text as={"h3"}>This is not a receipt.</Text>
-        </Stack>
-
-        {/* Invoice Information */}
-        <Stack>
-          <Flex>
-            <Text>Name:</Text>
-            <Text></Text>
-          </Flex>
-          <Flex>
-            <Text>Purpose of Payment:</Text>
-            <Text>SS1 First Term Tuition Fee</Text>
-          </Flex>
-          <Flex>
-            <Text>Payer Email:</Text>
-            <Text>SS1 First Term Tuition Fee</Text>
-          </Flex>
-          <Flex>
-            <Text>Phone Number:</Text>
-            <Text>SS1 First Term Tuition Fee</Text>
-          </Flex>
-        </Stack>
-
-        {/* Additional Information */}
-        <Stack>
-          <List>
-            <Text as={"small"}></Text>
-            <Text as={"small"}></Text>
-          </List>
-        </Stack>
-
-        {/* Invoice Action */}
-
-        <ButtonGroup>
-          <Button>Print Invoice</Button>
-          <Button>Pay</Button>
-          <Button>Print Receipt</Button>
-        </ButtonGroup>
-      </Stack>
+      <ComponentToPrint ref={componentRef} />
     </PageWrapper>
   );
 }

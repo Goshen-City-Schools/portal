@@ -29,6 +29,7 @@ export default function StudentsPage() {
         pageTitle={"All Students"}
         pageCrumb={"Home / Students "}
       />
+
       <Flex
         justifyContent={"space-between"}
         alignItems={"center"}
@@ -58,6 +59,7 @@ export default function StudentsPage() {
           </Flex>
         )}
       </Flex>
+      
       <Box>
         <Flex
           alignItems={"center"}

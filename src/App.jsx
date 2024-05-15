@@ -44,7 +44,6 @@ import {
   NotFoundPage,
   EditStaffPage,
   ConfigPage,
-  FinanceConfigPage,
   AcademicsConfigPage,
   StaffRolesConfigPage,
   EvaluationConfigPage,

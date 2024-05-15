@@ -3,14 +3,18 @@ import { useFees } from "../../hooks";
 import { Input } from "@chakra-ui/react";
 import { FormButton } from "../shared";
 import { useNavigate } from "react-router-dom";
+import { useAcademicSessions } from "../../hooks/Acadmics";
 
 export default function GenerateInvoice() {
+  const { sessions } = useAcademicSessions();
+
   const navigate = useNavigate();
   const formSubmit = (e) => {
     e.preventDefault();
     navigate("/invoices");
   };
   const fees = useFees();
+
   return (
     <div className="formContainer w-full  max-w-sm mx-auto ">
       <h2 className="px-4  font-bold  text-center w-max mx-auto text-2xl mb-4 text-purple-800">
@@ -23,12 +27,12 @@ export default function GenerateInvoice() {
       >
         <div className="inputContainer">
           <label htmlFor="session">Session:</label>
-          <select name="" id="">
-            <option value="">2022 - 2023</option>
-            <option value="" selected>
-              2023 - 2024
-            </option>
-            <option value="">2024 - 2025</option>
+          <select name="" id="" value="">
+            {sessions.map((session) => (
+              <option key={session.id} value="">
+                {session.startYear} - {session.endYear}
+              </option>
+            ))}
           </select>
         </div>
         <div className="inputContainer">
@@ -53,16 +57,6 @@ export default function GenerateInvoice() {
         <div className="inputContainer">
           <label htmlFor="session">Amount:</label>
           <Input />
-        </div>
-
-        {/*  */}
-        <div className="inputContainer">
-          <label htmlFor="session">Pay by:</label>
-          <select name="" id="">
-            <option value="">Cash payment</option>
-            <option value="">Bank TRANSFER</option>
-            <option value="">Bank DEPOSIT</option>
-          </select>
         </div>
 
         <div className="flex w-full flex-col gap-3 justify-around mt-4 text-sm ">

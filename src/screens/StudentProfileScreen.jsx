@@ -40,6 +40,7 @@ import InfoBox from "../components/shared/InfoBox.component";
 import { GiCoronation } from "react-icons/gi";
 import { useStudentClassDetails } from "../hooks";
 import { useNavigate } from "react-router-dom";
+import StudentIDCard from "../components/cards/StudentIDCard";
 
 export default function StudentProfileScreen({ student }) {
   const { openPortal } = useModal();
@@ -63,6 +64,8 @@ export default function StudentProfileScreen({ student }) {
     dateOfBirth,
     studentId,
   } = student;
+
+  console.log(student);
 
   const fullname = `${first_name} ${last_name}`;
 
@@ -316,7 +319,7 @@ export default function StudentProfileScreen({ student }) {
               size={"sm"}
               colorScheme="purple"
               variant={"outline"}
-              onClick={() => openPortal()}
+              onClick={() => openPortal(<StudentIDCard student={student} />)}
             >
               Student ID Card
             </Button>
