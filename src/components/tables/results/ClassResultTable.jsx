@@ -5,8 +5,12 @@ import { IoMdEye } from "react-icons/io";
 import { MdEdit } from "react-icons/md";
 import { DataTable } from "../../../widgets";
 import RowId from "../shared/RowId";
+import { useResults } from "../../../hooks/Results";
+import { useState } from "react";
 
-const ClassResultTable = ({ data, studentsData }) => {
+import { Text } from "@chakra-ui/react";
+
+const ClassResultTable = ({ data }) => {
   const actionsMenu = (id) => [
     {
       name: "viewResultSheet",
@@ -29,33 +33,18 @@ const ClassResultTable = ({ data, studentsData }) => {
       Cell: ({ row }) => <RowId row={row} />,
     },
     {
-      Header: "Student ID",
-      accessor: "student",
+      Header: "Subject",
+      accessor: "subject",
+      Cell: ({ value }) => {
+        console.log(value);
+        return <Text>{value?.name}</Text>;
+      },
     },
     {
-      Header: "Full name",
+      Header: "Status",
       accessor: "fullname",
     },
-    {
-      Header: "CA",
-      accessor: "caScore",
-    },
-    {
-      Header: "Exam",
-      accessor: "examScore",
-    },
-    {
-      Header: "Total",
-      accessor: "totalScore",
-    },
-    {
-      Header: "Grade",
-      accessor: "grade",
-    },
-    {
-      Header: "Remark",
-      accessor: "remark",
-    },
+
     {
       Header: "Action",
       accessor: "action",
