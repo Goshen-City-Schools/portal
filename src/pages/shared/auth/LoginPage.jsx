@@ -220,7 +220,6 @@ export default function LoginPage() {
             <TabList className="mx-4 mb-2">
               <Tab>Student</Tab>
               <Tab>Staff</Tab>
-              <Tab>Parent</Tab>
             </TabList>
 
             <TabPanels className="px-0" p={0}>
@@ -232,11 +231,6 @@ export default function LoginPage() {
               {/* Staff Form */}
               <TabPanel>
                 <StaffLoginForm />
-              </TabPanel>
-
-              {/* Parent Login */}
-              <TabPanel>
-                <ParentLoginForm />
               </TabPanel>
             </TabPanels>
           </Tabs>

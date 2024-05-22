@@ -70,7 +70,7 @@ export default function GuardianForm({ guardianData, action }) {
     firstName,
     lastName,
     occupation,
-    relationshipStatus,
+    maritalStatus,
     contactAddress,
     stateOfResidence,
     email,
@@ -83,7 +83,7 @@ export default function GuardianForm({ guardianData, action }) {
     firstName: firstName || "",
     lastName: lastName || "",
     occupation: occupation || "",
-    relationshipStatus: relationshipStatus || "",
+    maritalStatus: maritalStatus || "",
     contactAddress: contactAddress || "",
     stateOfResidence: stateOfResidence || "",
     email: email || "",
@@ -104,8 +104,10 @@ export default function GuardianForm({ guardianData, action }) {
 
   return (
     <form
-      className="flex gap-8 flex-col px-2 py-4 mt-4"
+      className="flex gap-4 flex-col px-2 py-4 mt-4 "
       onSubmit={handleFormSubmit}
+
+      // Create guardian account
     >
       <FormSelect
         disabled={action == "studentEdit"}
@@ -153,8 +155,8 @@ export default function GuardianForm({ guardianData, action }) {
           { name: "Married", value: "married" },
           { name: "Divorced", value: "divorced" },
         ]}
-        label={"Relationship Status"}
-        name={"relationshipStatus"}
+        label={"Marital Status"}
+        name={"maritalStatus"}
         formData={formData}
         data_item_name={"name"}
         data_item_value={"value"}
@@ -168,7 +170,7 @@ export default function GuardianForm({ guardianData, action }) {
           { name: "Business Owner", value: "business" },
           { name: "Civil Servant", value: "civil" },
           { name: "Office Worker", value: "worker" },
-          { name: "Farmer", value: "farmer" },
+          { name: "Others", value: "others" },
         ]}
         label={"Occupation"}
         name={"occupation"}
@@ -179,19 +181,6 @@ export default function GuardianForm({ guardianData, action }) {
       />
 
       {/* </Grid> */}
-
-      {/* State of Residence & Phone Number */}
-
-      <FormSelect
-        disabled={action == "studentEdit"}
-        data={ngStates}
-        label={"State of Residence"}
-        name={"stateOfResidence"}
-        formData={formData}
-        data_item_name={"state"}
-        data_item_value={"alias"}
-        handleChange={handleInputChange}
-      />
 
       {/* Contact Address*/}
       <FormTextArea

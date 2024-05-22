@@ -144,18 +144,9 @@ export default function StudentForm({ action, studentData }) {
       ),
       step: 1,
     },
+
     {
-      title: "Guardian Information",
-      component: (
-        <GuardianFormControlller
-          handleInputChange={handleChange}
-          formData={formData}
-        />
-      ),
-      step: 2,
-    },
-    {
-      title: "Class Subjects",
+      title: "Class Details",
       component: (
         <StudentSubjectsTableForm
           subjectsData={subjectsData}
@@ -163,6 +154,16 @@ export default function StudentForm({ action, studentData }) {
           studentData={studentData}
           formData={formData}
           handleUserInputChange={handleChange}
+        />
+      ),
+      step: 2,
+    },
+    {
+      title: "Parents Details",
+      component: (
+        <GuardianFormControlller
+          handleInputChange={handleChange}
+          formData={formData}
         />
       ),
       step: 3,
