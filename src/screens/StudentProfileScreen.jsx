@@ -38,7 +38,6 @@ import Avatar from "../components/Avatar.component";
 import IconComponent from "../components/Icon.component";
 import InfoBox from "../components/shared/InfoBox.component";
 import { GiCoronation } from "react-icons/gi";
-import { useStudentClassDetails } from "../hooks";
 import { useNavigate } from "react-router-dom";
 import StudentIDCard from "../components/cards/StudentIDCard";
 
@@ -59,8 +58,6 @@ export default function StudentProfileScreen({ student }) {
     gender,
     guardianEmail,
     guardianPhoneNumber,
-    schoolClass,
-    subClass,
     dateOfBirth,
     studentId,
   } = student;
@@ -68,13 +65,6 @@ export default function StudentProfileScreen({ student }) {
   console.log(student);
 
   const fullname = `${first_name} ${last_name}`;
-
-  const { classDetails, subclassDetails } = useStudentClassDetails(
-    schoolClass,
-    subClass
-  );
-
-  console.log(classDetails, subclassDetails);
 
   return (
     <Grid gap={1} mt={4}>
@@ -471,7 +461,8 @@ export default function StudentProfileScreen({ student }) {
                     Class
                   </Text>
                   <Text as={"p"}>
-                    {classDetails?.name} {subclassDetails?.name}
+                    {student?.studentClass?.schoolClass.name}
+                    {student?.studentClass?.name}
                   </Text>
                 </Box>
               </Flex>
@@ -744,7 +735,8 @@ export default function StudentProfileScreen({ student }) {
                     Class
                   </Text>
                   <Text as={"p"}>
-                    {classDetails?.name} {subclassDetails?.name}
+                    {student?.studentClass?.schoolClass.name}
+                    {student?.studentClass?.name}
                   </Text>
                 </Box>
               </Flex>

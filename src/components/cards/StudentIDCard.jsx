@@ -17,7 +17,7 @@ const StudentIDCard = ({ student }) => {
             <div className="h-16 w-16 overflow-hidden">
               <img
                 className="h-full w-full object-cover"
-                src="/public/Goshen-logo-trans.png"
+                src="/Goshen-logo-trans.png"
               />
             </div>
 
@@ -29,8 +29,8 @@ const StudentIDCard = ({ student }) => {
               top={0}
             >
               <Text
-                as={"p"}
-                className="text-lg p-0 text-black font-bold leading-tight"
+                as={"h3"}
+                className=" md:text-lg p-0 text-black font-bold leading-tight"
               >
                 GOSHEN GROUP OF SCHOOLS
               </Text>
@@ -66,7 +66,7 @@ const StudentIDCard = ({ student }) => {
               <div className="flex justify-between">
                 <div className="text-purple-900 font-bold">Class:</div>
                 <span className="font-bold capitalize">
-                  {student?.studentClass?.schoolClass.name}{" "}
+                  {student?.studentClass?.schoolClass.name}
                   {student?.studentClass?.name}
                 </span>
               </div>

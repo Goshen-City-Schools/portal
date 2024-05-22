@@ -4,7 +4,7 @@ import DataTable from "../../widgets/Table.widget";
 import { RowId } from "../tables/shared";
 import { Switch } from "@chakra-ui/react";
 
-import { Grid, Stack, FormLabel } from "@chakra-ui/react";
+import { Grid, Stack, FormLabel, FormControl, Select } from "@chakra-ui/react";
 import { FormSelect } from "../shared";
 import { useClassDetails, useClasses } from "../../hooks";
 
@@ -46,44 +46,42 @@ export default function StudentSubjectsTableForm({
   return (
     <Stack w={"full"}>
       {/* Class and Sub Class */}
-      <Grid
-        gridTemplateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }}
-        gap={4}
-        mb={"4"}
-      >
+      <Grid gridTemplateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }} gap={4}>
         <FormSelect
-          name={"schoolClass"}
-          label={"Class"}
-          data={schoolClasses}
+          name={"studentType"}
+          label={"Student Type"}
+          data={[
+            { name: "New", value: "new" },
+            { name: "Existing", value: "existing" },
+          ]}
           data_item_name={"name"}
-          data_item_value={"_id"}
+          data_item_value={"value"}
           formData={formData}
           handleChange={handleUserInputChange}
         />
 
-        <FormSelect
-          name={"subClass"}
-          label={"Sub Class"}
-          data={classDetails?.subClasses}
-          data_item_name={"name"}
-          data_item_value={"_id"}
-          formData={formData}
-          handleChange={handleUserInputChange}
-        />
+        <FormControl id={"studentClass"} className="">
+          <FormLabel fontSize={"xs"} fontWeight={"semibold"}>
+            Student Class
+          </FormLabel>
+          <Select
+            fontSize={"sm"}
+            name={"studentClass"}
+            value={formData["studentClass"]}
+            className="capitalize"
+            bg={formData["studentClass"] ? "gray.100" : "white"}
+            onChange={handleUserInputChange}
+          >
+            <option value="">-- Select Student Class --</option>
+            {schoolClasses.map((schoolClass) => (
+              <option
+                value={schoolClass.id}
+              >{`${schoolClass.schoolClass?.name} ${schoolClass.name}`}</option>
+            ))}
+          </Select>
+        </FormControl>
       </Grid>
 
-      <FormSelect
-        name={"studentType"}
-        label={"Student Type"}
-        data={[
-          { name: "New", value: "new" },
-          { name: "Existing", value: "existing" },
-        ]}
-        data_item_name={"name"}
-        data_item_value={"value"}
-        formData={formData}
-        handleChange={handleUserInputChange}
-      />
       <Stack w={"full"} mt={4}>
         <FormLabel fontSize={"sm"} fontWeight={"bold"}>
           Subjects
