@@ -15,6 +15,7 @@ import {
 } from "../../components/tables";
 import { MdAdd } from "react-icons/md";
 import { Suspense } from "react";
+import { useAcademicSessions } from "../../hooks/Acadmics";
 
 // The recent update made here is that the current session and term is preselected and a fee type selected as defaults that the data value for this selected parameters is populated in their table.
 
@@ -28,6 +29,8 @@ export default function FeesConfigScreen() {
   const { session, term, feeType } = formData;
 
   const { openPortal } = useModal();
+
+  const { sessions } = useAcademicSessions();
 
   function handleOptionChange(e) {
     const { name, value, checked, type } = e.target;
@@ -104,11 +107,12 @@ export default function FeesConfigScreen() {
               onChange={handleOptionChange}
             >
               <option value={""}>-- Select Session --</option>
-              <option value={"20222023"}>2022 - 2023</option>
-              <option selected value={"20232024"}>
-                2023 - 2024
-              </option>
-              <option value={"20242025"}>2024 - 2025</option>
+
+              {sessions.map((session) => (
+                <option value={session.id}>
+                  {session.startYear} -{session.endYear}
+                </option>
+              ))}
             </Select>
           </FormControl>
         </Flex>
