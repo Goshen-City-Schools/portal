@@ -5,30 +5,32 @@ import { Flex, Tooltip, useToast } from "@chakra-ui/react";
 import { MdDeleteOutline, MdModeEditOutline } from "react-icons/md";
 import IconComponent from "../../Icon.component";
 import CustomCard from "../../CustomTooltip";
+import { useNavigate } from "react-router-dom";
+import { RowId } from "../shared";
 
-const ParentsTable = () => {
+const ParentsTable = ({ existingParentsData }) => {
   const toast = useToast();
-  const [studentsData, setStudentsData] = useState();
-  const existingParentsData = JSON.parse(localStorage.getItem("studentsData"));
+  const navigate = useNavigate();
 
   const columns = [
     {
       Header: "S/N",
-      accessor: "sn",
+      accessor: "id",
+      Cell: ({ row }) => <RowId row={row} />,
     },
 
     {
       Header: "Title",
-      accessor: "guardianTitle",
+      accessor: "title",
     },
 
     {
       Header: "Surname",
-      accessor: "guardianLastName",
+      accessor: "lastName",
     },
     {
       Header: "First Name",
-      accessor: "guardianFirstName",
+      accessor: "firstName",
     },
     {
       Header: "No. of Wards",
@@ -38,11 +40,11 @@ const ParentsTable = () => {
     },
     {
       Header: "Email",
-      accessor: "guardianEmail",
+      accessor: "email",
     },
     {
       Header: "Guardian Tel.",
-      accessor: `guardianPhoneNumber`,
+      accessor: `telNumber`,
     },
     {
       Header: "Action",
@@ -71,32 +73,32 @@ const ParentsTable = () => {
     },
   ];
 
-  const handleDeleteAction = (studentid) => {
-    // Filter the student with the specified studentid
+  // const handleDeleteAction = (studentid) => {
+  //   // Filter the student with the specified studentid
 
-    const StudentDataToDelete = existingStudentsData.filter(
-      (student) => student.id == studentid
-    );
+  //   const StudentDataToDelete = existingStudentsData.filter(
+  //     (student) => student.id == studentid
+  //   );
 
-    if (
-      window.confirm(
-        `Are you sure to delete ${StudentDataToDelete[0].firstName}  ${StudentDataToDelete[0].lastName}?`
-      )
-    ) {
-      const newStudentsData = existingStudentsData.filter(
-        (student) => student.id == studentid
-      ); // Update the state to re-render the component
-      setStudentsData(newStudentsData);
-      toast({
-        title: `Deleted ${StudentDataToDelete[0].firstName}  ${StudentDataToDelete[0].lastName} of ${StudentDataToDelete[0].class} data!`,
-        duration: "2000",
-        status: "warning",
-      });
+  //   if (
+  //     window.confirm(
+  //       `Are you sure to delete ${StudentDataToDelete[0].firstName}  ${StudentDataToDelete[0].lastName}?`
+  //     )
+  //   ) {
+  //     const newStudentsData = existingStudentsData.filter(
+  //       (student) => student.id == studentid
+  //     ); // Update the state to re-render the component
+  //     setStudentsData(newStudentsData);
+  //     toast({
+  //       title: `Deleted ${StudentDataToDelete[0].firstName}  ${StudentDataToDelete[0].lastName} of ${StudentDataToDelete[0].class} data!`,
+  //       duration: "2000",
+  //       status: "warning",
+  //     });
 
-      // Update localStorage
-      localStorage.setItem("studentsData", JSON.stringify(newStudentsData));
-    }
-  };
+  //     // Update localStorage
+  //     localStorage.setItem("studentsData", JSON.stringify(newStudentsData));
+  //   }
+  // };
 
   const handleEditAction = () => {
     return;
