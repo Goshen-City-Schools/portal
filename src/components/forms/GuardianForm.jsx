@@ -102,8 +102,21 @@ export default function GuardianForm({ guardianData, action }) {
   function handleFormSubmit(e) {
     e.preventDefault();
 
+    if (
+      !title ||
+      !firstName ||
+      !lastName ||
+      !occupation ||
+      !maritalStatus ||
+      !contactAddress ||
+      !stateOfResidence ||
+      !email ||
+      !phoneNumber ||
+      !whatsApp
+    )
+      return "All fields are required for guardian account creation!";
+
     registerGuardian(formData);
-    console.log("Form Submitted!", formData);
     closePortal();
   }
 

@@ -6,11 +6,6 @@ import {
   Box,
   Text,
   Flex,
-  FormControl,
-  FormLabel,
-  Input,
-  FormHelperText,
-  Button,
   useToast,
   Link,
   Tabs,
@@ -22,11 +17,9 @@ import {
 import defaultConfigValues from "../../../data/defaultConfigValues";
 import determineUserType from "../../../helpers/determineUserType";
 
-import { MdArrowForward } from "react-icons/md";
 import { useAuth } from "../../../app/contexts/AuthContext";
 import StudentLoginForm from "../../../components/forms/auth/StudentLoginForm";
 import StaffLoginForm from "../../../components/forms/auth/StaffLoginForm";
-import ParentLoginForm from "../../../components/forms/auth/ParentLoginForm";
 
 export default function LoginPage() {
   const toast = useToast();
@@ -102,15 +95,13 @@ export default function LoginPage() {
       animate="animate"
       variants={defaultConfigValues.pageVariants}
     >
-      <Grid
-        height={"100vh"}
-        templateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }}
-      >
-        <GridItem
+      <Flex height={"100vh"} w={"full"}>
+        <Box
           display={{ base: "none", md: "flex" }}
           flexDirection={"column"}
           height={"full"}
           bg={"brand.700"}
+          w={"40%"}
           justifyContent={"start"}
           alignItems={"center"}
           gap={8}
@@ -140,21 +131,13 @@ export default function LoginPage() {
               </Box>
               <Text
                 as={"h3"}
-                fontSize={"3xl"}
+                fontSize={"2xl"}
                 fontWeight={"bold"}
-                color={"brand.100"}
+                color={"#ffffff"}
               >
                 GOSHEN GROUP OF SCHOOLS
               </Text>
-              <Text
-                as={"p"}
-                fontSize={"sm"}
-                fontWeight={"bolder"}
-                className="tracking-wider"
-                color={"accent.100"}
-              >
-                CRE . NUR . BASIC . SEC
-              </Text>
+              <Text as={"p"}>Wisdom is a principal thing</Text>
             </Link>
           </Flex>
 
@@ -171,95 +154,74 @@ export default function LoginPage() {
               className="absolute top-0 h-full w-full object-contain"
             />
           </Box>
-        </GridItem>
+        </Box>
 
-        <GridItem
+        <Box
           display={"flex"}
           padding={{ base: "6" }}
           height={"full"}
           justifyContent={"center"}
           flexDirection={"column"}
-          w={{ base: "100%", md: "82%" }}
+          w={{ base: "100%", md: "60%" }}
           marginX={"auto"}
         >
-          <Box
-            position={"relative"}
-            height={"48"}
-            width={"48"}
-            overflow={"hidden"}
-            mx={{ base: "auto" }}
-            display={{ base: "flex", md: "none" }}
-          >
-            <img
-              src="/Goshen-logo-trans.png"
-              alt="Goshen group of Schools logo"
-              className="absolute object-contain w-full h-full"
-            />
-          </Box>
-
-          <Flex
-            direction={"column"}
-            alignItems={{ base: "center", md: "start" }}
-            marginBottom={8}
-          >
-            <Text
-              color={"brand.900"}
-              as={"h3"}
-              fontSize={{ base: "2xl", md: "4xl" }}
-              fontWeight={"bolder"}
+          <div className="max-w-[510px] w-full mx-auto">
+            <Box
+              position={"relative"}
+              height={"48"}
+              width={"48"}
+              overflow={"hidden"}
+              mx={{ base: "auto" }}
+              display={{ base: "flex", md: "none" }}
             >
-              Welcome back
-            </Text>
-            <Text color={"brand.900"} as={"small"} fontSize={"md"}>
-              Fill in your details below to login
-            </Text>
-          </Flex>
+              <img
+                src="/Goshen-logo-trans.png"
+                alt="Goshen group of Schools logo"
+                className="absolute object-contain w-full h-full"
+              />
+            </Box>
 
-          {/* Use ChakraUI Tabs and it's TAB Contexts */}
-          <Tabs px={0}>
-            <TabList className="mx-4 mb-2">
-              <Tab>Student</Tab>
-              <Tab>Staff</Tab>
-            </TabList>
-
-            <TabPanels className="px-0" p={0}>
-              {/* Student Login */}
-              <TabPanel className="px-0">
-                <StudentLoginForm />
-              </TabPanel>
-
-              {/* Staff Form */}
-              <TabPanel>
-                <StaffLoginForm />
-              </TabPanel>
-            </TabPanels>
-          </Tabs>
-
-          <div className="flex mt-4 gap-4 justify-between">
-            <Link
-              className="mt-4"
-              href={"https://gshnsch.vercel.app"}
-              color={"accent.800"}
-              fontSize={"sm"}
-              textDecoration={"underline"}
-              textUnderlineOffset={4}
-              fontWeight={"600"}
+            <Flex
+              direction={"column"}
+              alignItems={{ base: "center", md: "start" }}
+              marginBottom={4}
+              ml={1}
             >
-              Visit Website
-            </Link>
-            <Link
-              href={"/password-reset"}
-              color={"accent.800"}
-              fontSize={"sm"}
-              textDecoration={"underline"}
-              textUnderlineOffset={4}
-              fontWeight={"600"}
-            >
-              Reset Password
-            </Link>
+              <Text
+                color={"brand.900"}
+                as={"h3"}
+                fontSize={{ base: "2xl", md: "4xl" }}
+                fontWeight={"bolder"}
+              >
+                Welcome back
+              </Text>
+              <Text color={"brand.900"} as={"small"} fontSize={"md"}>
+                Fill in your details below to login
+              </Text>
+            </Flex>
+
+            {/* Use ChakraUI Tabs and it's TAB Contexts */}
+            <Tabs px={0}>
+              <TabList className="mx-2 mb-2 font-bold gap-4">
+                <Tab>Student</Tab>
+                <Tab>Staff</Tab>
+              </TabList>
+
+              <TabPanels className="px-0" p={0}>
+                {/* Student Login */}
+                <TabPanel className="px-0 -mx-2">
+                  <StudentLoginForm />
+                </TabPanel>
+
+                {/* Staff Form */}
+                <TabPanel className="px-0 -mx-2">
+                  <StaffLoginForm />
+                </TabPanel>
+              </TabPanels>
+            </Tabs>
           </div>
-        </GridItem>
-      </Grid>
+        </Box>
+      </Flex>
     </motion.div>
   );
 }

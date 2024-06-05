@@ -5,7 +5,7 @@ import ReactPortal from "../../widgets/React_portal";
 import ChartWidget from "../../widgets/Chart.widget";
 
 import { useModal } from "../../app/contexts/ModalContext";
-import { useStaffs, useStudents } from "../../hooks/";
+import { useClasses, useStaffs, useStudents } from "../../hooks/";
 
 import { Text, Grid, GridItem, Box, Flex } from "@chakra-ui/react";
 
@@ -23,12 +23,15 @@ import PageSectionHeader from "../../components/PageSectionHeader";
 import PageWrapper from "../../components/PageWrapper";
 import IconComponent from "../../components/Icon.component";
 import { useSubjects } from "../../hooks/Subjects";
+import { useGuardians } from "../../hooks/Guardians";
 
 export default function AdminHome() {
   const { openPortal } = useModal();
   const { staffsData: staffData } = useStaffs();
   const { studentsData } = useStudents();
+  const { guardiansData } = useGuardians();
   const { subjectsData } = useSubjects();
+  const { schoolClasses } = useClasses();
 
   const navigate = useNavigate();
 
@@ -77,23 +80,23 @@ export default function AdminHome() {
               color={"#FFF2DB"}
               imgSrc={"parents.png"}
               text={"Total Parents:"}
-              number={subjectsData.length}
+              number={guardiansData.length}
               onClick={() => navigate("/admin/config/academics")}
               maxW={"300px"}
             />
             <StatCardComponent
               imagePadding={2}
-              color={"#FFF2DB"}
-              imgSrc={"parents.png"}
+              color={"#DCECFF"}
+              imgSrc={"classes.svg"}
               text={"Total Classes:"}
-              number={subjectsData.length}
+              number={schoolClasses.length}
               onClick={() => navigate("/admin/config/academics")}
               maxW={"300px"}
             />
             <StatCardComponent
               imagePadding={2}
               color={"#FFF2DB"}
-              imgSrc={"parents.png"}
+              imgSrc={"book.png"}
               text={"Total Subjects:"}
               number={subjectsData.length}
               onClick={() => navigate("/admin/config/academics")}
@@ -109,7 +112,7 @@ export default function AdminHome() {
                 mt={0}
                 className=""
                 fontSize={"md"}
-                fontWeight={"bold"}
+                fontWeight={"600"}
                 color={"neutral.700"}
                 mb={4}
               >

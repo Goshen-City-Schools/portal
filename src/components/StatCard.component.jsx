@@ -20,10 +20,11 @@ export default function StatCardComponent({
       border={"1px solid transparent"}
       px={6}
       py={4}
+      h={"133px"}
       flexShrink={0}
       shadow={"sm"}
       rounded={"md"}
-      _hover={{ bg: "accent.100", borderColor: "neutral.700" }}
+      _hover={{ bg: "brand.50", borderColor: "brand.700" }}
       animation={"ease-in-out"}
       transitionDuration={".3s"}
       onClick={onClick}
@@ -37,6 +38,9 @@ export default function StatCardComponent({
         bgColor={color}
         mb={3}
         overflow={"hidden"}
+        display={"flex"}
+        flexDirection={"column"}
+        justifyContent={"space-between"}
       >
         <Image
           src={`/illustrations/${imgSrc}`}
@@ -46,16 +50,11 @@ export default function StatCardComponent({
           alt=""
         />
       </Box>
-      <Flex justifyContent={"space-between"} alignItems={"center"}>
-        <Text
-          as={"p"}
-          fontSize={"sm"}
-          fontWeight={"semibold"}
-          color={"neutral.700"}
-        >
+      <Flex justifyContent={"space-between"} mt={4} alignItems={"center"}>
+        <Text as={"p"} color={"neutral.700"} fontWeight={500}>
           {text}
         </Text>
-        <Text as={"h3"} fontWeight={"bold"} fontSize={"2xl"}>
+        <Text as={"h3"} fontWeight={600} fontSize={"3xl"}>
           {number}
         </Text>
       </Flex>
