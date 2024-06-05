@@ -66,6 +66,7 @@ export const AuthProvider = ({ children }) => {
       setUser(user);
       setIsLoading(false);
       dispatch({ type: "LOGIN" });
+      showToast("Login successful", "success");
 
       // Redirect to appropriate route based on user type
       navigateBasedOnUserType(user);
