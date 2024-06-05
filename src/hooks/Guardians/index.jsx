@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import axios from "../../api/axios";
+import { useMemo } from "react";
 
 const useGuardians = () => {
   const [guardiansData, setGuardiansData] = useState([]);
@@ -12,6 +13,7 @@ const useGuardians = () => {
         const response = await axios.get("/api/v1/guardians"); // Update with your API endpoint
         setGuardiansData(response.data);
         setLoading(false);
+        console.log(guardiansData);
       } catch (error) {
         console.error("Error fetching guardians:", error.message);
         setLoading(false);

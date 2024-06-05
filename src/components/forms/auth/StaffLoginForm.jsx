@@ -1,8 +1,13 @@
 import React, { useState } from "react";
 import { useAuth } from "../../../app/contexts/AuthContext";
 import useStaffLogin from "../../../logic/StaffLoginRequest";
-import { FormControl, FormLabel, Input, Button } from "@chakra-ui/react";
-import { MdArrowForward } from "react-icons/md";
+import {
+  FormControl,
+  FormLabel,
+  Input,
+  Button,
+  Checkbox,
+} from "@chakra-ui/react";
 
 const StaffLoginForm = () => {
   const { login, isLoading, setIsLoading } = useAuth();
@@ -17,8 +22,8 @@ const StaffLoginForm = () => {
   return (
     <>
       {/* Username */}
-      <FormControl mb={4}>
-        <FormLabel fontWeight={"bold"} color={"accent.700"} fontSize={"sm"}>
+      <FormControl mb={6}>
+        <FormLabel fontWeight={"bold"} fontSize={"sm"}>
           Username
         </FormLabel>
         <Input
@@ -29,13 +34,14 @@ const StaffLoginForm = () => {
           onChange={(e) => setUsername(e.target.value)}
           placeholder="Username"
           border={"1px"}
-          borderColor={"brand.900"}
+          bg={"neutral.100"}
+          borderColor={"#C6C6C6"}
         />
       </FormControl>
 
       {/* Password */}
       <FormControl mb={4}>
-        <FormLabel fontWeight={"bold"} color={"accent.700"} fontSize={"sm"}>
+        <FormLabel fontWeight={"bold"} fontSize={"sm"}>
           Password
         </FormLabel>
         <Input
@@ -46,13 +52,20 @@ const StaffLoginForm = () => {
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Password"
           border={"1px"}
-          borderColor={"brand.900"}
+          bg={"neutral.100"}
+          borderColor={"#C6C6C6"}
         />
+      </FormControl>
+
+      <FormControl mb={4}>
+        <Checkbox colorScheme={"blue"} fontSize={"sm"}>
+          Remember me
+        </Checkbox>
       </FormControl>
 
       {/* Login Button */}
       <Button
-        mt={8}
+        mt={16}
         bg={"brand.900"}
         border={"3px solid transparent"}
         _hover={{
@@ -70,7 +83,7 @@ const StaffLoginForm = () => {
         height={"48px"}
         className="flex items-center gap-4"
       >
-        {isLoading ? "Logging in..." : "Login"} <MdArrowForward />
+        {isLoading ? "Logging in..." : "Log in"}
       </Button>
     </>
   );

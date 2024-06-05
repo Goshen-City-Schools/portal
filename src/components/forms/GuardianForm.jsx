@@ -1,13 +1,13 @@
 import { FormButton, FormInput, FormSelect, FormTextArea } from "../shared";
 import { Grid, Flex, Button, Text, Stack } from "@chakra-ui/react";
 
-import ngStates from "../../data/nigeria_states.json";
 import { MdAdd } from "react-icons/md";
 import { useModal } from "../../app/contexts/ModalContext";
 import { useEffect, useState } from "react";
 import DynamicSuggestionDropdown from "../shared/DynamicSuggestionDropdown";
 import AddGuardianPortal from "../../portals/AddGuardian.portal";
 import { useGuardians } from "../../hooks/Guardians";
+import { registerGuardian } from "../../api/guardian.api";
 
 // TODO: Get and display appropriate error response.
 
@@ -65,6 +65,8 @@ export function GuardianFormControlller({ formData, handleInputChange }) {
 }
 
 export default function GuardianForm({ guardianData, action }) {
+  const { closePortal } = useModal();
+
   const {
     title,
     firstName,
@@ -99,7 +101,23 @@ export default function GuardianForm({ guardianData, action }) {
 
   function handleFormSubmit(e) {
     e.preventDefault();
-    console.log("Form Submitted!");
+
+    if (
+      !title ||
+      !firstName ||
+      !lastName ||
+      !occupation ||
+      !maritalStatus ||
+      !contactAddress ||
+      !stateOfResidence ||
+      !email ||
+      !phoneNumber ||
+      !whatsApp
+    )
+      return "All fields are required for guardian account creation!";
+
+    registerGuardian(formData);
+    closePortal();
   }
 
   return (
@@ -110,7 +128,7 @@ export default function GuardianForm({ guardianData, action }) {
       // Create guardian account
     >
       <FormSelect
-        disabled={action == "studentEdit"}
+        disabled={action == "guardianEdit"}
         data={[
           { name: "Mr.", value: "mr" },
           { name: "Mrs.", value: "mrs" },
@@ -131,7 +149,7 @@ export default function GuardianForm({ guardianData, action }) {
       {/* Title, Firstname, Lastname */}
       <Grid gridTemplateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }} gap={4}>
         <FormInput
-          disabled={action == "studentEdit"}
+          disabled={action == "guardianEdit"}
           name={"firstName"}
           label={"First name"}
           data={formData}
@@ -139,7 +157,7 @@ export default function GuardianForm({ guardianData, action }) {
         />
 
         <FormInput
-          action={"studentEdit"}
+          action={"guardianEdit"}
           name={"lastName"}
           label={"Surname"}
           data={formData}
@@ -149,7 +167,7 @@ export default function GuardianForm({ guardianData, action }) {
 
       {/* Relationship Status */}
       <FormSelect
-        disabled={action == "studentEdit"}
+        disabled={action == "guardianEdit"}
         data={[
           { name: "Single", value: "single" },
           { name: "Married", value: "married" },
@@ -165,7 +183,7 @@ export default function GuardianForm({ guardianData, action }) {
 
       {/* Occupation */}
       <FormSelect
-        disabled={action == "studentEdit"}
+        disabled={action == "guardianEdit"}
         data={[
           { name: "Business Owner", value: "business" },
           { name: "Civil Servant", value: "civil" },
@@ -184,7 +202,7 @@ export default function GuardianForm({ guardianData, action }) {
 
       {/* Contact Address*/}
       <FormTextArea
-        disabled={action == "studentEdit"}
+        disabled={action == "guardianEdit"}
         name={"contactAddress"}
         label={"Contact Address"}
         formData={formData}
@@ -192,7 +210,7 @@ export default function GuardianForm({ guardianData, action }) {
       />
 
       <FormInput
-        action={"studentEdit"}
+        action={"guardianEdit"}
         name={"email"}
         label={"Email"}
         data={formData}
@@ -201,7 +219,7 @@ export default function GuardianForm({ guardianData, action }) {
       />
       <Grid gridTemplateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }} gap={4}>
         <FormInput
-          action={"studentEdit"}
+          action={"guardianEdit"}
           type="tel"
           name={"phoneNumber"}
           label={"Tel. Number"}
@@ -209,7 +227,7 @@ export default function GuardianForm({ guardianData, action }) {
           handleChange={handleInputChange}
         />
         <FormInput
-          action={"studentEdit"}
+          action={"guardianEdit"}
           type="tel"
           name={"whatsappNumber"}
           label={"Whatsapp Number"}

@@ -2,7 +2,13 @@ import React, { useState } from "react";
 import useStudentLogin from "../../../logic/StudentLoginRequest";
 import { useAuth } from "../../../app/contexts/AuthContext";
 
-import { FormControl, FormLabel, Input, Button } from "@chakra-ui/react";
+import {
+  FormControl,
+  FormLabel,
+  Input,
+  Button,
+  Checkbox,
+} from "@chakra-ui/react";
 import { MdArrowForward } from "react-icons/md";
 
 const StudentLoginForm = () => {
@@ -18,8 +24,8 @@ const StudentLoginForm = () => {
   return (
     <>
       {/* Portal Id */}
-      <FormControl mb={4}>
-        <FormLabel fontWeight={"bold"} color={"accent.700"} fontSize={"sm"}>
+      <FormControl mb={6}>
+        <FormLabel fontWeight={"bold"} fontSize={"sm"}>
           Portal Id
         </FormLabel>
         <Input
@@ -30,13 +36,14 @@ const StudentLoginForm = () => {
           onChange={(e) => setStudentId(e.target.value)}
           placeholder="Portal Id"
           border={"1px"}
-          borderColor={"brand.900"}
+          bg={"neutral.100"}
+          borderColor={"#C6C6C6"}
         />
       </FormControl>
 
       {/* Password */}
       <FormControl mb={4}>
-        <FormLabel fontWeight={"bold"} color={"accent.700"} fontSize={"sm"}>
+        <FormLabel fontWeight={"bold"} fontSize={"sm"}>
           Password
         </FormLabel>
         <Input
@@ -47,13 +54,20 @@ const StudentLoginForm = () => {
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Password"
           border={"1px"}
-          borderColor={"brand.900"}
+          bg={"neutral.100"}
+          borderColor={"#C6C6C6"}
         />
+      </FormControl>
+
+      <FormControl mb={4}>
+        <Checkbox colorScheme={"blue"} fontSize={"sm"}>
+          Remember me
+        </Checkbox>
       </FormControl>
 
       {/* Login Button */}
       <Button
-        mt={8}
+        mt={16}
         bg={"brand.900"}
         border={"3px solid transparent"}
         _hover={{
@@ -71,7 +85,7 @@ const StudentLoginForm = () => {
         height={"48px"}
         className="flex items-center gap-4"
       >
-        {isLoading ? "Logging in..." : "Login"} <MdArrowForward />
+        {isLoading ? "Logging in..." : "Log in"}
       </Button>
     </>
   );

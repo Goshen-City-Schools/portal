@@ -33,6 +33,11 @@ function ChartWidget({ labels, data1, data2 }) {
         text: "2023/2023 First term",
       },
     },
+
+    layout: {
+      padding: {},
+      spacing: 20,
+    },
   };
 
   const data = {
@@ -41,7 +46,7 @@ function ChartWidget({ labels, data1, data2 }) {
       {
         label: "Male",
         data: data1,
-        backgroundColor: "#2750B1",
+        backgroundColor: "#163479",
       },
       {
         label: "Female",

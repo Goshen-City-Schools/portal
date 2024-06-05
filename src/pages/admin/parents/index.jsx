@@ -14,11 +14,13 @@ import AllParentsTable from "../../../components/tables/users/ParentsTable.compo
 import { useLocalStorage } from "../../../hooks/useLocalStorage";
 import PageSectionHeader from "../../../components/PageSectionHeader";
 import { useNavigate } from "react-router-dom";
+import { useGuardians } from "../../../hooks/Guardians";
 
 export default function ParentsPage() {
-  const { getItem } = useLocalStorage("studentsData");
   const navigate = useNavigate();
-  const existingParentsData = getItem();
+
+  const { guardiansData } = useGuardians();
+
   return (
     <PageWrapper>
       <PageSectionHeader
@@ -56,8 +58,8 @@ export default function ParentsPage() {
       </Flex>
 
       <Box p={4} bg={"white"} rounded={"md"}>
-        {existingParentsData && existingParentsData?.length > 0 ? (
-          <AllParentsTable />
+        {guardiansData && guardiansData?.length > 0 ? (
+          <AllParentsTable existingParentsData={guardiansData} />
         ) : (
           <Text as={"h2"} letterSpacing={0.5} color={"neutral.700"}>
             No Guardian data yet!
