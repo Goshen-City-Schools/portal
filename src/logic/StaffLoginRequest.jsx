@@ -4,11 +4,12 @@ import { useToast } from "@chakra-ui/react";
 const useStaffLogin = (login, isLoading, setIsLoading) => {
   const toast = useToast();
 
-  const showToast = (message, status) => {
+  const showToast = (message, status, description) => {
     toast({
       title: message,
       duration: "2000",
       position: "top-right",
+      description: description,
       status: status,
       size: "sm",
     });
@@ -18,7 +19,8 @@ const useStaffLogin = (login, isLoading, setIsLoading) => {
     async (username, password) => {
       const userType = "staff";
 
-      if (!username || !password) return;
+      if (!username || !password)
+        return showToast("Invalid credentials!", "error");
 
       const userToLogin = {
         username: username,
@@ -26,14 +28,11 @@ const useStaffLogin = (login, isLoading, setIsLoading) => {
         accountType: userType,
       };
 
-      console.log(userToLogin);
-
       try {
         setIsLoading(true);
         await login(userToLogin);
       } catch (error) {
-        console.error("Login failed:", error.message);
-        showToast("Invalid username or password", "error");
+        showToast("Login failed", "error");
       } finally {
         setIsLoading(false);
       }

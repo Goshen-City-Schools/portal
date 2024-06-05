@@ -18,7 +18,8 @@ const useStudentLogin = (login, isLoading, setIsLoading) => {
     async (studentId, password) => {
       const userType = "student";
 
-      if (!studentId || !password) return;
+      if (!studentId || !password)
+        return showToast("Invalid credentials!", "error");
 
       const userToLogin = {
         username: studentId,
@@ -26,14 +27,11 @@ const useStudentLogin = (login, isLoading, setIsLoading) => {
         accountType: userType,
       };
 
-      console.log(userToLogin);
-
       try {
         setIsLoading(true);
         await login(userToLogin);
       } catch (error) {
         console.error("Login failed:", error.message);
-        showToast("Invalid username or password", "error");
       } finally {
         setIsLoading(false);
       }

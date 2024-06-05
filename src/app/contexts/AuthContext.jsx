@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useUser } from "./UserContext";
 import axios from "../../api/axios";
 import { useState } from "react";
+import { useToast } from "@chakra-ui/react";
 
 const AuthContext = createContext();
 
@@ -27,6 +28,19 @@ export const AuthProvider = ({ children }) => {
     isAuthenticated: false,
   });
 
+  const toast = useToast();
+
+  const showToast = (message, status, description) => {
+    toast({
+      title: message,
+      duration: "2000",
+      position: "top-right",
+      description: description,
+      status: status,
+      size: "sm",
+    });
+  };
+
   const login = async (credentials) => {
     try {
       setIsLoading(!isLoading);
@@ -44,7 +58,7 @@ export const AuthProvider = ({ children }) => {
       const user = await response.data;
 
       if (!user) {
-        console.error("Login failed:", response.data.message);
+        showToast("Login failed", "error");
         setIsLoading(false);
         return;
       }
@@ -56,7 +70,7 @@ export const AuthProvider = ({ children }) => {
       // Redirect to appropriate route based on user type
       navigateBasedOnUserType(user);
     } catch (error) {
-      console.error("Login failed:", error.message);
+      showToast("Login failed", "error");
     }
   };
 

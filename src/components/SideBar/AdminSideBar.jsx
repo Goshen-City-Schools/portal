@@ -46,7 +46,7 @@ export const AdminSideBarList = ({ user, handleToggleSideMenu }) => {
 
   return (
     <List className="memuList pl-1" w={"full"}>
-      <NavItemComponent onClick={handleToggleSideMenu} link={"/admin/home"}>
+      <NavItemComponent click={handleToggleSideMenu} link={"/admin/home"}>
         <IconComponent color={"warning.200"}>
           <PiDotsNine size={16} />
         </IconComponent>
@@ -119,6 +119,7 @@ export const AdminSideBarList = ({ user, handleToggleSideMenu }) => {
         ROLES.CLASS_TEACHER,
       ]) && (
         <NavItemComponent
+          click={handleToggleSideMenu}
           submenu={[
             {
               name: "View Results",
@@ -152,6 +153,7 @@ export const AdminSideBarList = ({ user, handleToggleSideMenu }) => {
         ROLES.BURSAR,
       ]) && (
         <NavItemComponent
+          click={handleToggleSideMenu}
           submenu={[
             {
               name: "Fees",
@@ -185,6 +187,7 @@ export const AdminSideBarList = ({ user, handleToggleSideMenu }) => {
       {/* e-Library */}
       {allowedUserRoles(user, [ROLES.CLASS_TEACHER, ROLES.SUBJECT_TEACHER]) && (
         <NavItemComponent
+          click={handleToggleSideMenu}
           submenu={[
             {
               name: "Manage Evaluation",
@@ -212,6 +215,7 @@ export const AdminSideBarList = ({ user, handleToggleSideMenu }) => {
 
       {/* Events */}
       <NavItemComponent
+        click={handleToggleSideMenu}
         submenu={[
           {
             name: "Manage Events",
@@ -279,7 +283,7 @@ export const AdminSideBarList = ({ user, handleToggleSideMenu }) => {
         ROLES.IT_PERSONNEL,
         ROLES.BURSAR,
       ]) && (
-        <NavItemComponent link={"/admin/messages"}>
+        <NavItemComponent link={"/admin/messages"} click={handleToggleSideMenu}>
           <IconComponent color={"warning.200"}>
             <LuMessagesSquare size={18} />
           </IconComponent>
@@ -294,6 +298,7 @@ export const AdminSideBarList = ({ user, handleToggleSideMenu }) => {
         ROLES.BURSAR,
       ]) && (
         <NavItemComponent
+          click={handleToggleSideMenu}
           submenu={[
             {
               name: "Write",

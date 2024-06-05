@@ -9,18 +9,20 @@ import AddGuardianPortal from "../../portals/AddGuardian.portal";
 import { useGuardians } from "../../hooks/Guardians";
 import { registerGuardian } from "../../api/guardian.api";
 
+import { useToast } from "@chakra-ui/react";
+
 // TODO: Get and display appropriate error response.
+export function GuardianFormController({ formData, handleInputChange }) {
+  const { openPortal, closePortal } = useModal();
+  const { guardiansData, error, isLoading } = useGuardians();
 
-export function GuardianFormControlller({ formData, handleInputChange }) {
-  const { openPortal } = useModal();
+  const [guardianData, setGuardianData] = useState({});
 
-  // TODO: Set hook
-  const { guardiansData } = useGuardians;
-
-  // TODO: Set hook
-  const guardianData = {};
-
-  useEffect(() => {}, [guardianData]);
+  useEffect(() => {
+    if (guardiansData) {
+      setGuardianData(guardiansData);
+    }
+  }, [guardiansData]);
 
   function handleClick() {
     openPortal(<AddGuardianPortal />);
@@ -66,6 +68,7 @@ export function GuardianFormControlller({ formData, handleInputChange }) {
 
 export default function GuardianForm({ guardianData, action }) {
   const { closePortal } = useModal();
+  const toast = useToast();
 
   const {
     title,
@@ -74,9 +77,8 @@ export default function GuardianForm({ guardianData, action }) {
     occupation,
     maritalStatus,
     contactAddress,
-    stateOfResidence,
     email,
-    phoneNumber,
+    telNumber,
     whatsApp,
   } = guardianData || {};
 
@@ -87,9 +89,8 @@ export default function GuardianForm({ guardianData, action }) {
     occupation: occupation || "",
     maritalStatus: maritalStatus || "",
     contactAddress: contactAddress || "",
-    stateOfResidence: stateOfResidence || "",
     email: email || "",
-    phoneNumber: phoneNumber || "",
+    telNumber: telNumber || "",
     whatsApp: whatsApp || "",
   });
 
@@ -103,21 +104,40 @@ export default function GuardianForm({ guardianData, action }) {
     e.preventDefault();
 
     if (
-      !title ||
-      !firstName ||
-      !lastName ||
-      !occupation ||
-      !maritalStatus ||
-      !contactAddress ||
-      !stateOfResidence ||
-      !email ||
-      !phoneNumber ||
-      !whatsApp
-    )
-      return "All fields are required for guardian account creation!";
+      !formData.title ||
+      !formData.firstName ||
+      !formData.lastName ||
+      !formData.occupation ||
+      !formData.maritalStatus ||
+      !formData.contactAddress ||
+      !formData.email ||
+      !formData.telNumber
+    ) {
+      const registrationError = toast({
+        title: "Account Creation Error",
+        description: "All fields are required for guardian account creation!",
+        status: "error",
+        position: "top-right",
+        duration: 1000,
+      });
+      return;
+    }
 
-    registerGuardian(formData);
-    closePortal();
+    registerGuardian(formData)
+      .then((response) => {
+        closePortal();
+        const registrationSuccess = toast({
+          title: "Account Creation Successful!",
+          description: "Guardian registered successfully!",
+          status: "success",
+          position: "top-right",
+          duration: 1000,
+        });
+        console.log();
+      })
+      .catch((error) => {
+        console.error("Error registering guardian:", error);
+      });
   }
 
   return (
@@ -221,7 +241,7 @@ export default function GuardianForm({ guardianData, action }) {
         <FormInput
           action={"guardianEdit"}
           type="tel"
-          name={"phoneNumber"}
+          name={"telNumber"}
           label={"Tel. Number"}
           data={formData}
           handleChange={handleInputChange}
@@ -229,7 +249,7 @@ export default function GuardianForm({ guardianData, action }) {
         <FormInput
           action={"guardianEdit"}
           type="tel"
-          name={"whatsappNumber"}
+          name={"whatsApp"}
           label={"Whatsapp Number"}
           data={formData}
           handleChange={handleInputChange}

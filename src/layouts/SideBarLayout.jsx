@@ -26,7 +26,6 @@ export default function SideBarLayout() {
   const dispatch = useDispatch();
   const { user } = useUser();
   const isSideMenuOpen = useSelector((state) => state.menu.isSideMenuOpen);
-  console.log(user);
 
   const handleToggleSideMenu = () => {
     dispatch(toggleSideMenu());

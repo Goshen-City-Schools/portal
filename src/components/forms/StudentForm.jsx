@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import { VStack, Flex, Box, Text, Button, Spacer } from "@chakra-ui/react";
 
-import { GuardianFormControlller } from "./GuardianForm";
+import { GuardianFormController } from "./GuardianForm";
 import StudentDetailsForm from "./StudentDetailsForm";
 import StudentSubjectsTableForm from "./StudentSubjectsTableForm";
 import { useSubjects } from "../../hooks/Subjects";
@@ -161,7 +161,7 @@ export default function StudentForm({ action, studentData }) {
     {
       title: "Parents Details",
       component: (
-        <GuardianFormControlller
+        <GuardianFormController
           handleInputChange={handleChange}
           formData={formData}
         />
