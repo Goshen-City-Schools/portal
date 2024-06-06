@@ -81,7 +81,7 @@ export default function AdminHome() {
               imgSrc={"parents.png"}
               text={"Total Parents:"}
               number={guardiansData.length}
-              onClick={() => navigate("/admin/config/academics")}
+              onClick={() => navigate("/admin/parents")}
               maxW={"300px"}
             />
             <StatCardComponent
