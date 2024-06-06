@@ -10,6 +10,7 @@ import { useGuardians } from "../../hooks/Guardians";
 import { registerGuardian } from "../../api/guardian.api";
 
 import { useToast } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 
 // TODO: Get and display appropriate error response.
 export function GuardianFormController({ formData, handleInputChange }) {
@@ -68,6 +69,7 @@ export function GuardianFormController({ formData, handleInputChange }) {
 
 export default function GuardianForm({ guardianData, action }) {
   const { closePortal } = useModal();
+  const navigate = useNavigate();
   const toast = useToast();
 
   const {
@@ -133,10 +135,16 @@ export default function GuardianForm({ guardianData, action }) {
           position: "top-right",
           duration: 1000,
         });
-        console.log();
+        navigate("/admin/parents");
       })
       .catch((error) => {
-        console.error("Error registering guardian:", error);
+        const registrationeror = toast({
+          title: "Error registering guardian",
+          description: error,
+          status: "error",
+          position: "top-right",
+          duration: 1000,
+        });
       });
   }
 
