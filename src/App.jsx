@@ -62,6 +62,7 @@ import WriteDashboard from "./pages/admin/write";
 import WebsiteConfigPage from "./pages/admin/configs/WebsiteConfig.page";
 import FeespPage from "./pages/admin/finance/fees";
 import UserInvoicePage from "./pages/user/payments/invoices/invoice";
+import SearchResultPage from "./pages/admin/results/SearchResult";
 
 const App = () => {
   return (
@@ -99,9 +100,10 @@ const App = () => {
         </Route>
 
         <Route path="results">
-          <Route index element={<ClassResultsPage />} />
+          <Route index element={<SearchResultPage />} />
           {/* <Route path="view" element={<ResultsViewPage />} /> */}
           {/* <Route path="upload" element={<UploadResultPage />} /> */}
+          <Route path=":schoolClass" element={<ClassResultsPage />} />
           {/* <Route path=":session/:term/:portalId" element={<ResultSinglePage />} /> */}
         </Route>
 

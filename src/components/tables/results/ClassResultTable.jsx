@@ -33,7 +33,7 @@ const ClassResultTable = ({ data }) => {
       Cell: ({ row }) => <RowId row={row} />,
     },
     {
-      Header: "Subject",
+      Header: "Student ID",
       accessor: "subject",
       Cell: ({ value }) => {
         console.log(value);
@@ -41,8 +41,28 @@ const ClassResultTable = ({ data }) => {
       },
     },
     {
-      Header: "Status",
+      Header: "Full name",
       accessor: "fullname",
+    },
+    {
+      Header: "CA",
+      accessor: "ca",
+    },
+    {
+      Header: "Exams",
+      accessor: "exams",
+    },
+    {
+      Header: "Total",
+      accessor: "total",
+    },
+    {
+      Header: "Grade",
+      accessor: "grade",
+    },
+    {
+      Header: "Remark",
+      accessor: "remark",
     },
 
     {

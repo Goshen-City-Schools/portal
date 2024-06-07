@@ -40,7 +40,12 @@ const routes = [
 
   {
     path: "/admin/results",
-    allowedRoles: [ROLES.IT_PERSONNEL, ROLES.BURSAR],
+    allowedRoles: [
+      ROLES.IT_PERSONNEL,
+      ROLES.BURSAR,
+      ROLES.CLASS_TEACHER,
+      ROLES.SUBJECT_TEACHER,
+    ],
     allowedAccountTypes: ["staff"],
   },
   {
@@ -305,9 +310,7 @@ const PermissionMiddleware = ({ children }) => {
     if (currentRoute) {
       const isAllowed =
         (!user.roles ||
-          currentRoute.allowedRoles.some((role) =>
-            user.roles.map((userRole) => userRole.name === role.name)
-          )) &&
+          currentRoute.allowedRoles.some((role) => user.roles.id === role)) &&
         currentRoute.allowedAccountTypes.includes(user.accountType);
 
       if (!isAllowed) {
