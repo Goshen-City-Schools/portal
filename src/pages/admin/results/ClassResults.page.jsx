@@ -46,6 +46,8 @@ export default function ClassResultsPage() {
 
   const { openPortal } = useModal();
 
+  if (!resultData) return;
+
   return (
     <PageWrapper overflowX={"scroll"}>
       <PageSectionHeader pageTitle={"Results"} pageCrumb={"Home / Results"} />
@@ -148,7 +150,7 @@ export default function ClassResultsPage() {
         ) : error ? (
           <Text>Error: {error}</Text>
         ) : (
-          <ClassResultTable data={resultData} />
+          resultData && <ClassResultTable data={resultData} />
         )}
       </div>
     </PageWrapper>
