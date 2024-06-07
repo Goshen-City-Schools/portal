@@ -72,6 +72,8 @@ export default function StaffProfileScreen({
     staff?.subjects || []
   );
 
+  console.log(existingStaffData, staff);
+
   const handleDeleteAction = async (staffId) => {
     if (user.portalId === staffId) {
       // Prevent staff from deleting themselves
@@ -226,103 +228,172 @@ export default function StaffProfileScreen({
   }
 
   return (
-    <Grid gap={2}>
+    <Grid>
+      <Box bg={"white"} py={4} mt={8} rounded={"xl"}>
+        <Flex gap={4}>
+          {/* Avatar Management */}
+          <Grid
+            gap={4}
+            px={6}
+            py={4}
+            w={"full"}
+            rounded={"lg"}
+            alignContent={"center"}
+            justifyContent={"center"}
+            pb={4}
+            position={"relative"}
+            minW={"200px"}
+            maxW={{ base: "none", md: "240px" }}
+          >
+            <Avatar
+              width={{ base: 120, md: 128 }}
+              height={{ base: 120, md: 128 }}
+              imageUrl={
+                selectedFile
+                  ? URL.createObjectURL(selectedFile)
+                  : staff.avatarImageURL
+                  ? staff.avatarImageURL
+                  : "/avatar.png"
+              }
+            />
+
+            <Flex
+              justifyContent={"center"}
+              w={"full"}
+              pt={2}
+              position={{ "base": "relative" }}
+              bottom={{ "base": "0", "md": 4 }}
+            >
+              <UpdateAvatarButton
+                selectedFile={selectedFile}
+                setSelectedFile={setSelectedFile}
+                theUser={staff}
+              />
+            </Flex>
+          </Grid>
+
+          <Flex justifyContent={"space-between"} w={"full"} gap={4}>
+            <Grid w={"full"}>
+              <Text
+                as={"h3"}
+                textTransform={"capitalize"}
+                fontSize={"lg"}
+                fontWeight={600}
+                mt={2}
+                mb={4}
+              >
+                Class Teacher
+              </Text>
+            </Grid>
+
+            <Grid w={"full"}>
+              <Text
+                as={"h3"}
+                textTransform={"capitalize"}
+                fontSize={"lg"}
+                fontWeight={600}
+                mt={2}
+                mb={4}
+              >
+                Subject Teacher
+              </Text>
+            </Grid>
+
+            <Grid w={"full"}>
+              <Text
+                as={"h3"}
+                textTransform={"capitalize"}
+                fontSize={"lg"}
+                fontWeight={600}
+                mt={2}
+                mb={4}
+              >
+                Classes
+              </Text>
+            </Grid>
+          </Flex>
+        </Flex>
+      </Box>
+
       <Flex
+        w={"full"}
         gap={4}
         py={4}
         direction={{ "base": "column", "md": "row" }}
         rounded={"lg"}
       >
-        <Grid
-          gap={4}
-          px={6}
+        <Box
+          p={4}
+          pb={8}
+          alignItems={"start"}
           w={"full"}
           rounded={"lg"}
-          alignContent={"center"}
-          justifyContent={"center"}
           bg={"white"}
-          pb={4}
           position={"relative"}
           minW={"200px"}
-          maxW={{ base: "none", md: "240px" }}
+          height={"max-content"}
+          maxW={{ base: "none", md: "260px" }}
         >
-          <Avatar
-            width={{ base: 120, md: 128 }}
-            height={{ base: 120, md: 128 }}
-            imageUrl={
-              selectedFile
-                ? URL.createObjectURL(selectedFile)
-                : staff.avatarImageURL
-                ? staff.avatarImageURL
-                : "/avatar.png"
-            }
-          />
-
-          <Flex
-            justifyContent={"center"}
-            w={"full"}
-            pt={10}
-            position={{ "base": "relative", "md": "absolute" }}
-            bottom={{ "base": "0", "md": 4 }}
+          <Text
+            as={"h3"}
+            textTransform={"capitalize"}
+            fontWeight={"bold"}
+            fontSize={"xl"}
+            mb={4}
           >
-            <UpdateAvatarButton
-              selectedFile={selectedFile}
-              setSelectedFile={setSelectedFile}
-              theUser={staff}
-            />
-          </Flex>
-        </Grid>
+            Personal Details
+          </Text>
+
+          <Grid gap={4} color={"neutral.700"}>
+            <InfoBox icon={<MdPersonOutline size={20} />} label={"Full Name"}>
+              {name}
+            </InfoBox>
+
+            <InfoBox icon={<MdPersonOutline size={20} />} label={"Gender"}>
+              {gender}
+            </InfoBox>
+
+            <InfoBox
+              icon={<MdCalendarMonth size={20} />}
+              label={"Email address"}
+            >
+              <Text as={"p"} textTransform={""} fontFamily={"monospace"}>
+                {dayjs(dateOfBirth).format("dddd, MMM D")}
+              </Text>
+            </InfoBox>
+
+            <InfoBox
+              icon={<MdPersonOutline size={20} />}
+              label={"Phone Number"}
+            >
+              {gender}
+            </InfoBox>
+          </Grid>
+        </Box>
 
         <Flex
           direction={"column"}
           justifyContent={"space-between"}
-          bg={"white"}
-          rounded={"lg"}
           w={"full"}
           pl={4}
+          gap={4}
           pr={6}
         >
           <Grid
+            bg={"white"}
+            rounded={"lg"}
             gap={4}
             gridTemplateColumns={{ "base": "1fr", "md": "repeat(2, 1fr)" }}
             position={"relative"}
           >
-            <GridItem
-              bg={"white"}
-              py={4}
-              px={{ base: 4, md: 6 }}
-              rounded={"lg"}
-            >
-              <Text
-                as={"h3"}
-                letterSpacing={1}
-                color={"brand.700"}
-                textTransform={"uppercase"}
-                fontWeight={"bold"}
-                mt={2}
-                mb={4}
-              >
-                Personal Details
-              </Text>
+            <GridItem py={4} px={{ base: 4, md: 6 }} rounded={"lg"}>
               <Grid gap={5} color={"neutral.700"}>
-                <InfoBox
-                  icon={<MdPersonOutline size={20} />}
-                  label={"Full name"}
-                >
+                <InfoBox icon={<MdPersonOutline size={20} />} label={"Role"}>
                   {name}
                 </InfoBox>
 
                 <InfoBox icon={<MdPersonOutline size={20} />} label={"Gender"}>
                   {gender}
-                </InfoBox>
-
-                <InfoBox
-                  icon={<MdCalendarMonth size={20} />}
-                  label={"Date of Birth"}
-                >
-                  <Text as={"p"} textTransform={""} fontFamily={"monospace"}>
-                    {dayjs(dateOfBirth).format("dddd, MMM D")}
-                  </Text>
                 </InfoBox>
               </Grid>
             </GridItem>
@@ -333,18 +404,6 @@ export default function StaffProfileScreen({
               px={{ base: 4, md: 6 }}
               rounded={"lg"}
             >
-              <Text
-                as={"h3"}
-                letterSpacing={1}
-                color={"brand.700"}
-                textTransform={"uppercase"}
-                fontWeight={"bold"}
-                mt={2}
-                mb={4}
-              >
-                Contact Details
-              </Text>
-
               <Grid gap={5} color={"neutral.700"}>
                 <InfoBox
                   icon={<MdOutlineMailOutline size={20} />}
@@ -355,13 +414,6 @@ export default function StaffProfileScreen({
 
                 <InfoBox icon={<MdPhone size={20} />} label={"Phone Number"}>
                   {telNumber}
-                </InfoBox>
-
-                <InfoBox
-                  icon={<MdWhatsapp size={20} />}
-                  label={"WhatsApp Number"}
-                >
-                  {whatsApp}
                 </InfoBox>
               </Grid>
             </GridItem>
@@ -387,242 +439,97 @@ export default function StaffProfileScreen({
             )}
           </Grid>
 
-          <ButtonGroup
-            display={"flex"}
-            w={"full"}
-            mt={4}
-            mb={4}
-            gap={3}
-            justifyContent={"flex-end"}
-          >
-            <Button
-              fontSize={"sm"}
-              leftIcon={<FaRegIdCard />}
-              size={"sm"}
-              colorScheme="purple"
-              variant={"outline"}
-              onClick={() => openPortal()}
+          <Box bg={"white"} rounded={"lg"} py={4} px={{ base: 4, md: 6 }}>
+            <Text
+              as={"h3"}
+              textTransform={"capitalize"}
+              fontSize={"xl"}
+              fontWeight={600}
+              mt={2}
+              mb={4}
             >
-              Staff ID Card
-            </Button>
-          </ButtonGroup>
+              Educational Qualiications
+            </Text>
+
+            <Grid
+              gap={4}
+              gridTemplateColumns={{ "base": "1fr", "md": "repeat(2, 1fr)" }}
+              position={"relative"}
+            >
+              <GridItem>
+                <Grid gap={5} color={"neutral.700"}>
+                  <InfoBox icon={<MdPersonOutline size={20} />} label={"Role"}>
+                    {name}
+                  </InfoBox>
+
+                  <InfoBox
+                    icon={<MdPersonOutline size={20} />}
+                    label={"Gender"}
+                  >
+                    {gender}
+                  </InfoBox>
+
+                  <InfoBox
+                    icon={<MdCalendarMonth size={20} />}
+                    label={"Date of Birth"}
+                  >
+                    <Text as={"p"} textTransform={""} fontFamily={"monospace"}>
+                      {dayjs(dateOfBirth).format("dddd, MMM D")}
+                    </Text>
+                  </InfoBox>
+                </Grid>
+              </GridItem>
+
+              <GridItem
+                bg={"white"}
+                py={4}
+                px={{ base: 4, md: 6 }}
+                rounded={"lg"}
+              >
+                <Grid gap={5} color={"neutral.700"}>
+                  <InfoBox
+                    icon={<MdOutlineMailOutline size={20} />}
+                    label={"Email"}
+                  >
+                    {email}
+                  </InfoBox>
+
+                  <InfoBox icon={<MdPhone size={20} />} label={"Phone Number"}>
+                    {telNumber}
+                  </InfoBox>
+
+                  <InfoBox
+                    icon={<MdWhatsapp size={20} />}
+                    label={"WhatsApp Number"}
+                  >
+                    {whatsApp}
+                  </InfoBox>
+                </Grid>
+              </GridItem>
+
+              {allowedUserRoles(user, ["IT Personnel"]) && (
+                <Button
+                  onClick={() => handleDeleteAction(staff.portalId)}
+                  position={"absolute"}
+                  right={2}
+                  top={4}
+                  leftIcon={<MdOutlineDeleteOutline size={18} />}
+                  colorScheme="red"
+                  variant={"outline"}
+                  fontSize={"sm"}
+                  size={"xs"}
+                  pr={0}
+                  py={4}
+                  w={"max-content"}
+                  display={"flex"}
+                  alignItems={"center"}
+                  justifyContent={"center"}
+                />
+              )}
+            </Grid>
+          </Box>
         </Flex>
       </Flex>
-
-      <Grid
-        gap={4}
-        bg={"white"}
-        gridTemplateColumns={{ base: "1fr", md: "repeat(3, 1fr)" }}
-        px={6}
-        py={4}
-        w={"full"}
-        rounded={"lg"}
-        alignContent={"center"}
-        justifyContent={"center"}
-      >
-        <GridItem display={"grid"} gap={4}>
-          <InfoBox label={"Nationality"} icon={<GiCoronation />}>
-            <Text
-              as="p"
-              fontSize={"sm"}
-              letterSpacing={0.8}
-              textTransform={"uppercase"}
-            >
-              Nigerian
-            </Text>
-          </InfoBox>{" "}
-          <InfoBox icon={<GiCoronation />} label={"State of Origin"}>
-            ""
-          </InfoBox>
-        </GridItem>
-
-        <GridItem display={"grid"} gap={4}>
-          <InfoBox label={"L.G.A"} icon={<GiCoronation />}>
-            <Text
-              as="p"
-              fontSize={"sm"}
-              letterSpacing={0.8}
-              textTransform={"uppercase"}
-            >
-              L.G.A
-            </Text>
-          </InfoBox>{" "}
-          <InfoBox icon={<GiCoronation />} label={"Religion"}>
-            ""
-          </InfoBox>
-        </GridItem>
-
-        <GridItem display={"grid"} gap={4}>
-          <InfoBox label={"Blood Group"} icon={<GiCoronation />}>
-            <Text
-              as="p"
-              fontSize={"sm"}
-              letterSpacing={0.8}
-              textTransform={"uppercase"}
-            >
-              ""
-            </Text>
-          </InfoBox>{" "}
-          <InfoBox icon={<GiCoronation />} label={"Genotype"}>
-            ""
-          </InfoBox>
-        </GridItem>
-      </Grid>
-
-      <GridItem
-        gap={6}
-        gridTemplateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }}
-        pt={6}
-        py={4}
-        mt={4}
-        bg={"white"}
-        px={{ base: 4, md: 6 }}
-        w={"full"}
-        display={"grid"}
-        rounded={"lg"}
-      >
-        <Box display={"flex"} flexWrap={"wrap"}>
-          <Flex gap={4}>
-            <IconComponent>
-              <MdPersonOutline size={20} />
-            </IconComponent>
-
-            <Box w="full">
-              <Flex justifyContent="space-between" w="full" alignItems="center">
-                <Text as="h3" mb={1} fontWeight="semibold">
-                  Username
-                </Text>
-              </Flex>
-
-              <Text
-                as="p"
-                fontSize={"sm"}
-                letterSpacing={0.8}
-                textTransform={"uppercase"}
-              >
-                {username}
-              </Text>
-            </Box>
-          </Flex>
-        </Box>
-
-        <Box display={"flex"} flexWrap={"wrap"}>
-          <Flex gap={4}>
-            <IconComponent>
-              <MdPersonOutline size={20} />
-            </IconComponent>
-
-            <Box w="full">
-              <Flex justifyContent="space-between" w="full" alignItems="center">
-                <Text as="h3" fontWeight="semibold">
-                  Roles
-                </Text>
-
-                {roles?.length > 0 && (
-                  <Grid
-                    height={7}
-                    w={7}
-                    bg="transparent"
-                    color="neutral.700"
-                    rounded="lg"
-                    placeItems="center"
-                    border="1px solid"
-                    borderColor="neutral.700"
-                    onClick={() => handleAssignClick("roles")}
-                    cursor="pointer"
-                  >
-                    <IconComponent h="full" w="full">
-                      <MdEdit />
-                    </IconComponent>
-                  </Grid>
-                )}
-              </Flex>
-
-              <Flex w="full" gap={4} mt={2} flexWrap={"wrap"}>
-                {roles && roles?.length > 0 ? (
-                  roles?.map((role, index) => (
-                    <Tag
-                      flexShrink={0}
-                      size="sm"
-                      key={index}
-                      variant="solid"
-                      colorScheme="facebook"
-                    >
-                      {role.name}
-                    </Tag>
-                  ))
-                ) : (
-                  <Box>
-                    <Text as="small" mb={4}>
-                      No Roles assigned yet!
-                    </Text>
-                    <Button
-                      display="flex"
-                      w="max-content"
-                      size="sm"
-                      fontSize="xs"
-                      variant="outline"
-                      colorScheme="facebook"
-                      leftIcon={<MdAdd size={18} />}
-                      onClick={() => handleAssignClick("roles")}
-                    >
-                      Assign Roles
-                    </Button>
-                  </Box>
-                )}
-              </Flex>
-            </Box>
-          </Flex>
-        </Box>
-
-        {roles?.some((role) =>
-          ["Subject Teacher", "School Teacher", "Class Teacher"].includes(role)
-        ) && (
-          <>
-            <InfoBox label={"Subjects"} icon={<MdPersonOutline size={20} />}>
-              {subjects?.length > 0 && (
-                <Grid
-                  height={7}
-                  w={7}
-                  bg="transparent"
-                  color="neutral.700"
-                  rounded="lg"
-                  placeItems="center"
-                  border="1px solid"
-                  borderColor="neutral.700"
-                  onClick={() => handleAssignClick("subjects")}
-                  cursor="pointer"
-                >
-                  <IconComponent h="full" w="full">
-                    <MdEdit />
-                  </IconComponent>
-                </Grid>
-              )}
-            </InfoBox>
-
-            <InfoBox label={"Classes"} icon={<MdClass />}>
-              {classes?.length > 0 && (
-                <Grid
-                  height={7}
-                  w={7}
-                  bg="transparent"
-                  color="neutral.700"
-                  rounded="lg"
-                  placeItems="center"
-                  border="1px solid"
-                  borderColor="neutral.700"
-                  onClick={() => handleAssignClick("classes")}
-                  cursor="pointer"
-                >
-                  <IconComponent h="full" w="full">
-                    <MdEdit />
-                  </IconComponent>
-                </Grid>
-              )}
-            </InfoBox>
-          </>
-        )}
-      </GridItem>
     </Grid>
   );
 }

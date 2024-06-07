@@ -3,10 +3,10 @@ import IconComponent from "../Icon.component";
 
 const InfoBox = ({ icon, label, children }) => (
   <Box>
-    <Flex gap={4}>
+    <Flex gap={2}>
       <IconComponent>{icon}</IconComponent>
-      <Box>
-        <Text as="h3" fontSize="sm" fontWeight="semibold">
+      <Flex flexDirection={"column"} gap={1}>
+        <Text as="h3" fontSize="18" fontWeight="semibold">
           {label}
         </Text>
         <Text
@@ -15,7 +15,7 @@ const InfoBox = ({ icon, label, children }) => (
         >
           {children}
         </Text>
-      </Box>
+      </Flex>
     </Flex>
   </Box>
 );

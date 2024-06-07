@@ -96,7 +96,6 @@ export default function UpdateAvatarButton({
           w={"max-full"}
           colorScheme="purple"
           variant={"outline"}
-          size={"sm"}
         >
           Update avatar
         </Button>
@@ -107,7 +106,6 @@ export default function UpdateAvatarButton({
             display={"flex"}
             w={"max-full"}
             colorScheme="facebook"
-            size={"sm"}
             isLoading={isLoading}
           >
             Upload Image
