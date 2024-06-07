@@ -46,6 +46,7 @@ import ManageFees from "../pages/admin/finance/fees/ManageFees";
 import { Routes } from "react-router-dom";
 import FeesPage from "../pages/user/fees";
 import DashboardLayout from "../layouts/DashboardLayout";
+import SearchResultPage from "../pages/admin/results/SearchResult";
 
 const router = (
   <Routes>
@@ -93,7 +94,7 @@ const router = (
         </Route>
 
         <Route path="results">
-          <Route index element={<ResultPage />} />
+          <Route index element={<SearchResultPage />} />
           <Route path="view" element={<ResultsViewPage />} />
           <Route path="upload" element={<UploadResultPage />} />
           <Route path="settings" element={<ResultSettingsPage />} />

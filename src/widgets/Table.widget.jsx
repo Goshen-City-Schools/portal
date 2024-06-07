@@ -100,8 +100,8 @@ const DataTable = ({ columns, data, fullWidthColumns, customPageSize }) => {
               <Tr key={index} {...row.getRowProps()} pt={0} pb={0}>
                 {row.cells.map((cell, index) => (
                   <Td
-                    pt={2}
-                    pb={2}
+                    pt={0}
+                    pb={0}
                     key={index}
                     {...cell.getCellProps()}
                     width={

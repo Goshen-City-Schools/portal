@@ -17,6 +17,7 @@ import { useClasses } from "../../../hooks";
 import { useResults } from "../../../hooks/Results";
 import { useAcademicSessions, useAcademicTerms } from "../../../hooks/Acadmics";
 import getOrdinal from "../../../helpers/getOrninals";
+import { useSubjects } from "../../../hooks/Subjects";
 
 export default function ClassResultsPage() {
   const handlePrint = () => {
@@ -31,6 +32,7 @@ export default function ClassResultsPage() {
 
   const { sessions } = useAcademicSessions();
   const { terms } = useAcademicTerms();
+  const { subjectsData } = useSubjects();
 
   const { resultData, loading, error } = useResults(
     session,
@@ -71,23 +73,6 @@ export default function ClassResultsPage() {
       </Flex>
 
       <Flex gap={4}>
-        {/* Class Select */}
-        <FormControl>
-          <FormLabel className="!text-sm !font-bold">Class:</FormLabel>
-          <Select
-            size={"sm"}
-            value={classId}
-            onChange={(e) => setClassId(e.target.value)}
-          >
-            <option value={""}>-- Select Class --</option>
-            {schoolClasses.map((schoolClass) => (
-              <option key={schoolClass.id} value={schoolClass.id}>
-                {schoolClass.schoolClass?.name}
-              </option>
-            ))}
-          </Select>
-        </FormControl>
-
         {/* Session Select */}
         <FormControl>
           <FormLabel className="!text-sm !font-bold">Session</FormLabel>
@@ -99,7 +84,7 @@ export default function ClassResultsPage() {
             <option value={""}>-- Select Session --</option>
             {sessions.map((session) => (
               <option key={session.id} value={session.id}>
-                {session.startYear} - {session.endYear}
+                {session.startYear} / {session.endYear} Session
               </option>
             ))}
           </Select>
@@ -117,6 +102,40 @@ export default function ClassResultsPage() {
             {terms.map((term) => (
               <option key={term.id} value={term.id}>
                 {`${getOrdinal(term.term)} Term `}
+              </option>
+            ))}
+          </Select>
+        </FormControl>
+
+        {/* Class Select */}
+        <FormControl>
+          <FormLabel className="!text-sm !font-bold">Class:</FormLabel>
+          <Select
+            size={"sm"}
+            value={classId}
+            onChange={(e) => setClassId(e.target.value)}
+          >
+            <option value={""}>-- Select Class --</option>
+            {schoolClasses.map((schoolClass) => (
+              <option key={schoolClass.id} value={schoolClass.id}>
+                {schoolClass.schoolClass?.name}
+              </option>
+            ))}
+          </Select>
+        </FormControl>
+
+        {/* Subject Select */}
+        <FormControl>
+          <FormLabel className="!text-sm !font-bold">Subject:</FormLabel>
+          <Select
+            size={"sm"}
+            value={subjectId}
+            onChange={(e) => setTerm(e.target.value)}
+          >
+            <option value={""}>-- Select Subject --</option>
+            {subjectsData.map((subject) => (
+              <option key={subject.id} value={subject.id}>
+                {subject.name}
               </option>
             ))}
           </Select>

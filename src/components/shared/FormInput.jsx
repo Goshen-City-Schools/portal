@@ -14,15 +14,19 @@ export default function FormInput({
 
   return (
     <FormControl id={name}>
-      <FormLabel fontWeight={"bold"} fontSize={"xs"}>
+      <FormLabel fontWeight={"semibold"} fontSize={"base"}>
         {label}
       </FormLabel>
       <Input
         type={type}
         name={name}
+        px={4}
+        py={3}
         fontSize={"sm"}
         value={data[name]}
         placeholder={placeholder}
+        border={"1px"}
+        borderColor={"gray.300"}
         onChange={handleChange}
         bg={hasValue ? "gray.100" : "white"} // Set the background color based on whether there's a value
         {...params}

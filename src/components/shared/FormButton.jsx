@@ -10,12 +10,17 @@ export default function FormButton({
   return (
     <Button
       w={"max-content"}
-      leftIcon={<MdUpload />}
+      // leftIcon={}
       mt={4}
+      py={3}
+      px={4}
       mx={"auto"}
-      colorScheme="facebook"
+      rounded={"sm"}
+      bg={"blue.600"}
+      minW={"144px"}
+      minH={"48px"}
+      textColor={"white"}
       type={type}
-      size={"sm"}
       isLoading={loading}
       {...params}
     >
