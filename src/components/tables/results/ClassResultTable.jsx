@@ -9,6 +9,8 @@ import { useResults } from "../../../hooks/Results";
 import { useState } from "react";
 
 import { Text } from "@chakra-ui/react";
+import { assignGrade } from "../../../utilities/assignGrade";
+import { FullName } from "../shared";
 
 const ClassResultTable = ({ data }) => {
   const actionsMenu = (id) => [
@@ -34,31 +36,50 @@ const ClassResultTable = ({ data }) => {
     },
     {
       Header: "Student ID",
-      accessor: "subject",
+      accessor: "student",
       Cell: ({ value }) => {
-        console.log(value);
-        return <Text>{value?.name}</Text>;
+        return <Text>GSHN/STU/{value?.studentId}</Text>;
       },
     },
     {
       Header: "Full name",
-      accessor: "fullname",
+      accessor: "first_name",
+      Cell: ({ row }) => (
+        <Text as={"p"} textTransform={"capitalize"}>
+          {row.original?.student?.first_name} {row.original?.student?.last_name}
+          {row.original?.student?.other_name}
+        </Text>
+      ),
     },
     {
-      Header: "CA",
-      accessor: "ca",
+      Header: "CA 1",
+      accessor: "test1",
+    },
+    {
+      Header: "CA 2",
+      accessor: "test2",
     },
     {
       Header: "Exams",
-      accessor: "exams",
+      accessor: "exam",
     },
     {
       Header: "Total",
       accessor: "total",
+      Cell: ({ row }) =>
+        Number(row?.original.test1) +
+        Number(row?.original.test1) +
+        Number(row?.original.exam),
     },
     {
       Header: "Grade",
       accessor: "grade",
+      Cell: ({ row }) =>
+        assignGrade(
+          Number(row?.original.test1) +
+            Number(row?.original.test1) +
+            Number(row?.original.exam)
+        ),
     },
     {
       Header: "Remark",
