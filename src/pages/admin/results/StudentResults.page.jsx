@@ -59,7 +59,7 @@ export default function StudentResultsPage() {
       <div className="no-print">
         <PageSectionHeader
           pageTitle={`${studentData?.first_name} ${studentData?.last_name} Result`}
-          pageCrumb={"Home / Results / View Result"}
+          pageCrumb={`Home / Results / ${studentData?.first_name} ${studentData?.last_name}`}
         />
       </div>
 
@@ -107,22 +107,6 @@ export default function StudentResultsPage() {
             {schoolClasses.map((schoolClass) => (
               <option key={schoolClass.id} value={schoolClass.id}>
                 {schoolClass.schoolClass?.name}
-              </option>
-            ))}
-          </Select>
-        </FormControl>
-
-        {/* Subject Select */}
-        <FormControl>
-          <Select
-            bg={"white"}
-            value={subjectId}
-            onChange={(e) => setTerm(e.target.value)}
-          >
-            <option value={""}>-- Select Subject --</option>
-            {subjectsData.map((subject) => (
-              <option key={subject.id} value={subject.id}>
-                {subject.name}
               </option>
             ))}
           </Select>
