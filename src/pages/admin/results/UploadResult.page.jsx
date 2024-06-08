@@ -6,16 +6,19 @@ import { Text, Flex, Box, Button } from "@chakra-ui/react";
 import IconComponent from "../../../components/Icon.component";
 import { MdAdd, MdIcecream, MdUploadFile } from "react-icons/md";
 import AddResultPortal from "../../../portals/shared/AddResult.portal";
+import ResultForm from "../../../components/forms/ResultForm";
 
 export default function UploadResultPage() {
   return (
     <PageWrapper>
       <PageSectionHeader
-        pageTitle={"Upload Results"}
-        pageCrumb={"Home / Results / Upload Results"}
+        pageTitle={"Add New Result"}
+        pageCrumb={"Home / Results / New"}
       />
 
-      <AddResultPortal />
+      <div className="mt-8">
+        <ResultForm />
+      </div>
     </PageWrapper>
   );
 }

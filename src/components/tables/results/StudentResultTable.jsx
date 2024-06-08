@@ -1,21 +1,32 @@
 import React from "react";
 
-import { Flex, Text, Tag } from "@chakra-ui/react";
-import { getNumberOfStudentsInClass } from "../../pages/admin/classes/Index.page";
-import RowId from "./shared/RowId";
-import ActionsPopUp from "../../widgets/ActionsPopUp";
+import ActionsPopUp from "../../../widgets/ActionsPopUp";
 import { IoMdEye } from "react-icons/io";
-import { MdDelete, MdEdit } from "react-icons/md";
+import { MdEdit } from "react-icons/md";
 import { DataTable } from "../../../widgets";
-// import DataTable from "../../../widgets/Table.widget";
+import RowId from "../shared/RowId";
 
-const StudentResultTable = ({ data, studentsData }) => {
+import { Text } from "@chakra-ui/react";
+import { assignGrade } from "../../../utilities/assignGrade";
+import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
+const StudentResultTable = ({ data }) => {
+  const navigate = useNavigate();
+
+  const { schoolClass } = useParams();
+
+  const handleViewProfile = (studentId) => {
+    navigate(`/admin/results/${schoolClass}/${studentId}`);
+  };
+
   const actionsMenu = (id) => [
     {
-      name: "viewClass",
-      label: "View Class",
+      name: "viewResultSheet",
+      label: "View Result Sheet",
       icon: <IoMdEye />,
       action: "view",
+      onClick: () => handleViewProfile(id),
     },
     {
       name: "editClass",
@@ -32,22 +43,51 @@ const StudentResultTable = ({ data, studentsData }) => {
       Cell: ({ row }) => <RowId row={row} />,
     },
     {
-      Header: "Student",
-      accessor: "student",
+      Header: "Subject",
+      accessor: "subject",
+      Cell: ({ value }) => value.name,
     },
     {
-      Header: "CA (40)",
-      accessor: "CAScore",
+      Header: "CA 1",
+      accessor: "test1",
     },
     {
-      Header: "Exam (60)",
-      accessor: "ExamScore",
+      Header: "CA 2",
+      accessor: "test2",
+    },
+    {
+      Header: "Exams",
+      accessor: "exam",
+    },
+    {
+      Header: "Total",
+      accessor: "total",
+      Cell: ({ row }) =>
+        Number(row?.original.test1) +
+        Number(row?.original.test1) +
+        Number(row?.original.exam),
+    },
+    {
+      Header: "Grade",
+      accessor: "grade",
+      Cell: ({ row }) =>
+        assignGrade(
+          Number(row?.original.test1) +
+            Number(row?.original.test1) +
+            Number(row?.original.exam)
+        ),
+    },
+    {
+      Header: "Remark",
+      accessor: "remark",
     },
 
     {
       Header: "Action",
       accessor: "action",
-      Cell: ({ row }) => <ActionsPopUp menu={actionsMenu(row.original.id)} />,
+      Cell: ({ row }) => (
+        <ActionsPopUp menu={actionsMenu(row.original.student.studentId)} />
+      ),
     },
   ];
 
@@ -56,7 +96,7 @@ const StudentResultTable = ({ data, studentsData }) => {
       <DataTable
         columns={columns}
         data={data ? data : []}
-        fullWidthColumns={["SubClasses"]}
+        fullWidthColumns={["Full name"]}
       />
     </div>
   );

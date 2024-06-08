@@ -12,7 +12,7 @@ import ParentsPage from "./parents";
 import ParentPage from "./parents/Parent.page";
 import AdminProfilePage from "./profile";
 import ClassResultsPage from "./results/ClassResults.page";
-import StudentResultPage from "./results/StudentResult.page";
+import StudentResultsPage from "./results/StudentResults.page";
 import NewStaffPage from "./staff/NewStaff.page";
 import NewStudentPage from "./students/NewStudent.page";
 import EditStudentPage from "./students/EditStudent";
@@ -45,7 +45,7 @@ export {
   ParentsPage,
   ParentPage,
   AdminProfilePage,
-  StudentResultPage,
+  StudentResultsPage,
   ClassResultsPage,
   EditStudentPage,
   EditSubjectPage,

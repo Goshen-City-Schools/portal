@@ -5,20 +5,28 @@ import { IoMdEye } from "react-icons/io";
 import { MdEdit } from "react-icons/md";
 import { DataTable } from "../../../widgets";
 import RowId from "../shared/RowId";
-import { useResults } from "../../../hooks/Results";
-import { useState } from "react";
 
 import { Text } from "@chakra-ui/react";
 import { assignGrade } from "../../../utilities/assignGrade";
-import { FullName } from "../shared";
+import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const ClassResultTable = ({ data }) => {
+  const navigate = useNavigate();
+
+  const { schoolClass } = useParams();
+
+  const handleViewProfile = (studentId) => {
+    navigate(`/admin/results/${schoolClass}/${studentId}`);
+  };
+
   const actionsMenu = (id) => [
     {
       name: "viewResultSheet",
       label: "View Result Sheet",
       icon: <IoMdEye />,
       action: "view",
+      onClick: () => handleViewProfile(id),
     },
     {
       name: "editClass",
@@ -89,7 +97,9 @@ const ClassResultTable = ({ data }) => {
     {
       Header: "Action",
       accessor: "action",
-      Cell: ({ row }) => <ActionsPopUp menu={actionsMenu(row.original.id)} />,
+      Cell: ({ row }) => (
+        <ActionsPopUp menu={actionsMenu(row.original.student.studentId)} />
+      ),
     },
   ];
 

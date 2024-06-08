@@ -4,9 +4,11 @@ import { FormInput, FormSelect, FormcContainer } from "../shared";
 
 import { Stack } from "@chakra-ui/react";
 
-import { Text, Button } from "@chakra-ui/react";
+import { Text, Button, Select } from "@chakra-ui/react";
 import { useSubjects } from "../../hooks/Subjects";
 import { MdChevronRight } from "react-icons/md";
+import { useAcademicSessions, useAcademicTerms } from "../../hooks/Acadmics";
+import getOrdinal from "../../helpers/getOrninals";
 
 export default function ResultForm({ action, resultData }) {
   const [formData, setFormData] = useState({
@@ -23,6 +25,8 @@ export default function ResultForm({ action, resultData }) {
       ],
   });
 
+  const { sessions } = useAcademicSessions();
+  const { terms } = useAcademicTerms();
   const { schoolClasses } = useClasses(formData);
   const { subjectsData } = useSubjects();
   const { classDetails } = useClassDetails(formData.class);
@@ -34,71 +38,63 @@ export default function ResultForm({ action, resultData }) {
   }
 
   return (
-    <form>
+    <FormcContainer classesParams={"max-w-[560px] mx-auto bg-transparent p-4"}>
       <Stack gap={6} mb={8}>
         {/* Session */}
-        <FormSelect
-          data={[{ name: "2023 - 2024", value: "20232024" }]}
-          label={"Session"}
-          name={"session"}
-          formData={formData}
-          data_item_name={"name"}
-          data_item_value={"value"}
-          handleChange={handleInputChange}
-        />
-
+        <div className="inputContainer">
+          <label htmlFor="session">Session:</label>
+          <Select
+            name="session"
+            id=""
+            value={formData.session}
+            onChange={handleInputChange}
+          >
+            {sessions.map((session) => (
+              <option key={session.id} value={session.id}>
+                {session.startYear} - {session.endYear}
+              </option>
+            ))}
+          </Select>
+        </div>
         {/* Term */}
-        <FormSelect
-          data={[
-            { name: "First term", value: "term1" },
-            { name: "Second term", value: "term2" },
-            { name: "Third term", value: "term3" },
-          ]}
-          label={"Term"}
-          name={"term"}
-          formData={formData}
-          data_item_name={"name"}
-          data_item_value={"value"}
-          handleChange={handleInputChange}
-        />
+
+        <div className="inputContainer">
+          <label htmlFor="session">Term:</label>
+          <Select
+            name="term"
+            id=""
+            value={formData.term}
+            onChange={handleInputChange}
+          >
+            {terms.map((term) => (
+              <option key={term.id} value={term.id}>
+                {getOrdinal(term.id)} Term
+              </option>
+            ))}
+          </Select>
+        </div>
 
         {/* Class */}
-        <FormSelect
-          data={schoolClasses}
-          label={"Class"}
-          name={"class"}
-          formData={formData}
-          data_item_name={"name"}
-          data_item_value={"_id"}
-          handleChange={handleInputChange}
-        />
-
-        {/* SubClass */}
-        <FormSelect
-          name={"subClass"}
-          label={"Sub Class"}
-          data={classDetails?.subClasses}
-          data_item_name={"name"}
-          data_item_value={"_id"}
-          formData={formData}
-          handleChange={handleInputChange}
-        />
+        <div className="inputContainer">
+          <label htmlFor="session">Class:</label>
+          <Select
+            name="schoolClass"
+            id="schoolClass"
+            value={formData.schoolClass}
+            onChange={handleInputChange}
+          >
+            {schoolClasses.map((schoolClass) => (
+              <option key={schoolClass.id} value={schoolClass.id}>
+                {schoolClass.schoolClass.name} {schoolClass.name}
+              </option>
+            ))}
+          </Select>
+        </div>
 
         {/* Subject */}
         <FormSelect
           name={"subject"}
           label={"Subject"}
-          data={subjectsData}
-          data_item_name={"name"}
-          data_item_value={"_id"}
-          formData={formData}
-          handleChange={handleInputChange}
-        />
-
-        {/* Result format */}
-        <FormSelect
-          name={"resltFormat"}
-          label={"Result Format"}
           data={subjectsData}
           data_item_name={"name"}
           data_item_value={"_id"}
@@ -115,6 +111,6 @@ export default function ResultForm({ action, resultData }) {
           Proceed{" "}
         </Button>
       </Stack>
-    </form>
+    </FormcContainer>
   );
 }

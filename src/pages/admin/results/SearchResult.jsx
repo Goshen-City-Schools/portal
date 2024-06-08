@@ -45,13 +45,13 @@ function SearchResultPage() {
   return (
     <PageWrapper>
       <PageSectionHeader pageTitle={`Results`} pageCrumb={"Home / Results"} />
-      <div className="w-full max-w-xl mx-auto">
+      <div className="w-full max-w-xl mx-auto mt-8 ">
         <h3 className="text-2xl font-bold">Search</h3>
         <p className="text-sm">Select the options below to search for result</p>
 
         <FormcContainer
           handleFormSubmit={handleSubmit}
-          classesParams={"mt-4 max-w-lg py-4 bg-transparent"}
+          classesParams={"mt-6 max-w-lg p-4 bg-transparent"}
         >
           <div className="inputContainer">
             <label htmlFor="session">Session:</label>

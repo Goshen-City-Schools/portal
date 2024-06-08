@@ -36,7 +36,7 @@ const useStudents = (classQuery) => {
   return memoizedValue;
 };
 
-const useStudent = ({ studentId }) => {
+const useStudent = (studentId) => {
   const [studentData, setStudentData] = useState();
   const [loading, setLoading] = useState(true);
 
