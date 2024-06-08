@@ -143,7 +143,7 @@ const StudentsTable = ({ studentsData }) => {
       accessor: "action",
       Cell: ({ row }) => (
         <ActionsPopUp
-          menu={actionsMenu(row.original.studentId)}
+          menu={actionsMenu(row.original?.studentId)}
           row={row}
           deleteAction={handleDeleteAction}
           viewAction={handleViewProfile}

@@ -38,11 +38,8 @@ export default function FormSelect({
 
   return (
     <FormControl id={name} className="">
-      <FormLabel fontSize={"xs"} fontWeight={"semibold"}>
-        {label}
-      </FormLabel>
+      <FormLabel fontWeight={"600"}>{label}</FormLabel>
       <Select
-        fontSize={"sm"}
         name={name}
         disabled={action === "edit"}
         value={formData[name]}

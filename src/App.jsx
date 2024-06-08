@@ -63,6 +63,8 @@ import WebsiteConfigPage from "./pages/admin/configs/WebsiteConfig.page";
 import FeespPage from "./pages/admin/finance/fees";
 import UserInvoicePage from "./pages/user/payments/invoices/invoice";
 import SearchResultPage from "./pages/admin/results/SearchResult";
+import UploadResultPage from "./pages/admin/results/UploadResult.page";
+import StudentResultsPage from "./pages/admin/results/StudentResults.page";
 
 const App = () => {
   return (
@@ -102,8 +104,12 @@ const App = () => {
         <Route path="results">
           <Route index element={<SearchResultPage />} />
           {/* <Route path="view" element={<ResultsViewPage />} /> */}
-          {/* <Route path="upload" element={<UploadResultPage />} /> */}
+          <Route path="new" element={<UploadResultPage />} />
           <Route path=":schoolClass" element={<ClassResultsPage />} />
+          <Route
+            path=":schoolClass/:studentId"
+            element={<StudentResultsPage />}
+          />
           {/* <Route path=":session/:term/:portalId" element={<ResultSinglePage />} /> */}
         </Route>
 

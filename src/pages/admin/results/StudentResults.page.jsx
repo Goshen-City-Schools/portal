@@ -1,49 +1,50 @@
 import React from "react";
 import PageWrapper from "../../../components/PageWrapper";
+import ResultSheet from "../../../components/ResultSheet";
+
 import {
   Flex,
   Button,
+  Text,
   FormControl,
   Select,
-  FormLabel,
   Input,
-  Text,
 } from "@chakra-ui/react";
 import PageSectionHeader from "../../../components/PageSectionHeader";
 import IconComponent from "../../../components/Icon.component";
-import {
-  MdPrint,
-  MdFilter,
-  MdUpload,
-  MdFileUpload,
-  MdDownload,
-} from "react-icons/md";
+import { MdDownload, MdFileUpload, MdPrint } from "react-icons/md";
+import { useParams } from "react-router-dom";
 import ClassResultTable from "../../../components/tables/results/ClassResultTable";
-import { useModal } from "../../../app/contexts/ModalContext";
-import { useClasses } from "../../../hooks";
 import { useResults } from "../../../hooks/Results";
 import { useAcademicSessions, useAcademicTerms } from "../../../hooks/Acadmics";
-import getOrdinal from "../../../helpers/getOrninals";
 import { useSubjects } from "../../../hooks/Subjects";
-import { Link } from "react-router-dom";
-import AddClassResultPortal from "../../../portals/results/AddClassResult.portal";
+import { useClasses, useStudent } from "../../../hooks";
+import getOrdinal from "../../../helpers/getOrninals";
+import StudentResultTable from "../../../components/tables/results/StudentResultTable";
 
-export default function ClassResultsPage() {
+export default function StudentResultsPage() {
   const handlePrint = () => {
     window.print();
   };
+
+  const { studentId, schoolClass } = useParams();
+
+  const { studentData, loading } = useStudent(studentId);
+
+  console.log(schoolClass, studentId, studentData);
 
   const [session, setSession] = React.useState("4");
   const [term, setTerm] = React.useState("3");
   const [classId, setClassId] = React.useState("29");
   const [subjectId, setSubjectId] = React.useState(null);
-  const [studentId, setStudentId] = React.useState(null);
+  // const [studentId, setStudentId] = React.useState(null);
 
   const { sessions } = useAcademicSessions();
   const { terms } = useAcademicTerms();
+  const { schoolClasses } = useClasses();
   const { subjectsData } = useSubjects();
 
-  const { resultData, loading, error } = useResults(
+  const { resultData, error } = useResults(
     session,
     term,
     classId,
@@ -51,15 +52,16 @@ export default function ClassResultsPage() {
     studentId
   );
 
-  const { schoolClasses } = useClasses();
-
-  const { openPortal } = useModal();
-
-  if (!resultData) return;
+  if (!studentData) return;
 
   return (
     <PageWrapper overflowX={"scroll"}>
-      <PageSectionHeader pageTitle={"Results"} pageCrumb={"Home / Results"} />
+      <div className="no-print">
+        <PageSectionHeader
+          pageTitle={`${studentData?.first_name} ${studentData?.last_name} Result`}
+          pageCrumb={"Home / Results / View Result"}
+        />
+      </div>
 
       <Flex gap={4} my={8}>
         {/* Session Select */}
@@ -140,21 +142,6 @@ export default function ClassResultsPage() {
 
         <div className="flex gap-4">
           <Button
-            bg={"neutral.100"}
-            color={"brand.700"}
-            gap={3}
-            onClick={handlePrint}
-            rounded={"sm"}
-            border={"1px solid"}
-            borderColor={"brand.700"}
-          >
-            <IconComponent>
-              <MdDownload size={20} />
-            </IconComponent>
-            Download
-          </Button>
-
-          <Button
             bg={"accent.700"}
             color={"neutral.100"}
             gap={2}
@@ -169,9 +156,9 @@ export default function ClassResultsPage() {
             }}
           >
             <IconComponent>
-              <MdFileUpload size={20} />
+              <MdDownload size={20} />
             </IconComponent>
-            Bulk Upload Result
+            Download
           </Button>
 
           <Button
@@ -181,7 +168,7 @@ export default function ClassResultsPage() {
             rounded={"sm"}
             border={"1px solid"}
             borderColor={"transparent"}
-            onClick={() => openPortal(<AddClassResultPortal />)}
+            // onClick={() => openPortal(<AddClassResultPortal />)}
             _hover={{
               bg: "transparent",
               color: "brand.700",
@@ -191,7 +178,7 @@ export default function ClassResultsPage() {
             <IconComponent>
               <MdPrint size={20} />
             </IconComponent>
-            Add New Result
+            Print Result
           </Button>
         </div>
       </Flex>
@@ -202,7 +189,7 @@ export default function ClassResultsPage() {
         ) : error ? (
           <Text>Error: {error}</Text>
         ) : (
-          resultData && <ClassResultTable data={resultData} />
+          resultData && <StudentResultTable data={resultData} />
         )}
       </div>
     </PageWrapper>
