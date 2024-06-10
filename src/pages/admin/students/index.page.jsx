@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Flex, Box, Button, HStack, Text, Select } from "@chakra-ui/react";
 import { MdAdd, MdImportExport } from "react-icons/md";
@@ -9,10 +9,14 @@ import PageWrapper from "../../../components/PageWrapper";
 import allowedUserRoles from "../../../helpers/allowedUserRoles";
 import { useClasses, useStudents } from "../../../hooks";
 import { useUser } from "../../../app/contexts/UserContext";
+import roles from "../../../constants/roles";
 
 export default function StudentsPage() {
   const navigate = useNavigate();
+  const [filteredStaffData, setFilteredStaffData] = useState([]);
   const [selectedSchoolClass, setSelectedSchoolClass] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
+
   const { user } = useUser();
   const { schoolClasses } = useClasses();
 
@@ -21,6 +25,24 @@ export default function StudentsPage() {
 
   const handleClassChange = (e) => {
     setSelectedSchoolClass(e.target.value);
+  };
+
+  useEffect(() => {
+    // Filter the data based on search term and selected role
+    const lowercasedSearchTerm = searchTerm.toLowerCase();
+    const filtered = studentsData.filter((student) => {
+      const matchesSearch = Object.values(student).some((value) =>
+        String(value).toLowerCase().includes(lowercasedSearchTerm)
+      );
+
+      return matchesSearch;
+    });
+
+    setFilteredStaffData(filtered);
+  }, [searchTerm, studentsData]);
+
+  const handleSearch = (searchTerm) => {
+    setSearchTerm(searchTerm);
   };
 
   return (
@@ -36,8 +58,12 @@ export default function StudentsPage() {
         mt={8}
         mb={6}
       >
-        <SearchWidget height={10} text={"Search Students"} />
-        {allowedUserRoles(user, ["IT Personnel"]) && (
+        <SearchWidget
+          height={10}
+          text={"Search Students by name"}
+          onSearch={handleSearch}
+        />
+        {allowedUserRoles(user, [roles.ROLES.IT_PERSONNEL]) && (
           <Flex gap={4} fontSize={"sm"}>
             <Button
               size={"sm"}
@@ -59,7 +85,7 @@ export default function StudentsPage() {
           </Flex>
         )}
       </Flex>
-      
+
       <Box>
         <Flex
           alignItems={"center"}
@@ -93,10 +119,10 @@ export default function StudentsPage() {
           <Text>Loading...</Text>
         ) : (
           <>
-            {studentsData && studentsData.length > 0 ? (
+            {filteredStaffData && filteredStaffData.length > 0 ? (
               <AllStudentsTable
                 key={selectedSchoolClass}
-                studentsData={studentsData}
+                studentsData={filteredStaffData}
               />
             ) : (
               <Text as={"h2"} letterSpacing={0.5} color={"neutral.700"}>
