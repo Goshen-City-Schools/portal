@@ -4,8 +4,16 @@ import { Button, Box } from "@chakra-ui/react";
 import { RiSearchLine } from "react-icons/ri";
 
 import { Input } from "@chakra-ui/react";
+import { useState } from "react";
 
-const SearchWidget = ({ text, asButton, height = 12 }) => {
+const SearchWidget = ({ text, asButton, height = 12, onSearch }) => {
+  const [searchInput, setSearchInput] = useState("");
+
+  const handleInputChange = (e) => {
+    setSearchInput(e.target.value);
+    onSearch(e.target.value); // Trigger the search/filter function
+  };
+
   return (
     <Box
       bg={"neutral.100"}
@@ -28,6 +36,8 @@ const SearchWidget = ({ text, asButton, height = 12 }) => {
         type="search"
         name=""
         id=""
+        value={searchInput}
+        onChange={handleInputChange}
         placeholder={text}
         className="w-full flex-1 placeholder:text-sm text-sm"
       />

@@ -3,7 +3,7 @@ import { Image, Box } from "@chakra-ui/react";
 const Avatar = ({ imageUrl, altText, width = 40, height = 40, className }) => {
   return (
     <Box
-      className={`relative rounded-full border-2 border-gray-50 overflow-hidden ${className}`}
+      className={`relative h-44 w-44 rounded-full border-2 shrink-0 border-gray-50 overflow-hidden ${className}`}
       style={{ width, height }}
     >
       <Image

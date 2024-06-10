@@ -394,10 +394,10 @@ export default function StaffProfileScreen({
               <Grid gap={5} color={"neutral.700"}>
                 <InfoBox
                   icon={<MdCalendarMonth size={20} />}
-                  label={"Date of Birth"}
+                  label={"Username"}
                 >
                   <Text as={"p"} textTransform={""} fontFamily={"monospace"}>
-                    {dayjs(dateOfBirth).format("dddd, MMM D")}
+                    {username}
                   </Text>
                 </InfoBox>
 
@@ -418,7 +418,7 @@ export default function StaffProfileScreen({
             >
               <Grid gap={5} color={"neutral.700"}>
                 <InfoBox icon={<MdPersonOutline size={20} />} label={"Role"}>
-                  {roles.name}
+                  {roles?.name}
                 </InfoBox>
 
                 <InfoBox icon={<MdPhone size={20} />} label={"Phone Number"}>
