@@ -6,7 +6,7 @@ import { Text, Flex, Box, Button } from "@chakra-ui/react";
 import IconComponent from "../../../components/Icon.component";
 import { MdAdd, MdIcecream, MdUploadFile } from "react-icons/md";
 import AddResultPortal from "../../../portals/shared/AddResult.portal";
-import ResultForm from "../../../components/forms/ResultForm";
+import BulkResultForm from "../../../components/forms/BulkResultForm";
 
 export default function UploadResultPage() {
   return (
@@ -17,7 +17,7 @@ export default function UploadResultPage() {
       />
 
       <div className="mt-8">
-        <ResultForm />
+        <BulkResultForm />
       </div>
     </PageWrapper>
   );
