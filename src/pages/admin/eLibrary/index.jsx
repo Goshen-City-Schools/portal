@@ -2,7 +2,7 @@ import React from "react";
 import PageSectionHeader from "../../../components/PageSectionHeader";
 import PageWrapper from "../../../components/PageWrapper";
 
-import { Flex, Button, Input, Select } from "@chakra-ui/react";
+import { Flex, Button, Input } from "@chakra-ui/react";
 import IconComponent from "../../../components/Icon.component";
 import { MdAdd } from "react-icons/md";
 
