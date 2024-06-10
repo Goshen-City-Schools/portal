@@ -65,6 +65,7 @@ import UserInvoicePage from "./pages/user/payments/invoices/invoice";
 import SearchResultPage from "./pages/admin/results/SearchResult";
 import UploadResultPage from "./pages/admin/results/UploadResult.page";
 import StudentResultsPage from "./pages/admin/results/StudentResults.page";
+import ELibraryPage from "./pages/admin/eLibrary";
 
 const App = () => {
   return (
@@ -189,6 +190,11 @@ const App = () => {
         {/* Write */}
         <Route path="write">
           <Route index element={<WriteDashboard />} />
+        </Route>
+
+        {/* Write */}
+        <Route path="eLibrary">
+          <Route index element={<ELibraryPage />} />
         </Route>
 
         <Route path="articles">

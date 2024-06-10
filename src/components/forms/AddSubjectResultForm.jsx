@@ -4,7 +4,7 @@ import { useSubjects } from "../../../hooks/Subjects";
 import { FormLabel, Select, Input, Button, useToast } from "@chakra-ui/react";
 import { useModal } from "../../../app/contexts/ModalContext";
 
-function AddStudentResultForm({ session, term, subjectId, classId }) {
+function AddSubjectResultForm({ session, term, subjectId, classId }) {
   const { subjectsData } = useSubjects();
   const { closePortal } = useModal();
 
@@ -122,4 +122,4 @@ function AddStudentResultForm({ session, term, subjectId, classId }) {
   );
 }
 
-export default AddStudentResultForm;
+export default AddSubjectResultForm;

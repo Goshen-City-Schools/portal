@@ -283,7 +283,7 @@ export const AdminSideBarList = ({ user, handleToggleSideMenu }) => {
         ROLES.IT_PERSONNEL,
         ROLES.BURSAR,
       ]) && (
-        <NavItemComponent link={"/admin/messages"} click={handleToggleSideMenu}>
+        <NavItemComponent link={"/admin/eLibrary"} click={handleToggleSideMenu}>
           <IconComponent color={"warning.200"}>
             <LuMessagesSquare size={18} />
           </IconComponent>
