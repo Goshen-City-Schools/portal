@@ -29,9 +29,9 @@ export default function StaffForm({ action, staffData }) {
     name: staffData?.name || "",
     username: staffData?.username || "",
     avatarImageURL: staffData?.avatarImageURL || "",
-    email: staffData?.email_address || "",
+    email_address: staffData?.email_address || "",
     telNumber: staffData?.telNumber || "",
-    whatsappNumber: staffData?.whatsApp || "",
+    whatsApp: staffData?.whatsApp || "",
     roles: staffData?.roles?.id || "",
     dateOfBirth: staffData?.birthDay || "",
     gender: staffData?.gender || "",
@@ -56,18 +56,18 @@ export default function StaffForm({ action, staffData }) {
       // Validate form data
       const requiredFields = [
         "name",
-        "email",
+        "email_address",
         "stateOfOrigin",
         "LGA",
         "dateOfBirth",
         "telNumber",
-        "whatsappNumber",
         "roles",
         "gender",
       ];
+      const missingFields = requiredFields.filter((field) => !formData[field]);
 
-      if (!requiredFields.every((field) => formData[field])) {
-        throw new Error("All staff details are required!");
+      if (missingFields.length > 0) {
+        throw new Error(`Missing required fields: ${missingFields.join(", ")}`);
       }
 
       const newStaffData = {
@@ -76,43 +76,43 @@ export default function StaffForm({ action, staffData }) {
         gender: formData.gender,
         stateOfOrigin: formData.stateOfOrigin,
         LGA: formData.LGA,
+        username: formData.username,
         accountType: "staff",
         telNumber: formData.telNumber,
-        whatsApp: formData.whatsappNumber,
-        email_address: formData.email,
+        whatsApp: formData.whatsApp,
+        email_address: formData.email_address,
         address: formData.contactAddress,
         roles: formData.roles,
       };
 
-      // Simulate Backend Actions
       if (allowedUserRoles(user, [roles.ROLES.IT_PERSONNEL])) {
+        // Make an API request
         const apiUrl =
           action === "edit"
             ? `/api/v1/staff/${staffData?.username}`
-            : "/api/v1/auth/register";
+            : "/api/v1/staff";
+        const method = action === "edit" ? "put" : "post";
 
         // Make an API request
         const response = await axios({
-          method: action === "edit" ? "put" : "post",
+          method,
           url: apiUrl,
           data: newStaffData,
           headers: { "Content-Type": "application/json" },
         });
 
-        console.log(response.status);
-
-        if (response.status === 201 || response.status === 200) {
+        if (response.status >= 200 && response.status < 300) {
           setLoading(false);
+          const successMessage =
+            action === "edit"
+              ? "Account successfully updated!"
+              : "Account successfully created!";
           toast({
             status: "success",
             position: "top-right",
-            title:
-              action === "edit"
-                ? "Account Successfully Updated!"
-                : "Account Successfully Created!",
+            title: successMessage,
             duration: 2000,
           });
-
           if (!action) {
             setTimeout(() => {
               openPortal(
@@ -124,35 +124,13 @@ export default function StaffForm({ action, staffData }) {
               );
             }, 1000);
           }
-
-          return navigate("/admin/config/staff");
-        } else {
-          throw new Error("Update/Registration failed!");
+          navigate("/admin/config/staff");
         }
       } else {
-        // Simulate data from Backend API
-        setTimeout(() => {
-          setLoading(false);
-          toast({
-            status: "error",
-            position: "top-right",
-            title: "No access!",
-            duration: 2000,
-          });
-        }, 2000);
+        throw new Error(
+          "Failed to update/registration. Please try again later."
+        );
       }
-
-      // Clears form data
-      setFormData({
-        name: "",
-        lastName: "",
-        roles: "",
-        dateOfBirth: "",
-        gender: "",
-        email: "",
-        telNumber: "",
-        whatsappNumber: "",
-      });
     } catch (error) {
       console.error("Error:", error.message);
       setLoading(false);
@@ -163,9 +141,9 @@ export default function StaffForm({ action, staffData }) {
         duration: 2000,
       });
     }
-  }
 
-  console.log(user, staffData, staffRoles);
+    console.log(formData);
+  }
 
   const LGAs =
     ngStates
@@ -203,7 +181,7 @@ export default function StaffForm({ action, staffData }) {
           label={"Username"}
           data={formData}
           type="username"
-          disabled
+          disabled={action}
           handleChange={handleChange}
         />
         <FormSelect
@@ -230,7 +208,6 @@ export default function StaffForm({ action, staffData }) {
         <FormInput
           name={"gender"}
           label={"Gender"}
-          disabled
           data={formData}
           handleChange={handleChange}
         />
@@ -248,8 +225,8 @@ export default function StaffForm({ action, staffData }) {
         />
 
         <FormInput
-          type="email"
-          name={"email"}
+          type="email_address"
+          name={"email_address"}
           label={"Email address"}
           data={formData}
           handleChange={handleChange}
