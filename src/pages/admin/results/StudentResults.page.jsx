@@ -12,15 +12,17 @@ import {
 } from "@chakra-ui/react";
 import PageSectionHeader from "../../../components/PageSectionHeader";
 import IconComponent from "../../../components/Icon.component";
-import { MdDownload, MdFileUpload, MdPrint } from "react-icons/md";
+import { MdAdd, MdDownload, MdFileUpload, MdPrint } from "react-icons/md";
 import { useParams } from "react-router-dom";
-import ClassResultTable from "../../../components/tables/results/ClassResultTable";
 import { useResults } from "../../../hooks/Results";
 import { useAcademicSessions, useAcademicTerms } from "../../../hooks/Acadmics";
 import { useSubjects } from "../../../hooks/Subjects";
 import { useClasses, useStudent } from "../../../hooks";
 import getOrdinal from "../../../helpers/getOrninals";
 import StudentResultTable from "../../../components/tables/results/StudentResultTable";
+import AddStudentSubjectResultForm from "../../../components/forms/results/AddStudentSubjectResult.form";
+import { useModal } from "../../../app/contexts/ModalContext";
+import AddStudentSubjectResultPortal from "../../../portals/results/AddStudentSubjectResult";
 
 export default function StudentResultsPage() {
   const handlePrint = () => {
@@ -33,11 +35,12 @@ export default function StudentResultsPage() {
 
   console.log(schoolClass, studentId, studentData);
 
+  const { openPortal } = useModal();
+
   const [session, setSession] = React.useState("4");
   const [term, setTerm] = React.useState("3");
   const [classId, setClassId] = React.useState("29");
   const [subjectId, setSubjectId] = React.useState(null);
-  // const [studentId, setStudentId] = React.useState(null);
 
   const { sessions } = useAcademicSessions();
   const { terms } = useAcademicTerms();
@@ -126,13 +129,28 @@ export default function StudentResultsPage() {
 
         <div className="flex gap-4">
           <Button
-            bg={"accent.700"}
-            color={"neutral.100"}
+            bg={"transparent"}
+            color={"brand.700"}
             gap={2}
             onClick={handlePrint}
             rounded={"sm"}
             border={"1px solid"}
+            borderColor={"brand.700"}
+          >
+            <IconComponent>
+              <MdDownload size={20} />
+            </IconComponent>
+            Download
+          </Button>
+
+          <Button
+            bg={"accent.700"}
+            color={"neutral.100"}
+            gap={2}
+            rounded={"sm"}
+            border={"1px solid"}
             borderColor={"transparent"}
+            // onClick={() => openPortal(<AddClassResultPortal />)}
             _hover={{
               bg: "transparent",
               color: "accent.700",
@@ -140,9 +158,9 @@ export default function StudentResultsPage() {
             }}
           >
             <IconComponent>
-              <MdDownload size={20} />
+              <MdPrint size={20} />
             </IconComponent>
-            Download
+            Print Result
           </Button>
 
           <Button
@@ -152,7 +170,7 @@ export default function StudentResultsPage() {
             rounded={"sm"}
             border={"1px solid"}
             borderColor={"transparent"}
-            // onClick={() => openPortal(<AddClassResultPortal />)}
+            onClick={() => openPortal(<AddStudentSubjectResultPortal />)}
             _hover={{
               bg: "transparent",
               color: "brand.700",
@@ -160,9 +178,9 @@ export default function StudentResultsPage() {
             }}
           >
             <IconComponent>
-              <MdPrint size={20} />
+              <MdAdd size={20} />
             </IconComponent>
-            Print Result
+            Add Result
           </Button>
         </div>
       </Flex>

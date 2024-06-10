@@ -150,6 +150,16 @@ const routes = [
     allowedRoles: [ROLES.IT_PERSONNEL],
     allowedAccountTypes: ["staff"],
   },
+  {
+    path: "/admin/eLibrary",
+    allowedRoles: [
+      ROLES.IT_PERSONNEL,
+      ROLES.BURSAR,
+      ROLES.CLASS_TEACHER,
+      ROLES.SUBJECT_TEACHER,
+    ],
+    allowedAccountTypes: ["staff"],
+  },
 
   // Finance Routes
 

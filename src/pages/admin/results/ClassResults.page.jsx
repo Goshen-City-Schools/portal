@@ -5,19 +5,12 @@ import {
   Button,
   FormControl,
   Select,
-  FormLabel,
   Input,
   Text,
 } from "@chakra-ui/react";
 import PageSectionHeader from "../../../components/PageSectionHeader";
 import IconComponent from "../../../components/Icon.component";
-import {
-  MdPrint,
-  MdFilter,
-  MdUpload,
-  MdFileUpload,
-  MdDownload,
-} from "react-icons/md";
+import { MdPrint, MdFileUpload, MdDownload } from "react-icons/md";
 import ClassResultTable from "../../../components/tables/results/ClassResultTable";
 import { useModal } from "../../../app/contexts/ModalContext";
 import { useClasses } from "../../../hooks";
@@ -25,7 +18,6 @@ import { useResults } from "../../../hooks/Results";
 import { useAcademicSessions, useAcademicTerms } from "../../../hooks/Acadmics";
 import getOrdinal from "../../../helpers/getOrninals";
 import { useSubjects } from "../../../hooks/Subjects";
-import { Link } from "react-router-dom";
 import AddClassResultPortal from "../../../portals/results/AddClassResult.portal";
 
 export default function ClassResultsPage() {

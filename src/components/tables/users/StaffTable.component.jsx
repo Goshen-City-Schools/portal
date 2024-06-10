@@ -143,7 +143,7 @@ const StaffTable = ({ existingStaffData }) => {
     },
     {
       Header: "Email",
-      accessor: "email",
+      accessor: "email_address",
     },
 
     {

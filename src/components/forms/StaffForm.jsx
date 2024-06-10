@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Flex, Grid, useToast, Divider } from "@chakra-ui/react";
 import { useModal } from "../../app/contexts/ModalContext";
 import ngStates from "../../data/nigeria_states.json";
+import roles from "../../constants/roles";
 
 import {
   FormInput,
@@ -16,24 +17,26 @@ import allowedUserRoles from "../../helpers/allowedUserRoles";
 import axios from "../../api/axios";
 import { useNavigate } from "react-router-dom";
 import AccountCreatedScreen from "../../screens/AccountCreatedScreen";
+import { useStaffRoles } from "../../hooks";
 
-export default function StaffForm({ action, staffData, staffRoles }) {
+export default function StaffForm({ action, staffData }) {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const toast = useToast();
   const { user } = useUser();
+  const { staffRolesData: staffRoles } = useStaffRoles();
   const [formData, setFormData] = useState({
     name: staffData?.name || "",
     username: staffData?.username || "",
     avatarImageURL: staffData?.avatarImageURL || "",
-    email: staffData?.email || "",
-    phoneNumber: staffData?.phoneNumber || "",
-    whatsappNumber: staffData?.whatsappNumber || "",
-    primaryRole: staffData?.primaryRole || "",
-    dateOfBirth: staffData?.dateOfBirth || "",
+    email: staffData?.email_address || "",
+    telNumber: staffData?.telNumber || "",
+    whatsappNumber: staffData?.whatsApp || "",
+    roles: staffData?.roles?.id || "",
+    dateOfBirth: staffData?.birthDay || "",
     gender: staffData?.gender || "",
     stateOfOrigin: staffData?.stateOfOrigin || "",
-    contactAddress: staffData?.contactAddress || "",
+    contactAddress: staffData?.address || "",
     LGA: staffData?.LGA || "",
   });
 
@@ -42,16 +45,7 @@ export default function StaffForm({ action, staffData, staffRoles }) {
   function handleChange(e) {
     const { name, value } = e.target;
 
-    if (name === "roles") {
-      // Get the selected roles as an array
-      const selectedRoles = Array.from(
-        e.target.selectedOptions,
-        (option) => option.value
-      );
-      setFormData({ ...formData, roles: selectedRoles });
-    } else {
-      setFormData({ ...formData, [name]: value });
-    }
+    setFormData({ ...formData, [name]: value });
   }
 
   async function handleFormSubmit(e) {
@@ -62,14 +56,13 @@ export default function StaffForm({ action, staffData, staffRoles }) {
       // Validate form data
       const requiredFields = [
         "name",
-        "lastName",
         "email",
         "stateOfOrigin",
         "LGA",
         "dateOfBirth",
-        "phoneNumber",
+        "telNumber",
         "whatsappNumber",
-        "primaryRole",
+        "roles",
         "gender",
       ];
 
@@ -79,20 +72,20 @@ export default function StaffForm({ action, staffData, staffRoles }) {
 
       const newStaffData = {
         name: formData.name,
-        lastName: formData.lastName,
-        dateOfBirth: formData.dateOfBirth,
+        birthDay: formData.dateOfBirth,
         gender: formData.gender,
         stateOfOrigin: formData.stateOfOrigin,
         LGA: formData.LGA,
         accountType: "staff",
-        phoneNumber: formData.phoneNumber,
-        whatsappNumber: formData.whatsappNumber,
-        email: formData.email,
-        primaryRole: formData.primaryRole,
+        telNumber: formData.telNumber,
+        whatsApp: formData.whatsappNumber,
+        email_address: formData.email,
+        address: formData.contactAddress,
+        roles: formData.roles,
       };
 
       // Simulate Backend Actions
-      if (allowedUserRoles(user, ["IT Personnel"])) {
+      if (allowedUserRoles(user, [roles.ROLES.IT_PERSONNEL])) {
         const apiUrl =
           action === "edit"
             ? `/api/v1/staff/${staffData?.username}`
@@ -153,11 +146,11 @@ export default function StaffForm({ action, staffData, staffRoles }) {
       setFormData({
         name: "",
         lastName: "",
-        primaryRole: "",
+        roles: "",
         dateOfBirth: "",
         gender: "",
         email: "",
-        phoneNumber: "",
+        telNumber: "",
         whatsappNumber: "",
       });
     } catch (error) {
@@ -171,6 +164,8 @@ export default function StaffForm({ action, staffData, staffRoles }) {
       });
     }
   }
+
+  console.log(user, staffData, staffRoles);
 
   const LGAs =
     ngStates
@@ -217,7 +212,7 @@ export default function StaffForm({ action, staffData, staffRoles }) {
           name={"roles"}
           formData={formData}
           data_item_name={"name"}
-          data_item_value={"_id"}
+          data_item_value={"id"}
           handleChange={handleChange}
         />
       </Flex>
@@ -246,7 +241,7 @@ export default function StaffForm({ action, staffData, staffRoles }) {
       <Flex gap={6} direction={{ base: "column", md: "row" }}>
         <FormInput
           type="tel"
-          name={"phoneNumber"}
+          name={"telNumber"}
           label={"Phone Number"}
           data={formData}
           handleChange={handleChange}

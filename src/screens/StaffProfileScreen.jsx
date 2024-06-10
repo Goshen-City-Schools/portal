@@ -56,7 +56,7 @@ export default function StaffProfileScreen({
     name,
     gender,
     dateOfBirth,
-    email,
+    email_address,
     telNumber,
     roles,
     subjects,
@@ -357,8 +357,12 @@ export default function StaffProfileScreen({
               icon={<MdCalendarMonth size={20} />}
               label={"Email address"}
             >
-              <Text as={"p"} textTransform={""} fontFamily={"monospace"}>
-                {dayjs(dateOfBirth).format("dddd, MMM D")}
+              <Text
+                as={"p"}
+                textTransform={"lowercase"}
+                fontFamily={"monospace"}
+              >
+                {email_address}
               </Text>
             </InfoBox>
 
@@ -388,12 +392,20 @@ export default function StaffProfileScreen({
           >
             <GridItem py={4} px={{ base: 4, md: 6 }} rounded={"lg"}>
               <Grid gap={5} color={"neutral.700"}>
-                <InfoBox icon={<MdPersonOutline size={20} />} label={"Role"}>
-                  {name}
+                <InfoBox
+                  icon={<MdCalendarMonth size={20} />}
+                  label={"Date of Birth"}
+                >
+                  <Text as={"p"} textTransform={""} fontFamily={"monospace"}>
+                    {dayjs(dateOfBirth).format("dddd, MMM D")}
+                  </Text>
                 </InfoBox>
 
-                <InfoBox icon={<MdPersonOutline size={20} />} label={"Gender"}>
-                  {gender}
+                <InfoBox
+                  icon={<MdOutlineMailOutline size={20} />}
+                  label={"Email"}
+                >
+                  {email_address}
                 </InfoBox>
               </Grid>
             </GridItem>
@@ -405,11 +417,8 @@ export default function StaffProfileScreen({
               rounded={"lg"}
             >
               <Grid gap={5} color={"neutral.700"}>
-                <InfoBox
-                  icon={<MdOutlineMailOutline size={20} />}
-                  label={"Email"}
-                >
-                  {email}
+                <InfoBox icon={<MdPersonOutline size={20} />} label={"Role"}>
+                  {roles.name}
                 </InfoBox>
 
                 <InfoBox icon={<MdPhone size={20} />} label={"Phone Number"}>
@@ -491,7 +500,7 @@ export default function StaffProfileScreen({
                     icon={<MdOutlineMailOutline size={20} />}
                     label={"Email"}
                   >
-                    {email}
+                    {email_address}
                   </InfoBox>
 
                   <InfoBox icon={<MdPhone size={20} />} label={"Phone Number"}>

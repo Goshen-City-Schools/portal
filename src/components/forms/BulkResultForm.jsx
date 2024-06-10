@@ -10,7 +10,7 @@ import { MdChevronRight } from "react-icons/md";
 import { useAcademicSessions, useAcademicTerms } from "../../hooks/Acadmics";
 import getOrdinal from "../../helpers/getOrninals";
 
-export default function ResultForm({ action, resultData }) {
+export default function BulkResultForm({ action, resultData }) {
   const [formData, setFormData] = useState({
     session: resultData?.session || "",
     term: resultData?.term || "",
@@ -108,7 +108,7 @@ export default function ResultForm({ action, resultData }) {
           rightIcon={<MdChevronRight />}
           colorScheme={"facebook"}
         >
-          Proceed{" "}
+          Proceed
         </Button>
       </Stack>
     </FormcContainer>
