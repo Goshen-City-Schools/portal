@@ -47,7 +47,8 @@ export const getSingleStaff = async (portalId) => {
 export const deleteStaff = async (portalId) => {
   try {
     const response = await axios.delete(`/api/v1/staff/${portalId}`);
-    return response.data;
+
+    return response;
   } catch (error) {
     console.error("Error fetching single staff:", error.message);
     return null; // Return a default value or handle the error appropriately

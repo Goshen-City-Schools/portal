@@ -6,43 +6,39 @@ import { MdAdd, MdImportExport } from "react-icons/md";
 import { useStaffRoles, useStaffs } from "../../../hooks/";
 import SearchWidget from "../../../widgets/Search.widget";
 import AllStaffTable from "../../../components/tables/users/StaffTable.component";
-import { useGuardians } from "../../../hooks/Guardians";
 
 export default function AllStaffPage() {
   const navigate = useNavigate();
   const { staffRolesData: staffRoles } = useStaffRoles();
   const { staffsData } = useStaffs();
   const [filteredStaffData, setFilteredStaffData] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
   const [selectedRole, setSelectedRole] = useState("");
 
   useEffect(() => {
-    // Check if a role is selected
-    if (selectedRole) {
-      // Filter the staffsData based on the selectedRole
-      const filteredData = staffsData.filter(
-        (staff) => staff.roles?.id === selectedRole
+    // Filter the data based on search term and selected role
+    const lowercasedSearchTerm = searchTerm.toLowerCase();
+    const filtered = staffsData.filter((staff) => {
+      const matchesSearch = Object.values(staff).some((value) =>
+        String(value).toLowerCase().includes(lowercasedSearchTerm)
       );
+      const matchesRole = selectedRole
+        ? staff.roles?.id === selectedRole
+        : true;
+      return matchesSearch && matchesRole;
+    });
 
-      console.log(filteredData);
-
-      // Update the filteredStaffData state
-      setFilteredStaffData(filteredData);
-    } else {
-      // If no role is selected, show all staff
-      setFilteredStaffData(staffsData);
-    }
-  }, [selectedRole, staffsData]);
+    setFilteredStaffData(filtered);
+  }, [searchTerm, selectedRole, staffsData]);
 
   function handleChange(e) {
     const { value } = e.target;
-
-    // Use the callback form of setState to access the updated value of selectedRole
-    setSelectedRole((prevSelectedRole) => {
-      console.log(prevSelectedRole); // previous value
-      console.log(value); // current value
-      return value;
-    });
+    setSelectedRole(value);
   }
+
+  const handleSearch = (searchTerm) => {
+    setSearchTerm(searchTerm);
+  };
 
   return (
     <PageWrapper>
@@ -54,7 +50,11 @@ export default function AllStaffPage() {
       </Flex>
 
       <Flex justifyContent="space-between" alignItems="center" mt={8} mb={6}>
-        <SearchWidget height={10} text="Search staff" />
+        <SearchWidget
+          height={10}
+          text="Search staff by name"
+          onSearch={handleSearch}
+        />
 
         <Flex gap={4} fontSize="sm" m={4}>
           <Button
@@ -106,7 +106,7 @@ export default function AllStaffPage() {
           </HStack>
         </Flex>
 
-        {staffsData && staffsData.length ? (
+        {filteredStaffData && filteredStaffData.length ? (
           <AllStaffTable existingStaffData={filteredStaffData} />
         ) : (
           <Text as="h2" letterSpacing={0.5} color="neutral.700">

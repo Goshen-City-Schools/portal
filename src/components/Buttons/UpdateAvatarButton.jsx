@@ -36,9 +36,7 @@ export default function UpdateAvatarButton({
           JSON.stringify({
             dataURL: dataURL,
             accountType: theUser.accountType,
-            firstName: theUser.firstName,
-            lastName: theUser.lastName,
-            portalId: theUser.portalId,
+            portalId: theUser.username,
           }),
           {
             headers: {
@@ -58,7 +56,7 @@ export default function UpdateAvatarButton({
             duration: 5000,
           });
 
-          if (theUser.portalId === user.portalId) setInfoIsUpdated(true);
+          if (theUser.portalId === user.portalId);
         } else {
           setSelectedFile(null);
           setIsLoading(false);
