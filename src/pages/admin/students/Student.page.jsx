@@ -14,8 +14,10 @@ import ProfileNotFoundScreen from "../../../screens/ProfileNotFoundScreen";
 export default function StudentPage() {
   const navigate = useNavigate();
   const { user } = useUser();
-  const studentId = useParams();
+  const { studentId } = useParams();
   const { studentData: student } = useStudent(studentId);
+
+  console.log(studentId);
 
   if (!student) {
     return <ProfileNotFoundScreen />;
