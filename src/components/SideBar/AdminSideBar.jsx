@@ -128,7 +128,7 @@ export const AdminSideBarList = ({ user, handleToggleSideMenu }) => {
             },
             {
               name: "Upload Result",
-              link: "/admin/results",
+              link: "/admin/results/new",
               icon: <MdOutlineChat size={12} />,
             },
             {
