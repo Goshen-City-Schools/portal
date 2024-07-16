@@ -26,6 +26,8 @@ export default function ViewResultForm({
             value={session}
             onChange={(e) => setSession(e.target.value)}
           >
+            <option value="">-- Select Session --</option>
+            <option value="session1">2022 - 2023</option>
             <option value="session1">2022 - 2023</option>
             <option value="session2">2023 - 2024</option>
             <option value="session3">2024 - 2025</option>
@@ -38,6 +40,7 @@ export default function ViewResultForm({
             value={term}
             onChange={(e) => setTerm(e.target.value)}
           >
+            <option value="">-- Select Term --</option>
             <option value="term1">First Term</option>
             <option value="term2">Second Term</option>
             <option value="term3">Third Term</option>
@@ -63,7 +66,7 @@ export default function ViewResultForm({
         <FormControl>
           <FormLabel>Type</FormLabel>
           <Select
-            placeholder="Select Term"
+            placeholder="Select Assessment Type"
             value={term}
             onChange={(e) => setTerm(e.target.value)}
           >

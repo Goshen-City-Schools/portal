@@ -10,6 +10,7 @@ import { Text } from "@chakra-ui/react";
 import { assignGrade } from "../../../utilities/assignGrade";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import PrintHeader from "../../Header/PrintHeader";
 
 const ClassResultTable = ({ data }) => {
   const navigate = useNavigate();
@@ -96,9 +97,12 @@ const ClassResultTable = ({ data }) => {
 
     {
       Header: "Action",
+      headerClassName: "no-print",
       accessor: "action",
       Cell: ({ row }) => (
-        <ActionsPopUp menu={actionsMenu(row.original.student.studentId)} />
+        <div className="no-print">
+          <ActionsPopUp menu={actionsMenu(row.original.student.studentId)} />
+        </div>
       ),
     },
   ];

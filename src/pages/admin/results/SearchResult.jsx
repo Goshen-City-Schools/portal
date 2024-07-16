@@ -61,6 +61,8 @@ function SearchResultPage() {
               value={formData.session}
               onChange={handleInputChange}
             >
+              <option value="">-- Select Session --</option>
+
               {sessions.map((session) => (
                 <option key={session.id} value={session.id}>
                   {session.startYear} - {session.endYear}
@@ -77,6 +79,7 @@ function SearchResultPage() {
               value={formData.term}
               onChange={handleInputChange}
             >
+              <option value="">-- Select Term --</option>
               {terms.map((term) => (
                 <option key={term.id} value={term.id}>
                   {getOrdinal(term.id)} Term
@@ -93,6 +96,8 @@ function SearchResultPage() {
               value={formData.schoolClass}
               onChange={handleInputChange}
             >
+              <option value="">-- Select Class --</option>
+
               {schoolClasses.map((schoolClass) => (
                 <option key={schoolClass.id} value={schoolClass.id}>
                   {schoolClass.schoolClass.name} {schoolClass.name}
@@ -109,6 +114,8 @@ function SearchResultPage() {
               value={formData.subject}
               onChange={handleInputChange}
             >
+              <option value="">-- Select Subject --</option>
+
               {subjectsData.map((subject) => (
                 <option key={subject.id} value={subject.id}>
                   {subject.name}

@@ -19,6 +19,7 @@ import { useAcademicSessions, useAcademicTerms } from "../../../hooks/Acadmics";
 import getOrdinal from "../../../helpers/getOrninals";
 import { useSubjects } from "../../../hooks/Subjects";
 import AddClassResultPortal from "../../../portals/results/AddClassResult.portal";
+import PrintHeader from "../../../components/Header/PrintHeader";
 
 export default function ClassResultsPage() {
   const handlePrint = () => {
@@ -53,7 +54,7 @@ export default function ClassResultsPage() {
     <PageWrapper overflowX={"scroll"}>
       <PageSectionHeader pageTitle={"Results"} pageCrumb={"Home / Results"} />
 
-      <Flex gap={4} my={8}>
+      <Flex gap={4} my={8} className=" no-print ">
         {/* Session Select */}
         <FormControl>
           <Select
@@ -150,7 +151,6 @@ export default function ClassResultsPage() {
             bg={"accent.700"}
             color={"neutral.100"}
             gap={2}
-            onClick={handlePrint}
             rounded={"sm"}
             border={"1px solid"}
             borderColor={"transparent"}
@@ -194,7 +194,38 @@ export default function ClassResultsPage() {
         ) : error ? (
           <Text>Error: {error}</Text>
         ) : (
-          resultData && <ClassResultTable data={resultData} />
+          resultData && (
+            <>
+              <PrintHeader />
+
+              <Text
+                as={"h2"}
+                mx={"auto"}
+                mb={8}
+                textAlign={"center"}
+                w={"max-content"}
+                fontSize={"md"}
+                fontWeight={"bold"}
+                className="bg-blue-700 only-print mb-2 mt-2 text-white px-4 py-2 rounded-md"
+              >
+          SS 3 Hope Class Result Sheet
+              </Text>
+
+              <div className="only-print result-details flex border border-black  divide-x-2 divide-black justify-between gap-4 mt-4 mb-8">
+                <div className="session p-2 w-full flex justify-center">
+                  Session: 2023/2024
+                </div>
+                <div className="term p-2 w-full flex justify-center">
+                  Term: First Term
+                </div>
+                <div className="session  p-2 w-full flex justify-center">
+                  Subject: Mathematics
+                </div>
+              </div>
+
+              <ClassResultTable data={resultData} />
+            </>
+          )
         )}
       </div>
     </PageWrapper>

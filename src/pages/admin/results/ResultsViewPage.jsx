@@ -6,12 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 import {
   Box,
-  Button,
-  FormControl,
-  FormLabel,
-  Input,
-  Select,
-  Stack,
+
 } from "@chakra-ui/react";
 import ViewResultForm from "../../../components/forms/ViewResultForm";
 
@@ -34,6 +29,7 @@ export default function ResultsViewPage() {
     if (!session || !term || !userId) {
       return alert("Invalid Request!");
     }
+
     navigate(`/admin/results/${session}/${term}/${userId}`);
   };
 

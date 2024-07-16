@@ -18,7 +18,13 @@
 
 @media print {
   .no-print {
-    display: none;
+    display: none !important;
+  }
+}
+
+@media screen {
+  .only-print {
+    display: none !important;
   }
 }
 
